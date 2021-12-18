@@ -17,8 +17,10 @@ jobs:
     - name: Install Dependencies
       run: npm install --no-audit
     - name: License Check
-      run: npx license-checker --summary --onlyAllow Apache-2.0
+      run: npx license-checker --summary --onlyAllow npx license-checker --summary --onlyAllow "Apache-2.0;MIT;BSD-3-Clause;BSD-2-Clause;ISC"
     - name: Audit Dependencies
       run: npm audit --production
     - name: Build
       run: npm run build
+    - name: Push Build
+      run: ./push_build.sh
