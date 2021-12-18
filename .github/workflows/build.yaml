@@ -14,6 +14,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 16.x
+    - name: License Check
+      name: npx license-checker --summary --onlyAllow Apache-2.0
     - name: Install Dependencies
       run: npm install --no-audit
     - name: Audit Dependencies
