@@ -10,7 +10,11 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-    - name: Install
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+    - name: Install Dependencies
       run: npm install --no-audit
     - name: Audit Dependencies
       run: npm audit --production
