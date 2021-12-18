@@ -22,6 +22,6 @@ jobs:
     - name: Audit Dependencies
       run: npm audit --production
     - name: Build
-      run: npm run build
+      run: BUILD_VERSION=$GITHUB_SHA npm run build
     - name: Push Build
       run: ./push_build.sh
