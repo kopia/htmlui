@@ -8,7 +8,6 @@ import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react
 import './App.css';
 import { BeginRestore } from './BeginRestore';
 import { DirectoryObject } from "./DirectoryObject";
-import logo from './kopia-flat.svg';
 import { PoliciesTable } from "./PoliciesTable";
 import { RepoStatus } from "./RepoStatus";
 import { SnapshotsTable } from "./SnapshotsTable";
@@ -52,7 +51,7 @@ function App() {
   return (
     <Router>
       <Navbar bg="light" expand="sm">
-        <Navbar.Brand href="/"><img src={logo} className="App-logo" alt="logo" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img src="/kopia-flag.svg" className="App-logo" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
