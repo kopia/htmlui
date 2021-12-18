@@ -25,3 +25,5 @@ jobs:
       run: BUILD_VERSION=$GITHUB_SHA npm run build
     - name: Push Build
       run: ./push_build.sh
+      env:
+        GITHUB_TOKEN: ${{secrets.PUSH_TOKEN}}
