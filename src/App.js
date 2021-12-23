@@ -1,9 +1,10 @@
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-dark-5/dist/css/bootstrap-nightshade.min.css';
 import React, { useEffect, useRef, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+//import 'bootstrap-dark-5/dist/js/darkmode.js';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { BeginRestore } from './BeginRestore';
@@ -16,6 +17,7 @@ import { TaskDetails } from './TaskDetails';
 import { TasksTable } from './TasksTable'; 
 import { NewSnapshot } from './NewSnapshot';
 import { PolicyEditorPage } from './PolicyEditorPage';
+import { ToggleDarkModeButton } from './darkmode';
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -50,11 +52,11 @@ function App() {
 
   return (
     <Router>
-      <Navbar bg="light" expand="sm">
+      <Navbar expand="sm" variant="light">
         <Navbar.Brand href="/"><img src="/kopia-flat.svg" className="App-logo" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="me-auto">
             <NavLink className="nav-link" activeClassName="active" to="/snapshots">Snapshots</NavLink>
             <NavLink className="nav-link" activeClassName="active" to="/policies">Policies</NavLink>
             <NavLink className="nav-link" activeClassName="active" to="/tasks">Tasks <>
@@ -62,6 +64,9 @@ function App() {
             </>
             </NavLink>
             <NavLink className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
+          </Nav>
+          <Nav>
+            <ToggleDarkModeButton />
           </Nav>
         </Navbar.Collapse>
       </Navbar>

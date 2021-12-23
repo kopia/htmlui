@@ -216,7 +216,7 @@ export class SetupRepository extends Component {
                     <Button key={x.provider}
                         data-testid={'provider-' + x.provider}
                         onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
-                        variant={x.provider.startsWith("_") ? "outline-success" : "outline-primary"}
+                        variant={x.provider.startsWith("_") ? "success" : "primary"}
                         className="providerIcon" >{x.description}</Button>
                 )}
             </Row>

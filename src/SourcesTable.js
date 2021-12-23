@@ -245,7 +245,7 @@ export class SourcesTable extends Component {
                 <Row>
                     {this.state.multiUser && <><Col xs="auto">
                         <Dropdown>
-                            <Dropdown.Toggle size="sm" variant="outline-primary" id="dropdown-basic">
+                            <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
                                 <FontAwesomeIcon icon={faUserFriends} />&nbsp;{this.state.selectedOwner}
                             </Dropdown.Toggle>
 
