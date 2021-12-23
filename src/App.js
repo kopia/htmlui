@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-//import 'bootstrap-dark-5/dist/js/darkmode.js';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { BeginRestore } from './BeginRestore';
@@ -39,8 +38,24 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
+
 function App() {
   const [runningTaskCount, setRunningTaskCount] = useState(0);
+  const [uiPrefs, setUIPrefs] = useState({"loading": true});
+
+  function saveUIPrefs(p) {
+    axios.put('/api/v1/ui-preferences', p).then(result => {
+      setUIPrefs(p);
+    }).catch(error => {});
+  }
+
+  if (uiPrefs.loading) {
+    axios.get('/api/v1/ui-preferences').then(result => {
+      setUIPrefs(result.data);
+    }).catch(error => {
+      setUIPrefs({});
+    });
+  }
 
   useInterval(() => {
     axios.get('/api/v1/tasks-summary').then(result => {
@@ -49,6 +64,10 @@ function App() {
       setRunningTaskCount(-1);
     });
   }, 1000);
+  
+  function changeTheme(t) {
+    saveUIPrefs({ ...uiPrefs, theme: t })
+  }
 
   return (
     <Router>
@@ -66,7 +85,7 @@ function App() {
             <NavLink className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
           </Nav>
           <Nav>
-            <ToggleDarkModeButton />
+            <ToggleDarkModeButton theme={uiPrefs.theme} onChangeTheme={changeTheme} />
           </Nav>
         </Navbar.Collapse>
       </Navbar>
