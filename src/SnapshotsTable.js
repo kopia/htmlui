@@ -20,7 +20,7 @@ function pillVariant(tag) {
         return "danger";
     }
     if (tag.startsWith("monthly-")) {
-        return "dark";
+        return "secondary";
     }
     if (tag.startsWith("annual-")) {
         return "warning";

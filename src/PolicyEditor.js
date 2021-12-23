@@ -103,7 +103,7 @@ function UpcomingSnapshotTimes(times) {
 function SectionHeaderRow() {
     return <Row>
         <LabelColumn />
-        <ValueColumn><div className="policyEditorHeader"></div></ValueColumn>
+        <ValueColumn><div className="policyEditorHeader">Defined</div></ValueColumn>
         <EffectiveValueColumn><div className="policyEditorHeader">Effective</div></EffectiveValueColumn>
     </Row>;
 }

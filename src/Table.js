@@ -1,4 +1,5 @@
 import React from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
 import { usePagination, useSortBy, useTable } from 'react-table';
@@ -7,7 +8,7 @@ function paginationItems(count, active, gotoPage) {
   let items = [];
 
   function pageWithNumber(number) {
-    return <Pagination.Item key={number} active={number === active} onClick={() => gotoPage(number-1)}>
+    return <Pagination.Item key={number} active={number === active} onClick={() => gotoPage(number - 1)}>
       {number}
     </Pagination.Item>;
   }
@@ -76,20 +77,25 @@ export default function MyTable({ columns, data }) {
     gotoPage(pageCount - 1);
   }
 
-  const paginationUI = pageOptions.length > 1 && 
-  <>
-    <Pagination size="sm" variant="dark">
-      <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
-      <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage} />
-      {paginationItems(pageOptions.length, pageIndex+1, gotoPage)}
-      <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
-      <Pagination.Last onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} />
-    </Pagination>
-    <Pagination size="sm" variant="dark">
-    <select value={pageSize} onChange={e => {setPageSize(Number(e.target.value))}}>
-      {[10, 20, 30, 40, 50, 100].map(pageSize => (<option key={pageSize} value={pageSize}>Show {pageSize}</option>))}
-    </select>
-    </Pagination>
+  const paginationUI = pageOptions.length > 1 &&
+    <>
+      <Pagination size="sm" variant="dark">
+        <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
+        <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage} />
+        {paginationItems(pageOptions.length, pageIndex + 1, gotoPage)}
+        <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
+        <Pagination.Last onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} />
+      </Pagination>
+      <Pagination size="sm" variant="dark">
+        <Dropdown>
+          <Dropdown.Toggle size="sm">
+            Page Size: {pageSize}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {[10, 20, 30, 40, 50, 100].map(pageSize => (<Dropdown.Item  size="sm" key={pageSize} onClick={() => setPageSize(pageSize)}>Page Size {pageSize}</Dropdown.Item>))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </Pagination>
     </>;
 
   return (
@@ -99,10 +105,12 @@ export default function MyTable({ columns, data }) {
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps({...column.getSortByToggleProps(), style: {
-                  width: column.width,
-                }})}>{column.render('Header')}
-                 {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
+                <th {...column.getHeaderProps({
+                  ...column.getSortByToggleProps(), style: {
+                    width: column.width,
+                  }
+                })}>{column.render('Header')}
+                  {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
                 </th>
               ))}
             </tr>
@@ -123,7 +131,7 @@ export default function MyTable({ columns, data }) {
           )}
         </tbody>
       </Table>
-      { paginationUI }
+      {paginationUI}
     </>
   )
 }
