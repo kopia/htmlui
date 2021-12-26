@@ -1,14 +1,14 @@
 
-import { faChevronCircleDown, faChevronCircleUp, faStopCircle } from '@fortawesome/free-solid-svg-icons';
+import { faStopCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { Component } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { TaskLogs } from './TaskLogs';
 import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected, sizeDisplayName } from './uiutil';
@@ -78,7 +78,7 @@ export class TaskDetails extends Component {
         switch (task.status) {
 
             case "SUCCESS":
-                return <Alert variant="success">Task succeeded after {dur}.</Alert>;
+                return <Alert size="sm" variant="success">Task succeeded after {dur}.</Alert>;
 
             case "FAILED":
                 return <Alert variant="danger"><b>Error:</b> {task.errorMessage}.</Alert>;
@@ -114,23 +114,7 @@ export class TaskDetails extends Component {
             formatted = sizeDisplayName(c.value);
         }
 
-        let variant = "secondary";
-        switch (c.level) {
-            case "warning":
-                variant = "warning";
-                break;
-            case "error":
-                variant = "danger";
-                break;
-            case "notice":
-                variant = "info";
-                break;
-            default:
-                variant = "secondary";
-                break;
-        }
-
-        return <Badge key={label} className="counter-badge" bg={variant}>{label}: {formatted}</Badge>
+        return <tr key={label}><td>{label}</td><td>{formatted}</td></tr>;
     }
 
     counterLevelToSortOrder(l) {
@@ -166,7 +150,7 @@ export class TaskDetails extends Component {
             return 0;
         });
 
-        return keys.map(c => (counters[c].value > this.valueThreshold()) && this.counterBadge(c, counters[c]));
+        return keys.map(c => this.counterBadge(c, counters[c]));
     }
 
     render() {
@@ -183,47 +167,53 @@ export class TaskDetails extends Component {
             {this.props.history &&
                 <Row>
                     <Form.Group>
-                        <GoBackButton onClick={this.props.history.goBack} />
-                        {task.status === "RUNNING" && <>
-                            &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> Stop </Button>
-                        </>}
+                        <h4>
+                            <GoBackButton onClick={this.props.history.goBack} />
+                            {task.status === "RUNNING" && <>
+                                &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> Stop </Button>
+                            </>}
+                            &nbsp;{task.kind}: {task.description}</h4>
                     </Form.Group>
                 </Row>}
-            {!this.props.hideDescription && <Row>
-                <Col xs={3} >
-                    <Form.Group>
-                        <Form.Control type="text" readOnly={true} value={task.kind} />
-                    </Form.Group>
-                </Col>
-                <Col xs={9} >
-                    <Form.Group>
-                        <Form.Control type="text" readOnly={true} value={task.description} />
-                    </Form.Group>
-                </Col>
-            </Row>}
             <Row>
-                <Col xs={9}>
+                <Col xs={12}>
                     {this.summaryControl(task)}
-                </Col>
-                <Col xs={3}>
-                    <Form.Group>
-                        <Form.Control type="text" readOnly={true} value={"Started: " + new Date(task.startTime).toLocaleString()} />
-                    </Form.Group>
                 </Col>
             </Row>
             {task.counters && <Row>
                 <Col>
-                    {this.sortedBadges(task.counters)}
+                    <Table bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>Counter</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.sortedBadges(task.counters)}
+                        </tbody>
+                    </Table>
                 </Col>
             </Row>}
-            <hr />
             <Row>
-                <Col>
-                    {this.state.showLog ? <>
-                        <Button size="sm" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
-                        <TaskLogs taskID={this.taskID(this.props)} />
-                    </> : <Button size="sm" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+                <Col xs={6}>
+                    <Form.Group>
+                        <Form.Label>Started</Form.Label>
+                        <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
+                    </Form.Group>
                 </Col>
+                <Col xs={6}>
+                    <Form.Group>
+                        <Form.Label>Finished</Form.Label>
+                        <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
+                    </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Form.Group>
+                    <Form.Label>Logs</Form.Label>
+                    <TaskLogs taskID={this.taskID(this.props)} />
+                </Form.Group>
             </Row>
         </Form>
             ;

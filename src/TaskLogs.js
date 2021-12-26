@@ -98,11 +98,10 @@ export class TaskLogs extends Component {
         }
 
         if (logs) {
-            return <div className="logs-table"><Table size="sm">
+            return <div className="logs-table"><Table size="sm" bordered hover>
                 <tbody>
                     {logs.map(v => <tr className={'loglevel-' + v.level}>
-                        <td title={this.fullLogTime(v.ts)}>{this.formatLogTime(v.ts)}</td>
-                        <td class="elide">{v.msg}</td></tr>)}
+                        <td className="elide" title={this.fullLogTime(v.ts)}>{this.formatLogTime(v.ts)} {v.msg}</td></tr>)}
                 </tbody>
             </Table>
             <div ref={this.messagesEndRef} />
