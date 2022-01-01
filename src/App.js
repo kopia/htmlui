@@ -49,6 +49,13 @@ function App() {
     }).catch(error => {});
   }
 
+  const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
+  if (tok) {
+    axios.defaults.headers.common['X-Kopia-Csrf-Token'] = tok.attr('content');
+  } else {
+    axios.defaults.headers.common['X-Kopia-Csrf-Token'] = "-";
+  }
+
   if (uiPrefs.loading) {
     axios.get('/api/v1/ui-preferences').then(result => {
       setUIPrefs(result.data);
