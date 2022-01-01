@@ -50,8 +50,8 @@ function App() {
   }
 
   const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
-  if (tok) {
-    axios.defaults.headers.common['X-Kopia-Csrf-Token'] = tok.attr('content');
+  if (tok && tok.content) {
+    axios.defaults.headers.common['X-Kopia-Csrf-Token'] = tok.content;
   } else {
     axios.defaults.headers.common['X-Kopia-Csrf-Token'] = "-";
   }
