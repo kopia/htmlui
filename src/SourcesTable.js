@@ -92,6 +92,7 @@ export class SourcesTable extends Component {
     statusCell(x, parent) {
         switch (x.cell.value) {
             case "IDLE":
+            case "PAUSED":
                 return <>
                     <Button variant="primary" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
@@ -152,6 +153,27 @@ export class SourcesTable extends Component {
         }).catch(error => {
             errorAlert(error);
         });
+    }
+
+    nextSnapshotTimeCell(x, parent) {
+        if (!x.cell.value) {
+            if (x.row.original.status === "PAUSED") {
+                return "paused";
+            }
+
+            return "";
+        }
+
+        if (x.row.original.status === "UPLOADING") {
+            return "";
+        }
+
+        return <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}
+            {moment(x.cell.value).isBefore(moment()) && <>
+                &nbsp;
+                <Badge bg="secondary">overdue</Badge>
+            </>}
+        </p>;
     }
 
     render() {
@@ -224,14 +246,7 @@ export class SourcesTable extends Component {
             Header: 'Next Snapshot',
             width: 160,
             accessor: x => x.nextSnapshotTime,
-            Cell: x => (x.cell.value && x.row.original.status !== "UPLOADING") ? <>
-                <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}
-                    {moment(x.cell.value).isBefore(moment()) && <>
-                        &nbsp;
-                    <Badge bg="secondary">overdue</Badge>
-                    </>}
-                </p>
-            </> : '',
+            Cell: x => this.nextSnapshotTimeCell(x, this),
         }, {
             id: 'status',
             Header: '',
