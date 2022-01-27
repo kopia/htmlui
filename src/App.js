@@ -32,16 +32,16 @@ export default class App extends Component {
     this.changeTheme = this.changeTheme.bind(this);
     this.fetchTaskSummary = this.fetchTaskSummary.bind(this);
     this.repositoryUpdated = this.repositoryUpdated.bind(this);
-  }
 
-  componentDidMount() {
     const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
     if (tok && tok.content) {
       axios.defaults.headers.common['X-Kopia-Csrf-Token'] = tok.content;
     } else {
       axios.defaults.headers.common['X-Kopia-Csrf-Token'] = "-";
     }
+  }
 
+  componentDidMount() {
     const av = document.getElementById('appVersion');
     if (av) {
       // show app version after mounting the component to avoid flashing of unstyled content.
