@@ -8,6 +8,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
+import { AppContext } from './AppContext';
 import { handleChange, RequiredBoolean, RequiredField, validateRequiredFields } from './forms';
 import { SetupAzure } from './SetupAzure';
 import { SetupB2 } from "./SetupB2";
@@ -66,6 +67,7 @@ export class SetupRepository extends Component {
                 indexVersion: "",
             });
         });
+        
         axios.get('/api/v1/current-user').then(result => {
             this.setState({
                 username: result.data.username,
@@ -131,7 +133,7 @@ export class SetupRepository extends Component {
         request.clientOptions = this.clientOptions();
 
         axios.post('/api/v1/repo/create', request).then(result => {
-            window.location.replace("/");
+            this.context.repositoryUpdated(true);
         }).catch(error => {
             if (error.response.data) {
                 this.setState({
@@ -178,7 +180,7 @@ export class SetupRepository extends Component {
         this.setState({ isLoading: true });
         axios.post('/api/v1/repo/connect', request).then(result => {
             this.setState({ isLoading: false });
-            window.location.replace("/");
+            this.context.repositoryUpdated(true);
         }).catch(error => {
             this.setState({ isLoading: false });
             if (error.response.data) {
@@ -473,3 +475,5 @@ export class SetupRepository extends Component {
         </>;
     }
 }
+
+SetupRepository.contextType = AppContext;
