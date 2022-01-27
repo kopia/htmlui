@@ -9,7 +9,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { handleChange } from './forms';
 import { SetupRepository } from './SetupRepository';
-import { CLIEquivalent } from './uiutil';
+import { cancelTask, CLIEquivalent } from './uiutil';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { TaskLogs } from './TaskLogs';
+import { AppContext } from './AppContext';
 
 export class RepoStatus extends Component {
     constructor() {
@@ -27,6 +31,8 @@ export class RepoStatus extends Component {
         this.disconnect = this.disconnect.bind(this);
         this.updateDescription = this.updateDescription.bind(this);
         this.handleChange = handleChange.bind(this);
+        this.fetchStatus = this.fetchStatus.bind(this);
+        this.fetchStatusWithoutSpinner = this.fetchStatusWithoutSpinner.bind(this);
     }
 
     componentDidMount() {
@@ -38,19 +44,30 @@ export class RepoStatus extends Component {
         this.mounted = false;
     }
 
-    fetchStatus(props) {
+    fetchStatus() {
         if (this.mounted) {
             this.setState({
                 isLoading: true,
             });
         }
 
+        this.fetchStatusWithoutSpinner();
+    }
+
+
+    fetchStatusWithoutSpinner() {
         axios.get('/api/v1/repo/status').then(result => {
             if (this.mounted) {
                 this.setState({
                     status: result.data,
                     isLoading: false,
                 });
+
+                if (result.data.initTaskID) {
+                    window.setTimeout(() => {
+                        this.fetchStatusWithoutSpinner();
+                    }, 1000);
+                }
             }
         }).catch(error => {
             if (this.mounted) {
@@ -65,7 +82,7 @@ export class RepoStatus extends Component {
     disconnect() {
         this.setState({ isLoading: true })
         axios.post('/api/v1/repo/disconnect', {}).then(result => {
-            window.location.replace("/");
+            this.context.repositoryUpdated(false);
         }).catch(error => this.setState({
             error,
             isLoading: false
@@ -97,21 +114,33 @@ export class RepoStatus extends Component {
     render() {
         let { isLoading, error } = this.state;
         if (error) {
-            return <p>ERROR: {error.message}</p>;
+            return <p>{error.message}</p>;
         }
+
         if (isLoading) {
             return <Spinner animation="border" variant="primary" />;
         }
 
-        return this.state.status.connected ?
-            <>
+        if (this.state.status.initTaskID) {
+            return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
+                {this.state.showLog ? <>
+                        <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                        <TaskLogs taskID={this.state.status.initTaskID} />
+                    </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+                <hr/>
+                <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>Cancel Connection</Button>
+            </>;
+        }
+
+        if (this.state.status.connected) {
+            return <>
                 <h3>Connected To Repository</h3>
                 <Form onSubmit={this.updateDescription}>
                     <Row>
                         <Form.Group as={Col}>
                             <InputGroup>
                                 <Form.Control
-                                    autoFocus="true"
+                                    autoFocus={true}
                                     isInvalid={!this.state.status.description}
                                     name="status.description"
                                     value={this.state.status.description}
@@ -185,6 +214,11 @@ export class RepoStatus extends Component {
                         <CLIEquivalent command="repository status" />
                     </Col>
                 </Row>
-            </> : <SetupRepository />
+            </>;
+        }
+
+        return <SetupRepository />;
     }
 }
+
+RepoStatus.contextType = AppContext;

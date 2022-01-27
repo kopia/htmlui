@@ -100,7 +100,7 @@ export class TaskLogs extends Component {
         if (logs) {
             return <div className="logs-table"><Table size="sm" bordered hover>
                 <tbody>
-                    {logs.map(v => <tr className={'loglevel-' + v.level}>
+                    {logs.map((v,ndx) => <tr key={ndx + '-' + v.ts} className={'loglevel-' + v.level}>
                         <td className="elide" title={this.fullLogTime(v.ts)}>{this.formatLogTime(v.ts)} {v.msg}</td></tr>)}
                 </tbody>
             </Table>
