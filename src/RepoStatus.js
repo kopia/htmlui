@@ -146,7 +146,7 @@ export class RepoStatus extends Component {
                                     onChange={this.handleChange}
                                     size="sm" />
                                 &nbsp;
-                                <Button size="sm" type="submit">Update Description</Button>
+                                <Button data-testid='update-description' size="sm" type="submit">Update Description</Button>
                             </InputGroup>
                             <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
                         </Form.Group>
@@ -203,7 +203,7 @@ export class RepoStatus extends Component {
                     <Row><Col>&nbsp;</Col></Row>
                     <Row>
                         <Col>
-                            <Button size="sm" variant="danger" onClick={this.disconnect}>Disconnect</Button>
+                            <Button data-testid='disconnect' size="sm" variant="danger" onClick={this.disconnect}>Disconnect</Button>
                         </Col>
                     </Row>
                 </Form>

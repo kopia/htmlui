@@ -101,13 +101,13 @@ export default class App extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <NavLink className="nav-link" activeClassName="active" to="/snapshots">Snapshots</NavLink>
-                <NavLink className="nav-link" activeClassName="active" to="/policies">Policies</NavLink>
-                <NavLink className="nav-link" activeClassName="active" to="/tasks">Tasks <>
+                <NavLink data-testid="tab-snapshots" className="nav-link" activeClassName="active" to="/snapshots">Snapshots</NavLink>
+                <NavLink data-testid="tab-policies" className="nav-link" activeClassName="active" to="/policies">Policies</NavLink>
+                <NavLink data-testid="tab-tasks" className="nav-link" activeClassName="active" to="/tasks">Tasks <>
                   {runningTaskCount > 0 && <>({runningTaskCount})</>}
                 </>
                 </NavLink>
-                <NavLink className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
+                <NavLink data-testid="tab-repo" className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
               </Nav>
               <Nav>
                 <ToggleDarkModeButton theme={uiPrefs.theme} onChangeTheme={this.changeTheme} />
