@@ -54,7 +54,6 @@ export class RepoStatus extends Component {
         this.fetchStatusWithoutSpinner();
     }
 
-
     fetchStatusWithoutSpinner() {
         axios.get('/api/v1/repo/status').then(result => {
             if (this.mounted) {
