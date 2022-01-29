@@ -302,7 +302,7 @@ export class SetupRepository extends Component {
             {this.connectionErrorInfo()}
             <hr />
 
-            <Button variant="secondary" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
+            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
             &nbsp;
             <Button variant="primary" type="submit" data-testid="submit-button">Next</Button>
             {this.loadingSpinner()}
@@ -310,7 +310,7 @@ export class SetupRepository extends Component {
     }
 
     toggleAdvancedButton() {
-        return <Button onClick={this.toggleAdvanced}
+        return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
             variant="secondary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
@@ -388,7 +388,7 @@ export class SetupRepository extends Component {
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
+            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
             &nbsp;
             <Button variant="success" type="submit" data-testid="submit-button">Create Repository</Button>
             {this.loadingSpinner()}
@@ -441,7 +441,7 @@ export class SetupRepository extends Component {
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
+            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
             &nbsp;
             <Button variant="success" type="submit" data-testid="submit-button">Connect To Repository</Button>
             {this.loadingSpinner()}

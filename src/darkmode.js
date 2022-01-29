@@ -20,6 +20,6 @@ export function ToggleDarkModeButton(props) {
   const h = document.querySelector("html");
   h.className = theme;
   
-  return theme === "dark" ? <Button variant="outline-light" size="sm" title="Switch to Light Mode" onClick={() => onChangeTheme("light")}><FontAwesomeIcon icon={faSun} />
-    </Button> : <Button variant="outline-dark" size="sm" title="Switch to Dark Mode" onClick={() => onChangeTheme("dark")}><FontAwesomeIcon icon={faMoon} /></Button>;
+  return theme === "dark" ? <Button data-testid="toggle-dark-mode" variant="outline-light" size="sm" title="Switch to Light Mode" onClick={() => onChangeTheme("light")}><FontAwesomeIcon icon={faSun} />
+    </Button> : <Button data-testid="toggle-dark-mode" variant="outline-dark" size="sm" title="Switch to Dark Mode" onClick={() => onChangeTheme("dark")}><FontAwesomeIcon icon={faMoon} /></Button>;
 }

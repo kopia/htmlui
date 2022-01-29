@@ -88,21 +88,20 @@ export class SourcesTable extends Component {
         });
     }
 
-
     statusCell(x, parent) {
         switch (x.cell.value) {
             case "IDLE":
             case "PAUSED":
                 return <>
-                    <Button variant="primary" size="sm" onClick={() => {
+                    <Button data-testid="snapshot-now" variant="primary" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
                     }}>Snapshot now</Button>
-                    &nbsp;<Link to={policyEditorURL(x.row.original.source)}><Button size="sm" variant="info">Policy</Button></Link>
+                    &nbsp;<Link data-testid="edit-policy" to={policyEditorURL(x.row.original.source)}><Button size="sm" variant="info">Policy</Button></Link>
                 </>;
 
             case "PENDING":
                 return <>
-                    <Spinner animation="border" variant="secondary" size="sm" title="Snapshot will after the previous snapshot completes" />
+                    <Spinner data-testid="snapshot-pending" animation="border" variant="secondary" size="sm" title="Snapshot will after the previous snapshot completes" />
                     &nbsp;Pending
                 </>;
 
@@ -129,7 +128,7 @@ export class SourcesTable extends Component {
                 }
 
                 return <>
-                    <Spinner animation="border" variant="primary" size="sm" title={title} />&nbsp;{totals}
+                    <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />&nbsp;{totals}
                     &nbsp;
                     {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
                 </>;
@@ -273,7 +272,7 @@ export class SourcesTable extends Component {
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button size="sm" variant="success" href="/snapshots/new">New Snapshot</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="success" href="/snapshots/new">New Snapshot</Button>
                     </Col>
                     <Col>
                     </Col>
