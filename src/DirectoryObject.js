@@ -26,14 +26,18 @@ export class DirectoryObject extends Component {
         this.unmount = this.unmount.bind(this);
         this.browseMounted = this.browseMounted.bind(this);
         this.copyPath = this.copyPath.bind(this);
+        this.fetchDirectory = this.fetchDirectory.bind(this);
     }
 
-    componentDidMount() {
-        this.fetchDirectory(this.props);
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.oid !== prevProps.match.params.oid) {
+            console.log('OID changed', prevProps.match.params.oid, '=>', this.props.match.params.oid);
+            this.fetchDirectory();
+        }
     }
 
-    fetchDirectory(props) {
-        let oid = props.match.params.oid;
+    fetchDirectory() {
+        let oid = this.props.match.params.oid;
 
         this.setState({
             isLoading: true,
@@ -59,8 +63,8 @@ export class DirectoryObject extends Component {
         }));
     }
 
-    componentWillReceiveProps(props) {
-        this.fetchDirectory(props);
+    componentDidMount() {
+        this.fetchDirectory();
     }
 
     mount() {
