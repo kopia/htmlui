@@ -27,7 +27,7 @@ export class TaskDetails extends Component {
         this.fetchTask = this.fetchTask.bind(this);
 
         // poll frequently, we will stop as soon as the task ends.
-        this.interval = window.setInterval(() => this.fetchTask(this.props), 500);
+        this.interval = window.setInterval(() => this.fetchTask(), 500);
     }
 
     componentDidMount() {
@@ -35,7 +35,7 @@ export class TaskDetails extends Component {
             isLoading: true,
         });
 
-        this.fetchTask(this.props);
+        this.fetchTask();
     }
 
     componentWillUnmount() {
@@ -48,8 +48,8 @@ export class TaskDetails extends Component {
         return props.taskID || props.match.params.tid;
     }
 
-    fetchTask(props) {
-        axios.get('/api/v1/tasks/' + this.taskID(props)).then(result => {
+    fetchTask() {
+        axios.get('/api/v1/tasks/' + this.taskID(this.props)).then(result => {
             this.setState({
                 task: result.data,
                 isLoading: false,
@@ -68,8 +68,10 @@ export class TaskDetails extends Component {
         });
     }
 
-    componentWillReceiveProps(props) {
-        this.fetchTask(props);
+    componentDidUpdate(prevProps) {
+        if (this.taskID(prevProps) !== this.taskID(this.props)) {
+            this.fetchTask();
+        }
     }
 
     summaryControl(task) {
