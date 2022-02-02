@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
-import { handleChange, LogDetailSelector, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from './forms';
+import { handleChange, LogDetailSelector, OptionalFieldNoLabel, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from './forms';
 import { errorAlert, PolicyEditorLink, sourceQueryStringParams } from './uiutil';
 import { getDeepStateProperty } from './deepstate';
 
@@ -256,6 +256,25 @@ export class PolicyEditor extends Component {
             }
         }
 
+        if (policy.actions) {
+            if (policy.actions.beforeSnapshotRoot.path === undefined || policy.actions.beforeSnapshotRoot.path === "") {
+                policy.actions.beforeSnapshotRoot.timeout = undefined;
+                policy.actions.beforeSnapshotRoot.mode = undefined;
+            } else {
+                if (policy.actions.beforeSnapshotRoot.timeout === undefined) {
+                    policy.actions.beforeSnapshotRoot.timeout = 300;
+                }                
+            }
+            if (policy.actions.afterSnapshotRoot.path === undefined || policy.actions.afterSnapshotRoot.path === "") {
+                policy.actions.afterSnapshotRoot.timeout = undefined;
+                policy.actions.afterSnapshotRoot.mode = undefined;
+            } else {
+                if (policy.actions.afterSnapshotRoot.timeout === undefined) {
+                    policy.actions.afterSnapshotRoot.timeout = 300;
+                }                
+            }
+        }
+
         return policy;
     }
 
@@ -264,6 +283,7 @@ export class PolicyEditor extends Component {
 
         try {
             const policy = this.getAndValidatePolicy();
+            console.log(policy);
 
             this.setState({ saving: true });
             axios.put(this.policyURL(this.props), policy).then(result => {
@@ -493,6 +513,61 @@ export class PolicyEditor extends Component {
                                 <EffectiveValueColumn>
                                     {UpcomingSnapshotTimes(this.state?.resolved?.upcomingSnapshotTimes)}
                                 </EffectiveValueColumn>
+                            </Row>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="actions">
+                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Actions</Accordion.Header>
+                        <Accordion.Body>
+                            <SectionHeaderRow />
+                            <Row>
+                                <LabelColumn name="Before Snapshot" help="Script to run before snapshot." />
+                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.beforeSnapshotRoot.path", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.beforeSnapshotRoot.path")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
+                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.beforeSnapshotRoot.timeout", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.beforeSnapshotRoot.timeout")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+                                <WideValueColumn>
+                                    <Form.Control as="select" size="sm"
+                                        name="policy.actions.beforeSnapshotRoot.mode"
+                                        onChange={this.handleChange}
+                                        value={stateProperty(this, "policy.actions.beforeSnapshotRoot.mode")}>
+                                        <option value="essential">essential</option>
+                                        <option value="optional">optional</option>
+                                        <option value="async">async</option>
+                                    </Form.Control>
+                                </WideValueColumn>
+                                {EffectiveValue(this, "actions.beforeSnapshotRoot.mode")}
+                            </Row>
+                            <hr />
+                            <Row>
+                                <LabelColumn name="After Snapshot" help="Script to run after snapshot." />
+                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.afterSnapshotRoot.path", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.afterSnapshotRoot.path")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
+                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.afterSnapshotRoot.timeout", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.afterSnapshotRoot.timeout")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+                                <WideValueColumn>
+                                    <Form.Control as="select" size="sm"
+                                        name="policy.actions.afterSnapshotRoot.mode"
+                                        onChange={this.handleChange}
+                                        value={stateProperty(this, "policy.actions.afterSnapshotRoot.mode")}>
+                                        <option value="essential">essential</option>
+                                        <option value="optional">optional</option>
+                                        <option value="async">async</option>
+                                    </Form.Control>
+                                </WideValueColumn>
+                                {EffectiveValue(this, "actions.afterSnapshotRoot.mode")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
