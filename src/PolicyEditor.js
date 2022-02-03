@@ -257,21 +257,23 @@ export class PolicyEditor extends Component {
         }
 
         if (policy.actions) {
-            if (policy.actions.beforeSnapshotRoot.path === undefined || policy.actions.beforeSnapshotRoot.path === "") {
-                policy.actions.beforeSnapshotRoot.timeout = undefined;
-                policy.actions.beforeSnapshotRoot.mode = undefined;
-            } else {
-                if (policy.actions.beforeSnapshotRoot.timeout === undefined) {
-                    policy.actions.beforeSnapshotRoot.timeout = 300;
-                }                
+            if (policy.actions.beforeSnapshotRoot) {
+                if (policy.actions.beforeSnapshotRoot.path === undefined || policy.actions.beforeSnapshotRoot.path === "") {
+                    policy.actions.beforeSnapshotRoot = undefined;
+                } else {
+                    if (policy.actions.beforeSnapshotRoot.timeout === undefined) {
+                        policy.actions.beforeSnapshotRoot.timeout = 300;
+                    }                
+                }
             }
-            if (policy.actions.afterSnapshotRoot.path === undefined || policy.actions.afterSnapshotRoot.path === "") {
-                policy.actions.afterSnapshotRoot.timeout = undefined;
-                policy.actions.afterSnapshotRoot.mode = undefined;
-            } else {
-                if (policy.actions.afterSnapshotRoot.timeout === undefined) {
-                    policy.actions.afterSnapshotRoot.timeout = 300;
-                }                
+            if (policy.actions.afterSnapshotRoot) {
+                if (policy.actions.afterSnapshotRoot.path === undefined || policy.actions.afterSnapshotRoot.path === "") {
+                    policy.actions.afterSnapshotRoot = undefined;
+                } else {
+                    if (policy.actions.afterSnapshotRoot.timeout === undefined) {
+                        policy.actions.afterSnapshotRoot.timeout = 300;
+                    }                
+                }
             }
         }
 
@@ -283,7 +285,6 @@ export class PolicyEditor extends Component {
 
         try {
             const policy = this.getAndValidatePolicy();
-            console.log(policy);
 
             this.setState({ saving: true });
             axios.put(this.policyURL(this.props), policy).then(result => {
