@@ -118,7 +118,7 @@ export class DirectoryObject extends Component {
             return <Spinner animation="border" variant="primary" />;
         }
 
-        return <div className="padded">
+        return <>
             <Row>
                 <Col xs={12}>
                     <GoBackButton onClick={this.props.history.goBack} />
@@ -144,6 +144,6 @@ export class DirectoryObject extends Component {
                 <Col xs={12}><DirectoryItems items={items} /></Col>
             </Row>
             <CLIEquivalent command={`snapshot list ${this.state.oid}`} />
-        </div>
+        </>
     }
 }

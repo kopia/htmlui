@@ -226,7 +226,7 @@ export class PoliciesTable extends Component {
             Cell: x => <Link to={policyEditorURL(x.row.original.target)}><Button size="sm">Edit</Button></Link>,
         }]
 
-        return <div className="padded">
+        return <>
             {!this.state.editorTarget && <div className="list-actions">
                 <Form onSubmit={this.editPolicyForPath}>
                     <Row>
@@ -269,6 +269,6 @@ export class PoliciesTable extends Component {
                 No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
             </p> : <p>No policies found.</p>)}
             <CLIEquivalent command="policy list" />
-        </div>;
+        </>;
     }
 }

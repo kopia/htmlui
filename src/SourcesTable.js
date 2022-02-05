@@ -254,7 +254,7 @@ export class SourcesTable extends Component {
             Cell: x => this.statusCell(x, this),
         }]
 
-        return <div className="padded">
+        return <>
             <div className="list-actions">
                 <Row>
                     {this.state.multiUser && <><Col xs="auto">
@@ -286,6 +286,6 @@ export class SourcesTable extends Component {
 
             <MyTable data={sources} columns={columns} />
             <CLIEquivalent command={`snapshot list`} />
-        </div>;
+        </>;
     }
 }

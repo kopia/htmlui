@@ -125,45 +125,45 @@ export class TasksTable extends Component {
 
         const filteredItems = this.filterItems(items)
 
-        return <div className="padded">
+        return <>
             <Form>
                 <div className="list-actions">
-                <Row>
-                    <Col xs="auto">
-                        <Dropdown>
-                            <Dropdown.Toggle size="sm" variant="primary">Status: {this.state.showStatus}</Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => this.setState({ showStatus: "All" })}>All</Dropdown.Item>
-                                <Dropdown.Divider />
-                                <Dropdown.Item onClick={() => this.setState({ showStatus: "Running" })}>Running</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.setState({ showStatus: "Failed" })}>Failed</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    <Col xs="auto">
-                        <Dropdown>
-                            <Dropdown.Toggle size="sm" variant="primary">Kind: {this.state.showKind}</Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>All</Dropdown.Item>
-                                <Dropdown.Divider />
-                                {this.state.uniqueKinds.map(k => <Dropdown.Item onClick={() => this.setState({ showKind: k })}>{k}</Dropdown.Item>)}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    <Col xs="4">
-                        <Form.Control size="sm" type="text" name="searchDescription" placeholder="search description" value={this.state.searchDescription} onChange={this.handleChange} autoFocus={true} />
-                    </Col>
-                </Row>
+                    <Row>
+                        <Col xs="auto">
+                            <Dropdown>
+                                <Dropdown.Toggle size="sm" variant="primary">Status: {this.state.showStatus}</Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => this.setState({ showStatus: "All" })}>All</Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Running" })}>Running</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Failed" })}>Failed</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                        <Col xs="auto">
+                            <Dropdown>
+                                <Dropdown.Toggle size="sm" variant="primary">Kind: {this.state.showKind}</Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>All</Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    {this.state.uniqueKinds.map(k => <Dropdown.Item onClick={() => this.setState({ showKind: k })}>{k}</Dropdown.Item>)}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                        <Col xs="4">
+                            <Form.Control size="sm" type="text" name="searchDescription" placeholder="search description" value={this.state.searchDescription} onChange={this.handleChange} autoFocus={true} />
+                        </Col>
+                    </Row>
                 </div>
                 <Row>
                     <Col>
                         {!items.length ?
                             <Alert variant="info">
                                 <FontAwesomeIcon size="sm" icon={faInfoCircle} /> A list of tasks will appear here when you create snapshots, restore, run maintenance, etc.
-                        </Alert> : <MyTable data={filteredItems} columns={columns} />}
+                            </Alert> : <MyTable data={filteredItems} columns={columns} />}
                     </Col>
                 </Row>
             </Form>
-        </div>;
+        </>;
     }
 }
