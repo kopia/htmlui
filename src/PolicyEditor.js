@@ -275,6 +275,24 @@ export class PolicyEditor extends Component {
                     }                
                 }
             }
+            if (policy.actions.beforeFolder) {
+                if (policy.actions.beforeFolder.path === undefined || policy.actions.beforeFolder.path === "") {
+                    policy.actions.beforeFolder = undefined;
+                } else {
+                    if (policy.actions.beforeFolder.timeout === undefined) {
+                        policy.actions.beforeFolder.timeout = 300;
+                    }                
+                }
+            }
+            if (policy.actions.afterFolder) {
+                if (policy.actions.afterFolder.path === undefined || policy.actions.afterFolder.path === "") {
+                    policy.actions.afterFolder = undefined;
+                } else {
+                    if (policy.actions.afterFolder.timeout === undefined) {
+                        policy.actions.afterFolder.timeout = 300;
+                    }                
+                }
+            }
         }
 
         return policy;
@@ -517,8 +535,8 @@ export class PolicyEditor extends Component {
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
-                    <Accordion.Item eventKey="actions">
-                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Actions</Accordion.Header>
+                    <Accordion.Item eventKey="snapshot-actions">
+                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Snapshot Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
@@ -569,6 +587,61 @@ export class PolicyEditor extends Component {
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "actions.afterSnapshotRoot.mode")}
+                            </Row>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="folder-actions">
+                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Folder Actions</Accordion.Header>
+                        <Accordion.Body>
+                            <SectionHeaderRow />
+                            <Row>
+                                <LabelColumn name="Before Folder" help="Script to run before folder." />
+                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.beforeFolder.path", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.beforeFolder.path")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
+                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.beforeFolder.timeout", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.beforeFolder.timeout")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+                                <WideValueColumn>
+                                    <Form.Control as="select" size="sm"
+                                        name="policy.actions.beforeFolder.mode"
+                                        onChange={this.handleChange}
+                                        value={stateProperty(this, "policy.actions.beforeFolder.mode")}>
+                                        <option value="essential">essential</option>
+                                        <option value="optional">optional</option>
+                                        <option value="async">async</option>
+                                    </Form.Control>
+                                </WideValueColumn>
+                                {EffectiveValue(this, "actions.beforeFolder.mode")}
+                            </Row>
+                            <hr />
+                            <Row>
+                                <LabelColumn name="After Folder" help="Script to run after folder." />
+                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.afterFolder.path", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.afterFolder.path")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
+                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.afterFolder.timeout", {})}</WideValueColumn>
+                                {EffectiveValue(this, "actions.afterFolder.timeout")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+                                <WideValueColumn>
+                                    <Form.Control as="select" size="sm"
+                                        name="policy.actions.afterFolder.mode"
+                                        onChange={this.handleChange}
+                                        value={stateProperty(this, "policy.actions.afterFolder.mode")}>
+                                        <option value="essential">essential</option>
+                                        <option value="optional">optional</option>
+                                        <option value="async">async</option>
+                                    </Form.Control>
+                                </WideValueColumn>
+                                {EffectiveValue(this, "actions.afterFolder.mode")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
