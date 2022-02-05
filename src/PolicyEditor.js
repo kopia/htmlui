@@ -309,7 +309,7 @@ export class PolicyEditor extends Component {
             return <p>Loading ...</p>;
         }
 
-        return <div className="padded">
+        return <>
             <Form onSubmit={this.saveChanges}>
                 <Accordion defaultActiveKey="scheduling">
                     <Accordion.Item eventKey="retention">
@@ -575,6 +575,6 @@ export class PolicyEditor extends Component {
                 {/* <pre className="debug-json">{JSON.stringify(this.state, null, 4)}
                 </pre> */}
             </Form>
-        </div>;
+        </>;
     }
 }

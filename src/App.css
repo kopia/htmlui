@@ -183,3 +183,18 @@ nav.navbar {
   padding-right: 10px;
   margin-bottom: 10px;
 }
+
+.vpadded {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.multiselect {
+  width: 20px;
+  padding-left: 35px;
+  padding-top: 0x;
+  margin-top: -5px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
