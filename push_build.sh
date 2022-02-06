@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-
 tmpdir=$(mktemp -d)
 git clone https://$GITHUB_TOKEN@github.com/kopia/htmluibuild $tmpdir
 rm -rf $tmpdir/build
