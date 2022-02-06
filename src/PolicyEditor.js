@@ -1,4 +1,4 @@
-import { faCalendarTimes, faClock, faExclamationTriangle, faFileAlt, faFileArchive, faFolderOpen, faMagic } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarTimes, faClock, faExclamationTriangle, faFileAlt, faFileArchive, faFolderOpen, faMagic, faCog, faCogs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import moment from 'moment';
@@ -108,6 +108,39 @@ function SectionHeaderRow() {
     </Row>;
 }
 
+// FIXME: not working
+// function ActionRowScript(component, action, name, help) {
+//     return <Row>
+//         <LabelColumn name={name} help={help} />
+//         <WideValueColumn>{OptionalFieldNoLabel(component, "", action+".path", {})}</WideValueColumn>
+//         {EffectiveValue(component, getDeepStateProperty(component, "resolved.effective." + action+".path", undefined))}
+//     </Row>;
+// }
+
+// function ActionRowTimeout(component, action) {
+//     return <Row>
+//         <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
+//         <WideValueColumn>{OptionalNumberField(component, "", action+".timeout", {})}</WideValueColumn>
+//         {EffectiveValue(component, getDeepStateProperty(component, "resolved.effective." + action+".timeout", undefined))}
+//     </Row>;
+// }
+
+// function ActionRowMode(component, action) {
+//     return <Row>
+//         <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+//         <WideValueColumn>
+//             <Form.Control as="select" size="sm"
+//                 name={action+".mode"}
+//                 onChange={component.handleChange}
+//                 value={getDeepStateProperty(component, "resolved.effective." + action+".mode", undefined)}>
+//                 <option value="essential">must succeed</option>
+//                 <option value="optional">ignore failures</option>
+//                 <option value="async">run asynchronously, ignore failures</option>
+//             </Form.Control>
+//         </WideValueColumn>
+//         {EffectiveValue(component, getDeepStateProperty(component, "resolved.effective." + action+".mode", undefined))}
+//     </Row>;
+// }
 export class PolicyEditor extends Component {
     constructor() {
         super();
@@ -257,45 +290,25 @@ export class PolicyEditor extends Component {
         }
 
         if (policy.actions) {
-            if (policy.actions.beforeSnapshotRoot) {
-                if (policy.actions.beforeSnapshotRoot.path === undefined || policy.actions.beforeSnapshotRoot.path === "") {
-                    policy.actions.beforeSnapshotRoot = undefined;
-                } else {
-                    if (policy.actions.beforeSnapshotRoot.timeout === undefined) {
-                        policy.actions.beforeSnapshotRoot.timeout = 300;
-                    }                
-                }
-            }
-            if (policy.actions.afterSnapshotRoot) {
-                if (policy.actions.afterSnapshotRoot.path === undefined || policy.actions.afterSnapshotRoot.path === "") {
-                    policy.actions.afterSnapshotRoot = undefined;
-                } else {
-                    if (policy.actions.afterSnapshotRoot.timeout === undefined) {
-                        policy.actions.afterSnapshotRoot.timeout = 300;
-                    }                
-                }
-            }
-            if (policy.actions.beforeFolder) {
-                if (policy.actions.beforeFolder.path === undefined || policy.actions.beforeFolder.path === "") {
-                    policy.actions.beforeFolder = undefined;
-                } else {
-                    if (policy.actions.beforeFolder.timeout === undefined) {
-                        policy.actions.beforeFolder.timeout = 300;
-                    }                
-                }
-            }
-            if (policy.actions.afterFolder) {
-                if (policy.actions.afterFolder.path === undefined || policy.actions.afterFolder.path === "") {
-                    policy.actions.afterFolder = undefined;
-                } else {
-                    if (policy.actions.afterFolder.timeout === undefined) {
-                        policy.actions.afterFolder.timeout = 300;
-                    }                
-                }
-            }
+            policy.actions = this.sanitizeActions(policy.actions, ["beforeSnapshotRoot", "afterSnapshotRoot", "beforeFolder", "afterFolder"]);
         }
 
         return policy;
+    }
+
+    sanitizeActions(actions, actionTypes) {
+        actionTypes.forEach(actionType => {
+            if (actions[actionType]) {
+                if (actions[actionType].path === undefined || actions[actionType].path === "") {
+                    actions[actionType] = undefined;
+                } else {
+                    if (actions[actionType].timeout === undefined) {
+                        actions[actionType].timeout = 300;
+                    }                
+                }
+            }
+        });
+        return actions;
     }
 
     saveChanges(e) {
@@ -536,9 +549,13 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="snapshot-actions">
-                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Snapshot Actions</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faCogs} />&nbsp;Snapshot Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
+                            {/* FIXME: UI ok, but values don't get saved */}
+                            {/* {ActionRowScript(this,"actions.beforeSnapshotRoot", "Before Snapshot", "Script to run before snapshot.")}
+                            {ActionRowTimeout(this,"actions.beforeSnapshotRoot")}
+                            {ActionRowMode(this,"actions.beforeSnapshotRoot")} */}
                             <Row>
                                 <LabelColumn name="Before Snapshot" help="Script to run before snapshot." />
                                 <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.beforeSnapshotRoot.path", {})}</WideValueColumn>
@@ -556,14 +573,19 @@ export class PolicyEditor extends Component {
                                         name="policy.actions.beforeSnapshotRoot.mode"
                                         onChange={this.handleChange}
                                         value={stateProperty(this, "policy.actions.beforeSnapshotRoot.mode")}>
-                                        <option value="essential">essential</option>
-                                        <option value="optional">optional</option>
-                                        <option value="async">async</option>
+                                        <option value="essential">must succeed</option>
+                                        <option value="optional">ignore failures</option>
+                                        <option value="async">run asynchronously, ignore failures</option>
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "actions.beforeSnapshotRoot.mode")}
                             </Row>
+
                             <hr />
+                            {/* FIXME: broken values in UI when called twice */}
+                            {/* {ActionRowScript(this,"actions.afterSnapshotRoot", "After Snapshot", "Script to run after snapshot.")}
+                            {ActionRowTimeout(this,"actions.afterSnapshotRoot")}
+                            {ActionRowMode(this,"actions.afterSnapshotRoot")} */}
                             <Row>
                                 <LabelColumn name="After Snapshot" help="Script to run after snapshot." />
                                 <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.afterSnapshotRoot.path", {})}</WideValueColumn>
@@ -581,9 +603,9 @@ export class PolicyEditor extends Component {
                                         name="policy.actions.afterSnapshotRoot.mode"
                                         onChange={this.handleChange}
                                         value={stateProperty(this, "policy.actions.afterSnapshotRoot.mode")}>
-                                        <option value="essential">essential</option>
-                                        <option value="optional">optional</option>
-                                        <option value="async">async</option>
+                                        <option value="essential">must succeed</option>
+                                        <option value="optional">ignore failures</option>
+                                        <option value="async">run asynchronously, ignore failures</option>
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "actions.afterSnapshotRoot.mode")}
@@ -591,7 +613,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="folder-actions">
-                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Folder Actions</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faCog} />&nbsp;Folder Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
@@ -611,9 +633,9 @@ export class PolicyEditor extends Component {
                                         name="policy.actions.beforeFolder.mode"
                                         onChange={this.handleChange}
                                         value={stateProperty(this, "policy.actions.beforeFolder.mode")}>
-                                        <option value="essential">essential</option>
-                                        <option value="optional">optional</option>
-                                        <option value="async">async</option>
+                                        <option value="essential">must succeed</option>
+                                        <option value="optional">ignore failures</option>
+                                        <option value="async">run asynchronously, ignore failures</option>
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "actions.beforeFolder.mode")}
@@ -636,9 +658,9 @@ export class PolicyEditor extends Component {
                                         name="policy.actions.afterFolder.mode"
                                         onChange={this.handleChange}
                                         value={stateProperty(this, "policy.actions.afterFolder.mode")}>
-                                        <option value="essential">essential</option>
-                                        <option value="optional">optional</option>
-                                        <option value="async">async</option>
+                                        <option value="essential">must succeed</option>
+                                        <option value="optional">ignore failures</option>
+                                        <option value="async">run asynchronously, ignore failures</option>
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "actions.afterFolder.mode")}
