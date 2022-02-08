@@ -221,7 +221,7 @@ export class PolicyEditor extends Component {
 
         function validateTimesOfDay(l) {
             for (const tod of l) {
-                if (!tod.hour) {
+                if (typeof(tod) !== "object") {
                     // unparsed
                     throw Error("invalid time of day: '" + tod + "'")
                 }

@@ -241,7 +241,7 @@ export function TimesOfDayList(component, name) {
             let tmp = [];
 
             for (const tod of v) {
-                if (tod.hour) {
+                if (typeof(tod) === "object") {
                     tmp.push(tod.hour + ":" + (tod.min < 10 ? "0": "") + tod.min);
                 } else {
                     tmp.push(tod);
