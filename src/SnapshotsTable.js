@@ -9,9 +9,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
 import MyTable from './Table';
 import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirectIfNotConnected, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from './uiutil';
-import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
+import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 
 function pillVariant(tag) {
     if (tag.startsWith("latest-")) {
@@ -54,6 +55,17 @@ export class SnapshotsTable extends Component {
         this.deleteSelectedSnapshots = this.deleteSelectedSnapshots.bind(this);
         this.cancelDelete = this.cancelDelete.bind(this);
         this.deleteSnapshotSource = this.deleteSnapshotSource.bind(this);
+
+        this.cancelSnapshotDescription = this.cancelSnapshotDescription.bind(this);
+        this.removeSnapshotDescription = this.removeSnapshotDescription.bind(this);
+        this.saveSnapshotDescription = this.saveSnapshotDescription.bind(this);
+
+        this.editPin = this.editPin.bind(this);
+        this.cancelPin = this.cancelPin.bind(this);
+        this.savePin = this.savePin.bind(this);
+        this.removePin = this.removePin.bind(this);
+
+        this.editSnapshots = this.editSnapshots.bind(this);
     }
 
     selectAll() {
@@ -182,7 +194,6 @@ export class SnapshotsTable extends Component {
         }
 
         axios.get(u).then(result => {
-            console.log('got snapshots', result.data);
             this.setState({
                 snapshots: result.data.snapshots,
                 selectedSnapshotManifestIDs: {},
@@ -210,6 +221,89 @@ export class SnapshotsTable extends Component {
         });
     }
 
+    cancelSnapshotDescription() {
+        this.setState({ editingDescriptionFor: false });
+    }
+
+    removeSnapshotDescription() {
+        this.editSnapshots({
+            snapshots: this.state.editingDescriptionFor,
+            description: "",
+        });
+    }
+
+    saveSnapshotDescription() {
+        this.editSnapshots({
+            snapshots: this.state.editingDescriptionFor,
+            description: this.state.updatedSnapshotDescription,
+        });
+    }
+
+    descriptionFor(x) {
+        return <a href="/snapshots" onClick={() => this.setState({
+            editingDescriptionFor: [x.id],
+            updatedSnapshotDescription: x.description,
+            originalSnapshotDescription: x.description,
+        })}
+            title={x.description + " - Click to update snapshot description."}
+            className={x.description ? "text-warning" : "text-muted"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
+    }
+
+    newPinFor(x) {
+        return <a href="/snapshots" onClick={() => this.setState({
+            editPinFor: [x.id],
+            originalPinName: "",
+            newPinName: "do-not-delete",
+        })} title="Add a pin to protect snapshot from deletion"><FontAwesomeIcon icon={faThumbtack} color="#ccc" /></a>;
+    }
+
+    editPin(snap, pin) {
+        this.setState({
+            editPinFor: [snap.id],
+            originalPinName: pin,
+            newPinName: pin,
+        });
+    }
+
+    cancelPin() {
+        this.setState({ editPinFor: undefined });
+    }
+
+    removePin(p) {
+        this.editSnapshots({
+            snapshots: this.state.editPinFor,
+            removePins: [p],
+        });
+    }
+
+    savePin() {
+        this.editSnapshots({
+            snapshots: this.state.editPinFor,
+            addPins: [this.state.newPinName],
+            removePins: [this.state.originalPinName],
+        })
+    }
+
+    editSnapshots(req) {
+        this.setState({ savingSnapshot: true });
+        axios.post('/api/v1/snapshots/edit', req).then(resp => {
+            this.setState({
+                editPinFor: undefined, 
+                editingDescriptionFor: undefined,
+                savingSnapshot: false
+            });
+            this.fetchSnapshots();
+        }).catch(e => {
+            this.setState({
+                editPinFor: undefined,
+                editingDescriptionFor: undefined,
+                savingSnapshot: false,
+            });
+            redirectIfNotConnected(e);
+            errorAlert(e);
+        });
+    }
+
     render() {
         let { snapshots, unfilteredCount, uniqueCount, isLoading, error } = this.state;
         if (error) {
@@ -234,17 +328,27 @@ export class SnapshotsTable extends Component {
             width: 200,
             accessor: x => <Link to={objectLink(x.rootID)}>{rfc3339TimestampForDisplay(x.startTime)}</Link>,
         }, {
+            id: 'description',
+            Header: '',
+            width: 20,
+            Cell: x => this.descriptionFor(x.row.original),
+        }, {
             id: 'rootID',
             Header: 'Root',
             width: "",
             accessor: x => x.rootID,
+            Cell: x => <span className="hash-value">{x.cell.value}</span>,
         }, {
             Header: 'Retention',
             accessor: 'retention',
             width: "",
-            Cell: x => <span>{x.cell.value.map(l =>
-                <><Badge bg={pillVariant(l)}>{l}</Badge>{' '}</>
-            )}</span>
+            Cell: x => <span>
+                {x.cell.value.map(l => <React.Fragment key={l}><Badge bg={pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
+                {x.row.original.pins.map(l => <React.Fragment key={l}>
+                    <Badge bg="dark" text="warning" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
+                </React.Fragment>)}
+                {this.newPinFor(x.row.original)}
+            </span>
         }, {
             Header: 'Size',
             accessor: 'summary.size',
@@ -314,7 +418,7 @@ export class SnapshotsTable extends Component {
 
             <CLIEquivalent command={`snapshot list "${this.state.userName}@${this.state.host}:${this.state.path}"${this.state.showHidden ? " --show-identical" : ""}`} />
 
-            <Modal show={this.state.showDeleteConfirmationDialog} backdrop="static" keyboard={false} onHide={this.cancelDelete}>
+            <Modal show={this.state.showDeleteConfirmationDialog} onHide={this.cancelDelete}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
                 </Modal.Header>
@@ -338,6 +442,52 @@ export class SnapshotsTable extends Component {
                 <Modal.Footer>
                     <Button size="sm" variant="danger" onClick={this.deleteSelectedSnapshots}>Delete</Button>
                     <Button size="sm" variant="secondary" onClick={this.cancelDelete}>Cancel</Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={!!this.state.editingDescriptionFor} onHide={this.cancelSnapshotDescription}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Snapshot Description</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <Form.Group>
+                        <Form.Label>Enter new description</Form.Label>
+                        <Form.Control as="textarea"
+                            size="sm"
+                            value={this.state.updatedSnapshotDescription}
+                            onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
+                    </Form.Group>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
+                    <Button size="sm" variant="success" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>Update Description</Button>
+                    {this.state.originalSnapshotDescription && <Button size="sm" variant="danger" onClick={this.removeSnapshotDescription}>Remove Description</Button>}
+                    <Button size="sm" variant="secondary" onClick={this.cancelSnapshotDescription}>Cancel</Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={!!this.state.editPinFor} onHide={this.cancelPin}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Pin Snapshot</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <Form.Group>
+                        <Form.Label>Name of the pin</Form.Label>
+                        <Form.Control
+                            size="sm"
+                            value={this.state.newPinName}
+                            onChange={e => this.setState({ newPinName: e.target.value })} />
+                    </Form.Group>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
+                    <Button size="sm" variant="success" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? "Update Pin" : "Add Pin"}</Button>
+                    {this.state.originalPinName && <Button size="sm" variant="danger" onClick={() => this.removePin(this.state.originalPinName)}>Remove Pin</Button>}
+                    <Button size="sm" variant="secondary" onClick={this.cancelPin}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
         </>;
