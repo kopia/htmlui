@@ -108,39 +108,38 @@ function SectionHeaderRow() {
     </Row>;
 }
 
-// FIXME: not working
-// function ActionRowScript(component, action, name, help) {
-//     return <Row>
-//         <LabelColumn name={name} help={help} />
-//         <WideValueColumn>{OptionalFieldNoLabel(component, "", action+".path", {})}</WideValueColumn>
-//         {EffectiveValue(component, getDeepStateProperty(component, "resolved.effective." + action+".path", undefined))}
-//     </Row>;
-// }
+function ActionRowScript(component, action, name, help) {
+    return <Row>
+        <LabelColumn name={name} help={help} />
+        <WideValueColumn>{OptionalFieldNoLabel(component, "", "policy."+action, {})}</WideValueColumn>
+        {EffectiveValue(component, action)}
+    </Row>;
+}
 
-// function ActionRowTimeout(component, action) {
-//     return <Row>
-//         <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
-//         <WideValueColumn>{OptionalNumberField(component, "", action+".timeout", {})}</WideValueColumn>
-//         {EffectiveValue(component, getDeepStateProperty(component, "resolved.effective." + action+".timeout", undefined))}
-//     </Row>;
-// }
+function ActionRowTimeout(component, action) {
+    return <Row>
+        <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
+        <WideValueColumn>{OptionalNumberField(component, "", "policy."+action, {})}</WideValueColumn>
+        {EffectiveValue(component, action)}
+    </Row>;
+}
 
-// function ActionRowMode(component, action) {
-//     return <Row>
-//         <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
-//         <WideValueColumn>
-//             <Form.Control as="select" size="sm"
-//                 name={action+".mode"}
-//                 onChange={component.handleChange}
-//                 value={getDeepStateProperty(component, "resolved.effective." + action+".mode", undefined)}>
-//                 <option value="essential">must succeed</option>
-//                 <option value="optional">ignore failures</option>
-//                 <option value="async">run asynchronously, ignore failures</option>
-//             </Form.Control>
-//         </WideValueColumn>
-//         {EffectiveValue(component, getDeepStateProperty(component, "resolved.effective." + action+".mode", undefined))}
-//     </Row>;
-// }
+function ActionRowMode(component, action) {
+    return <Row>
+    <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+    <WideValueColumn>
+        <Form.Control as="select" size="sm"
+            name={"policy."+action}
+            onChange={component.handleChange}
+            value={stateProperty(component, "policy."+action)}>
+            <option value="essential">must succeed</option>
+            <option value="optional">ignore failures</option>
+            <option value="async">run asynchronously, ignore failures</option>
+        </Form.Control>
+    </WideValueColumn>
+    {EffectiveValue(component, action)}
+    </Row>;
+}
 export class PolicyEditor extends Component {
     constructor() {
         super();
@@ -552,119 +551,26 @@ export class PolicyEditor extends Component {
                         <Accordion.Header><FontAwesomeIcon icon={faCogs} />&nbsp;Snapshot Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
-                            {/* FIXME: UI ok, but values don't get saved */}
-                            {/* {ActionRowScript(this,"actions.beforeSnapshotRoot", "Before Snapshot", "Script to run before snapshot.")}
-                            {ActionRowTimeout(this,"actions.beforeSnapshotRoot")}
-                            {ActionRowMode(this,"actions.beforeSnapshotRoot")} */}
-                            <Row>
-                                <LabelColumn name="Before Snapshot" help="Script to run before snapshot." />
-                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.beforeSnapshotRoot.path", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.beforeSnapshotRoot.path")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
-                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.beforeSnapshotRoot.timeout", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.beforeSnapshotRoot.timeout")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
-                                <WideValueColumn>
-                                    <Form.Control as="select" size="sm"
-                                        name="policy.actions.beforeSnapshotRoot.mode"
-                                        onChange={this.handleChange}
-                                        value={stateProperty(this, "policy.actions.beforeSnapshotRoot.mode")}>
-                                        <option value="essential">must succeed</option>
-                                        <option value="optional">ignore failures</option>
-                                        <option value="async">run asynchronously, ignore failures</option>
-                                    </Form.Control>
-                                </WideValueColumn>
-                                {EffectiveValue(this, "actions.beforeSnapshotRoot.mode")}
-                            </Row>
-
+                            {ActionRowScript(this,"actions.beforeSnapshotRoot.path", "Before Snapshot", "Script to run before snapshot.")}
+                            {ActionRowTimeout(this,"actions.beforeSnapshotRoot.timeout")}
+                            {ActionRowMode(this,"actions.beforeSnapshotRoot.mode")}
                             <hr />
-                            {/* FIXME: broken values in UI when called twice */}
-                            {/* {ActionRowScript(this,"actions.afterSnapshotRoot", "After Snapshot", "Script to run after snapshot.")}
-                            {ActionRowTimeout(this,"actions.afterSnapshotRoot")}
-                            {ActionRowMode(this,"actions.afterSnapshotRoot")} */}
-                            <Row>
-                                <LabelColumn name="After Snapshot" help="Script to run after snapshot." />
-                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.afterSnapshotRoot.path", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.afterSnapshotRoot.path")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
-                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.afterSnapshotRoot.timeout", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.afterSnapshotRoot.timeout")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
-                                <WideValueColumn>
-                                    <Form.Control as="select" size="sm"
-                                        name="policy.actions.afterSnapshotRoot.mode"
-                                        onChange={this.handleChange}
-                                        value={stateProperty(this, "policy.actions.afterSnapshotRoot.mode")}>
-                                        <option value="essential">must succeed</option>
-                                        <option value="optional">ignore failures</option>
-                                        <option value="async">run asynchronously, ignore failures</option>
-                                    </Form.Control>
-                                </WideValueColumn>
-                                {EffectiveValue(this, "actions.afterSnapshotRoot.mode")}
-                            </Row>
+                            {ActionRowScript(this,"actions.afterSnapshotRoot.path", "After Snapshot", "Script to run after snapshot.")}
+                            {ActionRowTimeout(this,"actions.afterSnapshotRoot.timeout")}
+                            {ActionRowMode(this,"actions.afterSnapshotRoot.mode")}
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="folder-actions">
                         <Accordion.Header><FontAwesomeIcon icon={faCog} />&nbsp;Folder Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
-                            <Row>
-                                <LabelColumn name="Before Folder" help="Script to run before folder." />
-                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.beforeFolder.path", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.beforeFolder.path")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
-                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.beforeFolder.timeout", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.beforeFolder.timeout")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
-                                <WideValueColumn>
-                                    <Form.Control as="select" size="sm"
-                                        name="policy.actions.beforeFolder.mode"
-                                        onChange={this.handleChange}
-                                        value={stateProperty(this, "policy.actions.beforeFolder.mode")}>
-                                        <option value="essential">must succeed</option>
-                                        <option value="optional">ignore failures</option>
-                                        <option value="async">run asynchronously, ignore failures</option>
-                                    </Form.Control>
-                                </WideValueColumn>
-                                {EffectiveValue(this, "actions.beforeFolder.mode")}
-                            </Row>
+                            {ActionRowScript(this,"actions.beforeFolder.path", "Before Folder", "Script to run before folder.")}
+                            {ActionRowTimeout(this,"actions.beforeFolder.timeout")}
+                            {ActionRowMode(this,"actions.beforeFolder.mode")}
                             <hr />
-                            <Row>
-                                <LabelColumn name="After Folder" help="Script to run after folder." />
-                                <WideValueColumn>{OptionalFieldNoLabel(this, "", "policy.actions.afterFolder.path", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.afterFolder.path")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process." />
-                                <WideValueColumn>{OptionalNumberField(this, "", "policy.actions.afterFolder.timeout", {})}</WideValueColumn>
-                                {EffectiveValue(this, "actions.afterFolder.timeout")}
-                            </Row>
-                            <Row>
-                                <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
-                                <WideValueColumn>
-                                    <Form.Control as="select" size="sm"
-                                        name="policy.actions.afterFolder.mode"
-                                        onChange={this.handleChange}
-                                        value={stateProperty(this, "policy.actions.afterFolder.mode")}>
-                                        <option value="essential">must succeed</option>
-                                        <option value="optional">ignore failures</option>
-                                        <option value="async">run asynchronously, ignore failures</option>
-                                    </Form.Control>
-                                </WideValueColumn>
-                                {EffectiveValue(this, "actions.afterFolder.mode")}
-                            </Row>
+                            {ActionRowScript(this,"actions.afterFolder.path", "After Folder", "Script to run after folder.")}
+                            {ActionRowTimeout(this,"actions.afterFolder.timeout")}
+                            {ActionRowMode(this,"actions.afterFolder.mode")}
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="logging">
