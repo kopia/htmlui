@@ -198,3 +198,8 @@ nav.navbar {
   margin-bottom: 0px;
 }
 
+.hash-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 80%;
+  font-weight: bold;
+}
