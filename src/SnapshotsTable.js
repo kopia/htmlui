@@ -240,21 +240,29 @@ export class SnapshotsTable extends Component {
     }
 
     descriptionFor(x) {
-        return <a href="/snapshots" onClick={() => this.setState({
-            editingDescriptionFor: [x.id],
-            updatedSnapshotDescription: x.description,
-            originalSnapshotDescription: x.description,
-        })}
+        return <a href="#top" onClick={event => {
+            event.preventDefault();
+            this.setState({
+                editingDescriptionFor: [x.id],
+                updatedSnapshotDescription: x.description,
+                originalSnapshotDescription: x.description,
+            })
+        }}
             title={x.description + " - Click to update snapshot description."}
             className={x.description ? "text-warning" : "text-muted"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
     }
 
     newPinFor(x) {
-        return <a href="/snapshots" onClick={() => this.setState({
-            editPinFor: [x.id],
-            originalPinName: "",
-            newPinName: "do-not-delete",
-        })} title="Add a pin to protect snapshot from deletion"><FontAwesomeIcon icon={faThumbtack} color="#ccc" /></a>;
+        return <a href="#top" onClick={event => {
+            event.preventDefault();
+
+            this.setState({
+                editPinFor: [x.id],
+                originalPinName: "",
+                newPinName: "do-not-delete",
+            });
+        }
+        } title="Add a pin to protect snapshot from deletion"><FontAwesomeIcon icon={faThumbtack} color="#ccc" /></a>;
     }
 
     editPin(snap, pin) {
@@ -288,7 +296,7 @@ export class SnapshotsTable extends Component {
         this.setState({ savingSnapshot: true });
         axios.post('/api/v1/snapshots/edit', req).then(resp => {
             this.setState({
-                editPinFor: undefined, 
+                editPinFor: undefined,
                 editingDescriptionFor: undefined,
                 savingSnapshot: false
             });
