@@ -35,7 +35,7 @@ export class SetupS3 extends Component {
                 {OptionalField(this, "Session Token", "sessionToken", { placeholder: "enter session token or leave empty", type: "password" })}
             </Row>
             <Row>
-                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty", type: "password" })}
+                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
             </Row>
         </>;
     }

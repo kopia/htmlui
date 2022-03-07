@@ -345,7 +345,8 @@ export class SnapshotsTable extends Component {
             Header: 'Root',
             width: "",
             accessor: x => x.rootID,
-            Cell: x => <span className="hash-value">{x.cell.value}</span>,
+            Cell: x => <><span className="hash-value">{x.cell.value}</span>
+            {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
         }, {
             Header: 'Retention',
             accessor: 'retention',

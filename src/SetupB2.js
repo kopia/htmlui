@@ -26,7 +26,7 @@ export class SetupB2 extends Component {
                 {RequiredField(this, "Key", "key", { placeholder: "enter secret application or account key", type: "password" })}
             </Row>
             <Row>
-                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty", type: "password" })}
+                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
             </Row>
         </>;
     }
