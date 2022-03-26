@@ -13,7 +13,8 @@ import { handleChange } from './forms';
 import MyTable from './Table';
 import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirectIfNotConnected } from './uiutil';
 
-const localPolicies = "Local Policies"
+const applicablePolicies = "Applicable Policies"
+const localPolicies = "Local Path Policies"
 const allPolicies = "All Policies"
 const globalPolicy = "Global Policy"
 const perUserPolicies = "Per-User Policies"
@@ -26,7 +27,7 @@ export class PoliciesTable extends Component {
             isLoading: false,
             error: null,
             editorTarget: null,
-            selectedOwner: localPolicies,
+            selectedOwner: applicablePolicies,
             policyPath: "",
             sources: [],
         };
@@ -144,8 +145,23 @@ export class PoliciesTable extends Component {
         if (!isEmpty(p.policy.scheduling)) {
             bits.push(<><Badge bg="warning">scheduling</Badge>{' '}</>);
         }
+        if (!isEmpty(p.policy.upload)) {
+            bits.push(<><Badge bg="info">upload</Badge>{' '}</>);
+        }
 
         return bits;
+    }
+
+    isGlobalPolicy(x) {
+        return !x.target.userName && !x.target.host && !x.target.path;
+    }
+
+    isLocalHostPolicy(x) {
+        return !x.target.userName && x.target.host === this.state.localHost && !x.target.path;
+    }
+
+    isLocalUserPolicy(x) {
+        return ownerName(x.target) === this.state.localSourceName;
     }
 
     render() {
@@ -173,11 +189,15 @@ export class PoliciesTable extends Component {
                 break;
 
             case globalPolicy:
-                items = items.filter(x => !x.target.userName && !x.target.host && !x.target.path);
+                items = items.filter(x => this.isGlobalPolicy(x));
                 break;
 
             case localPolicies:
-                items = items.filter(x => ownerName(x.target) === this.state.localSourceName && x.target.path.startsWith(this.state.policyPath));
+                items = items.filter(x => this.isLocalUserPolicy(x));
+                break;
+
+            case applicablePolicies:
+                items = items.filter(x => this.isLocalUserPolicy(x) || this.isLocalHostPolicy(x) || this.isGlobalPolicy(x));
                 break;
 
             case perUserPolicies:
@@ -208,16 +228,17 @@ export class PoliciesTable extends Component {
 
         const columns = [{
             Header: 'Username',
+            width: 100,
             accessor: x => x.target.userName || "*",
         }, {
             Header: 'Host',
+            width: 100,
             accessor: x => x.target.host || "*",
         }, {
             Header: 'Path',
             accessor: x => x.target.path || "*",
         }, {
             Header: 'Defined',
-            width: 300,
             accessor: x => this.policySummary(x),
         }, {
             id: 'edit',
@@ -237,6 +258,7 @@ export class PoliciesTable extends Component {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>{applicablePolicies}</Dropdown.Item>
                                     <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{localPolicies}</Dropdown.Item>
                                     <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{allPolicies}</Dropdown.Item>
                                     <Dropdown.Divider />
@@ -248,7 +270,7 @@ export class PoliciesTable extends Component {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
-                        {this.state.selectedOwner === localPolicies ? <>
+                        {(this.state.selectedOwner === localPolicies || this.state.selectedOwner === this.state.localSourceName || this.state.selectedOwner === applicablePolicies) ? <>
                             <Col>
                                 <DirectorySelector autoFocus onDirectorySelected={p => this.setState({ policyPath: p })} 
                                 placeholder="enter directory to find or set policy"

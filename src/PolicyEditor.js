@@ -1,4 +1,4 @@
-import { faCalendarTimes, faClock, faExclamationTriangle, faFileAlt, faFileArchive, faFolderOpen, faMagic, faCog, faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarTimes, faClock, faExclamationTriangle, faFileAlt, faFileArchive, faFolderOpen, faMagic, faCog, faCogs, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import moment from 'moment';
@@ -544,6 +544,23 @@ export class PolicyEditor extends Component {
                                 <EffectiveValueColumn>
                                     {UpcomingSnapshotTimes(this.state?.resolved?.upcomingSnapshotTimes)}
                                 </EffectiveValueColumn>
+                            </Row>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="upload">
+                        <Accordion.Header><FontAwesomeIcon icon={faUpload} />&nbsp;Upload</Accordion.Header>
+                        <Accordion.Body>
+                            <SectionHeaderRow />
+                            <Row>
+                                <LabelColumn name="Maximum Parallel Snapshots"
+                                    help="Maximum number of snapshots that can be simultaneously uploaded." />
+                                <ValueColumn>{OptionalNumberField(this, "", "policy.upload.maxParallelSnapshots", { placeholder: !this.props.path ? "max number of parallel snapshots" : "must be specified using global, user or host policy", disabled: !!this.props.path })}</ValueColumn>
+                                {EffectiveValue(this, "upload.maxParallelSnapshots")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Maximum Parallel File Reads" help="Maximum number of files that will be read in parallel (defaults to the number of CPUs)." />
+                                <ValueColumn>{OptionalNumberField(this, "", "policy.upload.maxParallelFileReads", { placeholder: "max number of parallel file reads" })}</ValueColumn>
+                                {EffectiveValue(this, "upload.maxParallelFileReads")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
