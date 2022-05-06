@@ -24,7 +24,7 @@ import { SetupWebDAV } from './SetupWebDAV';
 const supportedProviders = [
     { provider: "filesystem", description: "Filesystem", component: SetupFilesystem },
     { provider: "gcs", description: "Google Cloud Storage", component: SetupGCS },
-    { provider: "s3", description: "Amazon S3, Minio, Wasabi, etc.", component: SetupS3 },
+    { provider: "s3", description: "Amazon S3, IDrive e2, Minio, Wasabi, etc.", component: SetupS3 },
     { provider: "b2", description: "Backblaze B2", component: SetupB2 },
     { provider: "azureBlob", description: "Azure Blob Storage", component: SetupAzure },
     { provider: "sftp", description: "SFTP server", component: SetupSFTP },
