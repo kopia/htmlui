@@ -398,7 +398,7 @@ export class PolicyEditor extends Component {
                                 {EffectiveValue(this, "retention.keepAnnual")}
                             </Row>
                             <Row>
-                                <LabelColumn name="IgnoreIdenticalSnapshots" help="Do you want to ignore identical snapshots." />
+                                <LabelColumn name="IgnoreIdenticalSnapshots" help="Do NOT save a snapshot when no files have been changed?" />
                                 <ValueColumn>{OptionalBoolean(this, null, "policy.retention.ignoreIdenticalSnapshots", { placeholder: "False" })}</ValueColumn>
                                 {EffectiveValue(this, "retention.ignoreIdenticalSnapshots")}
                             </Row>
