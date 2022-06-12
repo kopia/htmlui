@@ -397,6 +397,11 @@ export class PolicyEditor extends Component {
                                 <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepAnnual", { placeholder: "# of annual snapshots" })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepAnnual")}
                             </Row>
+                            <Row>
+                                <LabelColumn name="IgnoreIdenticalSnapshots" help="Do you want to ignore identical snapshots." />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.retention.ignoreIdenticalSnapshots", { placeholder: "False" })}</ValueColumn>
+                                {EffectiveValue(this, "retention.ignoreIdenticalSnapshots")}
+                            </Row>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="files">
