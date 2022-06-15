@@ -26,9 +26,6 @@ export class SetupGCS extends Component {
             <Row>
                 {OptionalField(this, "Credentials File", "credentialsFile", { placeholder: "enter name of credentials JSON file" })}
             </Row>
-            <Row>
-                {OptionalField(this, "Credentials JSON", "credentials", { placeholder: "paste JSON credentials here", as: "textarea", rows: 5 })}
-            </Row>
         </>;
     }
 }
