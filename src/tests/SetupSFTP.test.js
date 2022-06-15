@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import React from 'react';
 import { SetupSFTP } from '../SetupSFTP';
 import { changeControlValue } from './testutils';
@@ -7,7 +7,7 @@ it('can set fields', async () => {
   let ref = React.createRef();
   const { getByTestId } = render(<SetupSFTP ref={ref} />)
 
-  expect(ref.current.validate()).toBe(false);
+  act(() => expect(ref.current.validate()).toBe(false));
   // required
   changeControlValue(getByTestId("control-host"), "some-host");
   changeControlValue(getByTestId("control-port"), "22");
@@ -15,7 +15,7 @@ it('can set fields', async () => {
   changeControlValue(getByTestId("control-username"), "some-username");
   changeControlValue(getByTestId("control-keyfile"), "some-keyfile");
   changeControlValue(getByTestId("control-knownHostsFile"), "some-knownHostsFile");
-  expect(ref.current.validate()).toBe(true);
+  act(() => expect(ref.current.validate()).toBe(true));
 
   // key file + known hosts file
   expect(ref.current.state).toStrictEqual({
@@ -30,9 +30,9 @@ it('can set fields', async () => {
 
   // now enter key data instead of key file, make sure validation triggers along the way
   changeControlValue(getByTestId("control-keyData"), "some-keyData");
-  expect(ref.current.validate()).toBe(false);
+  act(() => expect(ref.current.validate()).toBe(false));
   changeControlValue(getByTestId("control-keyfile"), "");
-  expect(ref.current.validate()).toBe(true);
+  act(() => expect(ref.current.validate()).toBe(true));
 
   // key data + known hosts file
   expect(ref.current.state).toStrictEqual({
@@ -47,14 +47,14 @@ it('can set fields', async () => {
   });
 
   changeControlValue(getByTestId("control-password"), "some-password");
-  expect(ref.current.validate()).toBe(false);
+  act(() => expect(ref.current.validate()).toBe(false));
   changeControlValue(getByTestId("control-keyData"), "");
-  expect(ref.current.validate()).toBe(true);
+  act(() => expect(ref.current.validate()).toBe(true));
 
   changeControlValue(getByTestId("control-knownHostsData"), "some-knownHostsData");
-  expect(ref.current.validate()).toBe(false);
+  act(() => expect(ref.current.validate()).toBe(false));
   changeControlValue(getByTestId("control-knownHostsFile"), "");
-  expect(ref.current.validate()).toBe(true);
+  act(() => expect(ref.current.validate()).toBe(true));
 
   // known hosts data + password
   expect(ref.current.state).toStrictEqual({

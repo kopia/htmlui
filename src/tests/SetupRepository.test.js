@@ -1,4 +1,4 @@
-import { findByTestId, render, waitFor } from '@testing-library/react';
+import { findByTestId, render, waitFor, act } from '@testing-library/react';
 import React from 'react';
 import { SetupRepository } from '../SetupRepository';
 import { setupAPIMock } from './api_mocks';
@@ -22,12 +22,12 @@ it('can create new repository when not initialized', async () => {
     },
   }).reply(200, {});
 
-  const { getByTestId, container } = render(<SetupRepository />);
+  const { getByTestId, container } = await act(() => render(<SetupRepository />));
 
   simulateClick(getByTestId('provider-filesystem'))
   
   changeControlValue(await findByTestId(container, 'control-path'), "some-path")
-  simulateClick(getByTestId('submit-button'));
+  await act(() => simulateClick(getByTestId('submit-button')));
 
   changeControlValue(await findByTestId(container, 'control-password'), "foo")
 
@@ -50,13 +50,13 @@ it('can connect to existing repository when already initialized', async () => {
     storage: { type: 'filesystem', config: { path: 'some-path' } },
   }).reply(200, {});
 
-  const { getByTestId, container } = render(<SetupRepository />)
+  const { getByTestId, container } = await act(() => render(<SetupRepository />));
   simulateClick(getByTestId('provider-filesystem'));
   changeControlValue(await findByTestId(container, 'control-path'), "some-path")
-  simulateClick(getByTestId('submit-button'));
+  await act(() => simulateClick(getByTestId('submit-button')));
   changeControlValue(await findByTestId(container, 'control-password'), "foo")
 
-  simulateClick(getByTestId('submit-button'));
+  await act(() => simulateClick(getByTestId('submit-button')));
   await waitFor(() => serverMock.history.post.length == 1);
 });
 
@@ -67,10 +67,10 @@ it('can connect to existing repository using token', async () => {
     token: "my-token",
   }).reply(200, {});
 
-  const { getByTestId, container } = render(<SetupRepository />)
+  const { getByTestId, container } = await act(() => render(<SetupRepository />));
   simulateClick(getByTestId('provider-_token'))
   changeControlValue(await findByTestId(container, 'control-token'), "my-token")
 
-  simulateClick(getByTestId('submit-button'));
+  await act(() => simulateClick(getByTestId('submit-button')));
   await waitFor(() => serverMock.history.post.length == 1);
 });
