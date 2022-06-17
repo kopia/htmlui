@@ -114,7 +114,7 @@ export function redirectIfNotConnected(e) {
  * Convert a number of milliseconds into a humanized string.
  * (e.g. 3000 --> "a few seconds")
  *
- * @see https://momentjs.com/docs/#/durations/locale/
+ * @see https://momentjs.com/docs/#/durations/humanize/
  * 
  * @param {number} ms - The number of milliseconds (i.e. some duration).
  * @returns {string} The humanized string.
