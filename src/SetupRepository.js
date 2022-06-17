@@ -67,7 +67,7 @@ export class SetupRepository extends Component {
                 indexVersion: "",
             });
         });
-        
+
         axios.get('/api/v1/current-user').then(result => {
             this.setState({
                 username: result.data.username,
@@ -212,7 +212,7 @@ export class SetupRepository extends Component {
     renderProviderSelection() {
         return <>
             <h3>Select Storage Type</h3>
-            <p>To connect to a repository or create one, select the preferred storage type.</p>
+            <p>To connect to a repository or create one, select the preferred storage type:</p>
             <Row>
                 {supportedProviders.map(x =>
                     <Button key={x.provider}
@@ -329,7 +329,7 @@ export class SetupRepository extends Component {
             <h3>Create New Repository</h3>
             <p>Enter a strong password to create Kopia repository in the provided storage.</p>
             <Row>
-                {RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "The password used to encrypt repository contents.")}
+                {RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
                 {RequiredField(this, "Confirm Repository Password", "confirmPassword", { type: "password", placeholder: "enter repository password again" })}
             </Row>
             {this.toggleAdvancedButton()}
@@ -397,8 +397,8 @@ export class SetupRepository extends Component {
 
     overrideUsernameHostnameRow() {
         return <Row>
-            {RequiredField(this, "Username", "username", {}, "Override this when restoring snapshot taken by another user.")}
-            {RequiredField(this, "Hostname", "hostname", {}, "Override this when restoring snapshot taken on another machine.")}
+            {RequiredField(this, "Username", "username", {}, "Override this when restoring a snapshot taken by another user")}
+            {RequiredField(this, "Hostname", "hostname", {}, "Override this when restoring a snapshot taken on another machine")}
         </Row>;
     }
 
@@ -424,11 +424,11 @@ export class SetupRepository extends Component {
                 </Form.Group>
             </Row>
             <Row>
-                {(this.state.provider !== "_token" && this.state.provider !== "_server") && RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "The password used to encrypt repository contents.")}
+                {(this.state.provider !== "_token" && this.state.provider !== "_server") && RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
                 {this.state.provider === "_server" && RequiredField(this, "Server Password", "password", { autoFocus: true, type: "password", placeholder: "enter password to connect to server" })}
             </Row>
             <Row>
-                {RequiredField(this, "Repository Description", "description", { autoFocus: this.state.provider === "_token", placeholder: "enter repository description" }, "Description helps you distinguish between multiple connected repositories.")}
+                {RequiredField(this, "Repository Description", "description", { autoFocus: this.state.provider === "_token", placeholder: "enter repository description" }, "Helps to distinguish between multiple connected repositories")}
             </Row>
             {this.toggleAdvancedButton()}
             <Collapse in={this.state.showAdvanced}>

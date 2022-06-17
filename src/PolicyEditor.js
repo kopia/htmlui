@@ -126,7 +126,7 @@ function ActionRowTimeout(component, action) {
 
 function ActionRowMode(component, action) {
     return <Row>
-    <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (kopia will start the action but not wait for it to finish)." />
+    <LabelColumn name="Command Mode" help="essential (must succeed, default behavior), optional (failures are tolerated) or async (Kopia will start the action but not wait for it to finish)." />
     <WideValueColumn>
         <Form.Control as="select" size="sm"
             name={"policy."+action}
@@ -303,7 +303,7 @@ export class PolicyEditor extends Component {
                 } else {
                     if (actions[actionType].timeout === undefined) {
                         actions[actionType].timeout = 300;
-                    }                
+                    }
                 }
             }
         });
@@ -509,7 +509,7 @@ export class PolicyEditor extends Component {
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Snapshot Frequency" help="How frequently to create snapshots in KopiaUI or kopia server. This option has no effect outside of the server mode." />
+                                <LabelColumn name="Snapshot Frequency" help="How frequently to create snapshots in KopiaUI or Kopia server. This option has no effect outside of the server mode." />
                                 <WideValueColumn>
                                     <Form.Control as="select" size="sm"
                                         name="policy.scheduling.intervalSeconds"
@@ -628,14 +628,14 @@ export class PolicyEditor extends Component {
                                 {EffectiveValue(this, "logging.entries.ignored")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Cache Hit" help="Log verbosity when an cache is used instead of uploading the file." />
+                                <LabelColumn name="Cache Hit" help="Log verbosity when a cache is used instead of uploading the file." />
                                 <WideValueColumn>
                                     {LogDetailSelector(this, "policy.logging.entries.cacheHit")}
                                 </WideValueColumn>
                                 {EffectiveValue(this, "logging.entries.cacheHit")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Cache Miss" help="Log verbosity when an cache cannot be used and a file must be hashed." />
+                                <LabelColumn name="Cache Miss" help="Log verbosity when a cache cannot be used and a file must be hashed." />
                                 <WideValueColumn>
                                     {LogDetailSelector(this, "policy.logging.entries.cacheHit")}
                                 </WideValueColumn>
