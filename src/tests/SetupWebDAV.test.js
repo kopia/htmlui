@@ -12,7 +12,7 @@ it('can set fields', async () => {
   // required
   changeControlValue(getByTestId("control-url"), "some-url");
   expect(ref.current.validate()).toBe(true);
-  
+
   // optional
   changeControlValue(getByTestId("control-username"), "some-username");
   changeControlValue(getByTestId("control-password"), "some-password");

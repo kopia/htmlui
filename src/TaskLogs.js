@@ -49,10 +49,10 @@ export class TaskLogs extends Component {
                 logs: result.data.logs,
                 isLoading: false,
             });
-            
+
             if (this.lastMessage(oldLogs) !== this.lastMessage(result.data.logs)) {
                 this.scrollToBottom();
-            } 
+            }
         }).catch(error => {
             redirectIfNotConnected(error);
             this.setState({

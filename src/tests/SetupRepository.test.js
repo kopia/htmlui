@@ -25,7 +25,7 @@ it('can create new repository when not initialized', async () => {
   const { getByTestId, container } = await act(() => render(<SetupRepository />));
 
   simulateClick(getByTestId('provider-filesystem'))
-  
+
   changeControlValue(await findByTestId(container, 'control-path'), "some-path")
   await act(() => simulateClick(getByTestId('submit-button')));
 

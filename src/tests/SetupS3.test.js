@@ -33,7 +33,7 @@ it('can set fields', async () => {
     "secretAccessKey": "some-secretAccessKey",
     "sessionToken": "some-sessionToken",
   });
-  
+
   toggleCheckbox(getByTestId("control-doNotUseTLS"));
   toggleCheckbox(getByTestId("control-doNotVerifyTLS"));
   expect(ref.current.state.doNotUseTLS).toBe(false);
