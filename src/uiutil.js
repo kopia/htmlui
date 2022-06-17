@@ -1,6 +1,7 @@
 import { faBan, faCheck, faChevronLeft, faCopy, faExclamationCircle, faExclamationTriangle, faFolderOpen, faTerminal, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import moment from 'moment';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -109,11 +110,39 @@ export function redirectIfNotConnected(e) {
     }
 }
 
-export function formatMilliseconds(ms) {
+/**
+ * Convert a number of milliseconds into a humanized string.
+ * (e.g. 3000 --> "a few seconds")
+ *
+ * @see https://momentjs.com/docs/#/durations/locale/
+ * 
+ * @param {number} ms - The number of milliseconds (i.e. some duration).
+ * @param {string} locale - The moment.js locale you want to use.
+ * @returns {string} The humanized string.
+ */
+ export function humanizeMilliseconds(ms, locale = "en") {
+    const duration = moment.duration(ms, "milliseconds");
+    const humanizedStr = duration.locale(locale).humanize();
+    return humanizedStr;
+}
+
+/**
+ * Convert a number of milliseconds into a formatted string, either
+ * humanized (e.g. "a few seconds") or in units of seconds (e.g. "3.2s").
+ * 
+ * @param {number} ms - The number of milliseconds (i.e. some duration).
+ * @param {boolean} humanize - Whether you want to humanize the string. 
+ * @returns {string} The formatted string.
+ */
+export function formatMilliseconds(ms, humanize = false) {
+    if (humanize) {
+        return humanizeMilliseconds(ms);
+    }
+
     return Math.round(ms / 100.0) / 10.0 + "s"
 }
 
-export function formatDuration(from, to) {
+export function formatDuration(from, to, humanize = false) {
     if (!from) {
         return "";
     }
@@ -127,12 +156,13 @@ export function formatDuration(from, to) {
         return formatMilliseconds(ms)
     }
 
-    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf());
+    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf(), humanize);
 }
 
 export function taskStatusSymbol(task) {
     const st = task.status;
     const dur = formatDuration(task.startTime, task.endTime);
+    const humanizedDur = formatDuration(task.startTime, task.endTime, true);
 
     switch (st) {
         case "RUNNING":
@@ -143,13 +173,13 @@ export function taskStatusSymbol(task) {
             </>;
 
         case "SUCCESS":
-            return <p><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {humanizedDur}</p>;
 
         case "FAILED":
-            return <p><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {humanizedDur}</p>;
 
         case "CANCELED":
-            return <p><FontAwesomeIcon icon={faBan} /> Canceled after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {humanizedDur}</p>;
 
         default:
             return st;
