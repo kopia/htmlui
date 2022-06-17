@@ -41,7 +41,7 @@ export class DirectoryItems extends Component {
         }, {
             id: "mtime",
             accessor: "mtime",
-            Header: "Last Mod",
+            Header: "Last Modification",
             width: 200,
             Cell: x => rfc3339TimestampForDisplay(x.cell.value),
         }, {
@@ -58,7 +58,7 @@ export class DirectoryItems extends Component {
         }, {
             id: "dirs",
             accessor: "summ.dirs",
-            Header: "Dirs",
+            Header: "Directories",
             width: 100,
         }]
 

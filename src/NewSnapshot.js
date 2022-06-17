@@ -142,15 +142,15 @@ export class NewSnapshot extends Component {
                 </Col>
                 <Col xs="auto">
                     <Button
-                        data-testid='estimate-now' 
+                        data-testid='estimate-now'
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
                         title="Estimate"
                         variant="primary"
                         onClick={this.estimate}>Estimate</Button>
                     &nbsp;
-                    <Button 
-                        data-testid='snapshot-now' 
+                    <Button
+                        data-testid='snapshot-now'
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
                         title="Snapshot Now"

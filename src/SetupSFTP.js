@@ -41,12 +41,12 @@ export class SetupSFTP extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g. example.com)" })}
+                {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g., example.com)" })}
                 {RequiredField(this, "User", "username", { placeholder: "user name" })}
-                {OptionalNumberField(this, "Port", "port", { placeholder: "port number (e.g. 22)" })}
+                {OptionalNumberField(this, "Port", "port", { placeholder: "port number (e.g., 22)" })}
             </Row>
             <Row>
-                {RequiredField(this, "Path", "path", { placeholder: "enter remote path to repository, e.g. '/mnt/data/repository'" })}
+                {RequiredField(this, "Path", "path", { placeholder: "enter remote path to repository, e.g., '/mnt/data/repository'" })}
             </Row>
             {!this.state.externalSSH && <>
                 <Row>
@@ -54,7 +54,7 @@ export class SetupSFTP extends Component {
                 </Row>
                 <Row>
                     {OptionalField(this, "Path to key file", "keyfile", { placeholder: "enter path to the key file" })}
-                    {OptionalField(this, "Path to known_hosts File", "knownHostsFile", { placeholder: "enter path to known_hosts file" })}
+                    {OptionalField(this, "Path to known_hosts File", "knownHostsFile", { placeholder: "enter path to the known_hosts file" })}
                 </Row>
                 <Row>
                     {OptionalField(this, "Key Data", "keyData", {

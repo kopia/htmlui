@@ -22,8 +22,8 @@ export class SetupS3 extends Component {
         return <>
             <Row>
                 {RequiredField(this, "S3 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
-                {RequiredField(this, "Server Endpoint", "endpoint", { placeholder: "enter server address (e.g. s3.amazonaws.com)" })}
-                {OptionalField(this, "Override S3 Region", "region", { placeholder: "enter specific region (e.g. us-west-1) or leave empty" })}
+                {RequiredField(this, "Server Endpoint", "endpoint", { placeholder: "enter server address (e.g., s3.amazonaws.com)" })}
+                {OptionalField(this, "Override S3 Region", "region", { placeholder: "enter specific region (e.g., us-west-1) or leave empty" })}
             </Row>
             <Row>
                 {RequiredBoolean(this, "Use HTTP connection (insecure)", "doNotUseTLS")}
