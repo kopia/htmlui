@@ -117,12 +117,11 @@ export function redirectIfNotConnected(e) {
  * @see https://momentjs.com/docs/#/durations/locale/
  * 
  * @param {number} ms - The number of milliseconds (i.e. some duration).
- * @param {string} locale - The moment.js locale you want to use.
  * @returns {string} The humanized string.
  */
- export function humanizeMilliseconds(ms, locale = "en") {
+ export function humanizeMilliseconds(ms) {
     const duration = moment.duration(ms, "milliseconds");
-    const humanizedStr = duration.locale(locale).humanize();
+    const humanizedStr = duration.humanize();
     return humanizedStr;
 }
 
