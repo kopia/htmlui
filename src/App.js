@@ -116,6 +116,10 @@ export default class App extends Component {
           </Navbar>
 
           <Container fluid>
+            <NavLink to="/repo" style={{ color: "inherit", textDecoration: "inherit" }}>
+              <h3 className="mb-4">{this.repoDescription}</h3>
+            </NavLink>
+
             <Switch>
               <Route path="/snapshots/new" component={NewSnapshot} />
               <Route path="/snapshots/single-source/" component={SnapshotsTable} />
