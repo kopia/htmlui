@@ -310,17 +310,18 @@ export class SetupRepository extends Component {
     }
 
     toggleAdvancedButton() {
+        // Determine button icon and text based upon component state.
+        const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
+        const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
+
         return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
             variant="secondary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
             size="sm"
         >
-            {!this.state.showAdvanced ? <>
-                <FontAwesomeIcon icon={faAngleDoubleDown} />&nbsp;Show Advanced Options
-                            </> : <>
-                <FontAwesomeIcon icon={faAngleDoubleUp} />&nbsp;Hide Advanced Options
-                            </>}
+            <FontAwesomeIcon icon={icon} style={{ marginRight: 4 }} />
+            {text}
         </Button>;
     }
 
@@ -332,9 +333,11 @@ export class SetupRepository extends Component {
                 {RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
                 {RequiredField(this, "Confirm Repository Password", "confirmPassword", { type: "password", placeholder: "enter repository password again" })}
             </Row>
-            {this.toggleAdvancedButton()}
+            <div style={{ marginTop: "1rem" }}>
+                {this.toggleAdvancedButton()}
+            </div>
             <Collapse in={this.state.showAdvanced}>
-                <div id="advanced-options-div">
+                <div id="advanced-options-div" style={{ marginTop: "1rem" }}>
                     <Row>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Encryption</Form.Label>
@@ -379,9 +382,9 @@ export class SetupRepository extends Component {
                         </Form.Group>
                     </Row>
                     {this.overrideUsernameHostnameRow()}
-                    <Row>
+                    <Row style={{ marginTop: "1rem" }}>
                         <Form.Group as={Col}>
-                            <Form.Text>Additional parameters can be set when creating repository using command line</Form.Text>
+                            <Form.Text>Additional parameters can be set when creating repository using command line.</Form.Text>
                         </Form.Group>
                     </Row>
                 </div>

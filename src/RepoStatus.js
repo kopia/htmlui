@@ -11,7 +11,7 @@ import { handleChange } from './forms';
 import { SetupRepository } from './SetupRepository';
 import { cancelTask, CLIEquivalent } from './uiutil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { TaskLogs } from './TaskLogs';
 import { AppContext } from './AppContext';
 
@@ -62,6 +62,9 @@ export class RepoStatus extends Component {
                     isLoading: false,
                 });
 
+                // Update the app context to reflect the successfully-loaded description.
+                this.context.repoDescription = result.data.description;
+
                 if (result.data.initTaskID) {
                     window.setTimeout(() => {
                         this.fetchStatusWithoutSpinner();
@@ -100,6 +103,9 @@ export class RepoStatus extends Component {
         axios.post('/api/v1/repo/description', {
             "description": this.state.status.description,
         }).then(result => {
+            // Update the app context to reflect the successfully-saved description.
+            this.context.repoDescription = this.state.status.description;
+
             this.setState({
                 isLoading: false,
             });
@@ -133,7 +139,10 @@ export class RepoStatus extends Component {
 
         if (this.state.status.connected) {
             return <>
-                <h3>Connected To Repository</h3>
+                <p className="text-success mb-1">
+                    <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
+                    <span>Connected To Repository</span>
+                </p>
                 <Form onSubmit={this.updateDescription}>
                     <Row>
                         <Form.Group as={Col}>

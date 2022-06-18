@@ -1,3 +1,7 @@
 import React from 'react';
 
-export const AppContext = React.createContext({});
+const defaultValue = {
+    repoDescription: "",
+};
+
+export const AppContext = React.createContext(defaultValue);
