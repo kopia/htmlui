@@ -5,4 +5,3 @@ const defaultValue = {
 };
 
 export const AppContext = React.createContext(defaultValue);
-

@@ -272,7 +272,7 @@ export class PoliciesTable extends Component {
                         </Col>
                         {(this.state.selectedOwner === localPolicies || this.state.selectedOwner === this.state.localSourceName || this.state.selectedOwner === applicablePolicies) ? <>
                             <Col>
-                                <DirectorySelector autoFocus onDirectorySelected={p => this.setState({ policyPath: p })} 
+                                <DirectorySelector autoFocus onDirectorySelected={p => this.setState({ policyPath: p })}
                                 placeholder="enter directory to find or set policy"
                                 name="policyPath" value={this.state.policyPath} onChange={this.handleChange} />
                             </Col>

@@ -111,7 +111,7 @@ it('e2e', async () => {
     function closeFunc() {
         closeCalled++;
     }
-    
+
     const { getByTestId } = render(<MemoryRouter>
         <PolicyEditor ref={ref} host="some-host" userName="some-user" path="some-path" close={closeFunc} />
     </MemoryRouter>)
@@ -121,7 +121,7 @@ it('e2e', async () => {
     if (false) {
         logDOM(getByTestId("definition-retention.keepHourly"));
     }
-    
+
     await waitFor(() => expect(getByTestId("definition-retention.keepLatest").innerHTML).toContain(`Directory: some-user@h1:some-path`));
     await waitFor(() => expect(getByTestId("definition-retention.keepMonthly").innerHTML).toContain("Directory: u1@h1:p1"));
 

@@ -279,4 +279,3 @@ export function CLIEquivalent(props) {
         </InputGroup>
     </>;
 }
-

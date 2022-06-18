@@ -151,7 +151,7 @@ export class TasksTable extends Component {
                             </Dropdown>
                         </Col>
                         <Col xs="4">
-                            <Form.Control size="sm" type="text" name="searchDescription" placeholder="search description" value={this.state.searchDescription} onChange={this.handleChange} autoFocus={true} />
+                            <Form.Control size="sm" type="text" name="searchDescription" placeholder="case-sensitive search description" value={this.state.searchDescription} onChange={this.handleChange} autoFocus={true} />
                         </Col>
                     </Row>
                 </div>

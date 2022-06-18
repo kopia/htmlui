@@ -47,7 +47,7 @@ export function RequiredField(component, label, name, props = {}, helpText = nul
             onChange={component.handleChange}
             {...props} />
         {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
-        <Form.Control.Feedback type="invalid">{label} Is Required</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">Required field</Form.Control.Feedback>
     </Form.Group>
 }
 
@@ -264,10 +264,10 @@ export function TimesOfDayList(component, name) {
 
             return tmp.join("\n");
         }
-    
+
         return "";
     }
-    
+
     function fromMultilineString(target) {
         const v = target.value;
         if (v === "") {
@@ -275,14 +275,14 @@ export function TimesOfDayList(component, name) {
         }
 
         let result = [];
-    
+
         for (const line of v.split(/\n/)) {
             result.push(parseTimeOfDay(line));
         };
 
         return result;
     }
-    
+
     return <FormGroup>
         <Form.Control
             size="sm"

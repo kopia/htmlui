@@ -20,7 +20,7 @@ export class SetupFilesystem extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter path to a directory where to store repository files" })}
+                {RequiredField(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter directory path where you want to store repository files" })}
             </Row>
         </>;
     }

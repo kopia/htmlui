@@ -73,7 +73,7 @@ export class EstimateResults extends Component {
         if (task.status === "RUNNING") {
             return <><Spinner animation="border" variant="primary" size="sm" /></>
         }
-        
+
         if (task.status === "SUCCESS") {
             return "Total"
         }
@@ -97,10 +97,10 @@ export class EstimateResults extends Component {
 
         return <>
             {task.counters && <Form.Text className="estimateResults">
-                {this.taskStatusDescription(task)} Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value)}</b> (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value)}</b> excluded) 
-                Files: <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> excluded) 
-                Directories: <b>{task.counters["Directories"]?.value}</b> (<b>{task.counters["Excluded Directories"]?.value}</b> excluded) 
-                Errors: <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> ignored) 
+                {this.taskStatusDescription(task)} Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value)}</b> (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value)}</b> excluded)
+                Files: <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> excluded)
+                Directories: <b>{task.counters["Directories"]?.value}</b> (<b>{task.counters["Excluded Directories"]?.value}</b> excluded)
+                Errors: <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> ignored)
                 </Form.Text>
             }
                     {task.status === "RUNNING" && <>
