@@ -112,17 +112,83 @@ export function redirectIfNotConnected(e) {
 
 /**
  * Convert a number of milliseconds into a humanized string.
- * (e.g. 3000 --> "a few seconds")
+ * (e.g. 3000 --> "3 seconds")
  *
- * @see https://momentjs.com/docs/#/durations/humanize/
- * 
- * @param {number} ms - The number of milliseconds (i.e. some duration).
+ * @param {ms} ms - The original duration (i.e. some number of milliseconds).
  * @returns {string} The humanized string.
  */
- export function humanizeMilliseconds(ms) {
-    const duration = moment.duration(ms, "milliseconds");
-    const humanizedStr = duration.humanize();
-    return humanizedStr;
+export function humanizeMilliseconds(ms) {
+    const t = separateMillisecondsIntoMultipleUnits(ms);
+    const str = formatMultipleUnits(t);
+    return str;
+}
+
+/**
+ * Separate a duration into integer magnitudes of multiple units which,
+ * when combined together, equal the original duration (minus any partial
+ * milliseconds, if the original duration included any partial milliseconds).
+ * 
+ * e.g. 100000123.999 --> 1 days 3 hours 46 minutes 40 seconds 123 milliseconds
+ * 
+ * @param {ms} ms - The original duration (i.e. some number of milliseconds).
+ * @returns {object} Multi-unit representation of the original duration.
+ */
+export function separateMillisecondsIntoMultipleUnits(ms) {
+    const magnitudes = {
+        days: Math.trunc(ms / (1000 * 60 * 60 * 24)),
+        hours: Math.trunc(ms / (1000 * 60 * 60)) % 24,
+        minutes: Math.trunc(ms / (1000 * 60)) % 60,
+        seconds: Math.trunc(ms / 1000) % 60,
+        milliseconds: Math.trunc(ms) % 1000,
+    };
+
+    return magnitudes;
+}
+
+/**
+ * Format a duration in terms of the largest unit having a non-zero magnitude,
+ * together with the next largest unit (e.g. hours --> hours and minutes),
+ * disregarding all smaller units (i.e. truncate, as opposed to round).
+ * 
+ * There are some exceptions, which are listed below.
+ * 
+ * Exceptions:
+ * 1. If the largest unit having a non-zero magnitude is `seconds` and the
+ *    magnitude is at least 10, format it as an integer number of seconds.
+ * 2. If the largest unit having a non-zero magnitude is `seconds` and the
+ *    magnitude is less than 10, or if the largest unit having a non-zero
+ *    magnitude is `milliseconds`, format it as a fractional number of seconds.
+ * 
+ * @param {object} magnitudes - An object having numeric properties named
+ *                              `days`, `hours`, `minutes`, `seconds`, and
+ *                              `milliseconds`; whose values, when combined
+ *                              together, represent a duration.
+ * @returns {string} Formatted string representing the specified duration.
+ */
+export function formatMultipleUnits(magnitudes) {
+    let str;
+
+    if (magnitudes.days > 0) {
+        str = `${magnitudes.days} days ${magnitudes.hours} hours`;
+    } else if (magnitudes.hours > 0) {
+        str = `${magnitudes.hours} hours ${magnitudes.minutes} minutes`;
+    } else if (magnitudes.minutes > 0) {
+        str = `${magnitudes.minutes} minutes ${magnitudes.seconds} seconds`;
+    } else if (magnitudes.seconds >= 10) {
+        str = `${magnitudes.seconds} seconds`;
+    } else {
+        // Combine the magnitudes into the equivalent number of milliseconds.
+        const ms = (
+            magnitudes.milliseconds +
+            magnitudes.seconds * 1000 +
+            magnitudes.minutes * 60 * 1000 +
+            magnitudes.hours * 60 * 60 * 1000 +
+            magnitudes.days * 24 * 60 * 60 * 1000
+        );
+        str = `${ms / 1000} seconds`;
+    }
+    
+    return str;
 }
 
 /**
