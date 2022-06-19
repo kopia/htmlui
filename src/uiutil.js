@@ -184,9 +184,12 @@ export function formatMultipleUnits(magnitudes) {
             magnitudes.hours * 60 * 60 * 1000 +
             magnitudes.days * 24 * 60 * 60 * 1000
         );
-        str = `${ms / 1000} seconds`;
+
+        // Convert into seconds and round to the nearest tenth of a second.
+        const seconds = ms / 1000;
+        str = `${seconds.toFixed(1)} seconds`;
     }
-    
+
     return str;
 }
 

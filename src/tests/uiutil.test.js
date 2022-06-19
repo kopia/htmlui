@@ -10,8 +10,8 @@ describe("formatMilliseconds", () => {
     });
 
     it("uses humanized format if flag is set", () => {
-        expect(formatMilliseconds(        1, true)).toBe("0.001 seconds");
-        expect(formatMilliseconds(    1_000, true)).toBe("1 seconds");
+        expect(formatMilliseconds(        1, true)).toBe("0.0 seconds");
+        expect(formatMilliseconds(    1_000, true)).toBe("1.0 seconds");
         expect(formatMilliseconds(   60_000, true)).toBe("1 minutes 0 seconds");
         expect(formatMilliseconds( 3600_000, true)).toBe("1 hours 0 minutes");
         expect(formatMilliseconds(86400_000, true)).toBe("1 days 0 hours");
@@ -61,36 +61,36 @@ describe("formatMultipleUnits", () => {
 
     it("represents durations (T < 1 second) using seconds (fractional)", () => {
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("0 seconds");
+        expect(fn(magnitudes)).toBe("0.0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 1 };
-        expect(fn(magnitudes)).toBe("0.001 seconds");
+        expect(fn(magnitudes)).toBe("0.0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 10 };
-        expect(fn(magnitudes)).toBe("0.01 seconds");
+        expect(fn(magnitudes)).toBe("0.0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 100 };
         expect(fn(magnitudes)).toBe("0.1 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("0.999 seconds");
+        expect(fn(magnitudes)).toBe("1.0 seconds"); // input was < 1, but rounded value is 1
     });
 
     it("represents durations (1 second <= T < 10 seconds) using seconds (fractional)", () => {
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 1, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 seconds");
+        expect(fn(magnitudes)).toBe("1.0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 1, milliseconds: 1 };
-        expect(fn(magnitudes)).toBe("1.001 seconds");
+        expect(fn(magnitudes)).toBe("1.0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 1, milliseconds: 10 };
-        expect(fn(magnitudes)).toBe("1.01 seconds");
+        expect(fn(magnitudes)).toBe("1.0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 1, milliseconds: 100 };
         expect(fn(magnitudes)).toBe("1.1 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 9, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("9.999 seconds");
+        expect(fn(magnitudes)).toBe("10.0 seconds"); // input was < 10, but rounded value is 10
     });
 
     it("represents durations (10 seconds <= T < 1 minute) using seconds (integer)", () => {
@@ -149,6 +149,6 @@ describe("formatMultipleUnits", () => {
         expect(fn(magnitudes)).toBe("1 days 23 hours");
 
         magnitudes = { days: 7, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("7 days 0 hours"); // no special treatment for a week
+        expect(fn(magnitudes)).toBe("7 days 0 hours"); // even a week uses units of days
     });
 });
