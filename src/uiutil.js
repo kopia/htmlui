@@ -127,7 +127,7 @@ export function humanizeMilliseconds(ms) {
  * when combined together, equal the original duration (minus any partial
  * milliseconds, if the original duration included any partial milliseconds).
  * 
- * e.g. 100000123.999 --> 1 days 3 hours 46 minutes 40 seconds 123 milliseconds
+ * e.g. 100000123.999 --> 1 day 3 hours 46 minutes 40 seconds 123 milliseconds
  * 
  * @param {ms} ms - The original duration (i.e. some number of milliseconds).
  * @returns {object} Multi-unit representation of the original duration.
@@ -167,16 +167,26 @@ export function separateMillisecondsIntoMultipleUnits(ms) {
 export function formatMultipleUnits(magnitudes) {
     let str;
 
+    // Determine whether we will use the singular or plural form of each unit name.
+    const units = {
+        days: magnitudes.days === 1 ? "day" : "days",
+        hours: magnitudes.hours === 1 ? "hour" : "hours",
+        minutes: magnitudes.minutes === 1 ? "minute" : "minutes",
+        seconds: magnitudes.seconds === 1 ? "second" : "seconds",
+        milliseconds: magnitudes.milliseconds === 1 ? "millisecond" : "milliseconds",
+    };
+
+    // Format the duration, depending upon the magnitudes of its parts.
     if (magnitudes.days > 0) {
-        str = `${magnitudes.days} days ${magnitudes.hours} hours`;
+        str = `${magnitudes.days} ${units.days} ${magnitudes.hours} ${units.hours}`;
     } else if (magnitudes.hours > 0) {
-        str = `${magnitudes.hours} hours ${magnitudes.minutes} minutes`;
+        str = `${magnitudes.hours} ${units.hours} ${magnitudes.minutes} ${units.minutes}`;
     } else if (magnitudes.minutes > 0) {
-        str = `${magnitudes.minutes} minutes ${magnitudes.seconds} seconds`;
+        str = `${magnitudes.minutes} ${units.minutes} ${magnitudes.seconds} ${units.seconds}`;
     } else if (magnitudes.seconds >= 10) {
-        str = `${magnitudes.seconds} seconds`;
+        str = `${magnitudes.seconds} ${units.seconds}`;
     } else {
-        // Combine the magnitudes into the equivalent number of milliseconds.
+        // Combine the magnitudes into the equivalent total number of milliseconds.
         const ms = (
             magnitudes.milliseconds +
             magnitudes.seconds * 1000 +
@@ -186,6 +196,8 @@ export function formatMultipleUnits(magnitudes) {
         );
 
         // Convert into seconds and round to the nearest tenth of a second.
+        // Use the plural form of the unit name, since the number will have
+        // a digit after a decimal point (e.g. "1.0 seconds").
         const seconds = ms / 1000;
         str = `${seconds.toFixed(1)} seconds`;
     }
@@ -195,10 +207,10 @@ export function formatMultipleUnits(magnitudes) {
 
 /**
  * Convert a number of milliseconds into a formatted string, either
- * humanized (e.g. "a few seconds") or in units of seconds (e.g. "3.2s").
+ * humanized (e.g. "1 minute 5 seconds") or in units of seconds (e.g. "65.0s").
  * 
  * @param {number} ms - The number of milliseconds (i.e. some duration).
- * @param {boolean} humanize - Whether you want to humanize the string. 
+ * @param {boolean} humanize - Whether you want to humanize the string.
  * @returns {string} The formatted string.
  */
 export function formatMilliseconds(ms, humanize = false) {

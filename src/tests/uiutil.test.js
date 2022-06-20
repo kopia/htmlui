@@ -12,9 +12,9 @@ describe("formatMilliseconds", () => {
     it("uses humanized format if flag is set", () => {
         expect(formatMilliseconds(        1, true)).toBe("0.0 seconds");
         expect(formatMilliseconds(    1_000, true)).toBe("1.0 seconds");
-        expect(formatMilliseconds(   60_000, true)).toBe("1 minutes 0 seconds");
-        expect(formatMilliseconds( 3600_000, true)).toBe("1 hours 0 minutes");
-        expect(formatMilliseconds(86400_000, true)).toBe("1 days 0 hours");
+        expect(formatMilliseconds(   60_000, true)).toBe("1 minute 0 seconds");
+        expect(formatMilliseconds( 3600_000, true)).toBe("1 hour 0 minutes");
+        expect(formatMilliseconds(86400_000, true)).toBe("1 day 0 hours");
     });
 });
 
@@ -109,13 +109,13 @@ describe("formatMultipleUnits", () => {
 
     it("represents durations (1 minute <= T < 1 hour) using minutes (integer) and seconds (integer)", () => {
         magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 minutes 0 seconds");
+        expect(fn(magnitudes)).toBe("1 minute 0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 0, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("1 minutes 0 seconds");
+        expect(fn(magnitudes)).toBe("1 minute 0 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 1, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 minutes 1 seconds");
+        expect(fn(magnitudes)).toBe("1 minute 1 second");
 
         magnitudes = { days: 0, hours: 0, minutes: 59, seconds: 59, milliseconds: 999 };
         expect(fn(magnitudes)).toBe("59 minutes 59 seconds");
@@ -123,13 +123,13 @@ describe("formatMultipleUnits", () => {
 
     it("represents durations (1 hour <= T < 1 day) using hours (integer) and minutes (integer)", () => {
         magnitudes = { days: 0, hours: 1, minutes: 0, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 hours 0 minutes");
+        expect(fn(magnitudes)).toBe("1 hour 0 minutes");
 
         magnitudes = { days: 0, hours: 1, minutes: 0, seconds: 59, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("1 hours 0 minutes");
+        expect(fn(magnitudes)).toBe("1 hour 0 minutes");
 
         magnitudes = { days: 0, hours: 1, minutes: 1, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 hours 1 minutes");
+        expect(fn(magnitudes)).toBe("1 hour 1 minute");
 
         magnitudes = { days: 0, hours: 23, minutes: 59, seconds: 59, milliseconds: 999 };
         expect(fn(magnitudes)).toBe("23 hours 59 minutes");
@@ -137,18 +137,38 @@ describe("formatMultipleUnits", () => {
 
     it("represents durations (T >= 1 day) using days (integer) and hours (integer)", () => {
         magnitudes = { days: 1, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 days 0 hours");
+        expect(fn(magnitudes)).toBe("1 day 0 hours");
 
         magnitudes = { days: 1, hours: 0, minutes: 59, seconds: 59, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("1 days 0 hours");
+        expect(fn(magnitudes)).toBe("1 day 0 hours");
 
         magnitudes = { days: 1, hours: 1, minutes: 0, seconds: 0, milliseconds: 0 };
-        expect(fn(magnitudes)).toBe("1 days 1 hours");
+        expect(fn(magnitudes)).toBe("1 day 1 hour");
 
         magnitudes = { days: 1, hours: 23, minutes: 59, seconds: 59, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("1 days 23 hours");
+        expect(fn(magnitudes)).toBe("1 day 23 hours");
 
         magnitudes = { days: 7, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
         expect(fn(magnitudes)).toBe("7 days 0 hours"); // even a week uses units of days
+    });
+
+    it("uses correct singular vs. plural unit names", () => {
+        magnitudes = { days: 1, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1 day 0 hours");
+
+        magnitudes = { days: 1, hours: 1, minutes: 0, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1 day 1 hour");
+
+        magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1 minute 0 seconds");
+
+        magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 1, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1 minute 1 second");
+
+        magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 1, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1.0 seconds"); // plural, since it includes decimal places
+
+        magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 1 };
+        expect(fn(magnitudes)).toBe("0.0 seconds");
     });
 });
