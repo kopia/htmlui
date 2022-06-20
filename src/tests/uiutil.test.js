@@ -1,4 +1,4 @@
-import { formatMilliseconds, separateMillisecondsIntoMultipleUnits, formatMultipleUnits } from "../uiutil";
+import { formatMilliseconds, separateMillisecondsIntoMagnitudes, formatMagnitudesUsingMultipleUnits } from "../uiutil";
 
 describe("formatMilliseconds", () => {
     it("uses 'XXs' format by default", () => {
@@ -9,18 +9,18 @@ describe("formatMilliseconds", () => {
         expect(formatMilliseconds(86400_000)).toBe("86400s"); // 1d
     });
 
-    it("uses humanized format if flag is set", () => {
-        expect(formatMilliseconds(        1, true)).toBe("0.0 seconds");
-        expect(formatMilliseconds(    1_000, true)).toBe("1.0 seconds");
-        expect(formatMilliseconds(   60_000, true)).toBe("1 minute 0 seconds");
-        expect(formatMilliseconds( 3600_000, true)).toBe("1 hour 0 minutes");
-        expect(formatMilliseconds(86400_000, true)).toBe("1 day 0 hours");
+    it("uses multi-unit format if flag is set", () => {
+        expect(formatMilliseconds(        1, true)).toBe("0.0s");
+        expect(formatMilliseconds(    1_000, true)).toBe("1.0s");
+        expect(formatMilliseconds(   60_000, true)).toBe("1m 0s");
+        expect(formatMilliseconds( 3600_000, true)).toBe("1h 0m");
+        expect(formatMilliseconds(86400_000, true)).toBe("1d 0h");
     });
 });
 
-describe("separateMillisecondsIntoMultipleUnits", () => {
+describe("separateMillisecondsIntoMagnitudes", () => {
     // Concise alias for function-under-test.
-    const fn = separateMillisecondsIntoMultipleUnits;
+    const fn = separateMillisecondsIntoMagnitudes;
 
     it("handles 0 milliseconds", () => {
         expect(fn(0)).toMatchObject({
@@ -53,11 +53,11 @@ describe("separateMillisecondsIntoMultipleUnits", () => {
     });
 });
 
-describe("formatMultipleUnits", () => {
+describe("formatMagnitudesUsingMultipleUnits", () => {
     let magnitudes;
 
     // Concise alias for function-under-test.
-    const fn = formatMultipleUnits;
+    const fn = formatMagnitudesUsingMultipleUnits;
 
     it("represents durations (T < 1 second) using seconds (fractional)", () => {
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
@@ -171,4 +171,24 @@ describe("formatMultipleUnits", () => {
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 1 };
         expect(fn(magnitudes)).toBe("0.0 seconds");
     });
+
+    it("uses abbreviated unit names when caller requests it", () => {
+        magnitudes = { days: 1, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes, true)).toBe("1d 0h");
+
+        magnitudes = { days: 1, hours: 1, minutes: 0, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes, true)).toBe("1d 1h");
+
+        magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes, true)).toBe("1m 0s");
+
+        magnitudes = { days: 0, hours: 0, minutes: 1, seconds: 1, milliseconds: 0 };
+        expect(fn(magnitudes, true)).toBe("1m 1s");
+
+        magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 1, milliseconds: 0 };
+        expect(fn(magnitudes, true)).toBe("1.0s");
+
+        magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 1 };
+        expect(fn(magnitudes, true)).toBe("0.0s");
+    });    
 });

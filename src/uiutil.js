@@ -110,15 +110,16 @@ export function redirectIfNotConnected(e) {
 }
 
 /**
- * Convert a number of milliseconds into a humanized string.
- * (e.g. 3000 --> "3 seconds")
+ * Convert a number of milliseconds into a string containing multiple units.
+ * 
+ * e.g. 90000 --> "1m 30s" or "1 minute 30 seconds"
  *
- * @param {ms} ms - The original duration (i.e. some number of milliseconds).
- * @returns {string} The humanized string.
+ * @param {number} ms - A duration (as a number of milliseconds).
+ * @returns {string} A string representation of the duration.
  */
-export function humanizeMilliseconds(ms) {
-    const t = separateMillisecondsIntoMultipleUnits(ms);
-    const str = formatMultipleUnits(t);
+export function formatMillisecondsUsingMultipleUnits(ms) {
+    const magnitudes = separateMillisecondsIntoMagnitudes(ms);
+    const str = formatMagnitudesUsingMultipleUnits(magnitudes, true);
     return str;
 }
 
@@ -129,10 +130,13 @@ export function humanizeMilliseconds(ms) {
  * 
  * e.g. 100000123.999 --> 1 day 3 hours 46 minutes 40 seconds 123 milliseconds
  * 
- * @param {ms} ms - The original duration (i.e. some number of milliseconds).
- * @returns {object} Multi-unit representation of the original duration.
+ * @param {number} ms - A duration (as a number of milliseconds).
+ * @returns {object} An object having numeric properties named `days`, `hours`,
+ *                   `minutes`, `seconds`, and `milliseconds`; whose values,
+ *                   when combined together, represent the original duration
+ *                   (minus any partial milliseconds).
  */
-export function separateMillisecondsIntoMultipleUnits(ms) {
+export function separateMillisecondsIntoMagnitudes(ms) {
     const magnitudes = {
         days: Math.trunc(ms / (1000 * 60 * 60 * 24)),
         hours: Math.trunc(ms / (1000 * 60 * 60)) % 24,
@@ -162,29 +166,38 @@ export function separateMillisecondsIntoMultipleUnits(ms) {
  *                              `days`, `hours`, `minutes`, `seconds`, and
  *                              `milliseconds`; whose values, when combined
  *                              together, represent a duration.
+ * @param {boolean} abbreviateUnits - Whether you want to use short unit names.
  * @returns {string} Formatted string representing the specified duration.
  */
-export function formatMultipleUnits(magnitudes) {
+export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits = false) {
     let str;
 
-    // Determine whether we will use the singular or plural form of each unit name.
-    const units = {
-        days: magnitudes.days === 1 ? "day" : "days",
-        hours: magnitudes.hours === 1 ? "hour" : "hours",
-        minutes: magnitudes.minutes === 1 ? "minute" : "minutes",
-        seconds: magnitudes.seconds === 1 ? "second" : "seconds",
-        milliseconds: magnitudes.milliseconds === 1 ? "millisecond" : "milliseconds",
+    // Define the label we will use for each unit, depending upon whether that
+    // unit's magnitude is `1` or not (e.g. "0 minutes" vs. "1 minute").
+    // Note: This object is not used in the final "else" block below.
+    const units = abbreviateUnits ? {
+        days: magnitudes.days === 1 ? "d" : "d",
+        hours: magnitudes.hours === 1 ? "h" : "h",
+        minutes: magnitudes.minutes === 1 ? "m" : "m",
+        seconds: magnitudes.seconds === 1 ? "s" : "s",
+        milliseconds: magnitudes.milliseconds === 1 ? "ms" : "ms",
+    } : {
+        days: magnitudes.days === 1 ? " day" : " days",
+        hours: magnitudes.hours === 1 ? " hour" : " hours",
+        minutes: magnitudes.minutes === 1 ? " minute" : " minutes",
+        seconds: magnitudes.seconds === 1 ? " second" : " seconds",
+        milliseconds: magnitudes.milliseconds === 1 ? " millisecond" : " milliseconds",
     };
 
     // Format the duration, depending upon the magnitudes of its parts.
     if (magnitudes.days > 0) {
-        str = `${magnitudes.days} ${units.days} ${magnitudes.hours} ${units.hours}`;
+        str = `${magnitudes.days}${units.days} ${magnitudes.hours}${units.hours}`;
     } else if (magnitudes.hours > 0) {
-        str = `${magnitudes.hours} ${units.hours} ${magnitudes.minutes} ${units.minutes}`;
+        str = `${magnitudes.hours}${units.hours} ${magnitudes.minutes}${units.minutes}`;
     } else if (magnitudes.minutes > 0) {
-        str = `${magnitudes.minutes} ${units.minutes} ${magnitudes.seconds} ${units.seconds}`;
+        str = `${magnitudes.minutes}${units.minutes} ${magnitudes.seconds}${units.seconds}`;
     } else if (magnitudes.seconds >= 10) {
-        str = `${magnitudes.seconds} ${units.seconds}`;
+        str = `${magnitudes.seconds}${units.seconds}`;
     } else {
         // Combine the magnitudes into the equivalent total number of milliseconds.
         const ms = (
@@ -196,10 +209,10 @@ export function formatMultipleUnits(magnitudes) {
         );
 
         // Convert into seconds and round to the nearest tenth of a second.
-        // Use the plural form of the unit name, since the number will have
-        // a digit after a decimal point (e.g. "1.0 seconds").
+        // Given that the number always has a decimal place, use the "plural"
+        // unit label, even if the number is `1.0`.
         const seconds = ms / 1000;
-        str = `${seconds.toFixed(1)} seconds`;
+        str = `${seconds.toFixed(1)}${abbreviateUnits ? "s" : " seconds"}`;
     }
 
     return str;
@@ -207,21 +220,21 @@ export function formatMultipleUnits(magnitudes) {
 
 /**
  * Convert a number of milliseconds into a formatted string, either
- * humanized (e.g. "1 minute 5 seconds") or in units of seconds (e.g. "65.0s").
+ * using multiple units (e.g. "1m 5s") or using seconds (e.g. "65.0s").
  * 
  * @param {number} ms - The number of milliseconds (i.e. some duration).
- * @param {boolean} humanize - Whether you want to humanize the string.
+ * @param {boolean} useMultipleUnits - Whether you want to use multiple units.
  * @returns {string} The formatted string.
  */
-export function formatMilliseconds(ms, humanize = false) {
-    if (humanize) {
-        return humanizeMilliseconds(ms);
+export function formatMilliseconds(ms, useMultipleUnits = false) {
+    if (useMultipleUnits) {
+        return formatMillisecondsUsingMultipleUnits(ms);
     }
 
     return Math.round(ms / 100.0) / 10.0 + "s"
 }
 
-export function formatDuration(from, to, humanize = false) {
+export function formatDuration(from, to, useMultipleUnits = false) {
     if (!from) {
         return "";
     }
@@ -235,13 +248,13 @@ export function formatDuration(from, to, humanize = false) {
         return formatMilliseconds(ms)
     }
 
-    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf(), humanize);
+    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf(), useMultipleUnits);
 }
 
 export function taskStatusSymbol(task) {
     const st = task.status;
     const dur = formatDuration(task.startTime, task.endTime);
-    const humanizedDur = formatDuration(task.startTime, task.endTime, true);
+    const durMultiUnit = formatDuration(task.startTime, task.endTime, true);
 
     switch (st) {
         case "RUNNING":
@@ -252,13 +265,13 @@ export function taskStatusSymbol(task) {
             </>;
 
         case "SUCCESS":
-            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {humanizedDur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {durMultiUnit}</p>;
 
         case "FAILED":
-            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {humanizedDur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {durMultiUnit}</p>;
 
         case "CANCELED":
-            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {humanizedDur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {durMultiUnit}</p>;
 
         default:
             return st;
