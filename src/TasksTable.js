@@ -105,13 +105,13 @@ export class TasksTable extends Component {
 
         const columns = [{
             Header: 'Start Time',
-            width: 200,
+            width: 160,
             accessor: x => <Link to={'/tasks/' + x.id} title={moment(x.startTime).toLocaleString()}>
                 {moment(x.startTime).fromNow()}
             </Link>
         }, {
             Header: 'Status',
-            width: 200,
+            width: 240,
             accessor: x => taskStatusSymbol(x),
         }, {
             Header: 'Kind',

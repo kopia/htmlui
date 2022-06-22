@@ -109,11 +109,132 @@ export function redirectIfNotConnected(e) {
     }
 }
 
-export function formatMilliseconds(ms) {
+/**
+ * Convert a number of milliseconds into a string containing multiple units.
+ * 
+ * e.g. 90000 --> "1m 30s" or "1 minute 30 seconds"
+ *
+ * @param {number} ms - A duration (as a number of milliseconds).
+ * @returns {string} A string representation of the duration.
+ */
+export function formatMillisecondsUsingMultipleUnits(ms) {
+    const magnitudes = separateMillisecondsIntoMagnitudes(ms);
+    const str = formatMagnitudesUsingMultipleUnits(magnitudes, true);
+    return str;
+}
+
+/**
+ * Separate a duration into integer magnitudes of multiple units which,
+ * when combined together, equal the original duration (minus any partial
+ * milliseconds, if the original duration included any partial milliseconds).
+ * 
+ * e.g. 100000123.999 --> 1 day 3 hours 46 minutes 40 seconds 123 milliseconds
+ * 
+ * @param {number} ms - A duration (as a number of milliseconds).
+ * @returns {object} An object having numeric properties named `days`, `hours`,
+ *                   `minutes`, `seconds`, and `milliseconds`; whose values,
+ *                   when combined together, represent the original duration
+ *                   (minus any partial milliseconds).
+ */
+export function separateMillisecondsIntoMagnitudes(ms) {
+    const magnitudes = {
+        days: Math.trunc(ms / (1000 * 60 * 60 * 24)),
+        hours: Math.trunc(ms / (1000 * 60 * 60)) % 24,
+        minutes: Math.trunc(ms / (1000 * 60)) % 60,
+        seconds: Math.trunc(ms / 1000) % 60,
+        milliseconds: Math.trunc(ms) % 1000,
+    };
+
+    return magnitudes;
+}
+
+/**
+ * Format a duration in terms of the largest unit having a non-zero magnitude,
+ * together with the next largest unit (e.g. hours --> hours and minutes),
+ * disregarding all smaller units (i.e. truncate, as opposed to round).
+ * 
+ * There are some exceptions, which are listed below.
+ * 
+ * Exceptions:
+ * 1. If the largest unit having a non-zero magnitude is `seconds` and the
+ *    magnitude is at least 10, format it as an integer number of seconds.
+ * 2. If the largest unit having a non-zero magnitude is `seconds` and the
+ *    magnitude is less than 10, or if the largest unit having a non-zero
+ *    magnitude is `milliseconds`, format it as a fractional number of seconds.
+ * 
+ * @param {object} magnitudes - An object having numeric properties named
+ *                              `days`, `hours`, `minutes`, `seconds`, and
+ *                              `milliseconds`; whose values, when combined
+ *                              together, represent a duration.
+ * @param {boolean} abbreviateUnits - Whether you want to use short unit names.
+ * @returns {string} Formatted string representing the specified duration.
+ */
+export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits = false) {
+    let str;
+
+    // Define the label we will use for each unit, depending upon whether that
+    // unit's magnitude is `1` or not (e.g. "0 minutes" vs. "1 minute").
+    // Note: This object is not used in the final "else" block below.
+    const units = abbreviateUnits ? {
+        days: magnitudes.days === 1 ? "d" : "d",
+        hours: magnitudes.hours === 1 ? "h" : "h",
+        minutes: magnitudes.minutes === 1 ? "m" : "m",
+        seconds: magnitudes.seconds === 1 ? "s" : "s",
+        milliseconds: magnitudes.milliseconds === 1 ? "ms" : "ms",
+    } : {
+        days: magnitudes.days === 1 ? " day" : " days",
+        hours: magnitudes.hours === 1 ? " hour" : " hours",
+        minutes: magnitudes.minutes === 1 ? " minute" : " minutes",
+        seconds: magnitudes.seconds === 1 ? " second" : " seconds",
+        milliseconds: magnitudes.milliseconds === 1 ? " millisecond" : " milliseconds",
+    };
+
+    // Format the duration, depending upon the magnitudes of its parts.
+    if (magnitudes.days > 0) {
+        str = `${magnitudes.days}${units.days} ${magnitudes.hours}${units.hours}`;
+    } else if (magnitudes.hours > 0) {
+        str = `${magnitudes.hours}${units.hours} ${magnitudes.minutes}${units.minutes}`;
+    } else if (magnitudes.minutes > 0) {
+        str = `${magnitudes.minutes}${units.minutes} ${magnitudes.seconds}${units.seconds}`;
+    } else if (magnitudes.seconds >= 10) {
+        str = `${magnitudes.seconds}${units.seconds}`;
+    } else {
+        // Combine the magnitudes into the equivalent total number of milliseconds.
+        const ms = (
+            magnitudes.milliseconds +
+            magnitudes.seconds * 1000 +
+            magnitudes.minutes * 60 * 1000 +
+            magnitudes.hours * 60 * 60 * 1000 +
+            magnitudes.days * 24 * 60 * 60 * 1000
+        );
+
+        // Convert into seconds and round to the nearest tenth of a second.
+        // Given that the number always has a decimal place, use the "plural"
+        // unit label, even if the number is `1.0`.
+        const seconds = ms / 1000;
+        str = `${seconds.toFixed(1)}${abbreviateUnits ? "s" : " seconds"}`;
+    }
+
+    return str;
+}
+
+/**
+ * Convert a number of milliseconds into a formatted string, either
+ * using multiple units (e.g. "1m 5s") or using seconds (e.g. "65.0s").
+ * 
+ * @param {number} ms - The number of milliseconds (i.e. some duration).
+ * @param {boolean} useMultipleUnits - Whether you want to use multiple units.
+ * @returns {string} The formatted string.
+ */
+export function formatMilliseconds(ms, useMultipleUnits = false) {
+    if (useMultipleUnits) {
+        return formatMillisecondsUsingMultipleUnits(ms);
+    }
+
     return Math.round(ms / 100.0) / 10.0 + "s"
 }
 
-export function formatDuration(from, to) {
+export function formatDuration(from, to, useMultipleUnits = false) {
     if (!from) {
         return "";
     }
@@ -127,12 +248,13 @@ export function formatDuration(from, to) {
         return formatMilliseconds(ms)
     }
 
-    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf());
+    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf(), useMultipleUnits);
 }
 
 export function taskStatusSymbol(task) {
     const st = task.status;
     const dur = formatDuration(task.startTime, task.endTime);
+    const durMultiUnit = formatDuration(task.startTime, task.endTime, true);
 
     switch (st) {
         case "RUNNING":
@@ -143,13 +265,13 @@ export function taskStatusSymbol(task) {
             </>;
 
         case "SUCCESS":
-            return <p><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {durMultiUnit}</p>;
 
         case "FAILED":
-            return <p><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {durMultiUnit}</p>;
 
         case "CANCELED":
-            return <p><FontAwesomeIcon icon={faBan} /> Canceled after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {durMultiUnit}</p>;
 
         default:
             return st;
