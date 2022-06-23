@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
 import { usePagination, useSortBy, useTable } from 'react-table';
+import { PAGE_SIZES, UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 function paginationItems(count, active, gotoPage) {
   let items = [];
@@ -46,7 +47,8 @@ function paginationItems(count, active, gotoPage) {
 }
 
 export default function MyTable({ columns, data }) {
-  // Use the state and functions returned from useTable to build your UI
+  const { pageSize, setPageSize } = useContext(UIPreferencesContext);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -60,12 +62,12 @@ export default function MyTable({ columns, data }) {
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
+    setPageSize: setTablePageSize,
+    state: { pageIndex },
   } = useTable({
     columns,
     data,
-    initialState: { pageSize: 10 },
+    initialState: { pageSize },
     autoResetPage: false,
     autoResetSortBy: false,
   },
@@ -73,30 +75,38 @@ export default function MyTable({ columns, data }) {
     usePagination,
   )
 
+  useEffect(() => {
+    setTablePageSize(pageSize);
+  }, [pageSize])
+
   if (pageIndex >= pageCount && pageIndex !== 0 && pageCount > 0) {
     gotoPage(pageCount - 1);
   }
 
-  const paginationUI = pageOptions.length > 1 &&
-    <>
+  const paginationUI = <>
+    <>{pageOptions.length > 1 && (
       <Pagination size="sm" variant="dark">
         <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
         <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage} />
         {paginationItems(pageOptions.length, pageIndex + 1, gotoPage)}
         <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
         <Pagination.Last onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} />
-      </Pagination>
-      <Pagination size="sm" variant="dark">
-        <Dropdown>
-          <Dropdown.Toggle size="sm">
-            Page Size: {pageSize}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            {[10, 20, 30, 40, 50, 100].map(pageSize => (<Dropdown.Item  size="sm" key={pageSize} onClick={() => setPageSize(pageSize)}>Page Size {pageSize}</Dropdown.Item>))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </Pagination>
-    </>;
+      </Pagination>)}
+    </>
+    <>
+      <Dropdown style={{ marginBottom: '1em' }}>
+        <Dropdown.Toggle size="sm">
+          Page Size: {pageSize}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {PAGE_SIZES.map(pageSize => (
+            <Dropdown.Item size="sm" key={pageSize} onClick={() => setPageSize(pageSize)}>
+              Page Size {pageSize}
+            </Dropdown.Item>))}
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
+  </>;
 
   return (
     <>
