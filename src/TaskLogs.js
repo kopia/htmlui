@@ -85,11 +85,12 @@ export class TaskLogs extends Component {
         // if there are any properties other than `msg, ts, level, mod` output them as JSON.
         let {msg, ts, level, mod, ...parametersOnly} = entry;
 
-        if (!parametersOnly) {
-            return "";
+        const p = JSON.stringify(parametersOnly);
+        if (p !== "{}") {
+            return <span className="log-parameter">{p}</span>;
         }
 
-        return JSON.stringify(parametersOnly);
+        return "";
     }
 
     scrollToBottom() {

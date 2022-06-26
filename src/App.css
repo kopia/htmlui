@@ -207,3 +207,9 @@ nav.navbar {
 .snapshot-description {
   font-size: 80%;
 }
+
+.log-parameter {
+  color: #000080;
+  font-weight: bold;
+  padding-right: 10px;
+}
