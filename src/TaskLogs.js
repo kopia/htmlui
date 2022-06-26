@@ -81,6 +81,17 @@ export class TaskLogs extends Component {
         return result;
     }
 
+    formatLogParams(entry) {
+        // if there are any properties other than `msg, ts, level, mod` output them as JSON.
+        let {msg, ts, level, mod, ...parametersOnly} = entry;
+
+        if (!parametersOnly) {
+            return "";
+        }
+
+        return JSON.stringify(parametersOnly);
+    }
+
     scrollToBottom() {
         const c = this.messagesEndRef.current;
         if (c) {
@@ -101,7 +112,7 @@ export class TaskLogs extends Component {
             return <div className="logs-table"><Table size="sm" bordered hover>
                 <tbody>
                     {logs.map((v,ndx) => <tr key={ndx + '-' + v.ts} className={'loglevel-' + v.level}>
-                        <td className="elide" title={this.fullLogTime(v.ts)}>{this.formatLogTime(v.ts)} {v.msg}</td></tr>)}
+                        <td className="elide" title={this.fullLogTime(v.ts)}>{this.formatLogTime(v.ts)} {v.msg} {this.formatLogParams(v)}</td></tr>)}
                 </tbody>
             </Table>
             <div ref={this.messagesEndRef} />
