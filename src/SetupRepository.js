@@ -24,12 +24,12 @@ import { SetupWebDAV } from './SetupWebDAV';
 const supportedProviders = [
     { provider: "filesystem", description: "Local directory or network share", component: SetupFilesystem },
     { provider: "gcs", description: "Google Cloud Storage", component: SetupGCS },
-    { provider: "s3", description: "Amazon S3 and S3-compatible providers (example: Wasabi)", component: SetupS3 },
+    { provider: "s3", description: "Amazon S3 and S3-compatible Providers", component: SetupS3 },
     { provider: "b2", description: "Backblaze B2", component: SetupB2 },
     { provider: "azureBlob", description: "Azure Blob Storage", component: SetupAzure },
-    { provider: "sftp", description: "SFTP server", component: SetupSFTP },
-    { provider: "rclone", description: "Rclone remote", component: SetupRclone },
-    { provider: "webdav", description: "WebDAV server", component: SetupWebDAV },
+    { provider: "sftp", description: "SFTP Server", component: SetupSFTP },
+    { provider: "rclone", description: "Rclone Remote", component: SetupRclone },
+    { provider: "webdav", description: "WebDAV Server", component: SetupWebDAV },
     { provider: "_server", description: "Kopia Repository Server", component: SetupKopiaServer },
     { provider: "_token", description: "Use Repository Token", component: SetupToken },
 ];
