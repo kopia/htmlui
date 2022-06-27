@@ -20,7 +20,7 @@ export class SetupGCS extends Component {
     render() {
         return <>
             <Row>
-                To use Google Cloud Storage with Kopia, you need a JSON credentials file that gives Kopia access to your Google Cloud Storage account. The easiest way to generate such a file is by using a Google Cloud Storage Service account. If you have trouble generating this credentials file, you can alternatively connect to Google Cloud Storage through Kopia's Amazon S3 option, because Google Cloud Storage is S3-compatible. See <a href="https://kopia.io/docs/repositories/#google-cloud-storage" target="_blank">Kopia help docs</a> for more information on both these options. 
+                To use Google Cloud Storage with Kopia, you need a JSON credentials file that gives Kopia access to upload to your Google Cloud Storage account. The easiest way to generate such a file is by using a Google Cloud Storage Service account. If you have trouble generating this credentials file, you can alternatively connect to Google Cloud Storage through Kopia's Amazon S3 option, because Google Cloud Storage is S3 compatible. See <a href="https://kopia.io/docs/repositories/#google-cloud-storage" target="_blank">Kopia help docs</a> for more information on both these options. 
             </Row>
             <Row>
                 <Col>&nbsp;</Col>
