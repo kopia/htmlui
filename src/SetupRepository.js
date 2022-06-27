@@ -22,7 +22,7 @@ import { SetupToken } from './SetupToken';
 import { SetupWebDAV } from './SetupWebDAV';
 
 const supportedProviders = [
-    { provider: "filesystem", description: "Local directory or network share", component: SetupFilesystem },
+    { provider: "filesystem", description: "Local Directory or NAS", component: SetupFilesystem },
     { provider: "gcs", description: "Google Cloud Storage", component: SetupGCS },
     { provider: "s3", description: "Amazon S3 and S3-compatible Storage Providers", component: SetupS3 },
     { provider: "b2", description: "Backblaze B2", component: SetupB2 },
