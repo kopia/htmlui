@@ -140,7 +140,7 @@ export class DirectoryObject extends Component {
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
-            <Row><Col xs={12}>You mount or restore the whole snapshot (see above) or download individual files (see below)</Col>
+            <Row><Col xs={12}>You can mount or restore the whole snapshot (see above) or download individual files (see below)</Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
