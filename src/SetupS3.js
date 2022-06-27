@@ -21,7 +21,7 @@ export class SetupS3 extends Component {
     render() {
         return <>
             <Row>
-                All S3-compatible providers are supported, including but not limited to Amazon S3, Wasabi, IDrive E2, MinIO, Backblaze B2, Oracle Cloud Infrastructure, Google Cloud Storage, and DigitalOcean Spaces.
+                All S3-compatible storage providers are supported, including but not limited to Amazon S3, Amazon Lightsail, Wasabi, IDrive E2, MinIO, Backblaze B2, Oracle Cloud Infrastructure, Google Cloud Storage, and DigitalOcean Spaces.
             </Row>
             <Row>
                 <Col>&nbsp;</Col>
