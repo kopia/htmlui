@@ -86,11 +86,11 @@ export class TaskDetails extends Component {
                 return <Alert variant="danger"><b>Error:</b> {task.errorMessage}.</Alert>;
 
             case "CANCELED":
-                return <Alert variant="warning">Task canceled.</Alert>;
+                return <Alert variant="warning">Task cancelled.</Alert>;
 
             case "CANCELING":
                 return <Alert variant="primary">
-                    <Spinner animation="border" variant="warning" size="sm" /> Canceling {dur}: {task.progressInfo}.</Alert>;
+                    <Spinner animation="border" variant="warning" size="sm" /> Cancelling {dur}: {task.progressInfo}.</Alert>;
 
             default:
                 return <Alert variant="primary">
