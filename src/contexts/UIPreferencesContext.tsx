@@ -66,7 +66,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
                 });
 
                 let storedPreferences = await response.json() as SerializedUIPreferences;
-                if (!storedPreferences.theme || (storedPreferences.theme as string) == "") {
+                if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
                     storedPreferences.theme = getDefaultTheme();
                 }
                 if (!storedPreferences.pageSize || storedPreferences.pageSize === 0) {

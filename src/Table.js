@@ -77,7 +77,7 @@ export default function MyTable({ columns, data }) {
 
   useEffect(() => {
     setTablePageSize(pageSize);
-  }, [pageSize])
+  }, [pageSize, setTablePageSize]);
 
   if (pageIndex >= pageCount && pageIndex !== 0 && pageCount > 0) {
     gotoPage(pageCount - 1);
