@@ -22,9 +22,9 @@ import { SetupToken } from './SetupToken';
 import { SetupWebDAV } from './SetupWebDAV';
 
 const supportedProviders = [
-    { provider: "filesystem", description: "Filesystem (local or network folder)", component: SetupFilesystem },
+    { provider: "filesystem", description: "Local directory or network share", component: SetupFilesystem },
     { provider: "gcs", description: "Google Cloud Storage", component: SetupGCS },
-    { provider: "s3", description: "Amazon S3 and other providers that are S3 compatible (e.g., Wasabi)", component: SetupS3 },
+    { provider: "s3", description: "Amazon S3 and other providers that are S3 compatible (example: Wasabi)", component: SetupS3 },
     { provider: "b2", description: "Backblaze B2", component: SetupB2 },
     { provider: "azureBlob", description: "Azure Blob Storage", component: SetupAzure },
     { provider: "sftp", description: "SFTP server", component: SetupSFTP },
