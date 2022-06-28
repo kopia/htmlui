@@ -2,16 +2,17 @@ import { faCalendarTimes, faClock, faExclamationTriangle, faFileAlt, faFileArchi
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import moment from 'moment';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
-import { handleChange, LogDetailSelector, OptionalFieldNoLabel, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from './forms';
-import { errorAlert, PolicyEditorLink, sourceQueryStringParams } from './uiutil';
-import { getDeepStateProperty } from './deepstate';
+import { handleChange, LogDetailSelector, OptionalFieldNoLabel, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from '../../forms';
+import { errorAlert, sourceQueryStringParams } from 'utils';
+import { PolicyEditorLink } from "./PolicyEditorLink";
+import { getDeepStateProperty } from '../../deepstate';
 
 
 function LabelColumn(props) {

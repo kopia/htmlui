@@ -2,7 +2,7 @@ import { faSync, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import moment from 'moment';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -12,7 +12,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirectIfNotConnected, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { FsSize, CliEquivalent, compare, errorAlert, formatOwner, policyEditorURL, redirectIfNotConnected, sizeToDisplayWithUnit, sourceQueryStringParams } from 'utils';
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
@@ -110,15 +110,15 @@ export class SourcesTable extends Component {
                 let title = "";
                 let totals = "";
                 if (u) {
-                    title = " hashed " + u.hashedFiles + " files (" + sizeDisplayName(u.hashedBytes) + ")\n" +
-                        " cached " + u.cachedFiles + " files (" + sizeDisplayName(u.cachedBytes) + ")\n" +
+                    title = " hashed " + u.hashedFiles + " files (" + sizeToDisplayWithUnit(u.hashedBytes) + ")\n" +
+                        " cached " + u.cachedFiles + " files (" + sizeToDisplayWithUnit(u.cachedBytes) + ")\n" +
                         " dir " + u.directory;
 
                     const totalBytes = u.hashedBytes + u.cachedBytes;
 
-                    totals = sizeDisplayName(totalBytes);
+                    totals = sizeToDisplayWithUnit(totalBytes);
                     if (u.estimatedBytes) {
-                        totals += "/" + sizeDisplayName(u.estimatedBytes);
+                        totals += "/" + sizeToDisplayWithUnit(u.estimatedBytes);
 
                         const percent = Math.round(totalBytes * 1000.0 / u.estimatedBytes) / 10.0;
                         if (percent <= 100) {
@@ -185,7 +185,7 @@ export class SourcesTable extends Component {
         }
 
         let uniqueOwners = sources.reduce((a, d) => {
-            const owner = ownerName(d.source);
+            const owner = formatOwner(d.source);
 
             if (!a.includes(owner)) { a.push(owner); }
             return a;
@@ -199,11 +199,11 @@ export class SourcesTable extends Component {
                 break;
 
             case localSnapshots:
-                sources = sources.filter(x => ownerName(x.source) === this.state.localSourceName);
+                sources = sources.filter(x => formatOwner(x.source) === this.state.localSourceName);
                 break;
 
             default:
-                sources = sources.filter(x => ownerName(x.source) === this.state.selectedOwner);
+                sources = sources.filter(x => formatOwner(x.source) === this.state.selectedOwner);
                 break;
         };
 
@@ -217,7 +217,7 @@ export class SourcesTable extends Component {
                     return v;
                 }
 
-                return compare(ownerName(a.original.source), ownerName(b.original.source));
+                return compare(formatOwner(a.original.source), formatOwner(b.original.source));
             },
             width: "",
             Cell: x => <Link to={'/snapshots/single-source?' + sourceQueryStringParams(x.cell.value)}>{x.cell.value.path}</Link>,
@@ -231,7 +231,7 @@ export class SourcesTable extends Component {
             Header: 'Size',
             width: 120,
             accessor: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
-            Cell: x => sizeWithFailures(
+            Cell: x => FsSize(
                 x.cell.value,
                 x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null),
         }, {
@@ -285,7 +285,7 @@ export class SourcesTable extends Component {
             </div>
 
             <MyTable data={sources} columns={columns} />
-            <CLIEquivalent command={`snapshot list`} />
+            <CliEquivalent command={`snapshot list`} />
         </>;
     }
 }

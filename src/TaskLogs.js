@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from './forms';
-import { redirectIfNotConnected } from './uiutil';
+import { redirectIfNotConnected } from './utils/functions';
 
 export class TaskLogs extends Component {
     constructor() {

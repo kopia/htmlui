@@ -11,7 +11,8 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { TaskLogs } from './TaskLogs';
-import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected, sizeDisplayName } from './uiutil';
+import { cancelTask, formatDuration, redirectIfNotConnected, sizeToDisplayWithUnit } from './utils/functions';
+import { GoBackButton } from "./utils/GoBackButton";
 
 export class TaskDetails extends Component {
     constructor() {
@@ -113,7 +114,7 @@ export class TaskDetails extends Component {
 
         let formatted = c.value.toLocaleString();
         if (c.units === "bytes") {
-            formatted = sizeDisplayName(c.value);
+            formatted = sizeToDisplayWithUnit(c.value);
         }
 
         return <tr key={label}><td>{label}</td><td>{formatted}</td></tr>;

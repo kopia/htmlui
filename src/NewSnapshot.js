@@ -5,9 +5,12 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { handleChange } from './forms';
-import { PolicyEditor } from './PolicyEditor';
+import { PolicyEditor } from './components/PolicyEditor/PolicyEditor';
 import { EstimateResults } from './EstimateResults';
-import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirectIfNotConnected } from './uiutil';
+import { errorAlert, redirectIfNotConnected } from './utils/functions';
+import { DirectorySelector } from "./utils/DirectorySelector";
+import { CliEquivalent } from "./utils/CliEquivalent";
+import { GoBackButton } from "./utils/GoBackButton";
 
 export class NewSnapshot extends Component {
     constructor() {
@@ -177,7 +180,7 @@ export class NewSnapshot extends Component {
 
             <Row><Col>&nbsp;</Col></Row>
 
-            <CLIEquivalent command={`snapshot create ${this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}`} />
+            <CliEquivalent command={`snapshot create ${this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}`} />
         </>;
     }
 }

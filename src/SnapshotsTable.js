@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
 import MyTable from './Table';
-import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirectIfNotConnected, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { CliEquivalent, FsSize, Rfc3339Timestamp, GoBackButton, compare, errorAlert, objectLink, parseQuery, redirectIfNotConnected, sourceQueryStringParams } from "utils";
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
@@ -334,7 +334,7 @@ export class SnapshotsTable extends Component {
             id: 'startTime',
             Header: 'Start time',
             width: 200,
-            accessor: x => <Link to={objectLink(x.rootID)}>{rfc3339TimestampForDisplay(x.startTime)}</Link>,
+            accessor: x => <Link to={objectLink(x.rootID)}>{Rfc3339Timestamp(x.startTime)}</Link>,
         }, {
             id: 'description',
             Header: '',
@@ -346,7 +346,7 @@ export class SnapshotsTable extends Component {
             width: "",
             accessor: x => x.rootID,
             Cell: x => <><span className="hash-value">{x.cell.value}</span>
-            {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
+                {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
         }, {
             Header: 'Retention',
             accessor: 'retention',
@@ -362,7 +362,7 @@ export class SnapshotsTable extends Component {
             Header: 'Size',
             accessor: 'summary.size',
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary),
+            Cell: x => FsSize(x.cell.value, x.row.original.summary),
         }, {
             Header: 'Files',
             accessor: 'summary.files',
@@ -425,7 +425,7 @@ export class SnapshotsTable extends Component {
                 </Col>
             </Row>
 
-            <CLIEquivalent command={`snapshot list "${this.state.userName}@${this.state.host}:${this.state.path}"${this.state.showHidden ? " --show-identical" : ""}`} />
+            <CliEquivalent command={`snapshot list "${this.state.userName}@${this.state.host}:${this.state.path}"${this.state.showHidden ? " --show-identical" : ""}`} />
 
             <Modal show={this.state.showDeleteConfirmationDialog} onHide={this.cancelDelete}>
                 <Modal.Header closeButton>

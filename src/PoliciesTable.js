@@ -1,7 +1,7 @@
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirectIfNotConnected } from './uiutil';
+import { CliEquivalent, DirectorySelector, compare, isAbsolutePath, formatOwner, policyEditorURL, redirectIfNotConnected } from "utils";
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -161,7 +161,7 @@ export class PoliciesTable extends Component {
     }
 
     isLocalUserPolicy(x) {
-        return ownerName(x.target) === this.state.localSourceName;
+        return formatOwner(x.target) === this.state.localSourceName;
     }
 
     render() {
@@ -175,7 +175,7 @@ export class PoliciesTable extends Component {
 
 
         let uniqueOwners = sources.reduce((a, d) => {
-            const owner = ownerName(d.source);
+            const owner = formatOwner(d.source);
 
             if (!a.includes(owner)) { a.push(owner); }
             return a;
@@ -209,7 +209,7 @@ export class PoliciesTable extends Component {
                 break;
 
             default:
-                items = items.filter(x => ownerName(x.target) === this.state.selectedOwner);
+                items = items.filter(x => formatOwner(x.target) === this.state.selectedOwner);
                 break;
         };
 
@@ -290,7 +290,7 @@ export class PoliciesTable extends Component {
             </div> : ((this.state.selectedOwner === localPolicies && this.state.policyPath) ? <p>
                 No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
             </p> : <p>No policies found.</p>)}
-            <CLIEquivalent command="policy list" />
+            <CliEquivalent command="policy list" />
         </>;
     }
 }

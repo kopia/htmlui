@@ -6,7 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 import { handleChange, RequiredBoolean, RequiredField, RequiredNumberField, validateRequiredFields } from './forms';
-import { errorAlert, GoBackButton } from './uiutil';
+import { errorAlert } from './utils/functions';
+import { GoBackButton } from "./utils/GoBackButton";
 
 export class BeginRestore extends Component {
     constructor(props) {

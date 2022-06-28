@@ -1,108 +1,62 @@
-import { faBan, faCheck, faChevronLeft, faCopy, faExclamationCircle, faExclamationTriangle, faFolderOpen, faTerminal, faWindowClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Spinner from 'react-bootstrap/Spinner';
-import { Link } from 'react-router-dom';
+import { Backend } from '../backend';
+import { Time } from '../backend/ApiTypes';
 
 const base10UnitPrefixes = ["", "K", "M", "G", "T"];
 
-function niceNumber(f) {
-    return (Math.round(f * 10) / 10.0) + '';
-}
-
-function toDecimalUnitString(f, thousand, prefixes, suffix) {
-    for (var i = 0; i < prefixes.length; i++) {
-        if (f < 0.9 * thousand) {
-            return niceNumber(f) + ' ' + prefixes[i] + suffix;
+function formatWithUnit(value: number, thousand: number, prefixes: string[], unit: string) {
+    for (var i = 0; i < prefixes.length - 1; i++) {
+        if (value < 0.9 * thousand) {
+            break;
         }
-        f /= thousand
+        value /= thousand;
     }
 
-    return niceNumber(f) + ' ' + prefixes[prefixes.length - 1] + suffix;
+    return (Math.round(value * 10) / 10.0) + ' ' + prefixes[i] + unit;
 }
 
-export function sizeWithFailures(size, summ) {
+export function sizeToDisplayWithUnit(size: number | undefined) {
     if (size === undefined) {
         return "";
     }
 
-    if (!summ || !summ.errors || !summ.numFailed) {
-        return <span>{sizeDisplayName(size)}</span>
-    }
-
-    let caption = "Encountered " + summ.numFailed + " errors:\n\n";
-    let prefix = "- "
-    if (summ.numFailed === 1) {
-        caption = "Error: ";
-        prefix = "";
-    }
-
-    caption += summ.errors.map(x => prefix + x.path + ": " + x.error).join("\n");
-
-    return <span>
-        {sizeDisplayName(size)}&nbsp;
-        <FontAwesomeIcon color="red" icon={faExclamationTriangle} title={caption} />
-    </span>;
+    return formatWithUnit(size, 1000, base10UnitPrefixes, "B");
 }
 
-export function sizeDisplayName(s) {
-    if (s === undefined) {
-        return "";
-    }
-    return toDecimalUnitString(s, 1000, base10UnitPrefixes, "B");
-}
-
-export function intervalDisplayName(v) {
-    return "-";
-}
-
-export function timesOfDayDisplayName(v) {
+export function timesOfDayDisplayName(v: any[] | undefined) {
     if (!v) {
         return "(none)";
     }
+
     return v.length + " times";
 }
 
-export function parseQuery(queryString) {
-    var query = {};
+export function parseQuery(queryString: string) {
+    var query = new Map<string, string>();
     var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
     for (var i = 0; i < pairs.length; i++) {
         var pair = pairs[i].split('=');
-        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+        query.set(decodeURIComponent(pair[0]), decodeURIComponent(pair[1] || ''));
     }
     return query;
 }
 
-export function rfc3339TimestampForDisplay(n) {
-    if (!n) {
-        return "";
-    }
-
-    let t = new Date(n);
-    return t.toLocaleString();
-}
-
-export function objectLink(n) {
+export function objectLink(n: string) {
     if (n.startsWith("k")) {
         return "/snapshots/dir/" + n;
     }
     return "/api/v1/objects/" + n;
 }
 
-export function ownerName(s) {
-    return s.userName + "@" + s.host;
+export function formatOwner(source: Backend.SourceInfo) {
+    return source.userName + "@" + source.host;
 }
 
-export function compare(a, b) {
+export function compare(a: any, b: any) {
     return (a < b ? -1 : (a > b ? 1 : 0));
 }
 
-export function redirectIfNotConnected(e) {
+export function redirectIfNotConnected(e: any) {
     if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
         window.location.replace("/repo");
         return;
@@ -117,7 +71,7 @@ export function redirectIfNotConnected(e) {
  * @param {number} ms - A duration (as a number of milliseconds).
  * @returns {string} A string representation of the duration.
  */
-export function formatMillisecondsUsingMultipleUnits(ms) {
+export function formatMillisecondsUsingMultipleUnits(ms: number) {
     const magnitudes = separateMillisecondsIntoMagnitudes(ms);
     const str = formatMagnitudesUsingMultipleUnits(magnitudes, true);
     return str;
@@ -136,7 +90,7 @@ export function formatMillisecondsUsingMultipleUnits(ms) {
  *                   when combined together, represent the original duration
  *                   (minus any partial milliseconds).
  */
-export function separateMillisecondsIntoMagnitudes(ms) {
+export function separateMillisecondsIntoMagnitudes(ms: number): Magnitudes {
     const magnitudes = {
         days: Math.trunc(ms / (1000 * 60 * 60 * 24)),
         hours: Math.trunc(ms / (1000 * 60 * 60)) % 24,
@@ -145,7 +99,15 @@ export function separateMillisecondsIntoMagnitudes(ms) {
         milliseconds: Math.trunc(ms) % 1000,
     };
 
-    return magnitudes;
+    return magnitudes as Magnitudes;
+}
+
+export interface Magnitudes {
+    days: number,
+    hours: number,
+    minutes: number,
+    seconds: number,
+    milliseconds: number
 }
 
 /**
@@ -169,7 +131,7 @@ export function separateMillisecondsIntoMagnitudes(ms) {
  * @param {boolean} abbreviateUnits - Whether you want to use short unit names.
  * @returns {string} Formatted string representing the specified duration.
  */
-export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits = false) {
+export function formatMagnitudesUsingMultipleUnits(magnitudes: Magnitudes, abbreviateUnits = false) {
     let str;
 
     // Define the label we will use for each unit, depending upon whether that
@@ -226,7 +188,7 @@ export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits =
  * @param {boolean} useMultipleUnits - Whether you want to use multiple units.
  * @returns {string} The formatted string.
  */
-export function formatMilliseconds(ms, useMultipleUnits = false) {
+export function formatMilliseconds(ms: number, useMultipleUnits = false) {
     if (useMultipleUnits) {
         return formatMillisecondsUsingMultipleUnits(ms);
     }
@@ -234,7 +196,15 @@ export function formatMilliseconds(ms, useMultipleUnits = false) {
     return Math.round(ms / 100.0) / 10.0 + "s"
 }
 
-export function formatDuration(from, to, useMultipleUnits = false) {
+export function policyEditorURL(s: Backend.SourceInfo) {
+    return `/policies/edit?${sourceQueryStringParams(s)}`;
+}
+
+export function sourceQueryStringParams(source: Backend.SourceInfo) {
+    return `userName=${encodeURIComponent(source.userName)}&host=${encodeURIComponent(source.host)}&path=${encodeURIComponent(source.path)}`;
+}
+
+export function formatDuration(from: Time | undefined, to: Time | undefined, useMultipleUnits = false) {
     if (!from) {
         return "";
     }
@@ -251,93 +221,50 @@ export function formatDuration(from, to, useMultipleUnits = false) {
     return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf(), useMultipleUnits);
 }
 
-export function taskStatusSymbol(task) {
-    const st = task.status;
-    const dur = formatDuration(task.startTime, task.endTime);
-    const durMultiUnit = formatDuration(task.startTime, task.endTime, true);
-
-    switch (st) {
-        case "RUNNING":
-            return <>
-                <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}
-                &nbsp;
-                <FontAwesomeIcon size="sm" color="red" icon={faWindowClose} title="Cancel task" onClick={() => cancelTask(task.id)} />
-            </>;
-
-        case "SUCCESS":
-            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {durMultiUnit}</p>;
-
-        case "FAILED":
-            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {durMultiUnit}</p>;
-
-        case "CANCELED":
-            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {durMultiUnit}</p>;
-
-        default:
-            return st;
-    }
-}
-
-export function cancelTask(tid) {
+export function cancelTask(tid: string) {
     axios.post('/api/v1/tasks/' + tid + '/cancel', {}).then(result => {
     }).catch(error => {
     });
 }
 
-export function GoBackButton(props) {
-    return <Button size="sm" variant="outline-secondary" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
-}
-
-export function PolicyTypeName(s) {
-    if (!s.host && !s.userName) {
+export function PolicyTypeName(source: Backend.SourceInfo) {
+    if (!source.host && !source.userName) {
         return "Global Policy"
     }
 
-    if (!s.userName) {
-        return "Host: " + s.host;
+    if (!source.userName) {
+        return `Host: ${source.host}`;
     }
 
-    if (!s.path) {
-        return "User: " + s.userName + "@" + s.host;
+    if (!source.path) {
+        return `User: ${source.userName}@${source.host}`;
     }
 
-    return "Directory: " + s.userName + "@" + s.host + ":" + s.path;
+    return `Directory: ${source.userName}@${source.host}:${source.path}`;
 }
 
-export function policyEditorURL(s) {
-    return '/policies/edit?' + sourceQueryStringParams(s);
-}
-
-export function PolicyEditorLink(s) {
-    return <Link to={policyEditorURL(s)}>{PolicyTypeName(s)}</Link>;
-}
-
-export function sourceQueryStringParams(src) {
-    return 'userName=' + encodeURIComponent(src.userName) + '&host=' + encodeURIComponent(src.host) + '&path=' + encodeURIComponent(src.path);
-}
-
-export function isAbsolutePath(p) {
+export function isAbsolutePath(path: string) {
     // Unix-style path.
-    if (p.startsWith("/")) {
+    if (path.startsWith("/")) {
         return true;
     }
 
     // Windows-style X:\... path.
-    if (p.length >= 3 && p.substring(1, 3) === ":\\") {
-        const letter = p.substring(0, 1).toUpperCase();
+    if (path.length >= 3 && path.substring(1, 3) === ":\\") {
+        const letter = path.substring(0, 1).toUpperCase();
 
         return letter >= "A" && letter <= "Z";
     }
 
     // Windows UNC path.
-    if (p.startsWith("\\\\")) {
+    if (path.startsWith("\\\\")) {
         return true;
     }
 
     return false;
 }
 
-export function errorAlert(err, prefix) {
+export function errorAlert(err: any, prefix: string | undefined) {
     if (!prefix) {
         prefix = "Error"
     }
@@ -351,53 +278,4 @@ export function errorAlert(err, prefix) {
     } else {
         alert(prefix + JSON.stringify(err));
     }
-}
-
-export function DirectorySelector(props) {
-    let { onDirectorySelected, ...inputProps } = props;
-
-    if (!window.kopiaUI) {
-        return <Form.Control size="sm" {...inputProps} />
-    }
-
-    return <InputGroup>
-        <FormControl size="sm" {...inputProps} />
-        <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
-            <FontAwesomeIcon icon={faFolderOpen} />
-        </Button>
-    </InputGroup>;
-}
-
-export function CLIEquivalent(props) {
-    let [visible, setVisible] = useState(false);
-    let [cliInfo, setCLIInfo] = useState({});
-
-    if (visible && !cliInfo.executable) {
-        axios.get('/api/v1/cli').then(result => {
-            setCLIInfo(result.data);
-        }).catch(error => { });
-    }
-
-    const ref = React.createRef()
-
-    function copyToClibopard() {
-        const el = ref.current;
-        if (!el) {
-            return
-        }
-
-        el.select();
-        el.setSelectionRange(0, 99999);
-
-        document.execCommand("copy");
-    }
-
-
-    return <>
-        <InputGroup size="sm" >
-            <Button size="sm" title="Click to show CLI equivalent" variant="warning" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
-            {visible && <Button class="sm" variant="outline-dark" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
-            {visible && <FormControl size="sm" ref={ref} className="cli-equivalent" value={`${cliInfo.executable} ${props.command}`} />}
-        </InputGroup>
-    </>;
 }

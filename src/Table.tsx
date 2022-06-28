@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
-import { usePagination, useSortBy, useTable } from 'react-table';
+import { Column, HeaderGroup, TableInstance, TableOptions, TableState, usePagination, UsePaginationInstanceProps, UsePaginationOptions, UsePaginationState, useSortBy, UseSortByColumnProps, useTable } from 'react-table';
 import { PAGE_SIZES, UIPreferencesContext } from './contexts/UIPreferencesContext';
 
-function paginationItems(count, active, gotoPage) {
+function paginationItems(count: number, active: number, gotoPage: (page: number) => void) {
   let items = [];
 
-  function pageWithNumber(number) {
+  function pageWithNumber(number: number) {
     return <Pagination.Item key={number} active={number === active} onClick={() => gotoPage(number - 1)}>
       {number}
     </Pagination.Item>;
@@ -46,34 +46,18 @@ function paginationItems(count, active, gotoPage) {
   return items;
 }
 
-export default function MyTable({ columns, data }) {
+export default function MyTable<TRow extends object>(props: { columns: readonly Column<TRow>[], data: readonly TRow[] }) {
+  const { columns, data } = props;
   const { pageSize, setPageSize } = useContext(UIPreferencesContext);
+  const initState = { pageSize } as Partial<TableState<TRow> & UsePaginationState<TRow>>;
+  const options = { columns, data, initialState: initState, autoResetPage: false, autoResetSortBy: false } as TableOptions<TRow> & UsePaginationOptions<TRow>;
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex },
-  } = useTable({
-    columns,
-    data,
-    initialState: { pageSize },
-    autoResetPage: false,
-    autoResetSortBy: false,
-  },
-    useSortBy,
-    usePagination,
-  )
+  const table = useTable(options, useSortBy, usePagination) as TableInstance<TRow> & UsePaginationInstanceProps<TRow>;
+
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, state } = table;
+
+  const { page, canPreviousPage, canNextPage, pageOptions, pageCount, gotoPage, nextPage, previousPage, setPageSize: setTablePageSize } = table;
+  const { pageIndex } = state as UsePaginationState<TRow>;
 
   useEffect(() => {
     setTablePageSize(pageSize);
@@ -85,7 +69,7 @@ export default function MyTable({ columns, data }) {
 
   const paginationUI = <>
     <>{pageOptions.length > 1 && (
-      <Pagination size="sm" variant="dark">
+      <Pagination size="sm">
         <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
         <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage} />
         {paginationItems(pageOptions.length, pageIndex + 1, gotoPage)}
@@ -114,7 +98,7 @@ export default function MyTable({ columns, data }) {
         <thead className="table-dark">
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
+              {(headerGroup.headers as (HeaderGroup<TRow> & UseSortByColumnProps<TRow>)[]).map(column => (
                 <th {...column.getHeaderProps({
                   ...column.getSortByToggleProps(), style: {
                     width: column.width,

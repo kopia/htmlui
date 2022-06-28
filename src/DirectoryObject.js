@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "./DirectoryItems";
-import { CLIEquivalent, GoBackButton } from './uiutil';
+import { CliEquivalent } from "./utils/CliEquivalent";
+import { GoBackButton } from "./utils/GoBackButton";
 
 
 export class DirectoryObject extends Component {
@@ -138,16 +139,21 @@ export class DirectoryObject extends Component {
                     <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore Whole Snapshot</Button>
                 </Col>
             </Row>
-            <Row><Col>&nbsp;</Col>
-            </Row>
-            <Row><Col xs={12}>You can mount or restore the whole snapshot (see above) or download individual files (see below).</Col>
-            </Row>
-            <Row><Col>&nbsp;</Col>
+            <Row>
+                <Col>&nbsp;</Col>
             </Row>
             <Row>
-                <Col xs={12}><DirectoryItems items={items} /></Col>
+                <Col xs={12}>You can mount or restore the whole snapshot (see above) or download individual files (see below).</Col>
             </Row>
-            <CLIEquivalent command={`snapshot list ${this.state.oid}`} />
+            <Row>
+                <Col>&nbsp;</Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <DirectoryItems items={items} />
+                </Col>
+            </Row>
+            <CliEquivalent command={`snapshot list ${this.state.oid}`} />
         </>
     }
 }

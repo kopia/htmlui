@@ -12,7 +12,8 @@ import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { redirectIfNotConnected, taskStatusSymbol } from './uiutil';
+import { redirectIfNotConnected } from './utils/functions';
+import { TaskStatusSymbol } from "./utils/TaskStatusSymbol";
 
 export class TasksTable extends Component {
     constructor() {
@@ -112,7 +113,7 @@ export class TasksTable extends Component {
         }, {
             Header: 'Status',
             width: 240,
-            accessor: x => taskStatusSymbol(x),
+            accessor: x => TaskStatusSymbol(x),
         }, {
             Header: 'Kind',
             width: "",

@@ -1,8 +1,10 @@
 import React, { Component, createRef } from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
-import { PolicyEditor } from './PolicyEditor';
-import { CLIEquivalent, GoBackButton, parseQuery, PolicyTypeName } from './uiutil';
+import { PolicyEditor } from './components/PolicyEditor/PolicyEditor';
+import { parseQuery, PolicyTypeName } from './utils/functions';
+import { CliEquivalent } from "./utils/CliEquivalent";
+import { GoBackButton } from "./utils/GoBackButton";
 
 export class PolicyEditorPage extends Component {
     constructor() {
@@ -23,7 +25,7 @@ export class PolicyEditorPage extends Component {
             <Row><Col>&nbsp;</Col></Row>
             <Row>
                 <Col xs={12}>
-                    <CLIEquivalent command={`policy set "${userName}@${host}:${path}"`} />
+                    <CliEquivalent command={`policy set "${userName}@${host}:${path}"`} />
                 </Col>
             </Row>
         </>;

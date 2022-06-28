@@ -9,7 +9,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { handleChange } from './forms';
 import { SetupRepository } from './SetupRepository';
-import { cancelTask, CLIEquivalent } from './uiutil';
+import { cancelTask } from './utils/functions';
+import { CliEquivalent } from "./utils/CliEquivalent";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { TaskLogs } from './TaskLogs';
@@ -219,7 +220,7 @@ export class RepoStatus extends Component {
                 <Row><Col>&nbsp;</Col></Row>
                 <Row>
                     <Col xs={12}>
-                        <CLIEquivalent command="repository status" />
+                        <CliEquivalent command="repository status" />
                     </Col>
                 </Row>
             </>;
