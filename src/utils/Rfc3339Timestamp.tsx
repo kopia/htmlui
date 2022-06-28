@@ -8,6 +8,6 @@ export function Rfc3339Timestamp(props: { timestamp: Backend.Time | undefined })
         return <></>;
     }
 
-    let t = new Date(timestamp);
-    return <>t.toLocaleString()</>;
+    const asDate = new Date(timestamp);
+    return <>{asDate.toLocaleString()}</>;
 }
