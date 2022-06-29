@@ -24,7 +24,7 @@ export class BeginRestore extends Component {
             overwriteSymlinks: false,
             ignorePermissionErrors: true,
             writeFilesAtomically: false,
-            writeFilesSparsely: false,
+            writeSparseFiles: false,
             restoreDirEntryAtDepth: 1000,
             minSizeForPlaceholder: 0,
             restoreTask: "",
@@ -70,7 +70,7 @@ export class BeginRestore extends Component {
                 overwriteDirectories: this.state.overwriteDirectories,
                 overwriteSymlinks: this.state.overwriteSymlinks,
                 writeFilesAtomically: this.state.writeFilesAtomically,
-                sparse: this.state.writeFilesSparsely,
+                writeSparseFiles: this.state.writeSparseFiles,
             }
         }
 
@@ -131,7 +131,7 @@ export class BeginRestore extends Component {
                     {RequiredBoolean(this, "Write files atomically", "writeFilesAtomically")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Write files sparsely", "writeFilesSparsely")}
+                    {RequiredBoolean(this, "Write Sparse Files", "writeSparseFiles")}
                 </Row>
                 <Row>
                     <Col><hr/></Col>
