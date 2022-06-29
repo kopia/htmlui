@@ -39,7 +39,7 @@ export interface InfoStruct {
     contentID: ObjectID,
     packFile?: string,
     time: string,
-    oritinalLength: number,
+    originalLength: number,
     packedLength: number,
     packOffset?: number,
     deleted: boolean,
