@@ -57,7 +57,7 @@ export function compare(a: any, b: any) {
 
 export function redirectIfNotConnected(e: any) {
     if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
-        window.location.replace("/repo");
+        window.location.replace("/connect");
         return;
     }
 }

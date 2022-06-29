@@ -8,6 +8,8 @@ import Collapse from 'react-bootstrap/Collapse';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
+import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../../contexts/AppContext';
 import { handleChange, RequiredBoolean, RequiredField, validateRequiredFields } from '../../forms';
 import { SetupAzure } from './SetupAzure';
@@ -33,6 +35,7 @@ const supportedProviders = [
     { provider: "_server", description: "Kopia Repository Server", component: SetupKopiaServer },
     { provider: "_token", description: "Use Repository Token", component: SetupToken },
 ];
+
 
 export class SetupRepository extends Component {
     constructor() {
@@ -214,13 +217,16 @@ export class SetupRepository extends Component {
             <h3>Select Storage Type</h3>
             <p>To connect to a repository or create one, select the preferred storage type:</p>
             <Row>
-                {supportedProviders.map(x =>
-                    <Button key={x.provider}
-                        data-testid={'provider-' + x.provider}
-                        onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
-                        variant={x.provider.startsWith("_") ? "success" : "primary"}
-                        className="providerIcon" >{x.description}</Button>
-                )}
+                <Col>
+                    {supportedProviders.map(x =>
+                        <Link key={x.provider}
+                            data-testid={'provider-' + x.provider}
+                            className={`providerIcon btn btn-${x.provider.startsWith("_") ? "success" : "primary"}`}
+                            to={x.provider}>
+                            <span>{x.description}</span>
+                        </Link>
+                    )}
+                </Col>
             </Row>
         </>;
     }
@@ -376,8 +382,8 @@ export class SetupRepository extends Component {
                                 onChange={this.handleChange}
                                 data-testid="control-formatVersion"
                                 value={this.state.formatVersion}>
-                                    <option value="2">Latest format</option>
-                                    <option value="1">Legacy format compatible with v0.8</option>
+                                <option value="2">Latest format</option>
+                                <option value="1">Legacy format compatible with v0.8</option>
                             </Form.Control>
                         </Form.Group>
                     </Row>

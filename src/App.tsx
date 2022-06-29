@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { BrowserRouter as Router, NavLink, Outlet } from 'react-router-dom';
-import './App.css';
 import { ToggleDarkModeButton } from './ToggleDarkModeButton';
 import { AppContext, defaultValue as appContextDefaultValue } from './contexts/AppContext';
 import { UIPreferenceProvider, UIPreferences } from './contexts/UIPreferencesContext';

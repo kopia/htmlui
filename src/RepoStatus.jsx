@@ -130,10 +130,10 @@ export class RepoStatus extends Component {
         if (this.state.status.initTaskID) {
             return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
                 {this.state.showLog ? <>
-                        <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
-                        <TaskLogs taskID={this.state.status.initTaskID} />
-                    </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
-                <hr/>
+                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                    <TaskLogs taskID={this.state.status.initTaskID} />
+                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+                <hr />
                 <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>Cancel Connection</Button>
             </>;
         }
@@ -162,7 +162,9 @@ export class RepoStatus extends Component {
                         </Form.Group>
                     </Row>
                     {this.state.status.readonly && <Row>
-                        <Badge pill variant="warning">Repository is read-only</Badge>
+                        <Col>
+                            <Badge className='w-100 mt-2 py-1' pill variant="warning">Repository is read-only</Badge>
+                        </Col>
                     </Row>}
                 </Form>
                 <hr />
