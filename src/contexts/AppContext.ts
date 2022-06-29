@@ -1,6 +1,10 @@
 import React from 'react';
 
-const defaultValue = {
+export interface AppInfo {
+    repoDescription: string
+}
+
+export const defaultValue: AppInfo = {
     repoDescription: "",
 };
 

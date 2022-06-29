@@ -1,6 +1,6 @@
 import { render, act } from '@testing-library/react';
 import React from 'react';
-import { SetupAzure } from '../SetupAzure';
+import { SetupAzure } from '../components/Setup/SetupAzure';
 import { changeControlValue } from './testutils';
 
 it('can set fields', async () => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -8,13 +8,13 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { handleChange } from './forms';
-import { SetupRepository } from './SetupRepository';
+import { SetupRepository } from './components/Setup/SetupRepository';
 import { cancelTask } from './utils/functions';
 import { CliEquivalent } from "./utils/CliEquivalent";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { TaskLogs } from './TaskLogs';
-import { AppContext } from './AppContext';
+import { AppContext } from './contexts/AppContext';
 
 export class RepoStatus extends Component {
     constructor() {

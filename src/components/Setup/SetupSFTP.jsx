@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import { handleChange, hasExactlyOneOf, OptionalField, OptionalNumberField, RequiredBoolean, RequiredField, validateRequiredFields } from './forms';
+import { handleChange, hasExactlyOneOf, OptionalField, OptionalNumberField, RequiredBoolean, RequiredField, validateRequiredFields } from '../../forms';
 
 export class SetupSFTP extends Component {
     constructor(props) {

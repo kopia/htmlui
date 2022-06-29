@@ -10,10 +10,9 @@ import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
 import { handleChange, LogDetailSelector, OptionalFieldNoLabel, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from '../../forms';
-import { errorAlert, sourceQueryStringParams } from 'utils';
+import { errorAlert, sourceQueryStringParams } from '../../utils';
 import { PolicyEditorLink } from "./PolicyEditorLink";
 import { getDeepStateProperty } from '../../deepstate';
-
 
 function LabelColumn(props) {
     return <Col xs={12} sm={4} className="policyFieldColumn">

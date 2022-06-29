@@ -1,9 +1,8 @@
-import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import FormGroup from 'react-bootstrap/FormGroup';
 
-import { getDeepStateProperty, setDeepStateProperty } from './deepstate.js';
+import { getDeepStateProperty, setDeepStateProperty } from '../deepstate.js';
 
 export function validateRequiredFields(component, fields) {
     let updateState = {};

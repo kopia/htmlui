@@ -19,17 +19,25 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "paths": {
       "@kopia/utils": [
-        "utils"
+        "src/utils"
       ],
       "@kopia/backend": [
-        "backend"
+        "src/backend"
+      ],
+      "@kopia/forms": [
+        "src/forms"
       ]
     }
   },
   "include": [
     "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

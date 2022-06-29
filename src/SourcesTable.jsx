@@ -12,7 +12,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { FsSize, CliEquivalent, compare, errorAlert, formatOwner, policyEditorURL, redirectIfNotConnected, sizeToDisplayWithUnit, sourceQueryStringParams } from 'utils';
+import { FsSize, CliEquivalent, compare, errorAlert, formatOwner, policyEditorURL, redirectIfNotConnected, sizeToDisplayWithUnit, sourceQueryStringParams } from './utils';
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"

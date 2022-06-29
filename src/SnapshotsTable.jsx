@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
 import MyTable from './Table';
-import { CliEquivalent, FsSize, Rfc3339Timestamp, GoBackButton, compare, errorAlert, objectLink, parseQuery, redirectIfNotConnected, sourceQueryStringParams } from "utils";
+import { CliEquivalent, FsSize, Rfc3339Timestamp, GoBackButton, compare, errorAlert, objectLink, parseQuery, redirectIfNotConnected, sourceQueryStringParams } from "./utils";
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';

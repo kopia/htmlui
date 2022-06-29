@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { CliEquivalent, DirectorySelector, compare, isAbsolutePath, formatOwner, policyEditorURL, redirectIfNotConnected } from "utils";
+import { CliEquivalent, DirectorySelector, compare, isAbsolutePath, formatOwner, policyEditorURL, redirectIfNotConnected } from "./utils";
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"

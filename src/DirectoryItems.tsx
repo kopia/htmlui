@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Link } from "react-router-dom";
 import { CellProps, Column, } from 'react-table';
-import { Backend } from 'backend';
+import { Backend } from '@kopia/backend';
 import MyTable from './Table';
-import { FsSize, Rfc3339Timestamp, objectLink } from 'utils';
+import { FsSize, Rfc3339Timestamp, objectLink } from '@kopia/utils';
 
 function objectName(name: string | undefined, typeID: string | undefined): string | undefined {
     if (typeID === "d") {
