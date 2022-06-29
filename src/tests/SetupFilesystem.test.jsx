@@ -1,6 +1,6 @@
 import { render, act } from '@testing-library/react';
 import React from 'react';
-import { SetupFilesystem } from '../SetupFilesystem';
+import { SetupFilesystem } from '../components/Setup/SetupFilesystem';
 import { changeControlValue } from './testutils';
 
 it('can set fields', async () => {
