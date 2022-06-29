@@ -48,31 +48,7 @@ export interface InfoStruct {
     encryptionKeyID?: number
 }
 
-export enum HeaderID {
-    headerGzipDefault = 0x1000,
-    headerGzipBestSpeed = 0x1001,
-    headerGzipBestCompression = 0x1002,
-
-    HeaderZstdDefault = 0x1100,
-    HeaderZstdFastest = 0x1101,
-    HeaderZstdBetterCompression = 0x1102,
-    HeaderZstdBestCompression = 0x1103,
-
-    headerS2Default = 0x1200,
-    headerS2Better = 0x1201,
-    headerS2Parallel4 = 0x1202,
-    headerS2Parallel8 = 0x1203,
-
-    headerPgzipDefault = 0x1300,
-    headerPgzipBestSpeed = 0x1301,
-    headerPgzipBestCompression = 0x1302,
-
-    headerLZ4Default = 0x1400,
-
-    headerDeflateDefault = 0x1500,
-    headerDeflateBestSpeed = 0x1501,
-    headerDeflateBestCompression = 0x1502,
-}
+export type HeaderID = 0x1000 | 0x1001 | 0x1002 | 0x1100 | 0x1101 | 0x1102 | 0x1103 | 0x1200 | 0x1201 | 0x1202 | 0x1203 | 0x1300 | 0x1301 | 0x1302 | 0x1400 | 0x1500 | 0x1501 | 0x1502;
 
 export type ObjectID = string;
 
@@ -86,5 +62,13 @@ export interface Task {
     id: string,
     status: string,
     startTime: Time,
-    endTime: Time
+    endTime?: Time
+}
+
+export enum TaskStatus {
+    Running = "RUNNING",
+
+    Success = "SUCCESS",
+    Failed = "FAILED",
+    Canceled = "CANCELED"
 }
