@@ -1,13 +1,14 @@
 import { render, waitFor, logDOM } from '@testing-library/react';
-import React from 'react';
-import { PolicyEditor } from './components/PolicyEditor/PolicyEditor';
+import { createRef } from 'react';
+import { PolicyEditor } from '../src/components/PolicyEditor/PolicyEditor';
 import { MemoryRouter } from 'react-router-dom';
-import { setupAPIMock } from './tests/api_mocks';
+import { setupAPIMock } from './api_mocks';
 import moment from 'moment';
-import { changeControlValue, simulateClick } from './tests/testutils';
+import { changeControlValue, simulateClick } from './testutils';
+import { it, expect } from 'vitest';
 
 it('e2e', async () => {
-    let ref = React.createRef();
+    let ref = createRef();
     let serverMock = setupAPIMock();
 
     const ust1 = "2021-01-01T12:00:00Z";
@@ -51,34 +52,34 @@ it('e2e', async () => {
         }
     );
 
-        // second request to resolve the policy.
-        serverMock.onPost('/api/v1/policy/resolve?userName=some-user&host=some-host&path=some-path', {
-            "updates": {
+    // second request to resolve the policy.
+    serverMock.onPost('/api/v1/policy/resolve?userName=some-user&host=some-host&path=some-path', {
+        "updates": {
+            "retention": {
+                "keepLatest": 44
+            }
+        },
+        "numUpcomingSnapshotTimes": 5
+    }).reply(200,
+        {
+            "effective": {
                 "retention": {
-                    "keepLatest": 44
+                    "keepLatest": 44,
+                    "keepHourly": 45,
                 }
             },
-            "numUpcomingSnapshotTimes": 5
-        }).reply(200,
-            {
-                "effective": {
-                    "retention": {
-                        "keepLatest": 44,
-                        "keepHourly": 45,
-                    }
-                },
-                "definition": {
-                    "retention": {
-                        "keepLatest": { "host": "some-host", "userName": "some-user", "path": "some-path" },
-                        "keepMonthly": { "host": "h1", "userName": "u1", "path": "p1" }
-                    }
-                },
-                "upcomingSnapshotTimes": [
-                    ust1,
-                    ust2,
-                ]
-            }
-        );
+            "definition": {
+                "retention": {
+                    "keepLatest": { "host": "some-host", "userName": "some-user", "path": "some-path" },
+                    "keepMonthly": { "host": "h1", "userName": "u1", "path": "p1" }
+                }
+            },
+            "upcomingSnapshotTimes": [
+                ust1,
+                ust2,
+            ]
+        }
+    );
 
     // request to save updated policy.
     serverMock.onPut('/api/v1/policy?userName=some-user&host=some-host&path=some-path', {

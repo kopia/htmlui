@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext } from 'react';
 
 export interface AppInfo {
     repoDescription: string
@@ -8,4 +8,4 @@ export const defaultValue: AppInfo = {
     repoDescription: "",
 };
 
-export const AppContext = React.createContext(defaultValue);
+export const AppContext = createContext(defaultValue);

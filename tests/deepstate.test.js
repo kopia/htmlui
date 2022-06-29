@@ -1,5 +1,5 @@
-import React from 'react';
-import { getDeepStateProperty, setDeepStateProperty } from '../deepstate';
+import { getDeepStateProperty, setDeepStateProperty } from '../src/deepstate';
+import { it, expect } from 'vitest';
 
 it('can get fields', async () => {
     const comp = {

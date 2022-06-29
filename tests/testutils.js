@@ -1,4 +1,4 @@
-import { fireEvent, act } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 
 export function changeControlValue(selector, value) {
     fireEvent.change(selector, { target: { value: value } })

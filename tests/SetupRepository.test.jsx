@@ -1,16 +1,16 @@
 import { findByTestId, render, waitFor, act } from '@testing-library/react';
-import React from 'react';
-import { SetupRepository } from '../SetupRepository';
+import { SetupRepository } from '../src/components/Setup/SetupRepository';
 import { setupAPIMock } from './api_mocks';
 import { changeControlValue, simulateClick } from './testutils';
+import { it } from 'vitest';
 
 it('can create new repository when not initialized', async () => {
-  let serverMock = setupAPIMock();
+  const serverMock = setupAPIMock();
 
   // first attempt to connect says - NOT_INITIALIZED
   serverMock.onPost('/api/v1/repo/exists', {
     storage: { type: 'filesystem', config: { path: 'some-path' } },
-  }).reply(400, {code: 'NOT_INITIALIZED', error: 'repository not initialized'});
+  }).reply(400, { code: 'NOT_INITIALIZED', error: 'repository not initialized' });
 
   // second attempt to create is success.
   serverMock.onPost('/api/v1/repo/create', {

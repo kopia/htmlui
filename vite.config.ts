@@ -10,5 +10,8 @@ export default defineConfig({
     proxy: {
       "/api": "http://127.0.0.1:51515"
     }
+  },
+  test: {
+    environment: 'jsdom'
   }
 })

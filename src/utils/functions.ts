@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Backend } from '../backend';
-import { Time } from '../backend/ApiTypes';
 
 const base10UnitPrefixes = ["", "K", "M", "G", "T"];
 
@@ -204,7 +203,7 @@ export function sourceQueryStringParams(source: Backend.SourceInfo) {
     return `userName=${encodeURIComponent(source.userName)}&host=${encodeURIComponent(source.host)}&path=${encodeURIComponent(source.path)}`;
 }
 
-export function formatDuration(from: Time | undefined, to: Time | undefined, useMultipleUnits = false) {
+export function formatDuration(from: Backend.Time | undefined, to: Backend.Time | undefined, useMultipleUnits = false) {
     if (!from) {
         return "";
     }

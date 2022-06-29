@@ -1,7 +1,7 @@
 import { faAngleDoubleDown, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Collapse from 'react-bootstrap/Collapse';
@@ -49,7 +49,7 @@ export class SetupRepository extends Component {
         };
 
         this.handleChange = handleChange.bind(this);
-        this.optionsEditor = React.createRef();
+        this.optionsEditor = createRef();
         this.connectToRepository = this.connectToRepository.bind(this);
         this.createRepository = this.createRepository.bind(this);
         this.cancelCreate = this.cancelCreate.bind(this);

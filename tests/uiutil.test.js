@@ -1,4 +1,5 @@
-import { formatMilliseconds, separateMillisecondsIntoMagnitudes, formatMagnitudesUsingMultipleUnits } from "../utils/functions";
+import { formatMilliseconds, separateMillisecondsIntoMagnitudes, formatMagnitudesUsingMultipleUnits } from "../src/utils/functions";
+import { describe, it, expect } from 'vitest';
 
 describe("formatMilliseconds", () => {
     it("uses 'XXs' format by default", () => {
