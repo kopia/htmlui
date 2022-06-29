@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
@@ -21,9 +21,30 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
+      "@kopia/utils": [
+        "src/utils"
+      ],
+      "@kopia/backend": [
+        "src/backend"
+      ],
+      "@kopia/forms": [
+        "src/forms"
+      ]
     }
   },
   "include": [
     "src"
-  ]
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "rootDir": "."
+    }
+  }
 }

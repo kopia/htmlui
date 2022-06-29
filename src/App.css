@@ -52,10 +52,12 @@ body {
 }
 
 .providerIcon {
-  width: 120px;
-  height: 110px;
-  margin: 10px;
-  vertical-align: middle;
+  width: 8.25em;
+  height: 7.75em;
+  margin: .5em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .advancedOptions {
