@@ -1,0 +1,14 @@
+# This file contains rules for auto-approving Dependabot PRs.
+#
+# We should only have entries for regularly-delivered updates from reputable vendors
+# that have been proven to be stable.
+
+# fonts
+- match:
+    dependency_name: "@fortawesome/react-fontawesome"
+    update_type: "semver:minor"
+
+# testing libraries
+- match:
+    dependency_name: "@testing-library/user-event"
+    update_type: "semver:minor"
