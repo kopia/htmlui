@@ -25,7 +25,7 @@ export class SetupRclone extends Component {
                 You need to do the following BEFORE you try to use Rclone with Kopia: (1) download Rclone from <a href="https://rclone.org/" target="_blank">https://rclone.org/</a> and (2) configure Rclone to setup a remote to the storage provider you want to use Kopia with: see <a href="https://rclone.org/docs/" target="_blank">https://rclone.org/docs/</a>. Once you have configured a Rclone remote, you have to create a Kopia repository for that Rclone remote by entering below (i) the path to the Rclone remote and (ii) the path to the Rclone executable you have on your machine. Once you have setup this repository, Kopia will automatically launch Rclone when Rclone is needed so you do not need to do manage Rclone, but you need to make sure to keep Rclone up-to-date -- see <a href="https://rclone.org/commands/rclone_selfupdate/" target="_blank">https://rclone.org/commands/rclone_selfupdate/</a>.
             </Row>
             <Row>
-                <Col>&nbsp;</Col>
+                &nbsp;
             </Row>
             <Row>
                 {RequiredField(this, "Rclone Remote Path", "remotePath", { autoFocus: true, placeholder: "enter <name-of-rclone-remote>:<path>" })}
