@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
 import { handleChange, LogDetailSelector, OptionalFieldNoLabel, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from './forms';
-import { errorAlert, PolicyEditorLink, sourceQueryStringParams } from './uiutil';
+import { errorAlert, PolicyEditorLink, sourceQueryStringParams, toAlgorithmOption } from './uiutil';
 import { getDeepStateProperty } from './deepstate';
 
 
@@ -473,7 +473,7 @@ export class PolicyEditor extends Component {
                                         onChange={this.handleChange}
                                         value={stateProperty(this, "policy.compression.compressorName")}>
                                         <option value="">(none)</option>
-                                        {this.state.algorithms && this.state.algorithms.compression.map(x => <option key={x} value={x}>{x}</option>)}
+                                        {this.state.algorithms && this.state.algorithms.compression.map(x => toAlgorithmOption(x, ""))}
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "compression.compressorName")}
