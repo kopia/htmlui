@@ -7,15 +7,15 @@ export function setupAPIMock() {
 
     axiosMock.onGet("/api/v1/repo/algorithms").reply(200, {
         defaultEncryption: "e-bar",
-        encryption: ["e-foo", "e-bar", "e-baz"],
+        encryption: [{"id":"e-foo"}, {"id":"e-bar"}, {"id":"e-baz"}],
 
         defaultSplitter: "s-bar",
-        splitter: ["s-foo", "s-bar", "s-baz"],
+        splitter: [{"id":"s-foo"}, {"id":"s-bar"}, {"id":"s-baz"}],
 
         defaultHash: "h-bar",
-        hash: ["h-foo", "h-bar", "h-baz"],
+        hash: [{"id":"h-foo"}, {"id":"h-bar"}, {"id":"h-baz"}],
 
-        compression: ["c-foo", "c-bar", "c-baz"],
+        compression: [{"id":"c-foo"}, {"id":"c-bar"}, {"id":"c-baz", "deprecated": true}],
     });
 
     axiosMock.onGet("/api/v1/current-user").reply(200, {

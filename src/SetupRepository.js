@@ -20,6 +20,7 @@ import { SetupS3 } from './SetupS3';
 import { SetupSFTP } from './SetupSFTP';
 import { SetupToken } from './SetupToken';
 import { SetupWebDAV } from './SetupWebDAV';
+import { toAlgorithmOption } from './uiutil';
 
 const supportedProviders = [
     { provider: "filesystem", description: "Local Directory or NAS", component: SetupFilesystem },
@@ -61,6 +62,9 @@ export class SetupRepository extends Component {
         axios.get('/api/v1/repo/algorithms').then(result => {
             this.setState({
                 algorithms: result.data,
+                defaultHash: result.data.defaultHash,
+                defaultEncryption: result.data.defaultEncryption,
+                defaultSplitter: result.data.defaultSplitter,
                 hash: result.data.defaultHash,
                 encryption: result.data.defaultEncryption,
                 splitter: result.data.defaultSplitter,
@@ -346,7 +350,7 @@ export class SetupRepository extends Component {
                                 onChange={this.handleChange}
                                 data-testid="control-encryption"
                                 value={this.state.encryption}>
-                                {this.state.algorithms.encryption.map(x => <option key={x} value={x}>{x}</option>)}
+                                {this.state.algorithms.encryption.map(x => toAlgorithmOption(x, this.state.defaultEncryption))}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -356,7 +360,7 @@ export class SetupRepository extends Component {
                                 onChange={this.handleChange}
                                 data-testid="control-hash"
                                 value={this.state.hash}>
-                                {this.state.algorithms.hash.map(x => <option key={x} value={x}>{x}</option>)}
+                                {this.state.algorithms.hash.map(x => toAlgorithmOption(x, this.state.defaultHash))}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
@@ -366,7 +370,7 @@ export class SetupRepository extends Component {
                                 onChange={this.handleChange}
                                 data-testid="control-splitter"
                                 value={this.state.splitter}>
-                                {this.state.algorithms.splitter.map(x => <option key={x} value={x}>{x}</option>)}
+                                {this.state.algorithms.splitter.map(x => toAlgorithmOption(x, this.state.defaultSplitter))}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
