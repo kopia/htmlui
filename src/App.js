@@ -25,11 +25,14 @@ export default class App extends Component {
     super();
 
     this.state = {
-      runningTaskCount: 0
+      runningTaskCount: 0,
+      repoDescription: "",
     };
 
     this.fetchTaskSummary = this.fetchTaskSummary.bind(this);
     this.repositoryUpdated = this.repositoryUpdated.bind(this);
+    this.repositoryDescriptionUpdated = this.repositoryDescriptionUpdated.bind(this);
+    this.fetchInitialRepositoryDescription = this.fetchInitialRepositoryDescription.bind(this);
 
     const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
     if (tok && tok.content) {
@@ -46,7 +49,19 @@ export default class App extends Component {
       av.style.display = "block";
     }
 
+    this.fetchInitialRepositoryDescription();
+
     this.taskSummaryInterval = window.setInterval(this.fetchTaskSummary, 5000);
+  }
+
+  fetchInitialRepositoryDescription() {
+    axios.get('/api/v1/repo/status').then(result => {
+      if (result.data.description) {
+        this.setState({
+          repoDescription: result.data.description,
+        });
+      }
+    }).catch(error => { /* ignore */});
   }
 
   fetchTaskSummary() {
@@ -68,6 +83,12 @@ export default class App extends Component {
     } else {
       window.location.replace("/repo");
     }
+  }
+
+  repositoryDescriptionUpdated(desc) {
+    this.setState({
+      repoDescription: desc,
+    });
   }
 
   render() {
@@ -98,7 +119,7 @@ export default class App extends Component {
 
             <Container fluid>
               <NavLink to="/repo" style={{ color: "inherit", textDecoration: "inherit" }}>
-                <h3 className="mb-4">{this.repoDescription}</h3>
+                <h5 className="mb-4">{this.state.repoDescription}</h5>
               </NavLink>
 
               <Switch>
