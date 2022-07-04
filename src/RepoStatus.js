@@ -63,7 +63,7 @@ export class RepoStatus extends Component {
                 });
 
                 // Update the app context to reflect the successfully-loaded description.
-                this.context.repoDescription = result.data.description;
+                this.context.repositoryDescriptionUpdated(result.data.description);
 
                 if (result.data.initTaskID) {
                     window.setTimeout(() => {
@@ -104,7 +104,7 @@ export class RepoStatus extends Component {
             "description": this.state.status.description,
         }).then(result => {
             // Update the app context to reflect the successfully-saved description.
-            this.context.repoDescription = this.state.status.description;
+            this.context.repositoryDescriptionUpdated(result.data.description);
 
             this.setState({
                 isLoading: false,
