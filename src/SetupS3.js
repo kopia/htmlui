@@ -21,12 +21,6 @@ export class SetupS3 extends Component {
     render() {
         return <>
             <Row>
-                All S3-compatible storage providers are supported by Kopia, including but not limited to Amazon S3, Amazon Lightsail, Wasabi, IDrive E2, MinIO, Backblaze B2, Oracle Cloud Infrastructure, Google Cloud Storage, and DigitalOcean Spaces.
-            </Row>
-            <Row>
-                &nbsp;
-            </Row>
-            <Row>
                 {RequiredField(this, "Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
                 {RequiredField(this, "Server Endpoint", "endpoint", { placeholder: "enter server address (e.g., s3.amazonaws.com)" })}
                 {OptionalField(this, "Override Region", "region", { placeholder: "enter specific region (e.g., us-west-1) or leave empty" })}
