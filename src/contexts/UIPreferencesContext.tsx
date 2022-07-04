@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import axios from 'axios';
 
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 
@@ -59,28 +60,19 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
 
     useEffect(() => {
-        (async () => {
-            try {
-                const response = await fetch(PREFERENCES_URL, {
-                    method: 'GET'
-                });
-
-                let storedPreferences = await response.json() as SerializedUIPreferences;
-                if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
-                    storedPreferences.theme = getDefaultTheme();
-                }
-                if (!storedPreferences.pageSize || storedPreferences.pageSize === 0) {
-                    storedPreferences.pageSize = DEFAULT_PREFERENCES.pageSize;
-                } else {
-                    storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
-                }
-
-                setPreferences(storedPreferences);
+        axios.get(PREFERENCES_URL).then(result => {
+            let storedPreferences = result.data as SerializedUIPreferences;
+            if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
+                storedPreferences.theme = getDefaultTheme();
             }
-            catch (err) {
-                console.error(err);
+            if (!storedPreferences.pageSize || storedPreferences.pageSize === 0) {
+                storedPreferences.pageSize = DEFAULT_PREFERENCES.pageSize;
+            } else {
+                storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
             }
-        })();
+
+            setPreferences(storedPreferences);
+        }).catch(err => console.error(err));
     }, []);
 
     useEffect(() => {
@@ -88,12 +80,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
             return;
         }
 
-        (async () => {
-            await fetch(PREFERENCES_URL, {
-                method: 'PUT',
-                body: JSON.stringify(preferences)
-            });
-        })();
+        axios.put(PREFERENCES_URL, preferences).then(result => {}).catch(err => console.error(err));
     }, [preferences]);
 
     const setTheme = (theme: Theme) => setPreferences(oldPreferences => {
