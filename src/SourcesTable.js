@@ -95,7 +95,7 @@ export class SourcesTable extends Component {
                 return <>
                     <Button data-testid="snapshot-now" variant="primary" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
-                    }}>Snapshot now</Button>
+                    }}>Snapshot Now</Button>
                     &nbsp;<Link data-testid="edit-policy" to={policyEditorURL(x.row.original.source)}><Button size="sm" variant="info">Policy</Button></Link>
                 </>;
 
