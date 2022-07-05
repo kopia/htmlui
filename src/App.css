@@ -145,8 +145,8 @@ div.tab-body {
 
 .loglevel-0 { } /* debug */
 .loglevel-1 { font-weight: bold;} /* info */
-.loglevel-2 { color: rgb(169, 112, 5); font-weight: bold;} /* warning */
-.loglevel-3 { color: red; font-weight: bold; } /* error */
+.loglevel-2 { color: #FF00FF; font-weight: bold;} /* warning */
+.loglevel-3 { color: #FF0000; font-weight: bold; } /* error */
 
 .counter-badge {
   font-size: 90%;
@@ -209,7 +209,7 @@ nav.navbar {
 }
 
 .log-parameter {
-  color: #000080;
+  color: #00A3FF;
   font-weight: bold;
   padding-right: 10px;
 }
