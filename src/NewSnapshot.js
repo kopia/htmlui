@@ -144,7 +144,7 @@ export class NewSnapshot extends Component {
                     <Button
                         data-testid='estimate-now'
                         size="sm"
-                        disabled={!this.state.resolvedSource?.path}
+                        disabled={!this.state.resolvedSource.path}
                         title="Estimate"
                         variant="primary"
                         onClick={this.estimate}>Estimate</Button>
@@ -152,7 +152,7 @@ export class NewSnapshot extends Component {
                     <Button
                         data-testid='snapshot-now'
                         size="sm"
-                        disabled={!this.state.resolvedSource?.path}
+                        disabled={!this.state.resolvedSource.path}
                         title="Snapshot Now"
                         variant="success"
                         onClick={this.snapshotNow}>Snapshot Now</Button>
