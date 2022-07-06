@@ -87,7 +87,7 @@ export class TaskLogs extends Component {
 
         const p = JSON.stringify(parametersOnly);
         if (p !== "{}") {
-            return <span className="log-parameter">{p}</span>;
+            return <code>{p}</code>;
         }
 
         return "";
