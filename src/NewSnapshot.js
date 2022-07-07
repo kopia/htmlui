@@ -40,14 +40,21 @@ export class NewSnapshot extends Component {
 
     componentDidUpdate() {
         if (this.state.lastResolvedPath !== this.state.path) {
-            axios.post('/api/v1/paths/resolve', { path: this.state.path }).then(result => {
+            if (this.state.path) {
+                axios.post('/api/v1/paths/resolve', { path: this.state.path }).then(result => {
+                    this.setState({
+                        lastResolvedPath: this.state.path,
+                        resolvedSource: result.data.source,
+                    });
+                }).catch(error => {
+                    redirectIfNotConnected(error);
+                });
+            } else {
                 this.setState({
                     lastResolvedPath: this.state.path,
-                    resolvedSource: result.data.source,
+                    resolvedSource: null,
                 });
-            }).catch(error => {
-                redirectIfNotConnected(error);
-            });
+            }
         }
 
         if (this.state.estimateTaskVisible && this.state.lastEstimatedPath !== this.state.resolvedSource.path) {
