@@ -23,7 +23,7 @@ export class SetupAzure extends Component {
                 {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
             </Row>
             <Row>
-                {RequiredField(this, "Storage Account", "storageAccount", { placeholder: "enter access key ID" })}
+                {RequiredField(this, "Storage Account", "storageAccount", { placeholder: "enter storage account name" })}
                 {OptionalField(this, "Access Key", "storageKey", { placeholder: "enter secret access key", type: "password" })}
             </Row>
             <Row>
