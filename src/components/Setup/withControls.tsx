@@ -1,10 +1,13 @@
 import { Button } from "react-bootstrap";
+import { Outlet, useNavigate } from "react-router-dom";
 
-export function withControls(wrappedComponent: () => JSX.Element): () => JSX.Element {
-    return () => <>
-        {wrappedComponent()}
+export function WithControls(): JSX.Element {
+    const navigate = useNavigate();
+    
+    return <>
+        <Outlet />
         <hr />
-        <Button data-testid='back-button' variant="secondary" onClick={window.history.back}>Back</Button>
+        <Button data-testid='back-button' variant="secondary" onClick={() => navigate(-1)}>Back</Button>
         &nbsp;
         <Button variant="primary" type="submit" data-testid="submit-button">Next</Button>
     </>;

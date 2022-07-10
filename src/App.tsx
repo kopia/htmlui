@@ -42,12 +42,6 @@ export function App() {
       axios.defaults.headers.common['X-Kopia-Csrf-Token'] = "-";
     }
 
-    const av = document.getElementById('appVersion');
-    if (av) {
-      // show app version after mounting the component to avoid flashing of unstyled content.
-      av.style.display = "block";
-    }
-
     taskSummaryInterval.current = window.setInterval(fetchTaskSummary, 5000);
 
     // On unmount

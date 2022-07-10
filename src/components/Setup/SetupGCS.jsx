@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, OptionalField, RequiredField, validateRequiredFields } from '../../forms';
 
-
 export class SetupGCS extends Component {
     constructor(props) {
         super();

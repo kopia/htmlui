@@ -8,34 +8,10 @@ import Collapse from 'react-bootstrap/Collapse';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
-import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../../contexts/AppContext';
 import { handleChange, RequiredBoolean, RequiredField, validateRequiredFields } from '../../forms';
-import { SetupAzure } from './SetupAzure';
-import { SetupB2 } from "./SetupB2";
-import { SetupFilesystem } from './SetupFilesystem';
-import { SetupGCS } from './SetupGCS';
-import { SetupKopiaServer } from './SetupKopiaServer';
-import { SetupRclone } from './SetupRclone';
-import { SetupS3 } from './SetupS3';
-import { SetupSFTP } from './SetupSFTP';
-import { SetupToken } from './SetupToken';
-import { SetupWebDAV } from './SetupWebDAV';
-
-const supportedProviders = [
-    { provider: "filesystem", description: "Local Directory or NAS", component: SetupFilesystem },
-    { provider: "gcs", description: "Google Cloud Storage", component: SetupGCS },
-    { provider: "s3", description: "Amazon S3 or Compatible Storage", component: SetupS3 },
-    { provider: "b2", description: "Backblaze B2", component: SetupB2 },
-    { provider: "azureBlob", description: "Azure Blob Storage", component: SetupAzure },
-    { provider: "sftp", description: "SFTP Server", component: SetupSFTP },
-    { provider: "rclone", description: "Rclone Remote", component: SetupRclone },
-    { provider: "webdav", description: "WebDAV Server", component: SetupWebDAV },
-    { provider: "_server", description: "Kopia Repository Server", component: SetupKopiaServer },
-    { provider: "_token", description: "Use Repository Token", component: SetupToken },
-];
-
+import { supportedProviders } from './Providers';
 
 export class SetupRepository extends Component {
     constructor() {
@@ -78,6 +54,8 @@ export class SetupRepository extends Component {
             });
         });
     }
+
+    
 
     validate() {
         const ed = this.optionsEditor.current;
@@ -212,25 +190,6 @@ export class SetupRepository extends Component {
         this.setState({ confirmCreate: false });
     }
 
-    renderProviderSelection() {
-        return <>
-            <h3>Select Storage Type</h3>
-            <p>To connect to a repository or create one, select the preferred storage type:</p>
-            <Row>
-                <Col>
-                    {supportedProviders.map(x =>
-                        <Link key={x.provider}
-                            data-testid={'provider-' + x.provider}
-                            className={`providerIcon btn btn-${x.provider.startsWith("_") ? "success" : "primary"}`}
-                            to={x.provider}>
-                            <span>{x.description}</span>
-                        </Link>
-                    )}
-                </Col>
-            </Row>
-        </>;
-    }
-
     verifyStorage(e) {
         e.preventDefault();
 
@@ -293,7 +252,7 @@ export class SetupRepository extends Component {
     renderProviderConfiguration() {
         let SelectedProvider = null;
         for (const prov of supportedProviders) {
-            if (prov.provider === this.state.provider) {
+            if (prov.name === this.state.provider) {
                 SelectedProvider = prov.component;
             }
         }
@@ -480,7 +439,6 @@ export class SetupRepository extends Component {
     render() {
         return <>
             {this.renderInternal()}
-            {/* <pre className="debug-json">{JSON.stringify(this.state, null, 2)}</pre> */}
         </>;
     }
 }
