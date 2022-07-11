@@ -22,8 +22,8 @@ export class SetupB2 extends Component {
                 {RequiredField(this, "B2 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
             </Row>
             <Row>
-                {RequiredField(this, "Key ID", "keyId", { placeholder: "enter application or account key ID" })}
-                {RequiredField(this, "Key", "key", { placeholder: "enter secret application or account key", type: "password" })}
+                {RequiredField(this, "Key ID", "keyId", { placeholder: "enter keyID" })}
+                {RequiredField(this, "Key", "key", { placeholder: "enter secret applicationKey", type: "password" })}
             </Row>
             <Row>
                 {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
