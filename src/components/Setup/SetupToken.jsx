@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, RequiredField, validateRequiredFields } from '../../forms';
+import { WithControls } from './WithControls';
 
 export class SetupToken extends Component {
     constructor(props) {
@@ -17,10 +18,10 @@ export class SetupToken extends Component {
     }
 
     render() {
-        return <>
+        return <WithControls validate={this.validate}>
             <Row>
                 {RequiredField(this, "Token", "token", { autoFocus: true, type: "password", placeholder: "paste connection token" })}
             </Row>
-        </>;
+        </WithControls>;
     }
 }

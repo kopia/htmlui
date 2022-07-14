@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "./DirectoryItems";
-import { CliEquivalent } from "./utils/CliEquivalent";
+import { CliEquivalent as CommandLineEquivalent } from "./utils/CliEquivalent";
 import { GoBackButton } from "./utils/GoBackButton";
 
 
@@ -153,7 +153,7 @@ export class DirectoryObject extends Component {
                     <DirectoryItems items={items} />
                 </Col>
             </Row>
-            <CliEquivalent command={`snapshot list ${this.state.oid}`} />
+            <CommandLineEquivalent command={`snapshot list ${this.state.oid}`} />
         </>
     }
 }

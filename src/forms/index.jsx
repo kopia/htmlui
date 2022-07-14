@@ -4,6 +4,8 @@ import FormGroup from 'react-bootstrap/FormGroup';
 
 import { getDeepStateProperty, setDeepStateProperty } from '../deepstate.js';
 
+export { RequiredFieldHook } from './RequiredFieldHook';
+
 export function validateRequiredFields(component, fields) {
     let updateState = {};
     let failed = false;
@@ -44,6 +46,7 @@ export function RequiredField(component, label, name, props = {}, helpText = nul
             value={stateProperty(component, name)}
             data-testid={'control-' + name}
             onChange={component.handleChange}
+            autoComplete="off"
             {...props} />
         {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
         <Form.Control.Feedback type="invalid">Required field</Form.Control.Feedback>
@@ -59,6 +62,7 @@ export function OptionalField(component, label, name, props = {}, helpText = nul
             value={stateProperty(component, name)}
             data-testid={'control-' + name}
             onChange={component.handleChange}
+            autoComplete="off"
             {...props} />
         {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
         {invalidFeedback && <Form.Control.Feedback type="invalid">{invalidFeedback}</Form.Control.Feedback>}
@@ -242,7 +246,7 @@ export function TimesOfDayList(component, name) {
             }
 
             if (valid) {
-                return {hour: h, min: m}
+                return { hour: h, min: m }
             }
         }
 
@@ -254,8 +258,8 @@ export function TimesOfDayList(component, name) {
             let tmp = [];
 
             for (const tod of v) {
-                if (typeof(tod) === "object") {
-                    tmp.push(tod.hour + ":" + (tod.min < 10 ? "0": "") + tod.min);
+                if (typeof (tod) === "object") {
+                    tmp.push(tod.hour + ":" + (tod.min < 10 ? "0" : "") + tod.min);
                 } else {
                     tmp.push(tod);
                 }
@@ -292,25 +296,25 @@ export function TimesOfDayList(component, name) {
             rows="5">
         </Form.Control>
         <Form.Control.Feedback type="invalid">Invalid Times of Day</Form.Control.Feedback>
-   </FormGroup>;
+    </FormGroup>;
 }
 
 export function LogDetailSelector(component, name) {
     return <Form.Control as="select" size="sm"
-    name={name}
-    onChange={e => component.handleChange(e, valueToNumber)}
-    value={stateProperty(component, name)}>
-    <option value="">(inherit from parent)</option>
-    <option value="0">0 - no output</option>
-    <option value="1">1 - minimal details</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5 - normal details</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10 - maximum details</option>
-</Form.Control>
+        name={name}
+        onChange={e => component.handleChange(e, valueToNumber)}
+        value={stateProperty(component, name)}>
+        <option value="">(inherit from parent)</option>
+        <option value="0">0 - no output</option>
+        <option value="1">1 - minimal details</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5 - normal details</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10 - maximum details</option>
+    </Form.Control>
 }
