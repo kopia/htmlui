@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, OptionalField, RequiredField, validateRequiredFields } from '../../forms';
+import { WithControls } from './WithControls';
 
 export class SetupKopiaServer extends Component {
     constructor(props) {
@@ -17,13 +18,13 @@ export class SetupKopiaServer extends Component {
     }
 
     render() {
-        return <>
+        return <WithControls validate={this.validate}>
             <Row>
                 {RequiredField(this, "Server address", "url", { autoFocus: true, placeholder: "enter server URL (https://<host>:port)" })}
             </Row>
             <Row>
                 {OptionalField(this, "Trusted server certificate fingerprint (SHA256)", "serverCertFingerprint", { placeholder: "enter trusted server certificate fingerprint printed at server startup" })}
             </Row>
-        </>;
+        </WithControls>;
     }
 }

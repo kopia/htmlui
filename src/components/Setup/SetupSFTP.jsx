@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, hasExactlyOneOf, OptionalField, OptionalNumberField, RequiredBoolean, RequiredField, validateRequiredFields } from '../../forms';
+import { WithControls } from './WithControls';
 
 export class SetupSFTP extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ export class SetupSFTP extends Component {
     }
 
     render() {
-        return <>
+        return <WithControls validate={this.validate}>
             <Row>
                 {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g., example.com)" })}
                 {RequiredField(this, "User", "username", { placeholder: "user name" })}
@@ -70,14 +71,13 @@ export class SetupSFTP extends Component {
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["knownHostsFile", "knownHostsData"]),
                     }, null, <>Either <b>Known Hosts File</b> or <b>Known Hosts Data</b> is required, but not both.</>)}
                 </Row>
-                <hr/>
+                <hr />
             </>}
             {RequiredBoolean(this, "Launch external password-less SSH command", "externalSSH", "By default Kopia connects to the server using internal SSH client which supports limited options. Alternatively it may launch external password-less SSH command, which supports additional options, but is generally less efficient than the built-in client.")}
             {this.state.externalSSH && <><Row>
                 {OptionalField(this, "SSH Command", "sshCommand", { placeholder: "provide enter passwordless SSH command to execute (typically 'ssh')" })}
                 {OptionalField(this, "SSH Arguments", "sshArguments", { placeholder: "enter SSH command arguments ('user@host -s sftp' will be appended automatically)" })}
             </Row></>}
-
-        </>;
+        </WithControls>;
     }
 }

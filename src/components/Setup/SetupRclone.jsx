@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, OptionalField, RequiredField, validateRequiredFields } from '../../forms';
+import { WithControls } from './WithControls';
 
 export class SetupRclone extends Component {
     constructor(props) {
@@ -17,13 +18,13 @@ export class SetupRclone extends Component {
     }
 
     render() {
-        return <>
+        return <WithControls validate={this.validate}>
             <Row>
                 {RequiredField(this, "Rclone Remote Path", "remotePath", { autoFocus: true, placeholder: "enter <name-of-rclone-remote>:<path>" })}
             </Row>
             <Row>
                 {OptionalField(this, "rclone executable", "rcloneExe", { placeholder: "enter path to rclone executable" })}
             </Row>
-        </>;
+        </WithControls>;
     }
 }

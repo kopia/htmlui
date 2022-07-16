@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, OptionalField, RequiredBoolean, RequiredField, validateRequiredFields } from '../../forms';
+import { WithControls } from './WithControls';
 
 export class SetupS3 extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export class SetupS3 extends Component {
     }
 
     render() {
-        return <>
+        return <WithControls validate={this.validate}>
             <Row>
                 {RequiredField(this, "S3 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
                 {RequiredField(this, "Server Endpoint", "endpoint", { placeholder: "enter server address (e.g., s3.amazonaws.com)" })}
@@ -37,6 +38,6 @@ export class SetupS3 extends Component {
             <Row>
                 {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
             </Row>
-        </>;
+        </WithControls>;
     }
 }

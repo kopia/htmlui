@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, OptionalField, RequiredField, validateRequiredFields } from '../../forms';
+import { WithControls } from './WithControls';
 
 export class SetupB2 extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export class SetupB2 extends Component {
     }
 
     render() {
-        return <>
+        return <WithControls validate={this.validate}>
             <Row>
                 {RequiredField(this, "B2 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
             </Row>
@@ -28,6 +29,6 @@ export class SetupB2 extends Component {
             <Row>
                 {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
             </Row>
-        </>;
+        </WithControls>;
     }
 }
