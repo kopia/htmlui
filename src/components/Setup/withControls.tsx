@@ -1,7 +1,6 @@
 import { FormEvent, ReactNode } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { supportedProviders } from "./Providers";
+import { useNavigate } from "react-router-dom";
 
 export const WithControls: React.FC<{ validate: () => boolean, children: ReactNode | undefined }> = ({ validate, children }) => {
     const navigate = useNavigate();

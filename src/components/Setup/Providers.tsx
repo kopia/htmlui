@@ -9,7 +9,6 @@ import { SetupSFTP } from './SetupSFTP';
 import { SetupToken } from './SetupToken';
 import { SetupWebDAV } from './SetupWebDAV';
 import { Component } from "react";
-import { SetupFilesystem2 } from "./SetupFilesystem2";
 
 export interface Provider {
     name: string,
@@ -20,7 +19,7 @@ export interface Provider {
 }
 
 export const supportedProviders: Provider[] = [
-    { name: "filesystem", description: "Local Directory or NAS", isInternal: false, component: SetupFilesystem, render: () => <SetupFilesystem2 /> },
+    { name: "filesystem", description: "Local Directory or NAS", isInternal: false, component: undefined!, render: () => <SetupFilesystem /> },
     { name: "gcs", description: "Google Cloud Storage", isInternal: false, component: SetupGCS, render: () => <SetupGCS /> },
     { name: "s3", description: "Amazon S3 or Compatible Storage", isInternal: false, component: SetupS3, render: () => <SetupS3 /> },
     { name: "b2", description: "Backblaze B2", isInternal: false, component: SetupB2, render: () => <SetupB2 /> },
