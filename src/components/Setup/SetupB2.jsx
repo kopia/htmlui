@@ -18,7 +18,7 @@ export class SetupB2 extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "B2 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
             </Row>

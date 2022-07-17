@@ -18,7 +18,7 @@ export class SetupGCS extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "GCS Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
                 {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty", type: "password" })}

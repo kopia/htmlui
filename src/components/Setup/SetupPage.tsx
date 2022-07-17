@@ -1,6 +1,9 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Outlet } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { CreateRepository } from './CreateRepository';
+import { supportedProviders } from './Providers';
+import { ProviderSelection } from './ProviderSelection';
 
 export function SetupPage() {
     return <>
@@ -12,7 +15,11 @@ export function SetupPage() {
         </Navbar>
 
         <Container fluid>
-            <Outlet />
+            <Routes>
+                <Route index element={<ProviderSelection />} />
+                <Route path="create" element={<CreateRepository />} />
+                {supportedProviders.map(provider => <Route key={provider.name} path={provider.name} element={provider.render(provider)} />)}
+            </Routes>
         </Container>
     </>;
 }

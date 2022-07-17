@@ -18,7 +18,7 @@ export class SetupWebDAV extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "WebDAV Server URL", "url", { autoFocus: true, placeholder: "http[s]://server:port/path" })}
             </Row>

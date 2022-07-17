@@ -72,3 +72,36 @@ export enum TaskStatus {
     Failed = "FAILED",
     Canceled = "CANCELED"
 }
+
+export interface Algorithms {
+    compression: CompressionAlgorithm[],
+    hash: HashAlgorithm[],
+    encryption: EncryptionAlgorithm[],
+    splitter: SplitterAlgorithm[],
+
+    defaultEncryption: string,
+    defaultHash: string,
+    defaultSplitter: string,
+
+    indexVersion?: string
+}
+
+export interface HashAlgorithm {
+    id: string,
+    deprecated: boolean
+}
+
+export interface EncryptionAlgorithm {
+    id: string,
+    deprecated: boolean
+}
+
+export interface CompressionAlgorithm {
+    id: string,
+    deprecated: boolean
+}
+
+export interface SplitterAlgorithm {
+    id: string,
+    deprecated: boolean
+}

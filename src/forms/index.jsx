@@ -4,7 +4,8 @@ import FormGroup from 'react-bootstrap/FormGroup';
 
 import { getDeepStateProperty, setDeepStateProperty } from '../deepstate.js';
 
-export { makeRequiredField } from './RequiredFieldHook';
+export * from './RequiredFieldHook';
+export * from './FormField';
 
 export function validateRequiredFields(component, fields) {
     let updateState = {};

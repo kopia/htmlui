@@ -1,5 +1,4 @@
-import { faAngleDoubleDown, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import axios from 'axios';
 import { Component, createRef } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -7,11 +6,8 @@ import Col from 'react-bootstrap/Col';
 import Collapse from 'react-bootstrap/Collapse';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Spinner from 'react-bootstrap/Spinner';
-import { Link } from 'react-router-dom';
 import { AppContext } from '../../contexts/AppContext';
 import { handleChange, RequiredBoolean, RequiredField, validateRequiredFields } from '../../forms';
-import { supportedProviders } from './Providers';
 
 export class SetupRepository extends Component {
     constructor() {
@@ -182,112 +178,8 @@ export class SetupRepository extends Component {
         };
     }
 
-    toggleAdvanced() {
-        this.setState({ showAdvanced: !this.state.showAdvanced });
-    }
-
     cancelCreate() {
         this.setState({ confirmCreate: false });
-    }
-
-    verifyStorage(e) {
-        e.preventDefault();
-
-        const ed = this.optionsEditor.current;
-        if (ed && !ed.validate()) {
-            return;
-        }
-
-        if (this.state.provider === "_token" || this.state.provider === "_server") {
-            this.setState({
-                // for token and server assume it's verified and exists, if not, will fail in the next step.
-                storageVerified: true,
-                confirmCreate: false,
-                isLoading: false,
-                providerSettings: ed.state,
-            });
-            return;
-        }
-
-        const request = {
-            storage: {
-                type: this.state.provider,
-                config: ed.state,
-            },
-        };
-
-        this.setState({ isLoading: true });
-        axios.post('/api/v1/repo/exists', request).then(result => {
-            this.setState({
-                // verified and exists
-                storageVerified: true,
-                confirmCreate: false,
-                isLoading: false,
-                providerSettings: ed.state,
-            });
-        }).catch(error => {
-            this.setState({ isLoading: false });
-            if (error.response.data) {
-                if (error.response.data.code === "NOT_INITIALIZED") {
-                    this.setState({
-                        // verified and does not exist
-                        confirmCreate: true,
-                        storageVerified: true,
-                        providerSettings: ed.state,
-                        connectError: null,
-                    });
-                } else {
-                    this.setState({
-                        connectError: error.response.data.code + ": " + error.response.data.error,
-                    });
-                }
-            } else {
-                this.setState({
-                    connectError: error.message,
-                });
-            }
-        });
-    }
-
-    renderProviderConfiguration() {
-        let SelectedProvider = null;
-        for (const prov of supportedProviders) {
-            if (prov.name === this.state.provider) {
-                SelectedProvider = prov.component;
-            }
-        }
-
-        return <Form onSubmit={this.verifyStorage}>
-            {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
-            {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
-            {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
-
-            <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
-
-            {this.connectionErrorInfo()}
-            <hr />
-
-            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
-            &nbsp;
-            <Button variant="primary" type="submit" data-testid="submit-button">Next</Button>
-            {this.loadingSpinner()}
-        </Form>;
-    }
-
-    toggleAdvancedButton() {
-        // Determine button icon and text based upon component state.
-        const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
-        const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
-
-        return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
-            variant="secondary"
-            aria-controls="advanced-options-div"
-            aria-expanded={this.state.showAdvanced}
-            size="sm"
-        >
-            <FontAwesomeIcon icon={icon} style={{ marginRight: 4 }} />
-            {text}
-        </Button>;
     }
 
     renderConfirmCreate() {
@@ -370,14 +262,6 @@ export class SetupRepository extends Component {
         </Row>;
     }
 
-    connectionErrorInfo() {
-        return this.state.connectError && <Row>
-            <Form.Group as={Col}>
-                <Form.Text className="error">Connect Error: {this.state.connectError}</Form.Text>
-            </Form.Group>
-        </Row>;
-    }
-
     renderConfirmConnect() {
         return <Form onSubmit={this.connectToRepository}>
             <h3>Connect To Repository</h3>
@@ -407,12 +291,12 @@ export class SetupRepository extends Component {
                     {this.overrideUsernameHostnameRow()}
                 </div>
             </Collapse>
-            {this.connectionErrorInfo()}
+            {/* Done connectError */}
             <hr />
             <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
             &nbsp;
             <Button variant="success" type="submit" data-testid="submit-button">Connect To Repository</Button>
-            {this.loadingSpinner()}
+            {/* Done this.loadingSpinner() */}
         </Form>;
     }
 
@@ -430,10 +314,6 @@ export class SetupRepository extends Component {
         }
 
         return this.renderConfirmConnect();
-    }
-
-    loadingSpinner() {
-        return this.state.isLoading && <Spinner animation="border" variant="primary" />;
     }
 
     render() {

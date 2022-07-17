@@ -18,7 +18,7 @@ export class SetupAzure extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "Container", "container", { autoFocus: true, placeholder: "enter container name" })}
                 {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}

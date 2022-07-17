@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import './main.css';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { NewSnapshot } from './NewSnapshot';
 import { SnapshotsTable } from './SnapshotsTable';
@@ -15,9 +15,6 @@ import { TasksTable } from './TasksTable';
 import { RepoStatus } from './RepoStatus';
 import { SetupPage } from './components/Setup/SetupPage';
 import { getDefaultTheme } from './contexts/UIPreferencesContext';
-import { supportedProviders } from './components/Setup/Providers';
-import { WithControls } from './components/Setup/WithControls';
-import { ProviderSelection } from './components/Setup/ProviderSelection';
 import { StrictMode } from 'react';
 
 const h = document.querySelector("html")!;
@@ -40,10 +37,7 @@ root.render(<>
                     <Route path="tasks" element={<TasksTable />} />
                     <Route path="repo" element={<RepoStatus />} />
                 </Route>
-                <Route path="/connect" element={<SetupPage />}>
-                    <Route index element={<ProviderSelection />} />
-                    {supportedProviders.map(provider => <Route key={provider.name} path={provider.name} element={provider.render()} />)}
-                </Route>
+                <Route path="/connect/*" element={<SetupPage />} />
             </Routes>
         </BrowserRouter>
         <div id="appVersion">

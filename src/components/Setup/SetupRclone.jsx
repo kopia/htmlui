@@ -18,7 +18,7 @@ export class SetupRclone extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "Rclone Remote Path", "remotePath", { autoFocus: true, placeholder: "enter <name-of-rclone-remote>:<path>" })}
             </Row>

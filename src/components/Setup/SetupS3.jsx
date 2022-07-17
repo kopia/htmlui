@@ -20,7 +20,7 @@ export class SetupS3 extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "S3 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
                 {RequiredField(this, "Server Endpoint", "endpoint", { placeholder: "enter server address (e.g., s3.amazonaws.com)" })}

@@ -40,7 +40,7 @@ export class SetupSFTP extends Component {
     }
 
     render() {
-        return <WithControls validate={this.validate}>
+        return <WithControls additionalValidate={this.validate}>
             <Row>
                 {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g., example.com)" })}
                 {RequiredField(this, "User", "username", { placeholder: "user name" })}
