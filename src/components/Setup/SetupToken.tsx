@@ -6,13 +6,10 @@ import { Provider } from './Providers';
 
 export const SetupToken: React.FC<{ provider: Provider }> = ({ provider }) => {
     const tokenField = makeRequiredField("Token", "token");
+
     const fields = [tokenField];
 
-    const validate: () => boolean = () => {
-        return tokenField.isValid;
-    }
-
-    return <WithControls provider={provider} additionalValidate={validate} fields={fields}>
+    return <WithControls provider={provider} fields={fields}>
         <Row>
             {tokenField.render({ autoFocus: true, type: "password", placeholder: "paste connection token" })}
         </Row>

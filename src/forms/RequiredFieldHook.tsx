@@ -16,8 +16,8 @@ export function makeRequiredField(label: string, name: string, helpText: string 
     }, []);
 
     useEffect(() => {
-        const requiredFullfilled = (stateValue !== undefined && stateValue !== null && stateValue.trim() !== '')=== true || REQUIRED_FIELD;
-        if(customValidator !== undefined){
+        const requiredFullfilled = (stateValue !== undefined && stateValue !== null && stateValue.trim() !== '') === true || REQUIRED_FIELD;
+        if (customValidator !== undefined) {
             setIsValid(customValidator(stateValue, requiredFullfilled));
         } else {
             setIsValid(requiredFullfilled);
@@ -31,6 +31,29 @@ export function makeRequiredField(label: string, name: string, helpText: string 
         isValid: isValid === true,
         render(props = {}) {
             return <RequiredField state={[stateValue, setStateValue, isValid]} label={label} name={name} props={props} helpText={helpText} />;
+        },
+    };
+}
+
+export function makeBooleanField(label: string, name: string, helpText: string | undefined = undefined, defaultValue: boolean = false, customValidator: ((value: boolean) => true | string) | undefined = undefined): FormField {
+    const [stateValue, setStateValue] = useState<boolean>(defaultValue);
+    const [isValid, setIsValid] = useState<true | string>(REQUIRED_FIELD);
+
+    useEffect(() => {
+        if (customValidator !== undefined) {
+            setIsValid(customValidator(stateValue));
+        } else {
+            setIsValid(true);
+        }
+    }, [stateValue]);
+
+    return {
+        name,
+        value: `${stateValue}`,
+        isRequired: true,
+        isValid: isValid === true,
+        render(props = {}) {
+            return <BooleanField state={[stateValue, setStateValue, isValid]} label={label} name={name} props={props} helpText={helpText} />;
         },
     };
 }
@@ -73,6 +96,24 @@ const RequiredField: React.FC<{ state: [string | undefined, React.Dispatch<SetSt
             data-testid={'control-' + name}
             onChange={event => setStateValue(event.target.value)}
             {...props} />
+        {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
+        <Form.Control.Feedback type="invalid">{isValid}</Form.Control.Feedback>
+    </Form.Group>
+}
+
+const BooleanField: React.FC<{ state: [boolean, React.Dispatch<SetStateAction<boolean>>, true | string], label: string, name: string, props: object, helpText: string | undefined }> = ({ state, label, name, props = {}, helpText = undefined }) => {
+    const [stateValue, setStateValue, isValid] = state;
+
+    return <Form.Group as={Col}>
+        <Form.Check
+            isInvalid={isValid !== true}
+            label={label}
+            name={name}
+            className="required"
+            checked={stateValue}
+            onChange={event => setStateValue(event.target.checked)}
+            data-testid={'control-' + name}
+            type="checkbox" />
         {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
         <Form.Control.Feedback type="invalid">{isValid}</Form.Control.Feedback>
     </Form.Group>

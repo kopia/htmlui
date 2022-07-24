@@ -66,10 +66,11 @@ export const CreateRepository: React.FC = () => {
         })();
     }, []);
 
-    if (!location.state) {
-        navigate("..");
-        return <>Redirecting...</>;
-    }
+    useEffect(() => {
+        if (!location.state) {
+            navigate("..");
+        }
+    }, [location]);
 
     const storage = location.state;
 
