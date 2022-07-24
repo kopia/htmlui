@@ -7,6 +7,7 @@ export class SetupSFTP extends Component {
     constructor(props) {
         super();
 
+        this.provider = props.provider;
         this.state = {
             port: 22,
             validated: false,
@@ -40,7 +41,7 @@ export class SetupSFTP extends Component {
     }
 
     render() {
-        return <WithControls additionalValidate={this.validate}>
+        return <WithControls additionalValidate={this.validate} provider={this.provider}>
             <Row>
                 {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g., example.com)" })}
                 {RequiredField(this, "User", "username", { placeholder: "user name" })}
