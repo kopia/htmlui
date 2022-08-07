@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "dependencies": {
-    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "bootstrap-dark-5": "^1.1.3",
