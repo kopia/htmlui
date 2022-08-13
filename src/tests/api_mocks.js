@@ -9,6 +9,9 @@ export function setupAPIMock() {
         defaultEncryption: "e-bar",
         encryption: [{"id":"e-foo"}, {"id":"e-bar"}, {"id":"e-baz"}],
 
+        defaultEcc: "ecc-bar",
+        ecc: [{"id":"ecc-foo"}, {"id":"ecc-bar"}, {"id":"ecc-baz"}],
+
         defaultSplitter: "s-bar",
         splitter: [{"id":"s-foo"}, {"id":"s-bar"}, {"id":"s-baz"}],
 
