@@ -64,9 +64,12 @@ export class SetupRepository extends Component {
                 algorithms: result.data,
                 defaultHash: result.data.defaultHash,
                 defaultEncryption: result.data.defaultEncryption,
+                defaultEcc: result.data.defaultEcc,
                 defaultSplitter: result.data.defaultSplitter,
                 hash: result.data.defaultHash,
                 encryption: result.data.defaultEncryption,
+                ecc: result.data.defaultEcc,
+                eccOverheadPercent: 0,
                 splitter: result.data.defaultSplitter,
                 indexVersion: "",
             });
@@ -127,6 +130,8 @@ export class SetupRepository extends Component {
                     version: parseInt(this.state.formatVersion),
                     hash: this.state.hash,
                     encryption: this.state.encryption,
+                    ecc: this.state.ecc,
+                    eccOverheadPercent: parseInt(this.state.eccOverheadPercent),
                 },
                 objectFormat: {
                     splitter: this.state.splitter,
@@ -352,6 +357,31 @@ export class SetupRepository extends Component {
                                 value={this.state.encryption}>
                                 {this.state.algorithms.encryption.map(x => toAlgorithmOption(x, this.state.defaultEncryption))}
                             </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">ECC</Form.Label>
+                            <Form.Control as="select"
+                                name="ecc"
+                                onChange={this.handleChange}
+                                data-testid="control-ecc"
+                                value={this.state.ecc}>
+                                {this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">ECC Overhead (%)</Form.Label>
+                            <Form.Control name="eccOverheadPercent"
+                                          type="number"
+                                          min="0"
+                                          max="100"
+                                          size="sm"
+                                          isInvalid={this.state.eccOverheadPercent === '' || this.state.eccOverheadPercent < 0 || this.state.eccOverheadPercent > 100}
+                                          onChange={this.handleChange}
+                                          data-testid="control-eccOverheadPercent"
+                                          value={this.state.eccOverheadPercent}>
+                            </Form.Control>
+                            <Form.Text className="text-muted">Use 0 to disable</Form.Text>
+                            <Form.Control.Feedback type="invalid">Should be between 0 and 100</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Hash Algorithm</Form.Label>

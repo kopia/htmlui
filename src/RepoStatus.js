@@ -193,6 +193,16 @@ export class RepoStatus extends Component {
                                 <Form.Label>Encryption Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.encryption} />
                             </Form.Group>
+                            {this.state.status.eccOverheadPercent > 0 ? <>
+                            <Form.Group as={Col}>
+                                <Form.Label>ECC Algorithm</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.ecc} />
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>ECC Overhead</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent + "%"} />
+                            </Form.Group>
+                            </> : ""}
                             <Form.Group as={Col}>
                                 <Form.Label>Splitter Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.splitter} />
