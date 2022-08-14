@@ -359,6 +359,28 @@ export class SetupRepository extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
+                            <Form.Label className="required">Hash Algorithm</Form.Label>
+                            <Form.Control as="select"
+                                          name="hash"
+                                          onChange={this.handleChange}
+                                          data-testid="control-hash"
+                                          value={this.state.hash}>
+                                {this.state.algorithms.hash.map(x => toAlgorithmOption(x, this.state.defaultHash))}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">Splitter</Form.Label>
+                            <Form.Control as="select"
+                                          name="splitter"
+                                          onChange={this.handleChange}
+                                          data-testid="control-splitter"
+                                          value={this.state.splitter}>
+                                {this.state.algorithms.splitter.map(x => toAlgorithmOption(x, this.state.defaultSplitter))}
+                            </Form.Control>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Form.Group as={Col}>
                             <Form.Label className="required">ECC</Form.Label>
                             <Form.Control as="select"
                                 name="ecc"
@@ -382,26 +404,6 @@ export class SetupRepository extends Component {
                             </Form.Control>
                             <Form.Text className="text-muted">Use 0 to disable</Form.Text>
                             <Form.Control.Feedback type="invalid">Should be between 0 and 100</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label className="required">Hash Algorithm</Form.Label>
-                            <Form.Control as="select"
-                                name="hash"
-                                onChange={this.handleChange}
-                                data-testid="control-hash"
-                                value={this.state.hash}>
-                                {this.state.algorithms.hash.map(x => toAlgorithmOption(x, this.state.defaultHash))}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label className="required">Splitter</Form.Label>
-                            <Form.Control as="select"
-                                name="splitter"
-                                onChange={this.handleChange}
-                                data-testid="control-splitter"
-                                value={this.state.splitter}>
-                                {this.state.algorithms.splitter.map(x => toAlgorithmOption(x, this.state.defaultSplitter))}
-                            </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Repository Format</Form.Label>

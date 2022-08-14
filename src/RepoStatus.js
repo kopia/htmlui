@@ -186,26 +186,26 @@ export class RepoStatus extends Component {
                                 <Form.Control readOnly defaultValue={this.state.status.storage} />
                             </Form.Group>
                             <Form.Group as={Col}>
+                                <Form.Label>Encryption Algorithm</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.encryption} />
+                            </Form.Group>
+                            <Form.Group as={Col}>
                                 <Form.Label>Hash Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.hash} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Encryption Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.encryption} />
+                                <Form.Label>Splitter Algorithm</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.splitter} />
                             </Form.Group>
-                            {this.state.status.eccOverheadPercent > 0 ? <>
+                        </Row>
+                        <Row>
                             <Form.Group as={Col}>
                                 <Form.Label>ECC Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.ecc} />
+                                <Form.Control readOnly defaultValue={this.state.status.ecc||"-"} />
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>ECC Overhead</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent + "%"} />
-                            </Form.Group>
-                            </> : ""}
-                            <Form.Group as={Col}>
-                                <Form.Label>Splitter Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.splitter} />
+                                <Form.Control readOnly defaultValue={(this.state.status.eccOverheadPercent||0) + "%"} />
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Internal Compression</Form.Label>
