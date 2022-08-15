@@ -69,7 +69,7 @@ export class SetupRepository extends Component {
                 hash: result.data.defaultHash,
                 encryption: result.data.defaultEncryption,
                 ecc: result.data.defaultEcc,
-                eccOverheadPercent: 0,
+                eccOverheadPercent: "0",
                 splitter: result.data.defaultSplitter,
                 indexVersion: "",
             });
@@ -381,41 +381,52 @@ export class SetupRepository extends Component {
                     </Row>
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">ECC</Form.Label>
+                            <Form.Label className="required">Repository Format</Form.Label>
+                            <Form.Control as="select"
+                                          name="formatVersion"
+                                          onChange={this.handleChange}
+                                          data-testid="control-formatVersion"
+                                          value={this.state.formatVersion}>
+                                <option value="2">Latest format</option>
+                                <option value="1">Legacy format compatible with v0.8</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">Error Correction Overhead</Form.Label>
+                            <Form.Control as="select"
+                                          name="eccOverheadPercent"
+                                          onChange={this.handleChange}
+                                          data-testid="control-eccOverheadPercent"
+                                          value={this.state.eccOverheadPercent}>
+                                <option value="0">Disabled</option>
+                                <option value="1">1%</option>
+                                <option value="2">2%</option>
+                                <option value="5">5%</option>
+                                <option value="10">10%</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">Error Correction Algorithm</Form.Label>
                             <Form.Control as="select"
                                 name="ecc"
                                 onChange={this.handleChange}
                                 data-testid="control-ecc"
-                                value={this.state.ecc}>
-                                {this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
+                                disabled={this.state.eccOverheadPercent === "0"}
+                                value={this.state.eccOverheadPercent === "0" ? "-" : this.state.ecc}>
+                                {this.state.eccOverheadPercent === "0" ?
+                                    [<option value="">-</option>]
+                                    : this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label className="required">ECC Overhead (%)</Form.Label>
-                            <Form.Control name="eccOverheadPercent"
-                                          type="number"
-                                          min="0"
-                                          max="100"
-                                          size="sm"
-                                          isInvalid={this.state.eccOverheadPercent === '' || this.state.eccOverheadPercent < 0 || this.state.eccOverheadPercent > 100}
-                                          onChange={this.handleChange}
-                                          data-testid="control-eccOverheadPercent"
-                                          value={this.state.eccOverheadPercent}>
-                            </Form.Control>
-                            <Form.Text className="text-muted">Use 0 to disable</Form.Text>
-                            <Form.Control.Feedback type="invalid">Should be between 0 and 100</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label className="required">Repository Format</Form.Label>
-                            <Form.Control as="select"
-                                name="formatVersion"
-                                onChange={this.handleChange}
-                                data-testid="control-formatVersion"
-                                value={this.state.formatVersion}>
-                                    <option value="2">Latest format</option>
-                                    <option value="1">Legacy format compatible with v0.8</option>
-                            </Form.Control>
-                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Col></Col>
+                        <Col sm={8} className="text-muted">
+                            [EXPERIMENTAL] Error correction can help protect from certain
+                            kinds of data corruption due to spontaneous bit flips in the storage
+                            media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
+                            learn more.</a>
+                        </Col>
                     </Row>
                     {this.overrideUsernameHostnameRow()}
                     <Row style={{ marginTop: "1rem" }}>
