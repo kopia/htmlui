@@ -64,9 +64,12 @@ export class SetupRepository extends Component {
                 algorithms: result.data,
                 defaultHash: result.data.defaultHash,
                 defaultEncryption: result.data.defaultEncryption,
+                defaultEcc: result.data.defaultEcc,
                 defaultSplitter: result.data.defaultSplitter,
                 hash: result.data.defaultHash,
                 encryption: result.data.defaultEncryption,
+                ecc: result.data.defaultEcc,
+                eccOverheadPercent: "0",
                 splitter: result.data.defaultSplitter,
                 indexVersion: "",
             });
@@ -127,6 +130,8 @@ export class SetupRepository extends Component {
                     version: parseInt(this.state.formatVersion),
                     hash: this.state.hash,
                     encryption: this.state.encryption,
+                    ecc: this.state.ecc,
+                    eccOverheadPercent: parseInt(this.state.eccOverheadPercent),
                 },
                 objectFormat: {
                     splitter: this.state.splitter,
@@ -356,34 +361,72 @@ export class SetupRepository extends Component {
                         <Form.Group as={Col}>
                             <Form.Label className="required">Hash Algorithm</Form.Label>
                             <Form.Control as="select"
-                                name="hash"
-                                onChange={this.handleChange}
-                                data-testid="control-hash"
-                                value={this.state.hash}>
+                                          name="hash"
+                                          onChange={this.handleChange}
+                                          data-testid="control-hash"
+                                          value={this.state.hash}>
                                 {this.state.algorithms.hash.map(x => toAlgorithmOption(x, this.state.defaultHash))}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Splitter</Form.Label>
                             <Form.Control as="select"
-                                name="splitter"
-                                onChange={this.handleChange}
-                                data-testid="control-splitter"
-                                value={this.state.splitter}>
+                                          name="splitter"
+                                          onChange={this.handleChange}
+                                          data-testid="control-splitter"
+                                          value={this.state.splitter}>
                                 {this.state.algorithms.splitter.map(x => toAlgorithmOption(x, this.state.defaultSplitter))}
                             </Form.Control>
                         </Form.Group>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Repository Format</Form.Label>
                             <Form.Control as="select"
-                                name="formatVersion"
-                                onChange={this.handleChange}
-                                data-testid="control-formatVersion"
-                                value={this.state.formatVersion}>
-                                    <option value="2">Latest format</option>
-                                    <option value="1">Legacy format compatible with v0.8</option>
+                                          name="formatVersion"
+                                          onChange={this.handleChange}
+                                          data-testid="control-formatVersion"
+                                          value={this.state.formatVersion}>
+                                <option value="2">Latest format</option>
+                                <option value="1">Legacy format compatible with v0.8</option>
                             </Form.Control>
                         </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">Error Correction Overhead</Form.Label>
+                            <Form.Control as="select"
+                                          name="eccOverheadPercent"
+                                          onChange={this.handleChange}
+                                          data-testid="control-eccOverheadPercent"
+                                          value={this.state.eccOverheadPercent}>
+                                <option value="0">Disabled</option>
+                                <option value="1">1%</option>
+                                <option value="2">2%</option>
+                                <option value="5">5%</option>
+                                <option value="10">10%</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label className="required">Error Correction Algorithm</Form.Label>
+                            <Form.Control as="select"
+                                name="ecc"
+                                onChange={this.handleChange}
+                                data-testid="control-ecc"
+                                disabled={this.state.eccOverheadPercent === "0"}
+                                value={this.state.eccOverheadPercent === "0" ? "-" : this.state.ecc}>
+                                {this.state.eccOverheadPercent === "0" ?
+                                    [<option value="">-</option>]
+                                    : this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
+                            </Form.Control>
+                        </Form.Group>
+                    </Row>
+                    <Row>
+                        <Col></Col>
+                        <Col sm={8} className="text-muted">
+                            [EXPERIMENTAL] Error correction can help protect from certain
+                            kinds of data corruption due to spontaneous bit flips in the storage
+                            media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
+                            learn more.</a>
+                        </Col>
                     </Row>
                     {this.overrideUsernameHostnameRow()}
                     <Row style={{ marginTop: "1rem" }}>

@@ -186,16 +186,30 @@ export class RepoStatus extends Component {
                                 <Form.Control readOnly defaultValue={this.state.status.storage} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Hash Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.hash} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
                                 <Form.Label>Encryption Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.encryption} />
                             </Form.Group>
                             <Form.Group as={Col}>
+                                <Form.Label>Hash Algorithm</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.hash} />
+                            </Form.Group>
+                            <Form.Group as={Col}>
                                 <Form.Label>Splitter Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.splitter} />
+                            </Form.Group>
+                        </Row>
+                        <Row>
+                            <Form.Group as={Col}>
+                                <Form.Label>Repository Format</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>Error Correction Overhead</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : "Disabled"} />
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label>Error Correction Algorithm</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.ecc||"-"} />
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Internal Compression</Form.Label>
