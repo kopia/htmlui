@@ -19,6 +19,7 @@ const allPolicies = "All Policies"
 const globalPolicy = "Global Policy"
 const perUserPolicies = "Per-User Policies"
 const perHostPolicies = "Per-Host Policies"
+
 export class PoliciesTable extends Component {
     constructor() {
         super();

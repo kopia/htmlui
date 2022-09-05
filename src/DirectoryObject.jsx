@@ -9,7 +9,6 @@ import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "./DirectoryItems";
 import { CLIEquivalent, GoBackButton } from './uiutil';
 
-
 export class DirectoryObject extends Component {
     constructor() {
         super();
