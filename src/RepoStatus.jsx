@@ -85,7 +85,7 @@ export class RepoStatus extends Component {
     disconnect() {
         this.setState({ isLoading: true })
         axios.post('/api/v1/repo/disconnect', {}).then(result => {
-            this.context.repositoryUpdated(false);
+            window.location.replace("/connect");
         }).catch(error => this.setState({
             error,
             isLoading: false

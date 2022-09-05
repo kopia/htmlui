@@ -1,32 +1,14 @@
-import { faAngleDoubleDown, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
-import { FormField, makeRequiredField } from "@kopia/forms";
-import { FormEvent, ReactNode, useEffect, useState } from "react";
+import { makeRequiredField } from "@kopia/forms";
+import { FormEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Provider } from "./Providers";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Collapse from 'react-bootstrap/Collapse';
 import Spinner from "react-bootstrap/Spinner";
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Algorithms, HashAlgorithm } from 'src/backend/ApiTypes';
-
-const ToggleAdvancedButton: React.FC<{ state: [boolean, React.Dispatch<React.SetStateAction<boolean>>] }> = ({ state }) => {
-    const [showAdvanced, setShowAdvanced] = state;
-
-    const icon = showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
-    const text = showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
-
-    return <Button data-testid='advanced-options' onClick={() => setShowAdvanced(previous => !previous)}
-        variant="secondary"
-        aria-controls="advanced-options-div"
-        aria-expanded={showAdvanced}
-        size="sm">
-        <FontAwesomeIcon icon={icon} style={{ marginRight: 4 }} />
-        {text}
-    </Button>;
-}
+import { Algorithms, CurrentUser } from 'src/backend/ApiTypes';
+import { ToggleAdvancedButton } from "./ToggleAdvancedButton";
 
 export const CreateRepository: React.FC = () => {
     const navigate = useNavigate();
@@ -50,9 +32,10 @@ export const CreateRepository: React.FC = () => {
         }
         return true;
     });
+
     // Although they are required, they are only required if the showAdvanced is true
     const usernameField = makeRequiredField("Username", "username", "Override this when restoring a snapshot taken by another user");
-    const hostnameField = makeRequiredField("Hostname", "hostname", "Override this when restoring a snapshot taken on another machine")
+    const hostnameField = makeRequiredField("Hostname", "hostname", "Override this when restoring a snapshot taken on another machine");
 
     useEffect(() => {
         (async () => {
@@ -63,6 +46,11 @@ export const CreateRepository: React.FC = () => {
             setHashAlgorithm(result.data.defaultHash);
             setEncryptionAlgorithm(result.data.defaultEncryption);
             setSplitterAlgorithm(result.data.defaultSplitter);
+
+            const userResult = await axios.get<CurrentUser>('/api/v1/current-user');
+
+            usernameField.setValue(userResult.data.username);
+            hostnameField.setValue(userResult.data.hostname);
         })();
     }, []);
 
@@ -72,9 +60,9 @@ export const CreateRepository: React.FC = () => {
         }
     }, [location]);
 
-    const storage = location.state;
+    const { storage } = location.state as { storage: unknown };
 
-    const createRepository = (event: FormEvent) => {
+    const createRepository = async (event: FormEvent) => {
         event.preventDefault();
 
         const passwordValid = passwordField.isValid && confirmPasswordField.isValid;
@@ -89,9 +77,14 @@ export const CreateRepository: React.FC = () => {
             console.warn("Validation failed");
             return;
         }
+        const clientOptions = {
+            username: usernameField.value,
+            hostname: hostnameField.value,
+        };
 
         const request = {
             storage,
+            clientOptions,
             password: passwordField.value,
             options: {
                 blockFormat: {
@@ -103,9 +96,21 @@ export const CreateRepository: React.FC = () => {
                     splitter: splitterAlgorithm,
                 },
             },
-        }
+        };
 
-        console.log("Verify storage", request);
+        console.log("Create repository", request);
+
+        try {
+            const createResult = await axios.post<any>('/api/v1/repo/create', request);
+            console.log("Repository created", createResult);
+            navigate("confirm", { state: { storage, clientOptions } });
+        }
+        catch (e) {
+            const error = e as any;
+            if (error.response.data) {
+                setError(error.response.data.code + ": " + error.response.data.error);
+            }
+        }
     };
 
     if (!algorithms) {
@@ -123,7 +128,7 @@ export const CreateRepository: React.FC = () => {
             <ToggleAdvancedButton state={[showAdvanced, setShowAdvanced]} />
         </div>
         <Collapse in={showAdvanced}>
-            <div id="advanced-options-div" style={{ marginTop: "1rem" }}>
+            <div id="advanced-options-div" className="advancedOptions">
                 <Row>
                     <Form.Group as={Col}>
                         <Form.Label className="required">Encryption</Form.Label>

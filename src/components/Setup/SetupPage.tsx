@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import { CreateRepository } from './CreateRepository';
+import { ConfirmConnect } from './ConfirmConnect';
 import { supportedProviders } from './Providers';
 import { ProviderSelection } from './ProviderSelection';
 
@@ -18,6 +19,7 @@ export function SetupPage() {
             <Routes>
                 <Route index element={<ProviderSelection />} />
                 <Route path="create" element={<CreateRepository />} />
+                <Route path="confirm" element={<ConfirmConnect />} />
                 {supportedProviders.map(provider => <Route key={provider.name} path={provider.name} element={provider.render(provider)} />)}
             </Routes>
         </Container>

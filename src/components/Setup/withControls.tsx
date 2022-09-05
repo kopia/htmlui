@@ -32,6 +32,7 @@ export const WithControls: React.FC<{ provider: Provider, fields: FormField[], a
             try {
                 await axios.post('/api/v1/repo/exists', { storage });
                 setIsLoading(false);
+                navigate("../confirm", { state: { storage } });
                 // TODO:
                 /*
                 this.setState({
@@ -49,7 +50,7 @@ export const WithControls: React.FC<{ provider: Provider, fields: FormField[], a
                     if (error.response.data.code === "NOT_INITIALIZED") {
                         setConnectError(undefined);
                         console.log("Not initialized");
-                        navigate("../create", { state: storage });
+                        navigate("../create", { state: { storage } });
 
                         /* TODO
                         this.setState({

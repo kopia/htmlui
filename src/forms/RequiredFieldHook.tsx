@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { FormField } from './FormField';
 
 const REQUIRED_FIELD = "Required field";
@@ -27,6 +27,7 @@ export function makeRequiredField(label: string, name: string, helpText: string 
     return {
         name,
         value: stateValue || '',
+        setValue: setStateValue,
         isRequired: true,
         isValid: isValid === true,
         render(props = {}) {
@@ -47,10 +48,13 @@ export function makeBooleanField(label: string, name: string, helpText: string |
         }
     }, [stateValue]);
 
+    const failSetValue: React.Dispatch<SetStateAction<string | undefined>> = (action) => { throw new Error("Cannot set value") };
+
     return {
         name,
         value: `${stateValue}`,
         isRequired: true,
+        setValue: failSetValue,
         isValid: isValid === true,
         render(props = {}) {
             return <BooleanField state={[stateValue, setStateValue, isValid]} label={label} name={name} props={props} helpText={helpText} />;
@@ -75,6 +79,7 @@ export function makeOptionalField(label: string, name: string, helpText: string 
     return {
         name,
         value: stateValue || '',
+        setValue: setStateValue,
         isRequired: false,
         isValid: isValid === true,
         render(props = {}) {

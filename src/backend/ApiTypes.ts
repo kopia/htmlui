@@ -73,6 +73,11 @@ export enum TaskStatus {
     Canceled = "CANCELED"
 }
 
+export interface CurrentUser {
+    username: string,
+    hostname: string
+}
+
 export interface Algorithms {
     compression: CompressionAlgorithm[],
     hash: HashAlgorithm[],

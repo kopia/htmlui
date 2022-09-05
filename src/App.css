@@ -61,8 +61,8 @@ body {
 }
 
 .advancedOptions {
-  background-color: #f0f0f0;
-  padding: 10px;
+  margin-top: 1rem;
+  padding: 1rem;
   border: 1px solid #ccc;
 }
 
