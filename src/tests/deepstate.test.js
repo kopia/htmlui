@@ -1,4 +1,3 @@
-import React from 'react';
 import { getDeepStateProperty, setDeepStateProperty } from '../deepstate';
 
 it('can get fields', async () => {
