@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import { handleChange, OptionalField, RequiredField, validateRequiredFields } from './forms';
+import { handleChange, validateRequiredFields } from './forms';
+import { OptionalField } from './forms/OptionalField';
+import { RequiredField } from './forms/RequiredField';
 
 export class SetupWebDAV extends Component {
     constructor(props) {

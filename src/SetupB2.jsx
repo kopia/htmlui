@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import { handleChange, OptionalField, RequiredField, validateRequiredFields } from './forms';
+import { handleChange, validateRequiredFields } from './forms';
+import { RequiredField } from './forms/RequiredField';
+import { OptionalField } from './forms/OptionalField';
 
 export class SetupB2 extends Component {
     constructor(props) {
