@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import { handleChange, hasExactlyOneOf, OptionalField, OptionalNumberField, RequiredBoolean, RequiredField, validateRequiredFields } from './forms';
+import { handleChange, validateRequiredFields, stateProperty } from './forms';
+import { OptionalField } from './forms/OptionalField';
+import { OptionalNumberField } from './forms/OptionalNumberField';
+import { RequiredBoolean } from './forms/RequiredBoolean';
+import { RequiredField } from './forms/RequiredField';
+
+function hasExactlyOneOf(component, names) {
+    let count = 0;
+
+    for (let i = 0; i < names.length; i++) {
+        if (stateProperty(component, names[i])) {
+            count++
+        }
+    }
+
+    return count === 1;
+}
 
 export class SetupSFTP extends Component {
     constructor(props) {

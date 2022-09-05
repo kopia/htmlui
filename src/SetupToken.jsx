@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import { handleChange, RequiredField, validateRequiredFields } from './forms';
+import { handleChange, validateRequiredFields } from './forms';
+import { RequiredField } from './forms/RequiredField';
 
 export class SetupToken extends Component {
     constructor(props) {

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
-import { handleChange, OptionalField, RequiredBoolean, RequiredField, validateRequiredFields } from './forms';
+import { handleChange, validateRequiredFields } from './forms';
+import { OptionalField } from './forms/OptionalField';
+import { RequiredBoolean } from './forms/RequiredBoolean';
+import { RequiredField } from './forms/RequiredField';
 
 export class SetupS3 extends Component {
     constructor(props) {

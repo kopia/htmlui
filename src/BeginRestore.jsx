@@ -5,7 +5,10 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
-import { handleChange, RequiredBoolean, RequiredField, RequiredNumberField, validateRequiredFields } from './forms';
+import { handleChange, validateRequiredFields } from './forms';
+import { RequiredBoolean } from './forms/RequiredBoolean';
+import { RequiredField } from './forms/RequiredField';
+import { RequiredNumberField } from './forms/RequiredNumberField';
 import { errorAlert, GoBackButton } from './uiutil';
 
 export class BeginRestore extends Component {

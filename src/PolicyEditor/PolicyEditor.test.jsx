@@ -1,10 +1,10 @@
 import { render, waitFor, logDOM } from '@testing-library/react';
 import React from 'react';
-import { PolicyEditor } from './PolicyEditor';
+import { PolicyEditor } from '.';
 import { MemoryRouter } from 'react-router-dom';
-import { setupAPIMock } from './tests/api_mocks';
+import { setupAPIMock } from '../tests/api_mocks';
 import moment from 'moment';
-import { changeControlValue, simulateClick } from './tests/testutils';
+import { changeControlValue, simulateClick } from '../tests/testutils';
 
 it('e2e', async () => {
     let ref = React.createRef();

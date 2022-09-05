@@ -1,145 +1,33 @@
 import { faCalendarTimes, faClock, faExclamationTriangle, faFileAlt, faFileArchive, faFolderOpen, faMagic, faCog, faCogs, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import moment from 'moment';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
-import { handleChange, LogDetailSelector, OptionalFieldNoLabel, OptionalBoolean, OptionalNumberField, RequiredBoolean, stateProperty, StringList, TimesOfDayList, valueToNumber } from './forms';
-import { errorAlert, PolicyEditorLink, sourceQueryStringParams, toAlgorithmOption } from './uiutil';
-import { getDeepStateProperty } from './deepstate';
+import { handleChange, stateProperty, valueToNumber } from '../forms';
+import { StringList } from '../forms/StringList';
+import { LogDetailSelector } from '../forms/LogDetailSelector';
+import { OptionalBoolean } from '../forms/OptionalBoolean';
+import { OptionalNumberField } from '../forms/OptionalNumberField';
+import { RequiredBoolean } from '../forms/RequiredBoolean';
+import { TimesOfDayList } from '../forms/TimesOfDayList';
+import { errorAlert, PolicyEditorLink, sourceQueryStringParams, toAlgorithmOption } from '../uiutil';
+import { LabelColumn } from './LabelColumn';
+import { ValueColumn } from './ValueColumn';
+import { WideValueColumn } from './WideValueColumn';
+import { EffectiveValue } from './EffectiveValue';
+import { EffectiveTextAreaValue } from './EffectiveTextAreaValue';
+import { EffectiveBooleanValue } from './EffectiveBooleanValue';
+import { EffectiveValueColumn } from './EffectiveValueColumn';
+import { UpcomingSnapshotTimes } from './UpcomingSnapshotTimes';
+import { SectionHeaderRow } from './SectionHeaderRow';
+import { ActionRowScript } from './ActionRowScript';
+import { ActionRowTimeout } from './ActionRowTimeout';
+import { ActionRowMode } from './ActionRowMode';
 
-
-function LabelColumn(props) {
-    return <Col xs={12} sm={4} className="policyFieldColumn">
-        <span className="policyField">{props.name}</span>
-        {props.help && <><p className="label-help">{props.help}</p></>}
-    </Col>
-}
-
-function ValueColumn(props) {
-    return <Col xs={12} sm={4} className="policyValue">{props.children}</Col>;
-}
-
-function WideValueColumn(props) {
-    return <Col xs={12} sm={4} className="policyValue">{props.children}</Col>;
-}
-
-function EffectiveValue(component, policyField) {
-    const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
-
-    return <EffectiveValueColumn>
-        <Form.Group>
-            <Form.Control
-                data-testid={'effective-' + policyField}
-                size="sm"
-                value={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
-                readOnly={true} />
-            <Form.Text data-testid={'definition-' + policyField}>
-                {component.PolicyDefinitionPoint(dsp)}
-            </Form.Text>
-        </Form.Group>
-    </EffectiveValueColumn>;
-}
-
-function EffectiveTextAreaValue(component, policyField) {
-    const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
-
-    return <EffectiveValueColumn>
-        <Form.Group>
-            <Form.Control
-                data-testid={'effective-' + policyField}
-                size="sm"
-                as="textarea"
-                rows="5"
-                value={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
-                readOnly={true} />
-            <Form.Text data-testid={'definition-' + policyField}>
-                {component.PolicyDefinitionPoint(dsp)}
-            </Form.Text>
-        </Form.Group>
-    </EffectiveValueColumn>;
-}
-
-function EffectiveBooleanValue(component, policyField) {
-    const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
-
-    return <EffectiveValueColumn>
-        <Form.Group>
-            <Form.Check
-                data-testid={'effective-' + policyField}
-                size="sm"
-                checked={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
-                readOnly={true} />
-            <Form.Text data-testid={'definition-' + policyField}>
-                {component.PolicyDefinitionPoint(dsp)}
-            </Form.Text>
-        </Form.Group>
-    </EffectiveValueColumn>;
-}
-
-function EffectiveValueColumn(props) {
-    return <Col xs={12} sm={4} className="policyEffectiveValue">{props.children}</Col>;
-}
-
-function UpcomingSnapshotTimes(times) {
-    if (!times) {
-        return <LabelColumn name="No upcoming snapshots" />
-    }
-
-    return <>
-        <LabelColumn name-="Upcoming" />
-
-        <ul data-testid="upcoming-snapshot-times">
-            {times.map(x => <li key={x}>{moment(x).format('L LT')} ({moment(x).fromNow()})</li>)}
-        </ul>
-    </>;
-}
-
-function SectionHeaderRow() {
-    return <Row>
-        <LabelColumn />
-        <ValueColumn><div className="policyEditorHeader">Defined</div></ValueColumn>
-        <EffectiveValueColumn><div className="policyEditorHeader">Effective</div></EffectiveValueColumn>
-    </Row>;
-}
-
-function ActionRowScript(component, action, name, help) {
-    return <Row>
-        <LabelColumn name={name} help={help} />
-        <WideValueColumn>{OptionalFieldNoLabel(component, "", "policy."+action, {})}</WideValueColumn>
-        {EffectiveValue(component, action)}
-    </Row>;
-}
-
-function ActionRowTimeout(component, action) {
-    return <Row>
-        <LabelColumn name="Timeout" help="Timeout in seconds before Kopia kills the process" />
-        <WideValueColumn>{OptionalNumberField(component, "", "policy."+action, {})}</WideValueColumn>
-        {EffectiveValue(component, action)}
-    </Row>;
-}
-
-function ActionRowMode(component, action) {
-    return <Row>
-    <LabelColumn name="Command Mode" help="Essential (must succeed; default behavior), optional (failures are tolerated), or async (Kopia will start the action but not wait for it to finish)" />
-    <WideValueColumn>
-        <Form.Control as="select" size="sm"
-            name={"policy."+action}
-            onChange={component.handleChange}
-            value={stateProperty(component, "policy."+action)}>
-            <option value="essential">must succeed</option>
-            <option value="optional">ignore failures</option>
-            <option value="async">run asynchronously, ignore failures</option>
-        </Form.Control>
-    </WideValueColumn>
-    {EffectiveValue(component, action)}
-    </Row>;
-}
 export class PolicyEditor extends Component {
     constructor() {
         super();
@@ -253,7 +141,7 @@ export class PolicyEditor extends Component {
 
         function validateTimesOfDay(l) {
             for (const tod of l) {
-                if (typeof(tod) !== "object") {
+                if (typeof (tod) !== "object") {
                     // unparsed
                     throw Error("invalid time of day: '" + tod + "'")
                 }
@@ -573,26 +461,26 @@ export class PolicyEditor extends Component {
                         <Accordion.Header><FontAwesomeIcon icon={faCogs} />&nbsp;Snapshot Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
-                            {ActionRowScript(this,"actions.beforeSnapshotRoot.path", "Before Snapshot", "Script to run before snapshot")}
-                            {ActionRowTimeout(this,"actions.beforeSnapshotRoot.timeout")}
-                            {ActionRowMode(this,"actions.beforeSnapshotRoot.mode")}
+                            {ActionRowScript(this, "actions.beforeSnapshotRoot.path", "Before Snapshot", "Script to run before snapshot")}
+                            {ActionRowTimeout(this, "actions.beforeSnapshotRoot.timeout")}
+                            {ActionRowMode(this, "actions.beforeSnapshotRoot.mode")}
                             <hr />
-                            {ActionRowScript(this,"actions.afterSnapshotRoot.path", "After Snapshot", "Script to run after snapshot")}
-                            {ActionRowTimeout(this,"actions.afterSnapshotRoot.timeout")}
-                            {ActionRowMode(this,"actions.afterSnapshotRoot.mode")}
+                            {ActionRowScript(this, "actions.afterSnapshotRoot.path", "After Snapshot", "Script to run after snapshot")}
+                            {ActionRowTimeout(this, "actions.afterSnapshotRoot.timeout")}
+                            {ActionRowMode(this, "actions.afterSnapshotRoot.mode")}
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="folder-actions">
                         <Accordion.Header><FontAwesomeIcon icon={faCog} />&nbsp;Folder Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
-                            {ActionRowScript(this,"actions.beforeFolder.path", "Before Folder", "Script to run before folder")}
-                            {ActionRowTimeout(this,"actions.beforeFolder.timeout")}
-                            {ActionRowMode(this,"actions.beforeFolder.mode")}
+                            {ActionRowScript(this, "actions.beforeFolder.path", "Before Folder", "Script to run before folder")}
+                            {ActionRowTimeout(this, "actions.beforeFolder.timeout")}
+                            {ActionRowMode(this, "actions.beforeFolder.mode")}
                             <hr />
-                            {ActionRowScript(this,"actions.afterFolder.path", "After Folder", "Script to run after folder")}
-                            {ActionRowTimeout(this,"actions.afterFolder.timeout")}
-                            {ActionRowMode(this,"actions.afterFolder.mode")}
+                            {ActionRowScript(this, "actions.afterFolder.path", "After Folder", "Script to run after folder")}
+                            {ActionRowTimeout(this, "actions.afterFolder.timeout")}
+                            {ActionRowMode(this, "actions.afterFolder.mode")}
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="logging">
