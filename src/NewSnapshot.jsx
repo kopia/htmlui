@@ -25,6 +25,7 @@ export class NewSnapshot extends Component {
         this.handleChange = handleChange.bind(this);
         this.estimate = this.estimate.bind(this);
         this.snapshotNow = this.snapshotNow.bind(this);
+        this.maybeResolveCurrentPath = this.maybeResolveCurrentPath.bind(this);
     }
 
     componentDidMount() {
@@ -38,24 +39,36 @@ export class NewSnapshot extends Component {
         });
     }
 
-    componentDidUpdate() {
-        if (this.state.lastResolvedPath !== this.state.path) {
+    maybeResolveCurrentPath(lastResolvedPath) {
+        const currentPath = this.state.path;
+
+        if (lastResolvedPath !== currentPath) {
             if (this.state.path) {
-                axios.post('/api/v1/paths/resolve', { path: this.state.path }).then(result => {
+                axios.post('/api/v1/paths/resolve', { path: currentPath }).then(result => {
                     this.setState({
-                        lastResolvedPath: this.state.path,
+                        lastResolvedPath: currentPath,
                         resolvedSource: result.data.source,
                     });
+
+                    // check again, it's possible that this.state.path has changed
+                    // while we were resolving
+                    this.maybeResolveCurrentPath(currentPath);
                 }).catch(error => {
                     redirectIfNotConnected(error);
                 });
             } else {
                 this.setState({
-                    lastResolvedPath: this.state.path,
+                    lastResolvedPath: currentPath,
                     resolvedSource: null,
                 });
+
+                this.maybeResolveCurrentPath(currentPath);
             }
         }
+    }
+
+    componentDidUpdate() {
+        this.maybeResolveCurrentPath(this.state.lastResolvedPath);
 
         if (this.state.estimateTaskVisible && this.state.lastEstimatedPath !== this.state.resolvedSource.path) {
             this.setState({
