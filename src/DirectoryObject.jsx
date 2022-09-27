@@ -134,12 +134,12 @@ export class DirectoryObject extends Component {
                         <Button size="sm" variant="primary" onClick={this.mount} >Mount as Local Filesystem</Button>
                     </>}
                     &nbsp;
-                    <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore</Button>
+                    <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore Files & Directories</Button>
                 </Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
-            <Row><Col xs={12}>Use the buttons above to mount or restore all the files/folders you see below, or click the files below to download them individually.</Col>
+            <Row><Col xs={12}>You can mount/restore all the files & directories you see below or restore files individually.</Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
