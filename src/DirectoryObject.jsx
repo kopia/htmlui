@@ -131,15 +131,15 @@ export class DirectoryObject extends Component {
                         &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
                         <Button size="sm" variant="primary" onClick={this.copyPath} ><FontAwesomeIcon icon={faCopy} /></Button>
                     </> : <>
-                        <Button size="sm" variant="primary" onClick={this.mount} >Mount Snapshot as Local Filesystem</Button>
+                        <Button size="sm" variant="primary" onClick={this.mount} >Mount as Local Filesystem</Button>
                     </>}
                     &nbsp;
-                    <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore Whole Snapshot</Button>
+                    <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore</Button>
                 </Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
-            <Row><Col xs={12}>You can mount or restore the whole snapshot (see above) or download individual files (see below).</Col>
+            <Row><Col xs={12}>Use the buttons above to mount or restore all the files/folders you see below, or click the files below to download them individually.</Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
