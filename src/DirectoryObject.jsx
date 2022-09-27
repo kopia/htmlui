@@ -139,7 +139,7 @@ export class DirectoryObject extends Component {
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
-            <Row><Col xs={12}>You can mount/restore all the files & directories you see below or restore files individually.</Col>
+            <Row><Col xs={12}>You can mount/restore all the files & directories that you see below or restore files individually.</Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
