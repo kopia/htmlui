@@ -8,6 +8,7 @@ export type Theme = "dark" | "light";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 
 export interface UIPreferences {
+    get bytesStringBase2(): boolean
     get pageSize(): PageSize
     get theme(): Theme
     setTheme: (theme: Theme) => void
@@ -15,6 +16,7 @@ export interface UIPreferences {
 }
 
 interface SerializedUIPreferences {
+    bytesStringBase2?: boolean
     pageSize?: number
     theme: Theme | undefined
 }
@@ -54,7 +56,7 @@ function normalizePageSize(pageSize: number): PageSize {
 
 const PREFERENCES_URL = '/api/v1/ui-preferences';
 
-const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], theme: getDefaultTheme() } as SerializedUIPreferences;
+const DEFAULT_PREFERENCES = { bytesStringBase2: false, pageSize: PAGE_SIZES[0], theme: getDefaultTheme() } as SerializedUIPreferences;
 
 export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
@@ -62,6 +64,9 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     useEffect(() => {
         axios.get(PREFERENCES_URL).then(result => {
             let storedPreferences = result.data as SerializedUIPreferences;
+            if (storedPreferences.bytesStringBase2 === undefined) {
+                storedPreferences.bytesStringBase2 = DEFAULT_PREFERENCES.bytesStringBase2;
+            }
             if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
                 storedPreferences.theme = getDefaultTheme();
             }
@@ -80,8 +85,12 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
             return;
         }
 
-        axios.put(PREFERENCES_URL, preferences).then(result => {}).catch(err => console.error(err));
+        axios.put(PREFERENCES_URL, preferences).catch(err => console.error(err));
     }, [preferences]);
+
+    const setBytesStringBase2 = (bytesStringBase2: boolean) => setPreferences(oldPreferences => {
+        return { ...oldPreferences, bytesStringBase2 };
+    });
 
     const setTheme = (theme: Theme) => setPreferences(oldPreferences => {
         return { ...oldPreferences, theme };
@@ -91,7 +100,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         return { ...oldPreferences, pageSize };
     });
 
-    const providedValue = { ...preferences, setTheme, setPageSize } as UIPreferences;
+    const providedValue = { ...preferences, setBytesStringBase2, setTheme, setPageSize } as UIPreferences;
 
     return <UIPreferencesContext.Provider value={providedValue}>
         {props.children}

@@ -1,4 +1,22 @@
-import { formatMilliseconds, separateMillisecondsIntoMagnitudes, formatMagnitudesUsingMultipleUnits } from "../uiutil";
+import { formatMilliseconds, separateMillisecondsIntoMagnitudes, formatMagnitudesUsingMultipleUnits, sizeDisplayName } from "../uiutil";
+
+describe("sizeDisplayNames", () => {
+    it('returns an empty string when undefined', () => {
+        expect(sizeDisplayName()).toEqual('');
+    });
+
+    it('returns the decimal unit string in base-10', () => {
+        expect(sizeDisplayName(1024)).toEqual('1 KB');
+        expect(sizeDisplayName(9999)).toEqual('10 KB');
+        expect(sizeDisplayName(1234567)).toEqual('1.2 MB');
+    });
+
+    it('returns the decimal unit string in base-2', () => {
+        expect(sizeDisplayName(1024, true)).toEqual('1 KiB');
+        expect(sizeDisplayName(9999, true)).toEqual('9.8 KiB');
+        expect(sizeDisplayName(1234567, true)).toEqual('1.2 MiB');
+    });
+});
 
 describe("formatMilliseconds", () => {
     it("uses 'XXs' format by default", () => {

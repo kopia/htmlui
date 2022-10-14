@@ -10,6 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import { handleChange } from './forms';
 import MyTable from './Table';
 import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirectIfNotConnected, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from './uiutil';
@@ -18,6 +19,8 @@ const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
 
 export class SourcesTable extends Component {
+    static contextType = UIPreferencesContext;
+
     constructor() {
         super();
         this.state = {
@@ -110,15 +113,15 @@ export class SourcesTable extends Component {
                 let title = "";
                 let totals = "";
                 if (u) {
-                    title = " hashed " + u.hashedFiles + " files (" + sizeDisplayName(u.hashedBytes) + ")\n" +
-                        " cached " + u.cachedFiles + " files (" + sizeDisplayName(u.cachedBytes) + ")\n" +
+                    title = " hashed " + u.hashedFiles + " files (" + sizeDisplayName(u.hashedBytes, this.context.bytesStringBase2) + ")\n" +
+                        " cached " + u.cachedFiles + " files (" + sizeDisplayName(u.cachedBytes, this.context.bytesStringBase2) + ")\n" +
                         " dir " + u.directory;
 
                     const totalBytes = u.hashedBytes + u.cachedBytes;
 
-                    totals = sizeDisplayName(totalBytes);
+                    totals = sizeDisplayName(totalBytes, this.context.bytesStringBase2);
                     if (u.estimatedBytes) {
-                        totals += "/" + sizeDisplayName(u.estimatedBytes);
+                        totals += "/" + sizeDisplayName(u.estimatedBytes, this.context.bytesStringBase2);
 
                         const percent = Math.round(totalBytes * 1000.0 / u.estimatedBytes) / 10.0;
                         if (percent <= 100) {
@@ -233,7 +236,8 @@ export class SourcesTable extends Component {
             accessor: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
             Cell: x => sizeWithFailures(
                 x.cell.value,
-                x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null),
+                x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null,
+                this.context.bytesStringBase2),
         }, {
             id: 'lastSnapshotTime',
             Header: 'Last Snapshot',

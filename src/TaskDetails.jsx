@@ -10,10 +10,13 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import { TaskLogs } from './TaskLogs';
 import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected, sizeDisplayName } from './uiutil';
 
 export class TaskDetails extends Component {
+    static contextType = UIPreferencesContext;
+
     constructor() {
         super();
         this.state = {
@@ -113,7 +116,7 @@ export class TaskDetails extends Component {
 
         let formatted = c.value.toLocaleString();
         if (c.units === "bytes") {
-            formatted = sizeDisplayName(c.value);
+            formatted = sizeDisplayName(c.value, this.context.bytesStringBase2);
         }
 
         return <tr key={label}><td>{label}</td><td>{formatted}</td></tr>;

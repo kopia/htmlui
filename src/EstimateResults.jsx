@@ -6,10 +6,13 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import Form from 'react-bootstrap/Form';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import { TaskLogs } from './TaskLogs';
 import { cancelTask, redirectIfNotConnected, sizeDisplayName } from './uiutil';
 
 export class EstimateResults extends Component {
+    static contextType = UIPreferencesContext;
+
     constructor() {
         super();
         this.state = {
@@ -97,7 +100,9 @@ export class EstimateResults extends Component {
 
         return <>
             {task.counters && <Form.Text className="estimateResults">
-                {this.taskStatusDescription(task)} Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value)}</b> (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value)}</b> excluded)
+                {this.taskStatusDescription(task)}{' '}
+                Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value, this.context.bytesStringBase2)}</b>{' '}
+                (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value, this.context.bytesStringBase2)}</b> excluded)
                 Files: <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> excluded)
                 Directories: <b>{task.counters["Directories"]?.value}</b> (<b>{task.counters["Excluded Directories"]?.value}</b> excluded)
                 Errors: <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> ignored)

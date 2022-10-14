@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import MyTable from './Table';
 import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from './uiutil';
+import {UIPreferencesContext} from './contexts/UIPreferencesContext';
 
 function objectName(name, typeID) {
     if (typeID === "d") {
@@ -32,6 +33,8 @@ function directoryLinkOrDownload(x) {
 }
 
 export class DirectoryItems extends Component {
+    static contextType = UIPreferencesContext;
+
     render() {
         const columns = [{
             id: "name",
@@ -49,7 +52,7 @@ export class DirectoryItems extends Component {
             accessor: x => sizeInfo(x),
             Header: "Size",
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summ),
+            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summ, this.context.bytesStringBase2),
         }, {
             id: "files",
             accessor: "summ.files",

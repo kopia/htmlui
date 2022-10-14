@@ -10,6 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 
 const base10UnitPrefixes = ["", "K", "M", "G", "T"];
+const base2UnitPrefixes = ["", "Ki", "Mi", "Gi", "Ti"];
 
 function niceNumber(f) {
     return (Math.round(f * 10) / 10.0) + '';
@@ -26,13 +27,13 @@ function toDecimalUnitString(f, thousand, prefixes, suffix) {
     return niceNumber(f) + ' ' + prefixes[prefixes.length - 1] + suffix;
 }
 
-export function sizeWithFailures(size, summ) {
+export function sizeWithFailures(size, summ, bytesStringBase2) {
     if (size === undefined) {
         return "";
     }
 
     if (!summ || !summ.errors || !summ.numFailed) {
-        return <span>{sizeDisplayName(size)}</span>
+        return <span>{sizeDisplayName(size, bytesStringBase2)}</span>
     }
 
     let caption = "Encountered " + summ.numFailed + " errors:\n\n";
@@ -45,16 +46,19 @@ export function sizeWithFailures(size, summ) {
     caption += summ.errors.map(x => prefix + x.path + ": " + x.error).join("\n");
 
     return <span>
-        {sizeDisplayName(size)}&nbsp;
+        {sizeDisplayName(size, bytesStringBase2)}&nbsp;
         <FontAwesomeIcon color="red" icon={faExclamationTriangle} title={caption} />
     </span>;
 }
 
-export function sizeDisplayName(s) {
-    if (s === undefined) {
+export function sizeDisplayName(size, bytesStringBase2) {
+    if (size === undefined) {
         return "";
     }
-    return toDecimalUnitString(s, 1000, base10UnitPrefixes, "B");
+    if (bytesStringBase2) {
+        return toDecimalUnitString(size, 1024, base2UnitPrefixes, "B");
+    }
+    return toDecimalUnitString(size, 1000, base10UnitPrefixes, "B");
 }
 
 export function intervalDisplayName(v) {
