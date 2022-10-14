@@ -6,14 +6,11 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import Form from 'react-bootstrap/Form';
-import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import SizeDisplay from './SizeDisplay';
 import { TaskLogs } from './TaskLogs';
 import { cancelTask, redirectIfNotConnected } from './uiutil';
 
 export class EstimateResults extends Component {
-    static contextType = UIPreferencesContext;
-
     constructor() {
         super();
         this.state = {

@@ -10,14 +10,11 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
-import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import { TaskLogs } from './TaskLogs';
 import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected } from './uiutil';
 import SizeDisplay from './SizeDisplay';
 
 export class TaskDetails extends Component {
-    static contextType = UIPreferencesContext;
-
     constructor() {
         super();
         this.state = {

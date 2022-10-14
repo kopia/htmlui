@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
-import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import MyTable from './Table';
 import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirectIfNotConnected, rfc3339TimestampForDisplay, sourceQueryStringParams } from './uiutil';
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
@@ -36,8 +35,6 @@ function pillVariant(tag) {
 }
 
 export class SnapshotsTable extends Component {
-    static contextType = UIPreferencesContext;
-
     constructor() {
         super();
         this.state = {
@@ -350,7 +347,7 @@ export class SnapshotsTable extends Component {
             width: "",
             accessor: x => x.rootID,
             Cell: x => <><span className="hash-value">{x.cell.value}</span>
-                {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
+            {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
         }, {
             Header: 'Retention',
             accessor: 'retention',

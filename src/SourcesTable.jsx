@@ -240,8 +240,7 @@ export class SourcesTable extends Component {
                 <SizeDisplay
                     size={x.cell.value}
                     summary={
-                        x.row.original.lastSnapshot &&
-                        x.row.original.lastSnapshot.rootEntry
+                        x.row.original.lastSnapshot?.rootEntry
                             ? x.row.original.lastSnapshot.rootEntry.summ
                             : null
                     }

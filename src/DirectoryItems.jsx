@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import MyTable from './Table';
 import { objectLink, rfc3339TimestampForDisplay } from './uiutil';
-import {UIPreferencesContext} from './contexts/UIPreferencesContext';
 import SizeDisplay from './SizeDisplay';
 
 function objectName(name, typeID) {
@@ -34,8 +33,6 @@ function directoryLinkOrDownload(x) {
 }
 
 export class DirectoryItems extends Component {
-    static contextType = UIPreferencesContext;
-
     render() {
         const columns = [{
             id: "name",

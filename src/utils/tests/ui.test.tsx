@@ -50,12 +50,12 @@ describe('UI utils', () => {
 		it('returns an empty string when undefined', () =>
 			expect(sizeDisplayName()).toEqual(''));
 
-		it('returns the decimal unit string in base-10', () =>
+		it('returns the unit string in base-10', () =>
 			Object.entries(base10Cases).forEach(([bytes, expected]) =>
 				expect(sizeDisplayName(Number(bytes))).toEqual(expected)
 			));
 
-		it('returns the decimal unit string in base-2', () =>
+		it('returns the unit string in base-2', () =>
 			Object.entries(base2Cases).forEach(([bytes, expected]) =>
 				expect(sizeDisplayName(Number(bytes), true)).toEqual(expected)
 			));
