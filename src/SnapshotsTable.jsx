@@ -9,11 +9,12 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
 import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import MyTable from './Table';
-import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirectIfNotConnected, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirectIfNotConnected, rfc3339TimestampForDisplay, sourceQueryStringParams } from './uiutil';
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import SizeDisplay from './SizeDisplay';
 
 function pillVariant(tag) {
     if (tag.startsWith("latest-")) {
@@ -349,7 +350,7 @@ export class SnapshotsTable extends Component {
             width: "",
             accessor: x => x.rootID,
             Cell: x => <><span className="hash-value">{x.cell.value}</span>
-            {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
+                {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
         }, {
             Header: 'Retention',
             accessor: 'retention',
@@ -365,7 +366,7 @@ export class SnapshotsTable extends Component {
             Header: 'Size',
             accessor: 'summary.size',
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary, this.context.bytesStringBase2),
+            Cell: x => <SizeDisplay size={x.cell.value} summary={x.row.original.summary} />
         }, {
             Header: 'Files',
             accessor: 'summary.files',

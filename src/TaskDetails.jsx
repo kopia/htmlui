@@ -12,7 +12,8 @@ import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import { TaskLogs } from './TaskLogs';
-import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected, sizeDisplayName } from './uiutil';
+import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected } from './uiutil';
+import SizeDisplay from './SizeDisplay';
 
 export class TaskDetails extends Component {
     static contextType = UIPreferencesContext;
@@ -116,7 +117,7 @@ export class TaskDetails extends Component {
 
         let formatted = c.value.toLocaleString();
         if (c.units === "bytes") {
-            formatted = sizeDisplayName(c.value, this.context.bytesStringBase2);
+            formatted = <SizeDisplay size={c.value} />;
         }
 
         return <tr key={label}><td>{label}</td><td>{formatted}</td></tr>;

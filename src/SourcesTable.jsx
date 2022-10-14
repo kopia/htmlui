@@ -10,10 +10,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
+import SizeDisplay from './SizeDisplay';
 import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirectIfNotConnected, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { sizeDisplayName } from './utils/ui';
+import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirectIfNotConnected, sourceQueryStringParams } from './uiutil';
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
@@ -234,10 +236,17 @@ export class SourcesTable extends Component {
             Header: 'Size',
             width: 120,
             accessor: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
-            Cell: x => sizeWithFailures(
-                x.cell.value,
-                x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null,
-                this.context.bytesStringBase2),
+            Cell: x => (
+                <SizeDisplay
+                    size={x.cell.value}
+                    summary={
+                        x.row.original.lastSnapshot &&
+                        x.row.original.lastSnapshot.rootEntry
+                            ? x.row.original.lastSnapshot.rootEntry.summ
+                            : null
+                    }
+                />
+            ),
         }, {
             id: 'lastSnapshotTime',
             Header: 'Last Snapshot',
