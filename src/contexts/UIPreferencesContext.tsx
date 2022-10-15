@@ -11,6 +11,7 @@ export interface UIPreferences {
     get bytesStringBase2(): boolean
     get pageSize(): PageSize
     get theme(): Theme
+    setBytesStringBase2: (isSet: boolean) => void
     setTheme: (theme: Theme) => void
     setPageSize: (pageSize: number) => void
 }
@@ -25,7 +26,7 @@ export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIP
 
 export interface UIPreferenceProviderProps {
     children: ReactNode,
-    initalValue: UIPreferences | undefined
+    initialValue: Partial<UIPreferences> | undefined
 }
 
 function getDefaultTheme(): Theme {

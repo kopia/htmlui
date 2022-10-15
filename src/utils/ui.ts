@@ -33,22 +33,15 @@ export const sizeDisplayName = (size?: number, bytesStringBase2?: boolean) => {
 };
 
 type Error = {
-	path: string;
-	error: string;
-}
-type Summary = {
-	errors: Error[];
-	numFailed: number;
-}
-export const sizeWithFailures = (
-    size?: number,
-    summ?: Summary,
-    bytesStringBase2?: boolean
-) => {
-    if (size === undefined) return '';
-
-    if (!summ || !summ.errors || !summ.numFailed)
-        return <span>{sizeDisplayName(size, bytesStringBase2)}</span>;
+    path: string;
+    error: string;
+};
+export type Summary = {
+    errors: Error[];
+    numFailed: number;
+};
+export const getErrorList = (summ?: Summary): string => {
+    if (!summ?.errors?.length && !summ?.numFailed) return '';
 
     let caption = 'Encountered ' + summ.numFailed + ' errors:\n\n';
     let prefix = '- ';
@@ -61,14 +54,5 @@ export const sizeWithFailures = (
         .map((err: Error) => prefix + err.path + ': ' + err.error)
         .join('\n');
 
-    return (
-        <span>
-            {sizeDisplayName(size, bytesStringBase2)}&nbsp;
-            <FontAwesomeIcon
-                color="red"
-                icon={faExclamationTriangle}
-                title={caption}
-            />
-        </span>
-    );
+    return caption;
 };

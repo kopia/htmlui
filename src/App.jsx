@@ -97,7 +97,7 @@ export default class App extends Component {
     return (
       <Router>
         <AppContext.Provider value={this}>
-          <UIPreferenceProvider initalValue={uiPrefs}>
+          <UIPreferenceProvider initialValue={uiPrefs}>
             <Navbar expand="sm" variant="light">
               <Navbar.Brand href="/"><img src="/kopia-flat.svg" className="App-logo" alt="logo" /></Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
