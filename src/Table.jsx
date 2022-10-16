@@ -3,8 +3,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Stack from 'react-bootstrap/Stack';
 import Table from 'react-bootstrap/Table';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import { usePagination, useSortBy, useTable } from 'react-table';
 import { PAGE_SIZES, UIPreferencesContext } from './contexts/UIPreferencesContext';
 
@@ -97,19 +95,6 @@ export default function MyTable({ columns, data }) {
       </Pagination>)}
     </>
     <Stack direction="horizontal" gap={3} style={{ marginBottom: '1em' }}>
-      <div className="small">
-        {/* TODO: Any more elegant way for this label? */}
-        <span style={{ marginRight: '.5em', verticalAlign: 'middle' }}>Storage Unit:</span>
-        <ToggleButtonGroup
-          size="sm"
-          name="storage-unit"
-          value={bytesStringBase2}
-          onChange={setBytesStringBase2}
-        >
-          <ToggleButton value={false} id="decimal">Decimal</ToggleButton>
-          <ToggleButton value={true} id="binary">Binary</ToggleButton>
-        </ToggleButtonGroup>
-      </div>
       <Dropdown>
         <Dropdown.Toggle size="sm">
           Page Size: {pageSize}
@@ -118,6 +103,17 @@ export default function MyTable({ columns, data }) {
           {PAGE_SIZES.map(pageSize => (
             <Dropdown.Item size="sm" key={pageSize} onClick={() => setPageSize(pageSize)}>
               Page Size {pageSize}
+            </Dropdown.Item>))}
+        </Dropdown.Menu>
+      </Dropdown>
+      <Dropdown>
+        <Dropdown.Toggle size="sm">
+          Units: {bytesStringBase2 ? 'Binary' : 'Decimal'}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {[false, true].map(isBase2 => (
+            <Dropdown.Item size="sm" key={`base-2-${isBase2}`} onClick={() => setBytesStringBase2(isBase2)}>
+              Units: {isBase2 ? 'Binary' : 'Decimal'}
             </Dropdown.Item>))}
         </Dropdown.Menu>
       </Dropdown>
