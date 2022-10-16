@@ -1,49 +1,50 @@
-import { fireEvent } from '@testing-library/dom';
-import { screen, render } from '@testing-library/react';
-import { UIPreferenceProvider } from '../contexts/UIPreferencesContext';
+import { screen } from '@testing-library/react';
 import MyTable from '../Table';
+import { simulateClick } from './testutils';
+import { renderWithContext } from './testutils';
 
-const renderWithContext = bytesStringBase2 =>
-  render(
-    <UIPreferenceProvider initialValue={{ bytesStringBase2 }}>
-      <MyTable />
-    </UIPreferenceProvider>
-  );
+const renderTable = bytesStringBase2 =>
+  renderWithContext(<MyTable columns={[]} />, { bytesStringBase2 });
 
 describe('Table', () => {
   describe('Units dropdown', () => {
+    const expectButtonCount = (unit, count) =>
+      expect(
+        screen.getAllByRole('button', { name: new RegExp(`Units: ${unit}`) })
+      ).toHaveLength(count);
+
     const getUnitButton = (unit) =>
-      screen.getByRole('button', { name: `Units: ${unit}` });
-    const openDropdown = () =>
-      fireEvent.click(getUnitButton('Decimal'));
+      screen.getByRole('button', { name: new RegExp(`Units: ${unit}`) });
+
+    const openDropdown = () => simulateClick(getUnitButton('Decimal'));
 
     describe('labeled with the units value', () => {
-      it('decimal', () => {
-        renderWithContext();
+      it('decimal', async () => {
+        await renderTable();
         getUnitButton('Decimal');
       });
 
-      it('binary', () => {
-        renderWithContext(true);
+      it('binary', async () => {
+        await renderTable(true);
         getUnitButton('Binary');
       });
     });
 
-    it('has dropdown options for Decimal and Binary', () => {
-      renderWithContext();
+    it('has dropdown options for Decimal and Binary', async () => {
+      await renderTable();
       openDropdown();
 
-      expect(screen.getAllByRole('button', { name: 'Units: Decimal' })).toHaveLength(2);
+      expectButtonCount('Decimal', 2);
       getUnitButton('Binary');
     });
 
-    it('updates the value when an option is selected', () => {
-      renderWithContext();
+    it('updates the value when an option is selected', async () => {
+      await renderTable();
       openDropdown();
-      fireEvent.click(screen.getAllByRole('button', { name: 'Units: Decimal' })[0]);
+      simulateClick(getUnitButton('Binary'));
 
-      expect(screen.queryByRole('button', { name: 'Units: Decimal' })).toBeFalsy();
-      getUnitButton('Binary');
-    })
+      expectButtonCount('Binary', 2);
+      getUnitButton('Decimal');
+    });
   });
 });
