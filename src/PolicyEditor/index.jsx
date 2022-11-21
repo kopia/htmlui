@@ -159,6 +159,9 @@ export class PolicyEditor extends Component {
             if (policy.files.ignoreDotFiles) {
                 policy.files.ignoreDotFiles = removeEmpty(policy.files.ignoreDotFiles)
             }
+            if (policy.files.ignoreExtendedAttributes) {
+                policy.files.ignoreExtendedAttributes = removeEmpty(policy.files.ignoreExtendedAttributes)
+            }
         }
 
         if (policy.compression) {
@@ -315,6 +318,11 @@ export class PolicyEditor extends Component {
                                 <LabelColumn name="Ignore Rule Files From Parent Directories" help="When set, the files specifying ignore rules (.kopiaignore, etc.) from the parent directory are ignored" />
                                 <ValueColumn>{RequiredBoolean(this, "", "policy.files.noParentDotFiles")}</ValueColumn>
                                 <EffectiveValueColumn />
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Ignore Files by extra attributes (xattrs)" help="List of extra attribute names that mark a file as ignored" />
+                                <WideValueColumn>{StringList(this, "policy.files.ignoreExtendedAttributes")}</WideValueColumn>
+                                {EffectiveTextAreaValue(this, "files.ignoreExtendedAttributes")}
                             </Row>
                             <Row>
                                 <LabelColumn name="Ignore Well-Known Cache Directories" help="Ignore directories containing CACHEDIR.TAG and similar" />
