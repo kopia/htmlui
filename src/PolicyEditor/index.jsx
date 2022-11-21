@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
+import Col from 'react-bootstrap/Col';
 import { handleChange, stateProperty, valueToNumber } from '../forms';
 import { StringList } from '../forms/StringList';
 import { LogDetailSelector } from '../forms/LogDetailSelector';
@@ -325,6 +326,25 @@ export class PolicyEditor extends Component {
                                 <LabelColumn name="Scan only one filesystem" help="Do not cross filesystem boundaries when creating a snapshot" />
                                 <ValueColumn>{OptionalBoolean(this, null, "policy.files.oneFileSystem", "inherit from parent")}</ValueColumn>
                                 {EffectiveBooleanValue(this, "files.oneFileSystem")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Use filesystem snapshots" help="Create a filesystem snapshot before creating a kopia snapshot" />
+                                <ValueColumn>
+                                    <Form.Group as={Col}>
+                                        <Form.Control
+                                            size="sm"
+                                            name="policy.files.useFilesystemSnapshots"
+                                            value={stateProperty(this, "policy.files.useFilesystemSnapshots")}
+                                            onChange={this.handleChange}
+                                            as="select">
+                                            <option value="">inherit from parent</option>
+                                            <option value="required">required</option>
+                                            <option value="if available">if available</option>
+                                            <option value="no">no</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                </ValueColumn>
+                                {EffectiveValue(this, "files.useFilesystemSnapshots")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
