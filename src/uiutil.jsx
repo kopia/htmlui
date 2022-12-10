@@ -88,7 +88,7 @@ export function rfc3339TimestampForDisplay(n) {
 }
 
 export function objectLink(n) {
-    if (n.startsWith("k")) {
+    if (n.startsWith("k") || n.startsWith("Ik")) {
         return "/snapshots/dir/" + n;
     }
     return "/api/v1/objects/" + n;
