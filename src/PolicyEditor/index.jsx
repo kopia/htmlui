@@ -412,6 +412,9 @@ export class PolicyEditor extends Component {
                                         <option value="10800">every 3 hours</option>
                                         <option value="21600">every 6 hours</option>
                                         <option value="43200">every 12 hours</option>
+                                        <option value="86400">every day</option>
+                                        <option value="604800">every week</option>
+                                        <option value="2419200">every month</option>
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "scheduling.intervalSeconds")}
