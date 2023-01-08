@@ -461,11 +461,11 @@ export class PolicyEditor extends Component {
                         <Accordion.Header><FontAwesomeIcon icon={faCogs} />&nbsp;Snapshot Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
-                            {ActionRowScript(this, "actions.beforeSnapshotRoot.path", "Before Snapshot", "Script to run before snapshot")}
+                            {ActionRowScript(this, "actions.beforeSnapshotRoot.script", "Before Snapshot", "Script to run before snapshot")}
                             {ActionRowTimeout(this, "actions.beforeSnapshotRoot.timeout")}
                             {ActionRowMode(this, "actions.beforeSnapshotRoot.mode")}
                             <hr />
-                            {ActionRowScript(this, "actions.afterSnapshotRoot.path", "After Snapshot", "Script to run after snapshot")}
+                            {ActionRowScript(this, "actions.afterSnapshotRoot.script", "After Snapshot", "Script to run after snapshot")}
                             {ActionRowTimeout(this, "actions.afterSnapshotRoot.timeout")}
                             {ActionRowMode(this, "actions.afterSnapshotRoot.mode")}
                         </Accordion.Body>
@@ -474,11 +474,11 @@ export class PolicyEditor extends Component {
                         <Accordion.Header><FontAwesomeIcon icon={faCog} />&nbsp;Folder Actions</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
-                            {ActionRowScript(this, "actions.beforeFolder.path", "Before Folder", "Script to run before folder")}
+                            {ActionRowScript(this, "actions.beforeFolder.script", "Before Folder", "Script to run before folder")}
                             {ActionRowTimeout(this, "actions.beforeFolder.timeout")}
                             {ActionRowMode(this, "actions.beforeFolder.mode")}
                             <hr />
-                            {ActionRowScript(this, "actions.afterFolder.path", "After Folder", "Script to run after folder")}
+                            {ActionRowScript(this, "actions.afterFolder.script", "After Folder", "Script to run after folder")}
                             {ActionRowTimeout(this, "actions.afterFolder.timeout")}
                             {ActionRowMode(this, "actions.afterFolder.mode")}
                         </Accordion.Body>
