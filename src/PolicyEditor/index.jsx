@@ -297,7 +297,7 @@ export class PolicyEditor extends Component {
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Ignore Files" help="List of file and directory names to ignore (specified as relative to the directory they are in and not absolute; wilcards are allowed)" />
+                                <LabelColumn name="Ignore Files" help="List of file and directory names to ignore (specified as relative to the directory they are in and not absolute; wildcards are allowed)" />
                                 <WideValueColumn>{StringList(this, "policy.files.ignore")}</WideValueColumn>
                                 {EffectiveTextAreaValue(this, "files.ignore")}
                             </Row>
