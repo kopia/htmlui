@@ -13,7 +13,7 @@ export function DirectoryBreadcrumbs() {
     }
 
     return (<>
-            {breadcrumbs.length >= 1 && <GoBackButton onClick={history.goBack}/>}
+            {breadcrumbs.length <= 1 && <GoBackButton onClick={history.goBack}/>}
             {
                 breadcrumbs.map((state, i) => {
                     const index = breadcrumbs.length - i - 1 // revert index

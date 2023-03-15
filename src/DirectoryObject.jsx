@@ -123,28 +123,34 @@ export class DirectoryObject extends Component {
                 <Col xs={12}>
                     <DirectoryBreadcrumbs />
                     &nbsp;
-                    <span className="version-info">OID: {this.state.oid}</span>
+                    <span className="version-info">OID:&nbsp;{this.state.oid}</span>
                 </Col>
             </Row>
             <Row><Col>&nbsp;</Col></Row>
-            <Row><Col xs={12}>
-                {this.state.mountInfo.path ? <>
-                        <Button size="sm" variant="info" onClick={this.unmount} >Unmount</Button>
-                    {window.kopiaUI && <>
-                        &nbsp;
-                            <Button size="sm" variant="info" onClick={this.browseMounted} >Browse</Button>
+            <Row>
+                <Col xs="auto">
+                    {this.state.mountInfo.path ? <>
+                        <Button size="sm" variant="info" onClick={this.unmount}>Unmount</Button>
+                        {window.kopiaUI && <>
+                            &nbsp;
+                            <Button size="sm" variant="info" onClick={this.browseMounted}>Browse</Button>
+                        </>}
+                        &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
+                        <Button size="sm" variant="primary" onClick={this.copyPath}><FontAwesomeIcon
+                            icon={faCopy} /></Button>
+                    </> : <>
+                        <Button size="sm" variant="primary" onClick={this.mount}>Mount as Local Filesystem</Button>
                     </>}
-                    &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
-                        <Button size="sm" variant="primary" onClick={this.copyPath} ><FontAwesomeIcon icon={faCopy} /></Button>
-                </> : <>
-                        <Button size="sm" variant="primary" onClick={this.mount} >Mount as Local Filesystem</Button>
-                </>}
-                &nbsp;
-                <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
-                    Files & Directories</Button>
-                &nbsp;
-                You can mount/restore all the files & directories that you see below or restore files
-                individually.</Col>
+                    &nbsp;
+                    <Button size="sm" variant="info"
+                            href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
+                        Files & Directories</Button>
+                    &nbsp;
+                </Col>
+                <Col xs={12} md={6}>
+                    You can mount/restore all the files & directories that you see below or restore files
+                    individually.
+                </Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
