@@ -334,7 +334,10 @@ export class SnapshotsTable extends Component {
             id: 'startTime',
             Header: 'Start time',
             width: 200,
-            accessor: x => <Link to={objectLink(x.rootID)}>{rfc3339TimestampForDisplay(x.startTime)}</Link>,
+            accessor: x => {
+                let timestamp = rfc3339TimestampForDisplay(x.startTime);
+                return <Link to={objectLink(x.rootID, timestamp)}>{timestamp}</Link>;
+            },
         }, {
             id: 'description',
             Header: '',

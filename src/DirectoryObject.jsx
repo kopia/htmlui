@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "./DirectoryItems";
-import { CLIEquivalent, GoBackButton } from './uiutil';
+import { CLIEquivalent } from './uiutil';
+import { DirectoryBreadcrumbs } from "./DirectoryBreadcrumbs";
 
 export class DirectoryObject extends Component {
     constructor() {
@@ -120,31 +121,35 @@ export class DirectoryObject extends Component {
         return <>
             <Row>
                 <Col xs={12}>
-                    <GoBackButton onClick={this.props.history.goBack} />
+                    <DirectoryBreadcrumbs />
                     &nbsp;
-                    {this.state.mountInfo.path ? <>
-                        <Button size="sm" variant="info" onClick={this.unmount} >Unmount</Button>
-                        {window.kopiaUI && <>
-                            &nbsp;
-                            <Button size="sm" variant="info" onClick={this.browseMounted} >Browse</Button>
-                        </>}
-                        &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
-                        <Button size="sm" variant="primary" onClick={this.copyPath} ><FontAwesomeIcon icon={faCopy} /></Button>
-                    </> : <>
-                        <Button size="sm" variant="primary" onClick={this.mount} >Mount as Local Filesystem</Button>
-                    </>}
-                    &nbsp;
-                    <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore Files & Directories</Button>
+                    <span className="version-info">OID: {this.state.oid}</span>
                 </Col>
             </Row>
-            <Row><Col>&nbsp;</Col>
-            </Row>
-            <Row><Col xs={12}>You can mount/restore all the files & directories that you see below or restore files individually.</Col>
+            <Row><Col>&nbsp;</Col></Row>
+            <Row><Col xs={12}>
+                {this.state.mountInfo.path ? <>
+                        <Button size="sm" variant="info" onClick={this.unmount} >Unmount</Button>
+                    {window.kopiaUI && <>
+                        &nbsp;
+                            <Button size="sm" variant="info" onClick={this.browseMounted} >Browse</Button>
+                    </>}
+                    &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
+                        <Button size="sm" variant="primary" onClick={this.copyPath} ><FontAwesomeIcon icon={faCopy} /></Button>
+                </> : <>
+                        <Button size="sm" variant="primary" onClick={this.mount} >Mount as Local Filesystem</Button>
+                </>}
+                &nbsp;
+                <Button size="sm" variant="info" href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
+                    Files & Directories</Button>
+                &nbsp;
+                You can mount/restore all the files & directories that you see below or restore files
+                individually.</Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>
             <Row>
-                <Col xs={12}><DirectoryItems items={items} /></Col>
+                <Col xs={12}><DirectoryItems items={items} historyState={this.props.location.state} /></Col>
             </Row>
             <CLIEquivalent command={`snapshot list ${this.state.oid}`} />
         </>
