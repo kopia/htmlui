@@ -135,7 +135,7 @@ describe("formatMagnitudesUsingMultipleUnits", () => {
         expect(fn(magnitudes)).toBe("23 hours 59 minutes 59 seconds");
     });
 
-    it("represents durations (T >= 1 day) using days (integer) and hours (integer)", () => {
+    it("represents durations (T >= 1 day) using multiple units", () => {
         magnitudes = { days: 1, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
         expect(fn(magnitudes)).toBe("1 day");
 
@@ -151,6 +151,14 @@ describe("formatMagnitudesUsingMultipleUnits", () => {
         magnitudes = { days: 7, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
         expect(fn(magnitudes)).toBe("7 days"); // even a week uses units of days
     });
+
+    it("uses localized number formatting", () => {
+        magnitudes = { days: 1000, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1,000 days");
+
+        magnitudes = { days: 1234567, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
+        expect(fn(magnitudes)).toBe("1,234,567 days");
+    })
 
     it("uses correct singular vs. plural unit names", () => {
         magnitudes = { days: 1, hours: 0, minutes: 0, seconds: 0, milliseconds: 0 };
