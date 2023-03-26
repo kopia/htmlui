@@ -146,7 +146,7 @@ export class TasksTable extends Component {
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>All</Dropdown.Item>
                                     <Dropdown.Divider />
-                                    {this.state.uniqueKinds.map(k => <Dropdown.Item onClick={() => this.setState({ showKind: k })}>{k}</Dropdown.Item>)}
+                                    {this.state.uniqueKinds.map(k => <Dropdown.Item key={k} onClick={() => this.setState({ showKind: k })}>{k}</Dropdown.Item>)}
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
