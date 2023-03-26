@@ -440,7 +440,7 @@ export class SetupRepository extends Component {
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
+            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
             &nbsp;
             <Button variant="success" type="submit" data-testid="submit-button">Create Repository</Button>
             {this.loadingSpinner()}
@@ -493,7 +493,7 @@ export class SetupRepository extends Component {
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ storageVerified: false })}>Back</Button>
+            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
             &nbsp;
             <Button variant="success" type="submit" data-testid="submit-button">Connect To Repository</Button>
             {this.loadingSpinner()}
