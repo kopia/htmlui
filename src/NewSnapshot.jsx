@@ -166,7 +166,7 @@ export class NewSnapshot extends Component {
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
                         title="Estimate"
-                        variant="primary"
+                        variant="secondary"
                         onClick={this.estimate}>Estimate</Button>
                     &nbsp;
                     <Button
@@ -174,7 +174,7 @@ export class NewSnapshot extends Component {
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
                         title="Snapshot Now"
-                        variant="success"
+                        variant="primary"
                         onClick={this.snapshotNow}>Snapshot Now</Button>
                 </Col>
             </Row>

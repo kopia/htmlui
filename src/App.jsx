@@ -1,10 +1,9 @@
 import axios from 'axios';
 import 'bootstrap-dark-5/dist/css/bootstrap-nightshade.min.css';
-import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import { React, Component } from 'react';
+import { Navbar, Nav, Container} from 'react-bootstrap';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import './Theme.css';
 import './App.css';
 import { BeginRestore } from './BeginRestore';
 import { DirectoryObject } from "./DirectoryObject";
@@ -16,8 +15,9 @@ import { TaskDetails } from './TaskDetails';
 import { TasksTable } from './TasksTable';
 import { NewSnapshot } from './NewSnapshot';
 import { PolicyEditorPage } from './PolicyEditorPage';
-import { ToggleDarkModeButton } from './ToggleDarkModeButton';
+import { ThemeSelector } from './ThemeSelector';
 import { AppContext } from './AppContext';
+
 import { UIPreferenceProvider } from './contexts/UIPreferencesContext';
 
 export default class App extends Component {
@@ -112,7 +112,7 @@ export default class App extends Component {
                   <NavLink data-testid="tab-repo" className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
                 </Nav>
                 <Nav>
-                  <ToggleDarkModeButton />
+                  <ThemeSelector/>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>

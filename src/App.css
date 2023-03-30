@@ -4,6 +4,105 @@ html.loading {
 
 body {
   line-height: 1;
+  color: var(--text-color-body);
+  background-color: var(--background-color);
+}
+
+.options-select {
+  overflow: ellipsis
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: var(--text-color-nav);
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+  color: var(--text-color-nav);
+}
+
+.btn {
+  color: var(--text-color);
+  margin-right: 5px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-submit {
+  background-color: var(--color-submit);
+  border-color: var(--color-submit);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.btn-warning {
+  background-color: var(--color-warning);
+  border-color: var(--color-primary);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.select {
+  color: black;
+}
+
+.table {
+  color: var(--text-color-body);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open>.dropdown-toggle.btn-secondary {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open>.dropdown-toggle.btn-warning {
+  background-color: var(--color-warning);
+  border-color: var(--color-warning);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open>.dropdown-toggle.btn-success {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open>.dropdown-toggle.btn-danger {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-submit:hover, .btn-submit:focus, .btn-submit:active, .btn-submit.active, .open>.dropdown-toggle.btn-submit {
+  background-color: var(--color-submit);
+  border-color: var(--color-submit);
+  color: var(--text-color);
+  filter: brightness(80%);
 }
 
 .popover {
@@ -78,7 +177,7 @@ body {
 }
 
 .error {
-  color: red;
+  color: var(--color_red);
 }
 
 .normal {
@@ -146,7 +245,7 @@ div.tab-body {
 .loglevel-0 { } /* debug */
 .loglevel-1 { font-weight: bold;} /* info */
 .loglevel-2 { color: rgb(169, 112, 5); font-weight: bold;} /* warning */
-.loglevel-3 { color: red; font-weight: bold; } /* error */
+.loglevel-3 { color: var(--color-error); font-weight: bold; } /* error */
 
 .counter-badge {
   font-size: 90%;

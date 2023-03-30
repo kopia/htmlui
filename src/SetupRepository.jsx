@@ -229,7 +229,7 @@ export class SetupRepository extends Component {
                     <Button key={x.provider}
                         data-testid={'provider-' + x.provider}
                         onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
-                        variant={x.provider.startsWith("_") ? "success" : "primary"}
+                        variant={x.provider.startsWith("_") ? "secondary" : "primary"}
                         className="providerIcon" >{x.description}</Button>
                 )}
             </Row>
@@ -313,7 +313,7 @@ export class SetupRepository extends Component {
             {this.connectionErrorInfo()}
             <hr />
 
-            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
             &nbsp;
             <Button variant="primary" type="submit" data-testid="submit-button">Next</Button>
             {this.loadingSpinner()}
@@ -326,7 +326,7 @@ export class SetupRepository extends Component {
         const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
 
         return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
-            variant="secondary"
+            variant="primary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
             size="sm"
@@ -440,9 +440,9 @@ export class SetupRepository extends Component {
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
             &nbsp;
-            <Button variant="success" type="submit" data-testid="submit-button">Create Repository</Button>
+            <Button variant="primary" type="submit" data-testid="submit-button">Create Repository</Button>
             {this.loadingSpinner()}
         </Form>;
     }
@@ -493,9 +493,9 @@ export class SetupRepository extends Component {
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button data-testid='back-button' variant="secondary" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
             &nbsp;
-            <Button variant="success" type="submit" data-testid="submit-button">Connect To Repository</Button>
+            <Button variant="primary" type="submit" data-testid="submit-button">Connect To Repository</Button>
             {this.loadingSpinner()}
         </Form>;
     }

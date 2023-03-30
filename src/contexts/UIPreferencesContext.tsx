@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 
-export type Theme = "dark" | "light";
+export type Theme = "light-theme" | "dark-theme" | "pastel-theme" | "ocean-theme";
 
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 
@@ -29,10 +29,10 @@ export interface UIPreferenceProviderProps {
 function getDefaultTheme(): Theme {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
         // browser supports light/dark mode and user prefers dark theme.
-        return "dark";
+        return "dark-theme";
     }
 
-    return "light";
+    return "light-theme";
 }
 
 function normalizePageSize(pageSize: number): PageSize {

@@ -1,0 +1,64 @@
+/*Supported themes */
+.light-theme {
+  --background-color: #ffffff;
+  --color-primary: #2A7FFF;
+  --color-secondary: #23a25a;
+  --color-warning: #e1704b;
+  --color-success: #5ea5cd;
+  --color-submit: #00B4D8;
+
+  --text-color: #ffffff;
+  --text-color-body: #000000;
+  --text-color-nav: #000000;
+
+  --color-error: #d2475a;
+  --color-danger: #d2475a;
+}
+
+.dark-theme {
+  --background-color: #000000;
+  --color-primary: #1162b1;
+  --color-secondary: #0d9aab;
+  --color-warning: #b30996;
+  --color-success: #030303;
+  --color-submit: #00B4D8;
+
+  --text-color: #ffffff;
+  --text-color-body: #ffffff;
+  --text-color-nav: #ffffff;
+  
+  --color-error: #b31f04;
+  --color-danger: #b31f04;
+}
+
+.pastel-theme {
+  --background-color: #ffffff;
+  --color-primary: #9feae7;
+  --color-secondary: #d7a5e9;
+  --color-warning: #ffe070;
+  --color-success: #d7a5e9;
+  --color-submit: #00B4D8;
+  
+  --text-color: #000000;
+  --text-color-body: #000000;
+  --text-color-nav: #d7a5e9;
+
+  --color-error: #b31f04;
+  --color-danger: #b31f04;
+}
+
+.ocean-theme {
+  --background-color: #ffffff;
+  --color-primary: #03045E;
+  --color-secondary: #0077B6;
+  --color-warning: #00B4D8;
+  --color-success: #48CAE4;
+  --color-submit: #00B4D8;
+  
+  --text-color: #ffffff;
+  --text-color-body: #03045E;
+  --text-color-nav: #03045E;
+
+  --color-error: #d2475a;
+  --color-danger: #d2475a;
+}

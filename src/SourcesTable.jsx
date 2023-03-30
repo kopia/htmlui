@@ -93,10 +93,11 @@ export class SourcesTable extends Component {
             case "IDLE":
             case "PAUSED":
                 return <>
-                    <Button data-testid="snapshot-now" variant="primary" size="sm" onClick={() => {
+                    <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.source)} variant="primary" size="sm">Policy</Button>
+                    <Button data-testid="snapshot-now" variant="success" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
-                    }}>Snapshot Now</Button>
-                    &nbsp;<Link data-testid="edit-policy" to={policyEditorURL(x.row.original.source)}><Button size="sm" variant="info">Policy</Button></Link>
+                        }}>Snapshot Now
+                    </Button>
                 </>;
 
             case "PENDING":
@@ -272,7 +273,7 @@ export class SourcesTable extends Component {
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button data-testid="new-snapshot" size="sm" variant="success" href="/snapshots/new">New Snapshot</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">New Snapshot</Button>
                     </Col>
                     <Col>
                     </Col>

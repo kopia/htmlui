@@ -11,11 +11,11 @@ export function ToggleDarkModeButton() {
   const h = document.querySelector("html")!;
   h.className = theme;
 
-  return theme === "dark"
-    ? <Button data-testid="toggle-dark-mode" variant="outline-light" size="sm" title="Switch to Light Mode" onClick={() => setTheme("light")}>
+  return theme === "dark-theme"
+    ? <Button data-testid="toggle-dark-mode" variant="outline-light" size="sm" title="Switch to Light Mode" onClick={() => setTheme("light-theme")}>
       <FontAwesomeIcon icon={faSun} />
     </Button>
-    : <Button data-testid="toggle-dark-mode" variant="outline-dark" size="sm" title="Switch to Dark Mode" onClick={() => setTheme("dark")}>
+    : <Button data-testid="toggle-dark-mode" variant="outline-dark" size="sm" title="Switch to Dark Mode" onClick={() => setTheme("dark-theme")}>
       <FontAwesomeIcon icon={faMoon} />
     </Button>;
 }

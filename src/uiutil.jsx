@@ -293,7 +293,7 @@ export function cancelTask(tid) {
 }
 
 export function GoBackButton(props) {
-    return <Button size="sm" variant="outline-secondary" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
+    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
 }
 
 export function PolicyTypeName(s) {
@@ -403,8 +403,8 @@ export function CLIEquivalent(props) {
 
     return <>
         <InputGroup size="sm" >
-            <Button size="sm" title="Click to show CLI equivalent" variant="warning" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
-            {visible && <Button class="sm" variant="outline-dark" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
+            <Button size="sm" title="Click to show CLI equivalent" variant="submit" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
+            {visible && <Button class="sm" variant="success" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
             {visible && <FormControl size="sm" ref={ref} className="cli-equivalent" value={`${cliInfo.executable} ${props.command}`} />}
         </InputGroup>
     </>;
