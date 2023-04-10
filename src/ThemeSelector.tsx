@@ -1,11 +1,9 @@
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 import { useContext } from 'react';
 import { Theme, UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 export function ThemeSelector() {
     const { theme, setTheme } = useContext(UIPreferencesContext);
-    
-    updateTheme(theme)
 
     const themes = [
         { value: 'light-theme', label: 'light' },
@@ -14,6 +12,8 @@ export function ThemeSelector() {
         { value: 'ocean-theme', label: 'ocean' }
     ]
     
+    updateTheme(theme)
+
     const handleTheme = (event: any) => {
         var selectedTheme = event.value;
         // keep html class in sync with button state.
@@ -21,7 +21,15 @@ export function ThemeSelector() {
         setTheme(selectedTheme)
       };
 
-    return <Select defaultValue={themes[0]} options={themes} onChange={handleTheme} />
+    return <Select options={themes} classNamePrefix="select" onChange={handleTheme} 
+    components={{
+        SingleValue: ({ children, ...props }) => {
+          return (
+            <components.SingleValue {...props}>
+              {"Theme: " + children}
+            </components.SingleValue>
+          );
+        }}}/>
 }
 
 function updateTheme(theme: Theme) {

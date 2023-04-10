@@ -174,7 +174,6 @@ export class PoliciesTable extends Component {
             return <p>Loading ...</p>;
         }
 
-
         let uniqueOwners = sources.reduce((a, d) => {
             const owner = ownerName(d.source);
 
@@ -245,7 +244,7 @@ export class PoliciesTable extends Component {
             id: 'edit',
             Header: '',
             width: 50,
-            Cell: x => <Link to={policyEditorURL(x.row.original.target)}><Button size="sm">Edit</Button></Link>,
+            Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
         }]
 
         return <>

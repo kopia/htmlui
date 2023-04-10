@@ -4,20 +4,23 @@ html.loading {
 
 body {
   line-height: 1;
-  color: var(--text-color-body);
   background-color: var(--background-color);
+}
+
+.container-fluid {
+  color: var(--text-color-body);
+}
+
+.select {
+  color: var(--text-color-selector);
+}
+
+.select select:hover {
+  color: var(--text-color-selector);
 }
 
 .options-select {
   overflow: ellipsis
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: var(--text-color-nav);
-}
-
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
-  color: var(--text-color-nav);
 }
 
 .btn {
@@ -53,14 +56,6 @@ body {
 .btn-danger {
   background-color: var(--color-danger);
   border-color: var(--color-danger);
-}
-
-.select {
-  color: black;
-}
-
-.table {
-  color: var(--text-color-body);
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
@@ -103,6 +98,26 @@ body {
   border-color: var(--color-submit);
   color: var(--text-color);
   filter: brightness(80%);
+}
+
+.table {
+  color: var(--text-color-body);
+}
+
+.table table-sm table-striped table-bordered table-hover {
+  color: var(--text-color-body);
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  color: var(--text-color-body);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: var(--text-color-nav);
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+  color: var(--text-color-nav);
 }
 
 .popover {
