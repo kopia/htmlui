@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom';
 
 const base10UnitPrefixes = ["", "K", "M", "G", "T"];
 
+// locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
+const locale = "en-US"
+
 function niceNumber(f) {
     return (Math.round(f * 10) / 10.0) + '';
 }
@@ -170,52 +173,56 @@ export function separateMillisecondsIntoMagnitudes(ms) {
  * @returns {string} Formatted string representing the specified duration.
  */
 export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits = false) {
-    let str;
-
     // Define the label we will use for each unit, depending upon whether that
     // unit's magnitude is `1` or not (e.g. "0 minutes" vs. "1 minute").
     // Note: This object is not used in the final "else" block below.
     const units = abbreviateUnits ? {
-        days: magnitudes.days === 1 ? "d" : "d",
-        hours: magnitudes.hours === 1 ? "h" : "h",
-        minutes: magnitudes.minutes === 1 ? "m" : "m",
-        seconds: magnitudes.seconds === 1 ? "s" : "s",
-        milliseconds: magnitudes.milliseconds === 1 ? "ms" : "ms",
+        days: "d",
+        hours: "h",
+        minutes: "m",
+        seconds: "s",
     } : {
         days: magnitudes.days === 1 ? " day" : " days",
         hours: magnitudes.hours === 1 ? " hour" : " hours",
         minutes: magnitudes.minutes === 1 ? " minute" : " minutes",
         seconds: magnitudes.seconds === 1 ? " second" : " seconds",
-        milliseconds: magnitudes.milliseconds === 1 ? " millisecond" : " milliseconds",
     };
 
     // Format the duration, depending upon the magnitudes of its parts.
-    if (magnitudes.days > 0) {
-        str = `${magnitudes.days}${units.days} ${magnitudes.hours}${units.hours}`;
-    } else if (magnitudes.hours > 0) {
-        str = `${magnitudes.hours}${units.hours} ${magnitudes.minutes}${units.minutes}`;
-    } else if (magnitudes.minutes > 0) {
-        str = `${magnitudes.minutes}${units.minutes} ${magnitudes.seconds}${units.seconds}`;
-    } else if (magnitudes.seconds >= 10) {
-        str = `${magnitudes.seconds}${units.seconds}`;
-    } else {
-        // Combine the magnitudes into the equivalent total number of milliseconds.
-        const ms = (
-            magnitudes.milliseconds +
-            magnitudes.seconds * 1000 +
-            magnitudes.minutes * 60 * 1000 +
-            magnitudes.hours * 60 * 60 * 1000 +
-            magnitudes.days * 24 * 60 * 60 * 1000
-        );
+    const parts = []
+    if (magnitudes.days) {
+        parts.push(`${magnitudes.days.toLocaleString(locale)}${units.days}`);
+    }
+    if (magnitudes.hours) {
+        parts.push(`${magnitudes.hours.toLocaleString(locale)}${units.hours}`);
+    }
+    if (magnitudes.minutes) {
+        parts.push(`${magnitudes.minutes.toLocaleString(locale)}${units.minutes}`);
+    }
+    if (!parts.length ||
+        magnitudes.seconds ||
+        (magnitudes.milliseconds && magnitudes.seconds < 10 && !parts.length)) {
+        // Convert seconds and ms into seconds
+        let seconds = magnitudes.seconds;
+        let fractionDigits = 0;
 
-        // Convert into seconds and round to the nearest tenth of a second.
+        // add ms only if duration is < 10s
+        if (seconds < 10 && !parts.length) {
+            seconds += magnitudes.milliseconds / 1000;
+            fractionDigits = 1;
+        }
+
+        // `toFixed()` doesn't support localization, use `toLocaleString()` instead
         // Given that the number always has a decimal place, use the "plural"
         // unit label, even if the number is `1.0`.
-        const seconds = ms / 1000;
-        str = `${seconds.toFixed(1)}${abbreviateUnits ? "s" : " seconds"}`;
+        parts.push(`${seconds.toLocaleString(locale, {
+            minimumFractionDigits: fractionDigits,
+            maximumFractionDigits: fractionDigits,
+            roundingMode: "trunc",
+        })}${fractionDigits ? (abbreviateUnits ? "s" : " seconds") : units.seconds }`);
     }
 
-    return str;
+    return parts.join(" ");
 }
 
 /**
@@ -231,7 +238,13 @@ export function formatMilliseconds(ms, useMultipleUnits = false) {
         return formatMillisecondsUsingMultipleUnits(ms);
     }
 
-    return Math.round(ms / 100.0) / 10.0 + "s"
+    // return Math.round(ms / 100.0) / 10.0 + "s"
+    // always show one fraction digit, to avoid layout changes every 0.5 sec for running tasks
+    // `toFixed()` doesn't support localization, use `toLocaleString()` instead
+    return (ms / 1000.0).toLocaleString(locale, {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+    }) + "s"
 }
 
 export function formatDuration(from, to, useMultipleUnits = false) {
@@ -239,22 +252,17 @@ export function formatDuration(from, to, useMultipleUnits = false) {
         return "";
     }
 
-    if (!to) {
-        const ms = new Date().valueOf() - new Date(from).valueOf();
-        if (ms < 0) {
-            return ""
-        }
-
-        return formatMilliseconds(ms)
+    const ms = (to ? new Date(to) : new Date()).valueOf() - new Date(from).valueOf();
+    if (ms < 0) {
+        return ""
     }
 
-    return formatMilliseconds(new Date(to).valueOf() - new Date(from).valueOf(), useMultipleUnits);
+    return formatMilliseconds(ms, useMultipleUnits);
 }
 
 export function taskStatusSymbol(task) {
     const st = task.status;
-    const dur = formatDuration(task.startTime, task.endTime);
-    const durMultiUnit = formatDuration(task.startTime, task.endTime, true);
+    const dur = formatDuration(task.startTime, task.endTime, true);
 
     switch (st) {
         case "RUNNING":
@@ -265,13 +273,13 @@ export function taskStatusSymbol(task) {
             </>;
 
         case "SUCCESS":
-            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {durMultiUnit}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {dur}</p>;
 
         case "FAILED":
-            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {durMultiUnit}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}</p>;
 
         case "CANCELED":
-            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {durMultiUnit}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {dur}</p>;
 
         default:
             return st;

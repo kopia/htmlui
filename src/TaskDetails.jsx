@@ -75,7 +75,7 @@ export class TaskDetails extends Component {
     }
 
     summaryControl(task) {
-        const dur = formatDuration(task.startTime, task.endTime)
+        const dur = formatDuration(task.startTime, task.endTime, true)
 
         switch (task.status) {
 
