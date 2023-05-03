@@ -26,9 +26,12 @@ export interface UIPreferenceProviderProps {
     initalValue: UIPreferences | undefined
 }
 
+/**
+ * Returns a default theme based on the user's browser settings.
+ * @returns Theme
+ */
 function getDefaultTheme(): Theme {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        // browser supports light/dark mode and user prefers dark theme.
         return "dark-theme";
     }
 

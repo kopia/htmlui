@@ -1,5 +1,5 @@
 import axios from 'axios';
-import 'bootstrap-dark-5/dist/css/bootstrap-nightshade.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container} from 'react-bootstrap';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
