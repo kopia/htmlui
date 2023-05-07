@@ -13,7 +13,7 @@ import { cancelTask, CLIEquivalent } from './uiutil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { TaskLogs } from './TaskLogs';
-import { AppContext } from './AppContext';
+import { AppContext } from './contexts/AppContext';
 
 export class RepoStatus extends Component {
     constructor() {

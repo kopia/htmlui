@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import Form from 'react-bootstrap/Form';
 import { TaskLogs } from './TaskLogs';
-import { cancelTask, redirectIfNotConnected, sizeDisplayName } from './uiutil';
+import { cancelTask, redirect, sizeDisplayName } from './uiutil';
 
 export class EstimateResults extends Component {
     constructor() {
@@ -55,7 +55,7 @@ export class EstimateResults extends Component {
                 this.interval = null;
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false

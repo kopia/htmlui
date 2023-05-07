@@ -1,5 +1,5 @@
 /*Supported themes */
-.light-theme {
+.light {
   --background-color: #ffffff;
   --color-primary: #2A7FFF;
   --color-secondary: #23a25a;
@@ -16,7 +16,7 @@
   --color-danger: #d2475a;
 }
 
-.dark-theme {
+.dark {
   --background-color: #343c43;
   --color-primary: #1162b1;
   --color-secondary: #0d9aab;
@@ -33,24 +33,24 @@
   --color-danger: #b31f04;
 }
 
-.pastel-theme {
+.pastel {
   --background-color: #ffffff;
-  --color-primary: #9feae7;
-  --color-secondary: #d7a5e9;
-  --color-warning: #ffe070;
-  --color-success: #d7a5e9;
-  --color-submit: #00B4D8;
+  --color-primary: #9bf6ff;
+  --color-secondary: #bdb2ff;
+  --color-warning: #ffd6a5;
+  --color-success: #bdb2ff;
+  --color-submit: #a0c4ff;
   
   --text-color: #000000;
   --text-color-selector: #000000;
   --text-color-body: #000000;
-  --text-color-nav: #d7a5e9;
+  --text-color-nav: #c095e4;
 
-  --color-error: #b31f04;
-  --color-danger: #b31f04;
+  --color-error: #ffadad;
+  --color-danger: #ffadad;
 }
 
-.ocean-theme {
+.ocean {
   --background-color: #ffffff;
   --color-primary: #03045E;
   --color-secondary: #0077B6;

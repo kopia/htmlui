@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { TaskLogs } from './TaskLogs';
-import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected, sizeDisplayName } from './uiutil';
+import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from './uiutil';
 
 export class TaskDetails extends Component {
     constructor() {
@@ -60,7 +60,7 @@ export class TaskDetails extends Component {
                 this.interval = null;
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false

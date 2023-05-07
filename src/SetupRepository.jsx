@@ -8,7 +8,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
-import { AppContext } from './AppContext';
+import { AppContext } from './contexts/AppContext';
 import { handleChange, validateRequiredFields } from './forms';
 import { RequiredBoolean } from './forms/RequiredBoolean';
 import { RequiredField } from './forms/RequiredField';

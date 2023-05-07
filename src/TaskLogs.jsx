@@ -1,9 +1,8 @@
-
 import axios from 'axios';
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from './forms';
-import { redirectIfNotConnected } from './uiutil';
+import { redirect } from './uiutil';
 
 export class TaskLogs extends Component {
     constructor() {
@@ -54,7 +53,7 @@ export class TaskLogs extends Component {
                 this.scrollToBottom();
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false

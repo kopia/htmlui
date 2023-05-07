@@ -2,9 +2,12 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import axios from 'axios';
 
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
+export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
-export type Theme = "light-theme" | "dark-theme" | "pastel-theme" | "ocean-theme";
+const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], theme: getDefaultTheme() } as SerializedUIPreferences;
+const PREFERENCES_URL = '/api/v1/ui-preferences';
 
+export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 
 export interface UIPreferences {
@@ -19,8 +22,6 @@ interface SerializedUIPreferences {
     theme: Theme | undefined
 }
 
-export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
-
 export interface UIPreferenceProviderProps {
     children: ReactNode,
     initalValue: UIPreferences | undefined
@@ -32,10 +33,9 @@ export interface UIPreferenceProviderProps {
  */
 function getDefaultTheme(): Theme {
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        return "dark-theme";
+        return "dark";
     }
-
-    return "light-theme";
+    return "light";
 }
 
 function normalizePageSize(pageSize: number): PageSize {
@@ -51,13 +51,8 @@ function normalizePageSize(pageSize: number): PageSize {
             return PAGE_SIZES[index - 1] as PageSize;
         }
     }
-
     return 100;
 }
-
-const PREFERENCES_URL = '/api/v1/ui-preferences';
-
-const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], theme: getDefaultTheme() } as SerializedUIPreferences;
 
 export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
@@ -73,9 +68,10 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
             } else {
                 storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
             }
-
+            syncTheme(storedPreferences.theme)
             setPreferences(storedPreferences);
         }).catch(err => console.error(err));
+
     }, []);
 
     useEffect(() => {
@@ -83,10 +79,27 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
             return;
         }
 
-        axios.put(PREFERENCES_URL, preferences).then(result => {}).catch(err => console.error(err));
+        axios.put(PREFERENCES_URL, preferences).then(result => { }).catch(err => console.error(err));
     }, [preferences]);
 
+    /**
+     * Synchronizes the selected theme with the html class
+     * 
+     * @param theme 
+     * The theme to be set
+     */
+    const syncTheme = (theme: Theme) => {
+        var doc = document.querySelector("html")!;
+        doc.className = theme
+    }
+
+    /**
+     * 
+     * @param theme 
+     * @returns 
+     */
     const setTheme = (theme: Theme) => setPreferences(oldPreferences => {
+        syncTheme(theme);
         return { ...oldPreferences, theme };
     });
 

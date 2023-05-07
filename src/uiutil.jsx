@@ -9,24 +9,24 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 
-const base10UnitPrefixes = ["", "K", "M", "G", "T"];
-
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
 
-function niceNumber(f) {
+const base10UnitPrefixes = ["", "K", "M", "G", "T"];
+
+function formatNumber(f) {
     return (Math.round(f * 10) / 10.0) + '';
 }
 
 function toDecimalUnitString(f, thousand, prefixes, suffix) {
     for (var i = 0; i < prefixes.length; i++) {
         if (f < 0.9 * thousand) {
-            return niceNumber(f) + ' ' + prefixes[i] + suffix;
+            return formatNumber(f) + ' ' + prefixes[i] + suffix;
         }
         f /= thousand
     }
 
-    return niceNumber(f) + ' ' + prefixes[prefixes.length - 1] + suffix;
+    return formatNumber(f) + ' ' + prefixes[prefixes.length - 1] + suffix;
 }
 
 export function sizeWithFailures(size, summ) {
@@ -105,10 +105,13 @@ export function compare(a, b) {
     return (a < b ? -1 : (a > b ? 1 : 0));
 }
 
-export function redirectIfNotConnected(e) {
-    if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
-        window.location.replace("/repo");
-        return;
+/**
+ * In case of an error, redirect to the repository selection
+ * @param {error} The error that was returned
+ */
+export function redirect(e) {
+    if (e.response.data.code === "NOT_CONNECTED") {
+        window.location.replace("/repo")
     }
 }
 

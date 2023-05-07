@@ -1,10 +1,10 @@
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { React, Component } from 'react';
-import { Navbar, Nav, Container} from 'react-bootstrap';
-import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import './Theme.css';
 import './App.css';
+import axios from 'axios';
+import { React, Component } from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import { BeginRestore } from './BeginRestore';
 import { DirectoryObject } from "./DirectoryObject";
 import { PoliciesTable } from "./PoliciesTable";
@@ -15,9 +15,8 @@ import { TaskDetails } from './TaskDetails';
 import { TasksTable } from './TasksTable';
 import { NewSnapshot } from './NewSnapshot';
 import { PolicyEditorPage } from './PolicyEditorPage';
-import { ThemeSelector } from './ThemeSelector';
-import { AppContext } from './AppContext';
-
+import { Preferences } from './Preferences';
+import { AppContext } from './contexts/AppContext';
 import { UIPreferenceProvider } from './contexts/UIPreferencesContext';
 
 export default class App extends Component {
@@ -50,7 +49,6 @@ export default class App extends Component {
     }
 
     this.fetchInitialRepositoryDescription();
-
     this.taskSummaryInterval = window.setInterval(this.fetchTaskSummary, 5000);
   }
 
@@ -61,7 +59,7 @@ export default class App extends Component {
           repoDescription: result.data.description,
         });
       }
-    }).catch(error => { /* ignore */});
+    }).catch(error => { /* ignore */ });
   }
 
   fetchTaskSummary() {
@@ -110,9 +108,7 @@ export default class App extends Component {
                   </>
                   </NavLink>
                   <NavLink data-testid="tab-repo" className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
-                </Nav>
-                <Nav>
-                  <ThemeSelector/>
+                  <NavLink data-testid="tab-preferences" className="nav-link" activeClassName="active" to="/preferences">Preferences</NavLink>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
@@ -133,8 +129,9 @@ export default class App extends Component {
                 <Route path="/tasks/:tid" component={TaskDetails} />
                 <Route path="/tasks" component={TasksTable} />
                 <Route path="/repo" component={RepoStatus} />
+                <Route path="/preferences" component={Preferences} />
                 <Route exact path="/">
-                  <Redirect to="/snapshots" />
+                  <Redirect to="/repo" />
                 </Route>
               </Switch>
             </Container>
