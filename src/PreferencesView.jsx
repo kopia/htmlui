@@ -2,10 +2,6 @@ import { Component } from 'react';
 import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 export class PreferencesView extends Component {
-    constructor() {
-        super();
-    }
-
     render() {
         const { pageSize, theme, bytesStringBase2, setByteStringBase, setTheme } = this.context;
         return <>
