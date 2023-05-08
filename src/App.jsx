@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Theme.css';
-import './App.css';
+import './css/Theme.css';
+import './css/App.css';
 import axios from 'axios';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
@@ -15,7 +15,7 @@ import { TaskDetails } from './TaskDetails';
 import { TasksTable } from './TasksTable';
 import { NewSnapshot } from './NewSnapshot';
 import { PolicyEditorPage } from './PolicyEditorPage';
-import { Preferences } from './Preferences';
+import { PreferencesView } from './PreferencesView';
 import { AppContext } from './contexts/AppContext';
 import { UIPreferenceProvider } from './contexts/UIPreferencesContext';
 
@@ -129,7 +129,7 @@ export default class App extends Component {
                 <Route path="/tasks/:tid" component={TaskDetails} />
                 <Route path="/tasks" component={TasksTable} />
                 <Route path="/repo" component={RepoStatus} />
-                <Route path="/preferences" component={Preferences} />
+                <Route path="/preferences" component={PreferencesView} />
                 <Route exact path="/">
                   <Redirect to="/repo" />
                 </Route>

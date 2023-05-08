@@ -4,7 +4,7 @@ import axios from 'axios';
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
-const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], theme: getDefaultTheme() } as SerializedUIPreferences;
+const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], bytesStringBase2: false, theme: getDefaultTheme() } as SerializedUIPreferences;
 const PREFERENCES_URL = '/api/v1/ui-preferences';
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
@@ -13,12 +13,15 @@ export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 export interface UIPreferences {
     get pageSize(): PageSize
     get theme(): Theme
+    get bytesStringBase2(): boolean
     setTheme: (theme: Theme) => void
     setPageSize: (pageSize: number) => void
+    setByteStringBase: (bytesStringBase2: String) => void
 }
 
 interface SerializedUIPreferences {
     pageSize?: number
+    bytesStringBase2?: boolean
     theme: Theme | undefined
 }
 
@@ -78,7 +81,6 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         if (!preferences) {
             return;
         }
-
         axios.put(PREFERENCES_URL, preferences).then(result => { }).catch(err => console.error(err));
     }, [preferences]);
 
@@ -107,7 +109,12 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         return { ...oldPreferences, pageSize };
     });
 
-    const providedValue = { ...preferences, setTheme, setPageSize } as UIPreferences;
+    const setByteStringBase = (input: String) => setPreferences(oldPreferences => {
+        var bytesStringBase2 = input === "true";
+        return { ...oldPreferences, bytesStringBase2 };
+    });
+
+    const providedValue = { ...preferences, setTheme, setPageSize, setByteStringBase} as UIPreferences;
 
     return <UIPreferencesContext.Provider value={providedValue}>
         {props.children}

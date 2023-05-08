@@ -17,17 +17,18 @@
 }
 
 .dark {
-  --background-color: #343c43;
+  --background-color: #222222;
   --color-primary: #1162b1;
   --color-secondary: #0d9aab;
   --color-warning: #b30996;
   --color-success: #00B4D8;
   --color-submit: #00B4D8;
+  --color-stripe: #323232;
 
-  --text-color: #ffffff;
+  --text-color: #f4f4f4;
   --text-color-selector: #000000;
-  --text-color-body: #ffffff;
-  --text-color-nav: #ffffff;
+  --text-color-body: #f4f4f4;
+  --text-color-nav: #f4f4f4;
   
   --color-error: #b31f04;
   --color-danger: #b31f04;

@@ -13,6 +13,7 @@ import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 function pillVariant(tag) {
     if (tag.startsWith("latest-")) {
@@ -314,6 +315,7 @@ export class SnapshotsTable extends Component {
 
     render() {
         let { snapshots, unfilteredCount, uniqueCount, isLoading, error } = this.state;
+        const { bytesStringBase2 } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
@@ -362,7 +364,7 @@ export class SnapshotsTable extends Component {
             Header: 'Size',
             accessor: 'summary.size',
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary),
+            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary, bytesStringBase2),
         }, {
             Header: 'Files',
             accessor: 'summary.files',
@@ -502,3 +504,4 @@ export class SnapshotsTable extends Component {
         </>;
     }
 }
+SnapshotsTable.contextType = UIPreferencesContext
