@@ -26,6 +26,7 @@ export default class App extends Component {
 
     this.state = {
       runningTaskCount: 0,
+      isFetching: false,
       repoDescription: "",
     };
 
@@ -65,11 +66,15 @@ export default class App extends Component {
   }
 
   fetchTaskSummary() {
+    if( ! this.state.isFetching )	  
+    {
+      this.setState({ isFetching: true });
     axios.get('/api/v1/tasks-summary').then(result => {
-      this.setState({ runningTaskCount: result.data["RUNNING"] || 0 });
+      this.setState({ isFetching: false, runningTaskCount: result.data["RUNNING"] || 0 });
     }).catch(error => {
-      this.setState({ runningTaskCount: -1 });
+      this.setState({ isFetching: false, runningTaskCount: -1 });
     });
+    }
   }
 
   componentWillUnmount() {
