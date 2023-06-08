@@ -119,14 +119,7 @@ export class DirectoryObject extends Component {
         }
 
         return <>
-            <Row>
-                <Col xs={12}>
-                    <DirectoryBreadcrumbs />
-                    &nbsp;
-                    <span className="version-info">OID:&nbsp;{this.state.oid}</span>
-                </Col>
-            </Row>
-            <Row><Col>&nbsp;</Col></Row>
+            <DirectoryBreadcrumbs />
             <Row>
                 <Col xs="auto">
                     {this.state.mountInfo.path ? <>
