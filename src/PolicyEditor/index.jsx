@@ -525,7 +525,7 @@ export class PolicyEditor extends Component {
                             <Row>
                                 <LabelColumn name="Cache Miss" help="Log verbosity when a cache cannot be used and a file must be hashed" />
                                 <WideValueColumn>
-                                    {LogDetailSelector(this, "policy.logging.entries.cacheHit")}
+                                    {LogDetailSelector(this, "policy.logging.entries.cacheMiss")}
                                 </WideValueColumn>
                                 {EffectiveValue(this, "logging.entries.cacheMiss")}
                             </Row>
