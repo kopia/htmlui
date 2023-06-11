@@ -12,26 +12,25 @@ export function DirectoryBreadcrumbs() {
         breadcrumbs.unshift(state)
     }
 
-    // TODO: get name of "snapshot"!!?? #####
-    // TODO: no tooltip if no OID #####
     // TODO: enable copying of OID to clipboard #####
-    // TODO: disable / improve wrapping of tooltip #####
-    // TODO: there is some flickering if hovering changes #####
-    // TODO: disable clicking on current breadcrumb item #####
     return (
         <Breadcrumb>
-            <Breadcrumb.Item size="sm" variant="secondary" onClick={history.goBack}>Snapshots #####</Breadcrumb.Item>
             {
                 breadcrumbs.map((state, i) => {
                     const index = breadcrumbs.length - i - 1 // revert index
+                    let item = <Breadcrumb.Item key={index} size="sm" variant="outline-secondary"
+                                                onClick={() => {
+                                                    if (index) history.go(-index);
+                                                }}
+                                                active={!index}>
+                        {state.label}
+                    </Breadcrumb.Item>;
                     return (
-                        <OverlayTrigger key={index} placement="top" overlay={<Tooltip>OID: {state.oid}</Tooltip>}>
-                            <Breadcrumb.Item size="sm" variant="outline-secondary"
-                                             onClick={() => history.go(-index)}
-                                             active={!index}>
-                                {state.label}
-                            </Breadcrumb.Item>
-                        </OverlayTrigger>
+                        state.oid
+                            ? <OverlayTrigger key={index} placement="top" overlay={<Tooltip className={"wide-tooltip"}>OID: {state.oid}</Tooltip>}>
+                                {item}
+                            </OverlayTrigger>
+                            : item
                     );
                 })
             }

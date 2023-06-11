@@ -213,3 +213,7 @@ nav.navbar {
   font-weight: bold;
   padding-right: 10px;
 }
+
+.wide-tooltip .tooltip-inner {
+  max-width: none;
+}
