@@ -404,8 +404,8 @@ export function CLIEquivalent(props) {
     return <>
         <InputGroup size="sm" >
             <Button size="sm" title="Click to show CLI equivalent" variant="warning" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
-            {visible && <Button class="sm" variant="outline-dark" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
-            {visible && <FormControl size="sm" ref={ref} className="cli-equivalent" value={`${cliInfo.executable} ${props.command}`} />}
+            {visible && <Button size="sm" variant="outline-dark" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
+            {visible && <FormControl size="sm" ref={ref} className="cli-equivalent" readOnly={true} value={`${cliInfo.executable} ${props.command}`} />}
         </InputGroup>
     </>;
 }
