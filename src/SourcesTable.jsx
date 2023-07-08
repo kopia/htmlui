@@ -52,22 +52,29 @@ export class SourcesTable extends Component {
     }
 
     fetchSourcesWithoutSpinner() {
-        axios.get('/api/v1/sources').then(result => {
+        if( ! this.state.isFetching ){
             this.setState({
-                localSourceName: result.data.localUsername + "@" + result.data.localHost,
-                multiUser: result.data.multiUser,
-                sources: result.data.sources,
-                isLoading: false,
-                isRefreshing: false,
+                isFetching: true,
             });
-        }).catch(error => {
-            redirect(error);
-            this.setState({
-                error,
-                isRefreshing: false,
-                isLoading: false,
-            });
-        });
+            axios.get('/api/v1/sources').then(result => {
+                this.setState({
+                    localSourceName: result.data.localUsername + "@" + result.data.localHost,
+                    multiUser: result.data.multiUser,
+                    sources: result.data.sources,
+                    isLoading: false,
+                    isFetching: false,
+                    isRefreshing: false,
+                });
+            }).catch(error => {
+                redirect(error);
+                this.setState({
+                    error,
+                    isRefreshing: false,
+                    isFetching: false,
+                    isLoading: false,
+                });
+            })
+        }
     }
 
     selectOwner(h) {
