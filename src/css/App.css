@@ -55,42 +55,42 @@ body {
   border-color: var(--color-danger);
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open>.dropdown-toggle.btn-secondary {
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open>.dropdown-toggle.btn-warning {
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
   background-color: var(--color-warning);
   border-color: var(--color-warning);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open>.dropdown-toggle.btn-success {
+.btn-success:hover, .btn-success:focus, .btn-success:active {
   background-color: var(--color-success);
   border-color: var(--color-success);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open>.dropdown-toggle.btn-danger {
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
   background-color: var(--color-danger);
   border-color: var(--color-danger);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-submit:hover, .btn-submit:focus, .btn-submit:active, .btn-submit.active, .open>.dropdown-toggle.btn-submit {
+.btn-submit:hover, .btn-submit:focus, .btn-submit:active {
   background-color: var(--color-submit);
   border-color: var(--color-submit);
   color: var(--text-color);
@@ -112,6 +112,26 @@ body {
 
 .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
   color: var(--text-color-nav);
+}
+
+.accordion-body {
+  color: var(--text-color-body);
+  background-color: var(--background-color);
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--text-color-body)  !important;
+  background-color: var(--background-color) !important;
+}
+
+.accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
+  background-color: var(--text-color-selector) !important;
+  color: var(--text-color-body) !important;
+}
+
+.accordion-button  {
+  background-color: var(--background-color) !important;
+  color: var(--text-color-body) !important;
 }
 
 .popover {
@@ -256,7 +276,7 @@ div.tab-body {
   border: 1px solid #aaa;
 }
 
-.loglevel-0 { color: var(--text-color)} /* debug */
+.loglevel-0 { color: var(--text-color-body)} /* debug */
 .loglevel-1 { font-weight: bold;} /* info */
 .loglevel-2 { color: var(--color-warning); font-weight: bold;} /* warning */
 .loglevel-3 { color: var(--color-error); font-weight: bold; } /* error */
