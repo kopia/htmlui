@@ -113,7 +113,7 @@ export function compare(a, b) {
  * @param {error} The error that was returned
  */
 export function redirect(e) {
-    if (e.response.data.code === "NOT_CONNECTED") {
+    if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
         window.location.replace("/repo")
     }
 }
