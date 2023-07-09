@@ -186,7 +186,7 @@ export class PolicyEditor extends Component {
     sanitizeActions(actions, actionTypes) {
         actionTypes.forEach(actionType => {
             if (actions[actionType]) {
-                if (actions[actionType].path === undefined || actions[actionType].path === "") {
+                if (actions[actionType].script === undefined || actions[actionType].script === "") {
                     actions[actionType] = undefined;
                 } else {
                     if (actions[actionType].timeout === undefined) {
