@@ -13,7 +13,6 @@ body {
 
 .select_theme {
   font-size: 90%;
-  color: var(--text-color-selector);
 }
 
 .options-select {
@@ -110,8 +109,21 @@ body {
   color: var(--text-color-nav);
 }
 
+.table {
+  color: var(--text-color-body);
+}
+
+.table-hover>tbody>tr:hover>* {
+  color: var(--text-color-body);
+}
+
 .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
   color: var(--text-color-nav);
+}
+
+.nav-link:hover {
+  color: var(--text-color-nav) !important;
+  filter: brightness(80%);
 }
 
 .accordion-body {
@@ -125,7 +137,7 @@ body {
 }
 
 .accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
-  background-color: var(--text-color-selector) !important;
+  background-color: var(--color-select) !important;
   color: var(--text-color-body) !important;
 }
 

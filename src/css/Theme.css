@@ -6,9 +6,9 @@
   --color-warning: #e1704b;
   --color-success: #5ea5cd;
   --color-submit: #00B4D8;
+  --color-select: #f2f9ff;
 
   --text-color: #ffffff;
-  --text-color-selector: #f2f9ff;
   --text-color-body: #000000;
   --text-color-nav: #000000;
 
@@ -24,11 +24,12 @@
   --color-success: #0d9aab;
   --color-submit: #00B4D8;
   --color-stripe: #323232;
+  --color-select: #323232;
 
   --text-color: #cfcfcf;
-  --text-color-selector: #323232;
   --text-color-body: #cfcfcf;
   --text-color-nav: #cfcfcf;
+  
   
   --color-error: #b31f04;
   --color-danger: #b31f04;
@@ -41,9 +42,9 @@
   --color-warning: #ffd6a5;
   --color-success: #bdb2ff;
   --color-submit: #a0c4ff;
+  --color-select: #f2f9ff;
   
   --text-color: #000000;
-  --text-color-selector: #f2f9ff;
   --text-color-body: #000000;
   --text-color-nav: #c095e4;
 
@@ -58,9 +59,9 @@
   --color-warning: #ecd131;
   --color-success: #0077B6;
   --color-submit: #00B4D8;
+  --color-select: #f2f9ff;
   
   --text-color: #ffffff;
-  --text-color-selector: #f2f9ff;
   --text-color-body: #03045E;
   --text-color-nav: #03045E;
 
