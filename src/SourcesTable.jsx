@@ -24,6 +24,7 @@ export class SourcesTable extends Component {
         this.state = {
             sources: [],
             isLoading: false,
+            isFetching: false,
             isRefreshing: false,
             error: null,
 
