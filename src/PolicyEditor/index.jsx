@@ -186,7 +186,7 @@ export class PolicyEditor extends Component {
     sanitizeActions(actions, actionTypes) {
         actionTypes.forEach(actionType => {
             if (actions[actionType]) {
-                if (actions[actionType].path === undefined || actions[actionType].path === "") {
+                if (actions[actionType].script === undefined || actions[actionType].script === "") {
                     actions[actionType] = undefined;
                 } else {
                     if (actions[actionType].timeout === undefined) {
@@ -249,7 +249,7 @@ export class PolicyEditor extends Component {
         }
 
         return <>
-            <Form onSubmit={this.saveChanges}>
+            <Form className='policy-editor' onSubmit={this.saveChanges}>
                 <Accordion defaultActiveKey="scheduling">
                     <Accordion.Item eventKey="retention">
                         <Accordion.Header><FontAwesomeIcon icon={faCalendarTimes} />&nbsp;Snapshot Retention</Accordion.Header>
@@ -551,7 +551,7 @@ export class PolicyEditor extends Component {
                     </Accordion.Item>
                 </Accordion>
 
-                {!this.props.embedded && <Button size="sm" variant="success" type="submit" onClick={this.saveChanges} data-testid="button-save" disabled={this.state.saving}>Save Policy</Button>}
+                {!this.props.embedded && <Button size="sm" variant="success" onClick={this.saveChanges} data-testid="button-save" disabled={this.state.saving}>Save Policy</Button>}
                 {!this.state.isNew && !this.props.embedded && <>&nbsp;
                     <Button size="sm" variant="danger" disabled={this.isGlobal() || this.state.saving} onClick={this.deletePolicy}>Delete Policy</Button>
                 </>}

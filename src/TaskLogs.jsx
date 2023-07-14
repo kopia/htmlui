@@ -1,9 +1,8 @@
-
 import axios from 'axios';
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from './forms';
-import { redirectIfNotConnected } from './uiutil';
+import { redirect } from './uiutil';
 
 export class TaskLogs extends Component {
     constructor() {
@@ -54,7 +53,7 @@ export class TaskLogs extends Component {
                 this.scrollToBottom();
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false
@@ -83,7 +82,7 @@ export class TaskLogs extends Component {
 
     formatLogParams(entry) {
         // if there are any properties other than `msg, ts, level, mod` output them as JSON.
-        let {msg, ts, level, mod, ...parametersOnly} = entry;
+        let { msg, ts, level, mod, ...parametersOnly } = entry;
 
         const p = JSON.stringify(parametersOnly);
         if (p !== "{}") {
@@ -112,11 +111,11 @@ export class TaskLogs extends Component {
         if (logs) {
             return <div className="logs-table"><Table size="sm" bordered hover>
                 <tbody>
-                    {logs.map((v,ndx) => <tr key={ndx + '-' + v.ts} className={'loglevel-' + v.level}>
+                    {logs.map((v, ndx) => <tr key={ndx + '-' + v.ts} className={'loglevel-' + v.level}>
                         <td className="elide" title={this.fullLogTime(v.ts)}>{this.formatLogTime(v.ts)} {v.msg} {this.formatLogParams(v)}</td></tr>)}
                 </tbody>
             </Table>
-            <div ref={this.messagesEndRef} />
+                <div ref={this.messagesEndRef} />
             </div>;
         }
 

@@ -8,11 +8,12 @@ import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
 import MyTable from './Table';
-import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirectIfNotConnected, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirect, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from './uiutil';
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 function pillVariant(tag) {
     if (tag.startsWith("latest-")) {
@@ -142,7 +143,7 @@ export class SnapshotsTable extends Component {
                 this.fetchSnapshots();
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             errorAlert(error);
         });
 
@@ -164,7 +165,7 @@ export class SnapshotsTable extends Component {
         axios.post('/api/v1/snapshots/delete', req).then(result => {
             this.props.history.goBack();
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             errorAlert(error);
         });
     }
@@ -307,13 +308,14 @@ export class SnapshotsTable extends Component {
                 editingDescriptionFor: undefined,
                 savingSnapshot: false,
             });
-            redirectIfNotConnected(e);
+            redirect(e);
             errorAlert(e);
         });
     }
 
     render() {
         let { snapshots, unfilteredCount, uniqueCount, isLoading, error } = this.state;
+        const { bytesStringBase2 } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
@@ -368,7 +370,7 @@ export class SnapshotsTable extends Component {
             Header: 'Size',
             accessor: 'summary.size',
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary),
+            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary, bytesStringBase2),
         }, {
             Header: 'Files',
             accessor: 'summary.files',
@@ -456,7 +458,7 @@ export class SnapshotsTable extends Component {
 
                 <Modal.Footer>
                     <Button size="sm" variant="danger" onClick={this.deleteSelectedSnapshots}>Delete</Button>
-                    <Button size="sm" variant="secondary" onClick={this.cancelDelete}>Cancel</Button>
+                    <Button size="sm" variant="warning" onClick={this.cancelDelete}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
 
@@ -479,7 +481,7 @@ export class SnapshotsTable extends Component {
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
                     <Button size="sm" variant="success" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>Update Description</Button>
                     {this.state.originalSnapshotDescription && <Button size="sm" variant="danger" onClick={this.removeSnapshotDescription}>Remove Description</Button>}
-                    <Button size="sm" variant="secondary" onClick={this.cancelSnapshotDescription}>Cancel</Button>
+                    <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
 
@@ -502,9 +504,10 @@ export class SnapshotsTable extends Component {
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
                     <Button size="sm" variant="success" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? "Update Pin" : "Add Pin"}</Button>
                     {this.state.originalPinName && <Button size="sm" variant="danger" onClick={() => this.removePin(this.state.originalPinName)}>Remove Pin</Button>}
-                    <Button size="sm" variant="secondary" onClick={this.cancelPin}>Cancel</Button>
+                    <Button size="sm" variant="warning" onClick={this.cancelPin}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
         </>;
     }
 }
+SnapshotsTable.contextType = UIPreferencesContext

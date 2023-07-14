@@ -9,33 +9,33 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 
-const base10UnitPrefixes = ["", "K", "M", "G", "T"];
-
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
+const base10UnitPrefixes = ["", "K", "M", "G", "T"];
+const base2UnitPrefixes = ["", "Ki", "Mi", "Gi", "Ti"];
 
-function niceNumber(f) {
+function formatNumber(f) {
     return (Math.round(f * 10) / 10.0) + '';
 }
 
 function toDecimalUnitString(f, thousand, prefixes, suffix) {
     for (var i = 0; i < prefixes.length; i++) {
         if (f < 0.9 * thousand) {
-            return niceNumber(f) + ' ' + prefixes[i] + suffix;
+            return formatNumber(f) + ' ' + prefixes[i] + suffix;
         }
         f /= thousand
     }
 
-    return niceNumber(f) + ' ' + prefixes[prefixes.length - 1] + suffix;
+    return formatNumber(f) + ' ' + prefixes[prefixes.length - 1] + suffix;
 }
 
-export function sizeWithFailures(size, summ) {
+export function sizeWithFailures(size, summ, bytesStringBase2) {
     if (size === undefined) {
         return "";
     }
 
     if (!summ || !summ.errors || !summ.numFailed) {
-        return <span>{sizeDisplayName(size)}</span>
+        return <span>{sizeDisplayName(size, bytesStringBase2)}</span>
     }
 
     let caption = "Encountered " + summ.numFailed + " errors:\n\n";
@@ -48,16 +48,19 @@ export function sizeWithFailures(size, summ) {
     caption += summ.errors.map(x => prefix + x.path + ": " + x.error).join("\n");
 
     return <span>
-        {sizeDisplayName(size)}&nbsp;
+        {sizeDisplayName(size, bytesStringBase2)}&nbsp;
         <FontAwesomeIcon color="red" icon={faExclamationTriangle} title={caption} />
     </span>;
 }
 
-export function sizeDisplayName(s) {
-    if (s === undefined) {
+export function sizeDisplayName(size, bytesStringBase2) {
+    if (size === undefined) {
         return "";
     }
-    return toDecimalUnitString(s, 1000, base10UnitPrefixes, "B");
+    if (bytesStringBase2) {
+        return toDecimalUnitString(size, 1024, base2UnitPrefixes, "B");
+    }
+    return toDecimalUnitString(size, 1000, base10UnitPrefixes, "B");
 }
 
 export function intervalDisplayName(v) {
@@ -105,10 +108,13 @@ export function compare(a, b) {
     return (a < b ? -1 : (a > b ? 1 : 0));
 }
 
-export function redirectIfNotConnected(e) {
+/**
+ * In case of an error, redirect to the repository selection
+ * @param {error} The error that was returned
+ */
+export function redirect(e) {
     if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
-        window.location.replace("/repo");
-        return;
+        window.location.replace("/repo")
     }
 }
 
@@ -219,7 +225,7 @@ export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits =
             minimumFractionDigits: fractionDigits,
             maximumFractionDigits: fractionDigits,
             roundingMode: "trunc",
-        })}${fractionDigits ? (abbreviateUnits ? "s" : " seconds") : units.seconds }`);
+        })}${fractionDigits ? (abbreviateUnits ? "s" : " seconds") : units.seconds}`);
     }
 
     return parts.join(" ");
@@ -293,7 +299,7 @@ export function cancelTask(tid) {
 }
 
 export function GoBackButton(props) {
-    return <Button size="sm" variant="outline-secondary" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
+    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
 }
 
 export function PolicyTypeName(s) {
@@ -403,8 +409,8 @@ export function CLIEquivalent(props) {
 
     return <>
         <InputGroup size="sm" >
-            <Button size="sm" title="Click to show CLI equivalent" variant="warning" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
-            {visible && <Button size="sm" variant="outline-dark" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
+            <Button size="sm" title="Click to show CLI equivalent" variant="submit" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
+            {visible && <Button size="sm" variant="success" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
             {visible && <FormControl size="sm" ref={ref} className="cli-equivalent" readOnly={true} value={`${cliInfo.executable} ${props.command}`} />}
         </InputGroup>
     </>;

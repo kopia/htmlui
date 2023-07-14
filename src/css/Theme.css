@@ -1,0 +1,70 @@
+/*Supported themes */
+.light {
+  --background-color: #ffffff;
+  --color-primary: #2A7FFF;
+  --color-secondary: #23a25a;
+  --color-warning: #e1704b;
+  --color-success: #5ea5cd;
+  --color-submit: #00B4D8;
+  --color-select: #f2f9ff;
+
+  --text-color: #ffffff;
+  --text-color-body: #000000;
+  --text-color-nav: #000000;
+
+  --color-error: #d2475a;
+  --color-danger: #d2475a;
+}
+
+.dark {
+  --background-color: #222222;
+  --color-primary: #1162b1;
+  --color-secondary: #0d9aab;
+  --color-warning: #b30996;
+  --color-success: #0d9aab;
+  --color-submit: #00B4D8;
+  --color-stripe: #323232;
+  --color-select: #323232;
+
+  --text-color: #cfcfcf;
+  --text-color-body: #cfcfcf;
+  --text-color-nav: #cfcfcf;
+  
+  
+  --color-error: #b31f04;
+  --color-danger: #b31f04;
+}
+
+.pastel {
+  --background-color: #ffffff;
+  --color-primary: #9bf6ff;
+  --color-secondary: #bdb2ff;
+  --color-warning: #ffd6a5;
+  --color-success: #bdb2ff;
+  --color-submit: #a0c4ff;
+  --color-select: #f2f9ff;
+  
+  --text-color: #000000;
+  --text-color-body: #000000;
+  --text-color-nav: #c095e4;
+
+  --color-error: #ffadad;
+  --color-danger: #ffadad;
+}
+
+.ocean {
+  --background-color: #ffffff;
+  --color-primary: #03045E;
+  --color-secondary: #0077B6;
+  --color-warning: #ecd131;
+  --color-success: #0077B6;
+  --color-submit: #00B4D8;
+  --color-select: #f2f9ff;
+  
+  --text-color: #ffffff;
+  --text-color-body: #03045E;
+  --text-color-nav: #03045E;
+
+  --color-error: #d2475a;
+  --color-danger: #d2475a;
+}

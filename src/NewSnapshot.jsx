@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange } from './forms';
 import { PolicyEditor } from './PolicyEditor';
 import { EstimateResults } from './EstimateResults';
-import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirectIfNotConnected } from './uiutil';
+import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirect } from './uiutil';
 
 export class NewSnapshot extends Component {
     constructor() {
@@ -35,7 +35,7 @@ export class NewSnapshot extends Component {
                 localHost: result.data.localHost,
             });
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
         });
     }
 
@@ -54,7 +54,7 @@ export class NewSnapshot extends Component {
                     // while we were resolving
                     this.maybeResolveCurrentPath(currentPath);
                 }).catch(error => {
-                    redirectIfNotConnected(error);
+                    redirect(error);
                 });
             } else {
                 this.setState({
@@ -166,7 +166,7 @@ export class NewSnapshot extends Component {
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
                         title="Estimate"
-                        variant="primary"
+                        variant="secondary"
                         onClick={this.estimate}>Estimate</Button>
                     &nbsp;
                     <Button
@@ -174,7 +174,7 @@ export class NewSnapshot extends Component {
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
                         title="Snapshot Now"
-                        variant="success"
+                        variant="primary"
                         onClick={this.snapshotNow}>Snapshot Now</Button>
                 </Col>
             </Row>

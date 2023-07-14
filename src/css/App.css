@@ -1,0 +1,360 @@
+html.loading {
+  display: none;
+}
+
+body {
+  line-height: 1;
+  background-color: var(--background-color);
+}
+
+.container-fluid {
+  color: var(--text-color-body);
+}
+
+.select_theme {
+  font-size: 90%;
+}
+
+.options-select {
+  overflow: ellipsis
+}
+
+.btn {
+  color: var(--text-color);
+  margin-right: 5px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-submit {
+  background-color: var(--color-submit);
+  border-color: var(--color-submit);
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.btn-warning {
+  background-color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+  background-color: var(--color-warning);
+  border-color: var(--color-warning);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.btn-submit:hover, .btn-submit:focus, .btn-submit:active {
+  background-color: var(--color-submit);
+  border-color: var(--color-submit);
+  color: var(--text-color);
+  filter: brightness(80%);
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  color: var(--text-color-body);
+  background-color: var(--color-stripe);
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>* {
+  color: var(--text-color-body);
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: var(--text-color-nav);
+}
+
+.table {
+  color: var(--text-color-body);
+}
+
+.table-hover>tbody>tr:hover>* {
+  color: var(--text-color-body);
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+  color: var(--text-color-nav);
+}
+
+.nav-link:hover {
+  color: var(--text-color-nav) !important;
+  filter: brightness(80%);
+}
+
+.accordion-body {
+  color: var(--text-color-body);
+  background-color: var(--background-color);
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--text-color-body)  !important;
+  background-color: var(--background-color) !important;
+}
+
+.accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
+  background-color: var(--color-select) !important;
+  color: var(--text-color-body) !important;
+}
+
+.accordion-button  {
+  background-color: var(--background-color) !important;
+  color: var(--text-color-body) !important;
+}
+
+.popover {
+  max-width: 1000px;
+}
+
+.elide {
+  text-overflow: ellipsis;
+}
+
+.App-logo {
+  height: 32px;
+}
+
+.active{
+  font-weight: bold;
+}
+
+.label-description {
+  padding-top: 4px;
+  padding-bottom: 8px;
+}
+
+.label-help {
+  padding-top: 1rem;
+  padding-bottom: 8px;
+  font-size: 90%;
+}
+
+.required {
+  font-weight: bold;
+}
+
+.policyFieldColumn {
+  margin-top: 4px;
+}
+
+.policyEditorHeader {
+  font-size: 110%;
+  font-weight: bold;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.policyField {
+  font-weight: bold;
+}
+
+.providerParams {
+  padding: 10px;
+}
+
+.providerIcon {
+  width: 120px;
+  height: 110px;
+  margin: 10px;
+  vertical-align: middle;
+}
+
+.advancedOptions {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.providerSpecificParams {
+  background-color: #f0f0ff;
+  border: 2px solid #ddd;
+  padding: 10px;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.debug-json {
+  font-size: 80%;
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.normal {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.accordion-button {
+  padding: 10px;
+  font-weight: bold;
+}
+
+.accordion-button.collapsed {
+  padding: 10px;
+  font-weight: bold;
+  background-color: #f8f8ff;
+}
+
+div.tab-body {
+  padding: 10px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.policy-help {
+  font-size: 80%;
+  font-weight: normal;
+}
+
+.new-policy-panel {
+  padding: 10px;
+}
+
+#snapshot-path {
+  width: 400px;
+}
+
+.version-info {
+  padding-left: 10px;
+  color: #aaa;
+  font-size: 80%;
+}
+
+#mountedPath {
+  color: #444;
+  width: 30em;
+  background-color: #ccc;
+  font-size: 12pt;
+  padding: 4px;
+  border: 1px solid #aaa;
+}
+
+.logs-table {
+  font-family: monospace;
+  font-size: 11px;
+  overflow: auto;
+  max-height: 400px;
+  border: 1px solid #aaa;
+}
+
+.loglevel-0 { color: var(--text-color-body)} /* debug */
+.loglevel-1 { font-weight: bold;} /* info */
+.loglevel-2 { color: var(--color-warning); font-weight: bold;} /* warning */
+.loglevel-3 { color: var(--color-error); font-weight: bold; } /* error */
+
+.counter-badge {
+  font-size: 90%;
+  margin: 2px;
+}
+
+.page-title {
+  margin-left: 10px;
+  font-weight: bold;
+  height: 40px;
+  font-size: 125%;
+  vertical-align: text-bottom;
+}
+
+.nested-task {
+  padding: 10px;
+  padding-left: 40px;
+}
+
+.estimateResults {
+  font-size: 95%;
+}
+
+.list-actions {
+  min-height: 40px;
+}
+
+.cli-equivalent {
+  font-family: monospace;
+}
+
+nav.navbar {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.vpadded {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.multiselect {
+  width: 20px;
+  padding-left: 35px;
+  padding-top: 0x;
+  margin-top: -5px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.hash-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 80%;
+  font-weight: bold;
+}
+
+.snapshot-description {
+  font-size: 80%;
+}
+
+.log-parameter {
+  color: #000080;
+  font-weight: bold;
+  padding-right: 10px;
+}

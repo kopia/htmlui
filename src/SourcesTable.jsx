@@ -12,7 +12,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirectIfNotConnected, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirect, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from './uiutil';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
@@ -66,7 +67,7 @@ export class SourcesTable extends Component {
                     isRefreshing: false,
                 });
             }).catch(error => {
-                redirectIfNotConnected(error);
+                redirect(error);
                 this.setState({
                     error,
                     isRefreshing: false,
@@ -96,15 +97,16 @@ export class SourcesTable extends Component {
         });
     }
 
-    statusCell(x, parent) {
+    statusCell(x, parent, bytesStringBase2) {
         switch (x.cell.value) {
             case "IDLE":
             case "PAUSED":
                 return <>
-                    <Button data-testid="snapshot-now" variant="primary" size="sm" onClick={() => {
+                    <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.source)} variant="primary" size="sm">Policy</Button>
+                    <Button data-testid="snapshot-now" variant="success" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
-                    }}>Snapshot Now</Button>
-                    &nbsp;<Link data-testid="edit-policy" to={policyEditorURL(x.row.original.source)}><Button size="sm" variant="info">Policy</Button></Link>
+                    }}>Snapshot Now
+                    </Button>
                 </>;
 
             case "PENDING":
@@ -118,15 +120,15 @@ export class SourcesTable extends Component {
                 let title = "";
                 let totals = "";
                 if (u) {
-                    title = " hashed " + u.hashedFiles + " files (" + sizeDisplayName(u.hashedBytes) + ")\n" +
-                        " cached " + u.cachedFiles + " files (" + sizeDisplayName(u.cachedBytes) + ")\n" +
+                    title = " hashed " + u.hashedFiles + " files (" + sizeDisplayName(u.hashedBytes, bytesStringBase2) + ")\n" +
+                        " cached " + u.cachedFiles + " files (" + sizeDisplayName(u.cachedBytes, bytesStringBase2) + ")\n" +
                         " dir " + u.directory;
 
                     const totalBytes = u.hashedBytes + u.cachedBytes;
 
-                    totals = sizeDisplayName(totalBytes);
+                    totals = sizeDisplayName(totalBytes, bytesStringBase2);
                     if (u.estimatedBytes) {
-                        totals += "/" + sizeDisplayName(u.estimatedBytes);
+                        totals += "/" + sizeDisplayName(u.estimatedBytes, bytesStringBase2);
 
                         const percent = Math.round(totalBytes * 1000.0 / u.estimatedBytes) / 10.0;
                         if (percent <= 100) {
@@ -185,6 +187,7 @@ export class SourcesTable extends Component {
 
     render() {
         let { sources, isLoading, error } = this.state;
+        const { bytesStringBase2 } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
@@ -241,7 +244,7 @@ export class SourcesTable extends Component {
             accessor: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
             Cell: x => sizeWithFailures(
                 x.cell.value,
-                x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null),
+                x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null, bytesStringBase2),
         }, {
             id: 'lastSnapshotTime',
             Header: 'Last Snapshot',
@@ -259,7 +262,7 @@ export class SourcesTable extends Component {
             Header: '',
             width: 300,
             accessor: x => x.status,
-            Cell: x => this.statusCell(x, this),
+            Cell: x => this.statusCell(x, this, bytesStringBase2),
         }]
 
         return <>
@@ -280,7 +283,7 @@ export class SourcesTable extends Component {
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button data-testid="new-snapshot" size="sm" variant="success" href="/snapshots/new">New Snapshot</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">New Snapshot</Button>
                     </Col>
                     <Col>
                     </Col>
@@ -297,3 +300,4 @@ export class SourcesTable extends Component {
         </>;
     }
 }
+SourcesTable.contextType = UIPreferencesContext

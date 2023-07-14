@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirectIfNotConnected } from './uiutil';
+import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirect } from './uiutil';
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -68,7 +68,7 @@ export class PoliciesTable extends Component {
                 isLoading: false,
             });
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false
@@ -87,7 +87,7 @@ export class PoliciesTable extends Component {
                 isLoading: false,
             });
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false
@@ -174,7 +174,6 @@ export class PoliciesTable extends Component {
             return <p>Loading ...</p>;
         }
 
-
         let uniqueOwners = sources.reduce((a, d) => {
             const owner = ownerName(d.source);
 
@@ -245,7 +244,7 @@ export class PoliciesTable extends Component {
             id: 'edit',
             Header: '',
             width: 50,
-            Cell: x => <Link to={policyEditorURL(x.row.original.target)}><Button size="sm">Edit</Button></Link>,
+            Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
         }]
 
         return <>
