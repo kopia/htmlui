@@ -7,7 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import Form from 'react-bootstrap/Form';
 import { TaskLogs } from './TaskLogs';
-import { cancelTask, redirectIfNotConnected, sizeDisplayName } from './uiutil';
+import { cancelTask, redirect, sizeDisplayName } from './uiutil';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 export class EstimateResults extends Component {
     constructor() {
@@ -55,7 +56,7 @@ export class EstimateResults extends Component {
                 this.interval = null;
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false
@@ -87,6 +88,7 @@ export class EstimateResults extends Component {
 
     render() {
         const { task, isLoading, error } = this.state;
+        const { bytesStringBase2 } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
@@ -97,20 +99,21 @@ export class EstimateResults extends Component {
 
         return <>
             {task.counters && <Form.Text className="estimateResults">
-                {this.taskStatusDescription(task)} Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value)}</b> (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value)}</b> excluded)
+                {this.taskStatusDescription(task)} Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value, bytesStringBase2)}</b> (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value, bytesStringBase2)}</b> excluded)
                 Files: <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> excluded)
                 Directories: <b>{task.counters["Directories"]?.value}</b> (<b>{task.counters["Excluded Directories"]?.value}</b> excluded)
                 Errors: <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> ignored)
-                </Form.Text>
+            </Form.Text>
             }
-                    {task.status === "RUNNING" && <>
-                            &nbsp;<Button size="sm" variant="light" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} color="red" /> Cancel </Button>
-                        </>}
-                    {this.state.showLog ? <>
-                        <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
-                        <TaskLogs taskID={this.taskID(this.props)} />
-                    </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+            {task.status === "RUNNING" && <>
+                &nbsp;<Button size="sm" variant="light" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} color="red" /> Cancel </Button>
+            </>}
+            {this.state.showLog ? <>
+                <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                <TaskLogs taskID={this.taskID(this.props)} />
+            </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
         </>
             ;
     }
 }
+EstimateResults.contextType = UIPreferencesContext

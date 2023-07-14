@@ -12,7 +12,7 @@ import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from './forms';
 import MyTable from './Table';
-import { redirectIfNotConnected, taskStatusSymbol } from './uiutil';
+import { redirect, taskStatusSymbol } from './uiutil';
 
 export class TasksTable extends Component {
     constructor() {
@@ -66,7 +66,7 @@ export class TasksTable extends Component {
                 isLoading: false,
             });
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false

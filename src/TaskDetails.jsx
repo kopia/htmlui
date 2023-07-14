@@ -11,7 +11,8 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { TaskLogs } from './TaskLogs';
-import { cancelTask, formatDuration, GoBackButton, redirectIfNotConnected, sizeDisplayName } from './uiutil';
+import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from './uiutil';
+import { UIPreferencesContext } from './contexts/UIPreferencesContext';
 
 export class TaskDetails extends Component {
     constructor() {
@@ -60,7 +61,7 @@ export class TaskDetails extends Component {
                 this.interval = null;
             }
         }).catch(error => {
-            redirectIfNotConnected(error);
+            redirect(error);
             this.setState({
                 error,
                 isLoading: false
@@ -157,6 +158,7 @@ export class TaskDetails extends Component {
 
     render() {
         const { task, isLoading, error } = this.state;
+        const { bytesStringBase2 } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
@@ -192,7 +194,7 @@ export class TaskDetails extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.sortedBadges(task.counters)}
+                            {this.sortedBadges(task.counters, bytesStringBase2)}
                         </tbody>
                     </Table>
                 </Col>
@@ -221,3 +223,4 @@ export class TaskDetails extends Component {
             ;
     }
 }
+TaskDetails.contextType = UIPreferencesContext
