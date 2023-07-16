@@ -19,7 +19,9 @@ import { LabelColumn } from './LabelColumn';
 import { ValueColumn } from './ValueColumn';
 import { WideValueColumn } from './WideValueColumn';
 import { EffectiveValue } from './EffectiveValue';
+import { EffectiveListValue } from './EffectiveListValue';
 import { EffectiveTextAreaValue } from './EffectiveTextAreaValue';
+import { EffectiveTimesOfDayValue } from './EffectiveTimesOfDayValue';
 import { EffectiveBooleanValue } from './EffectiveBooleanValue';
 import { EffectiveValueColumn } from './EffectiveValueColumn';
 import { UpcomingSnapshotTimes } from './UpcomingSnapshotTimes';
@@ -102,6 +104,7 @@ export class PolicyEditor extends Component {
             }).then(result => {
                 this.setState({ resolved: result.data });
             }).catch(error => {
+                this.setState({ resolvedError: error });
             });
         }
         catch (e) {
@@ -421,7 +424,17 @@ export class PolicyEditor extends Component {
                                 <ValueColumn>
                                     {TimesOfDayList(this, "policy.scheduling.timeOfDay")}
                                 </ValueColumn>
-                                {EffectiveBooleanValue(this, "scheduling.manual")}
+                                {EffectiveTimesOfDayValue(this, "scheduling.timeOfDay")}
+                            </Row>
+                            <Row>
+                                <LabelColumn name="Cron Expressions" help={<>Snapshot schedules using UNIX crontab syntax (one per line):
+                                <br/><br/><pre>minute hour day month weekday #comment</pre>
+                                
+                                See <a target="_blank" rel="noreferrer" href="https://github.com/hashicorp/cronexpr#implementation">supported format details</a>.</>} />
+                                <ValueColumn>
+                                    {StringList(this, "policy.scheduling.cron")}
+                                </ValueColumn>
+                                {EffectiveListValue(this, "scheduling.cron")}
                             </Row>
                             <Row>
                                 <LabelColumn name="Manual Snapshots Only" help="Only create snapshots manually (disables scheduled snapshots)" />
@@ -435,7 +448,7 @@ export class PolicyEditor extends Component {
                                 <ValueColumn>
                                 </ValueColumn>
                                 <EffectiveValueColumn>
-                                    {UpcomingSnapshotTimes(this.state?.resolved?.upcomingSnapshotTimes)}
+                                    {UpcomingSnapshotTimes(this.state?.resolved)}
                                 </EffectiveValueColumn>
                             </Row>
                         </Accordion.Body>
