@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import FormGroup from 'react-bootstrap/FormGroup';
 import { stateProperty } from '.';
 
-export function TimesOfDayList(component, name) {
+export function TimesOfDayList(component, name, props = {}) {
     function parseTimeOfDay(v) {
         var re = /(\d+):(\d+)/;
 
@@ -65,7 +65,8 @@ export function TimesOfDayList(component, name) {
             value={toMultilineString(stateProperty(component, name))}
             onChange={e => component.handleChange(e, fromMultilineString)}
             as="textarea"
-            rows="5">
+            rows="5"
+            {...props}>
         </Form.Control>
         <Form.Control.Feedback type="invalid">Invalid Times of Day</Form.Control.Feedback>
     </FormGroup>;

@@ -328,7 +328,7 @@ export class SnapshotsTable extends Component {
 
         const columns = [{
             id: 'selected',
-            Header: '',
+            Header: 'Selected',
             width: 20,
             align: "center",
             Cell: x => <div className="form-check multiselect"><input type="checkbox" className="form-check-input" checked={this.isSelected(x.row.original)} onChange={() => this.toggleSelected(x.row.original)} /></div>,
@@ -397,7 +397,7 @@ export class SnapshotsTable extends Component {
                 </Col>
                 <Col xs="auto">
                     <Button size="sm" variant="primary">
-                        {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} onClick={this.fetchSnapshots} />}
+                        {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} title="Fetch snapshots" onClick={this.fetchSnapshots} />}
                     </Button>
                 </Col>
             </Row>

@@ -97,7 +97,31 @@ export class SourcesTable extends Component {
         });
     }
 
+    /**
+     * Sets the header of an cell dynamically based on it's status
+     * @param x - the cell which status is interpreted
+     * @returns - the header of the cell
+     */
+    setHeader(x) {
+        switch (x.cell.value) {
+            case "IDLE":
+            case "PAUSED":
+                return x.cell.column.Header = "Actions"
+            case "PENDING":
+            case "UPLOADING":
+                return x.cell.column.Header = "Status"
+            default:
+                return x.cell.column.Header = ""
+        }
+    }
+
+    /**
+     * Sets the content an cell dynamically based on it's status
+     * @param x - the cell which content is changed
+     * @returns - the content of the cell
+     */
     statusCell(x, parent, bytesStringBase2) {
+        this.setHeader(x)
         switch (x.cell.value) {
             case "IDLE":
             case "PAUSED":
@@ -262,7 +286,7 @@ export class SourcesTable extends Component {
             Header: '',
             width: 300,
             accessor: x => x.status,
-            Cell: x => this.statusCell(x, this, bytesStringBase2),
+            Cell: x => this.statusCell(x, this, bytesStringBase2)
         }]
 
         return <>
@@ -288,7 +312,7 @@ export class SourcesTable extends Component {
                     <Col>
                     </Col>
                     <Col xs="auto">
-                        <Button size="sm" variant="primary">
+                        <Button size="sm" title="Synchronize" variant="primary">
                             {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} onClick={this.sync} />}
                         </Button>
                     </Col>
