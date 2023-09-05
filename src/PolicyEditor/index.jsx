@@ -300,8 +300,8 @@ export class PolicyEditor extends Component {
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Ignore Files" help="List of file and directory names to ignore (specified as relative to the directory they are in and not absolute; wildcards are allowed)" />
-                                <WideValueColumn>{StringList(this, "policy.files.ignore")}</WideValueColumn>
+                                <LabelColumn name="Ignore Files" help={<> List of file and directory names to ignore. <br /> (See <a target="_blank" rel="noreferrer" href="https://kopia.io/docs/advanced/kopiaignore/">documentation on ignoring files</a>).</>} />
+                                <WideValueColumn>{StringList(this, "policy.files.ignore", { placeholder: "e.g. /file.txt" })}</WideValueColumn>
                                 {EffectiveTextAreaValue(this, "files.ignore")}
                             </Row>
                             <Row>
@@ -311,7 +311,7 @@ export class PolicyEditor extends Component {
                             </Row>
                             <Row>
                                 <LabelColumn name="Ignore Rule Files" help="List of additional files containing ignore rules (each file configures ignore rules for the directory and its subdirectories)" />
-                                <ValueColumn>{StringList(this, "policy.files.ignoreDotFiles")}</ValueColumn>
+                                <ValueColumn>{StringList(this, "policy.files.ignoreDotFiles", { placeholder: "e.g. .kopiaignore" })}</ValueColumn>
                                 {EffectiveTextAreaValue(this, "files.ignoreDotFiles")}
                             </Row>
                             <Row>
@@ -382,14 +382,14 @@ export class PolicyEditor extends Component {
                             <Row>
                                 <LabelColumn name="Only Compress Extensions" help="Only compress files with the following file extensions (one extension per line)" />
                                 <WideValueColumn>
-                                    {StringList(this, "policy.compression.onlyCompress")}
+                                    {StringList(this, "policy.compression.onlyCompress", { placeholder: "e.g. *.txt" })}
                                 </WideValueColumn>
                                 {EffectiveTextAreaValue(this, "compression.onlyCompress")}
                             </Row>
                             <Row>
                                 <LabelColumn name="Never Compress Extensions" help="Never compress the following file extensions (one extension per line)" />
                                 <WideValueColumn>
-                                    {StringList(this, "policy.compression.neverCompress")}
+                                    {StringList(this, "policy.compression.neverCompress", { placeholder: "e.g. *.mp4" })}
                                 </WideValueColumn>
                                 {EffectiveTextAreaValue(this, "compression.neverCompress")}
                             </Row>
@@ -420,19 +420,17 @@ export class PolicyEditor extends Component {
                                 {EffectiveValue(this, "scheduling.intervalSeconds")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Times Of Day" help="Create snapshots at the specified times of day (one per line and listed in 24hr time, ex: 17:00)" />
+                                <LabelColumn name="Times Of Day" help="Create snapshots at the specified times of day (24hr format)" />
                                 <ValueColumn>
-                                    {TimesOfDayList(this, "policy.scheduling.timeOfDay")}
+                                    {TimesOfDayList(this, "policy.scheduling.timeOfDay", { placeholder: "e.g. 17:00" })}
                                 </ValueColumn>
                                 {EffectiveTimesOfDayValue(this, "scheduling.timeOfDay")}
                             </Row>
                             <Row>
                                 <LabelColumn name="Cron Expressions" help={<>Snapshot schedules using UNIX crontab syntax (one per line):
-                                <br/><br/><pre>minute hour day month weekday #comment</pre>
-                                
-                                See <a target="_blank" rel="noreferrer" href="https://github.com/hashicorp/cronexpr#implementation">supported format details</a>.</>} />
+                                    <br /> See <a target="_blank" rel="noreferrer" href="https://github.com/hashicorp/cronexpr#implementation">supported format details</a>.</>} />
                                 <ValueColumn>
-                                    {StringList(this, "policy.scheduling.cron")}
+                                    {StringList(this, "policy.scheduling.cron", { placeholder: "minute hour day month weekday #comment" })}
                                 </ValueColumn>
                                 {EffectiveListValue(this, "scheduling.cron")}
                             </Row>
@@ -572,8 +570,6 @@ export class PolicyEditor extends Component {
                     &nbsp;
                     <Spinner animation="border" variant="primary" size="sm" />
                 </>}
-                {/* <pre className="debug-json">{JSON.stringify(this.state, null, 4)}
-                </pre> */}
             </Form>
         </>;
     }

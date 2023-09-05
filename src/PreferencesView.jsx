@@ -8,7 +8,7 @@ export class PreferencesView extends Component {
             <form>
                 <div className='form-group'>
                     <label className='label-description' id='themeLabel'>Theme</label>
-                    <select className="select_theme, form-select form-select-sm" value={theme} onChange={e => setTheme(e.target.value)}>
+                    <select className="select_theme, form-select form-select-sm" title='Select theme' value={theme} onChange={e => setTheme(e.target.value)}>
                         <option value="light">light</option>
                         <option value="dark">dark</option>
                         <option value="pastel">pastel</option>
@@ -19,7 +19,7 @@ export class PreferencesView extends Component {
                 <br />
                 <div className='form-group'>
                     <label className='label-description'>Byte representation</label>
-                    <select className="form-select form-select-sm" id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
+                    <select className="form-select form-select-sm" title='Select byte representation' id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
                         <option value="true">Base-2 (KiB, MiB, GiB, TiB)</option>
                         <option value="false">Base-10 (KB, MB, GB, TB)</option>
                     </select>

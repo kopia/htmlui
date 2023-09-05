@@ -129,10 +129,10 @@ export class RepoStatus extends Component {
         if (this.state.status.initTaskID) {
             return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
                 {this.state.showLog ? <>
-                        <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
-                        <TaskLogs taskID={this.state.status.initTaskID} />
-                    </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
-                <hr/>
+                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                    <TaskLogs taskID={this.state.status.initTaskID} />
+                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+                <hr />
                 <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>Cancel Connection</Button>
             </>;
         }
@@ -143,7 +143,7 @@ export class RepoStatus extends Component {
                     <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
                     <span>Connected To Repository</span>
                 </p>
-                <Form onSubmit={this.updateDescription}>
+                <Form>
                     <Row>
                         <Form.Group as={Col}>
                             <InputGroup>
@@ -155,7 +155,7 @@ export class RepoStatus extends Component {
                                     onChange={this.handleChange}
                                     size="sm" />
                                 &nbsp;
-                                <Button data-testid='update-description' size="sm" type="submit">Update Description</Button>
+                                <Button data-testid='update-description' size="sm" onClick={this.updateDescription} type="button">Update Description</Button>
                             </InputGroup>
                             <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
                         </Form.Group>
@@ -209,7 +209,7 @@ export class RepoStatus extends Component {
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Error Correction Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.ecc||"-"} />
+                                <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>Internal Compression</Form.Label>

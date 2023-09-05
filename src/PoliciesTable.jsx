@@ -24,7 +24,7 @@ export class PoliciesTable extends Component {
     constructor() {
         super();
         this.state = {
-            items: [],
+            policies: [],
             isLoading: false,
             error: null,
             editorTarget: null,
@@ -64,7 +64,7 @@ export class PoliciesTable extends Component {
     fetchPolicies() {
         axios.get('/api/v1/policies').then(result => {
             this.setState({
-                items: result.data.policies,
+                policies: result.data.policies,
                 isLoading: false,
             });
         }).catch(error => {
@@ -166,7 +166,7 @@ export class PoliciesTable extends Component {
     }
 
     render() {
-        let { items, sources, isLoading, error } = this.state;
+        let { policies, sources, isLoading, error } = this.state;
         if (error) {
             return <p>{error.message}</p>;
         }
@@ -189,31 +189,31 @@ export class PoliciesTable extends Component {
                 break;
 
             case globalPolicy:
-                items = items.filter(x => this.isGlobalPolicy(x));
+                policies = policies.filter(x => this.isGlobalPolicy(x));
                 break;
 
             case localPolicies:
-                items = items.filter(x => this.isLocalUserPolicy(x));
+                policies = policies.filter(x => this.isLocalUserPolicy(x));
                 break;
 
             case applicablePolicies:
-                items = items.filter(x => this.isLocalUserPolicy(x) || this.isLocalHostPolicy(x) || this.isGlobalPolicy(x));
+                policies = policies.filter(x => this.isLocalUserPolicy(x) || this.isLocalHostPolicy(x) || this.isGlobalPolicy(x));
                 break;
 
             case perUserPolicies:
-                items = items.filter(x => !!x.target.userName && !!x.target.host && !x.target.path);
+                policies = policies.filter(x => !!x.target.userName && !!x.target.host && !x.target.path);
                 break;
 
             case perHostPolicies:
-                items = items.filter(x => !x.target.userName && !!x.target.host && !x.target.path);
+                policies = policies.filter(x => !x.target.userName && !!x.target.host && !x.target.path);
                 break;
 
             default:
-                items = items.filter(x => ownerName(x.target) === this.state.selectedOwner);
+                policies = policies.filter(x => ownerName(x.target) === this.state.selectedOwner);
                 break;
         };
 
-        items.sort((l,r) => {
+        policies.sort((l,r) => {
             const hc = compare(l.target.host,r.target.host);
             if (hc) {
                 return hc;
@@ -242,7 +242,7 @@ export class PoliciesTable extends Component {
             accessor: x => this.policySummary(x),
         }, {
             id: 'edit',
-            Header: '',
+            Header: 'Actions',
             width: 50,
             Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
         }]
@@ -284,9 +284,9 @@ export class PoliciesTable extends Component {
                 </Form>
             </div>}
 
-            {items.length > 0 ? <div>
-                <p>Found {items.length} policies matching criteria.</p>
-                <MyTable data={items} columns={columns} />
+            {policies.length > 0 ? <div>
+                <p>Found {policies.length} policies matching criteria.</p>
+                <MyTable data={policies} columns={columns} />
             </div> : ((this.state.selectedOwner === localPolicies && this.state.policyPath) ? <p>
                 No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
             </p> : <p>No policies found.</p>)}

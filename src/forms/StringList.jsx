@@ -20,7 +20,7 @@ function multilineStringToList(target) {
     return v.split(/\n/);
 }
 
-export function StringList(component, name) {
+export function StringList(component, name, props = {}) {
     return <Form.Group as={Col}>
         <Form.Control
             size="sm"
@@ -28,7 +28,8 @@ export function StringList(component, name) {
             value={listToMultilineString(stateProperty(component, name))}
             onChange={e => component.handleChange(e, multilineStringToList)}
             as="textarea"
-            rows="5">
+            rows="5"
+            {...props}>
         </Form.Control>
     </Form.Group>;
 }
