@@ -24,9 +24,9 @@ function sizeInfo(item) {
     return 0;
 }
 
-function directoryLinkOrDownload(x) {
+function directoryLinkOrDownload(x, state) {
     if (x.obj.startsWith("k")) {
-        return <Link to={objectLink(x.obj)}>{objectName(x.name, x.type)}</Link>;
+        return <Link to={objectLink(x.obj, x.name, state)}>{objectName(x.name, x.type)}</Link>;
     }
 
     return <a href={"/api/v1/objects/" + x.obj + "?fname=" + encodeURIComponent(x.name)}>{x.name}</a>;
@@ -39,7 +39,7 @@ export class DirectoryItems extends Component {
             id: "name",
             Header: 'Name',
             width: "",
-            accessor: x => directoryLinkOrDownload(x),
+            accessor: x => directoryLinkOrDownload(x, this.props.historyState),
         }, {
             id: "mtime",
             accessor: "mtime",

@@ -93,9 +93,9 @@ export function rfc3339TimestampForDisplay(n) {
     return t.toLocaleString();
 }
 
-export function objectLink(n) {
+export function objectLink(n, label, prevState) {
     if (n.startsWith("k") || n.startsWith("Ik")) {
-        return "/snapshots/dir/" + n;
+        return { pathname: "/snapshots/dir/" + n, state: { label, oid: n, prevState } };
     }
     return "/api/v1/objects/" + n;
 }
@@ -120,7 +120,7 @@ export function redirect(e) {
 
 /**
  * Convert a number of milliseconds into a string containing multiple units.
- * 
+ *
  * e.g. 90000 --> "1m 30s" or "1 minute 30 seconds"
  *
  * @param {number} ms - A duration (as a number of milliseconds).
@@ -136,9 +136,9 @@ export function formatMillisecondsUsingMultipleUnits(ms) {
  * Separate a duration into integer magnitudes of multiple units which,
  * when combined together, equal the original duration (minus any partial
  * milliseconds, if the original duration included any partial milliseconds).
- * 
+ *
  * e.g. 100000123.999 --> 1 day 3 hours 46 minutes 40 seconds 123 milliseconds
- * 
+ *
  * @param {number} ms - A duration (as a number of milliseconds).
  * @returns {object} An object having numeric properties named `days`, `hours`,
  *                   `minutes`, `seconds`, and `milliseconds`; whose values,
@@ -161,16 +161,16 @@ export function separateMillisecondsIntoMagnitudes(ms) {
  * Format a duration in terms of the largest unit having a non-zero magnitude,
  * together with the next largest unit (e.g. hours --> hours and minutes),
  * disregarding all smaller units (i.e. truncate, as opposed to round).
- * 
+ *
  * There are some exceptions, which are listed below.
- * 
+ *
  * Exceptions:
  * 1. If the largest unit having a non-zero magnitude is `seconds` and the
  *    magnitude is at least 10, format it as an integer number of seconds.
  * 2. If the largest unit having a non-zero magnitude is `seconds` and the
  *    magnitude is less than 10, or if the largest unit having a non-zero
  *    magnitude is `milliseconds`, format it as a fractional number of seconds.
- * 
+ *
  * @param {object} magnitudes - An object having numeric properties named
  *                              `days`, `hours`, `minutes`, `seconds`, and
  *                              `milliseconds`; whose values, when combined
@@ -234,7 +234,7 @@ export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits =
 /**
  * Convert a number of milliseconds into a formatted string, either
  * using multiple units (e.g. "1m 5s") or using seconds (e.g. "65.0s").
- * 
+ *
  * @param {number} ms - The number of milliseconds (i.e. some duration).
  * @param {boolean} useMultipleUnits - Whether you want to use multiple units.
  * @returns {string} The formatted string.

@@ -249,8 +249,8 @@ export class SnapshotsTable extends Component {
                 originalSnapshotDescription: x.description,
             })
         }}
-            title={x.description + " - Click to update snapshot description."}
-            className={x.description ? "text-warning" : "text-muted"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
+                  title={x.description + " - Click to update snapshot description."}
+                  className={x.description ? "text-warning" : "text-muted"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
     }
 
     newPinFor(x) {
@@ -323,6 +323,9 @@ export class SnapshotsTable extends Component {
         if (isLoading && !snapshots) {
             return <Spinner animation="border" variant="primary" />;
         }
+        const searchParams = new URLSearchParams(window.location.search);
+        const path = searchParams.get("path");
+
 
         snapshots.sort((a, b) => -compare(a.startTime, b.startTime));
 
@@ -336,7 +339,10 @@ export class SnapshotsTable extends Component {
             id: 'startTime',
             Header: 'Start time',
             width: 200,
-            accessor: x => <Link to={objectLink(x.rootID)}>{rfc3339TimestampForDisplay(x.startTime)}</Link>,
+            accessor: x => {
+                let timestamp = rfc3339TimestampForDisplay(x.startTime);
+                return <Link to={objectLink(x.rootID, timestamp, { label: path })}>{timestamp}</Link>;
+            },
         }, {
             id: 'description',
             Header: '',
@@ -465,9 +471,9 @@ export class SnapshotsTable extends Component {
                     <Form.Group>
                         <Form.Label>Enter new description</Form.Label>
                         <Form.Control as="textarea"
-                            size="sm"
-                            value={this.state.updatedSnapshotDescription}
-                            onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
+                                      size="sm"
+                                      value={this.state.updatedSnapshotDescription}
+                                      onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
                     </Form.Group>
                 </Modal.Body>
 
