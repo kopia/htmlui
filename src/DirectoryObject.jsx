@@ -123,10 +123,10 @@ export class DirectoryObject extends Component {
             <Row>
                 <Col xs="auto">
                     {this.state.mountInfo.path ? <>
-                        <Button size="sm" variant="info" onClick={this.unmount}>Unmount</Button>
+                        <Button size="sm" variant="secondary" onClick={this.unmount}>Unmount</Button>
                         {window.kopiaUI && <>
                             &nbsp;
-                            <Button size="sm" variant="info" onClick={this.browseMounted}>Browse</Button>
+                            <Button size="sm" variant="secondary" onClick={this.browseMounted}>Browse</Button>
                         </>}
                         &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
                         <Button size="sm" variant="primary" onClick={this.copyPath}><FontAwesomeIcon
@@ -135,7 +135,7 @@ export class DirectoryObject extends Component {
                         <Button size="sm" variant="primary" onClick={this.mount}>Mount as Local Filesystem</Button>
                     </>}
                     &nbsp;
-                    <Button size="sm" variant="info"
+                    <Button size="sm" variant="secondary"
                             href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
                         Files & Directories</Button>
                     &nbsp;
