@@ -96,6 +96,15 @@ body {
   filter: brightness(80%);
 }
 
+a {
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link);
+  filter: brightness(80%);
+}
+
 .table-striped>tbody>tr:nth-of-type(odd)>* {
   color: var(--text-color-body);
   background-color: var(--color-stripe);
