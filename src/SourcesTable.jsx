@@ -30,7 +30,7 @@ export class SourcesTable extends Component {
 
             localSourceName: "",
             multiUser: false,
-            selectedOwner: localSnapshots,
+            selectedOwner: null,
             selectedDirectory: "",
         };
 
@@ -79,9 +79,15 @@ export class SourcesTable extends Component {
     }
 
     selectOwner(h) {
+        const { setDefaultSnapshotViewAll } = this.context;
         this.setState({
             selectedOwner: h,
         });
+        if (h === localSnapshots) {
+            setDefaultSnapshotViewAll(false);
+	} else if (h === allSnapshots) {
+            setDefaultSnapshotViewAll(true);
+        }
     }
 
     sync() {
@@ -211,14 +217,16 @@ export class SourcesTable extends Component {
 
     render() {
         let { sources, isLoading, error } = this.state;
-        const { bytesStringBase2 } = this.context
+        const { bytesStringBase2, defaultSnapshotViewAll } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
             return <Spinner animation="border" variant="primary" />;
         }
-
+	if (this.state.selectedOwner == null) {
+	    this.setState({ selectedOwner: defaultSnapshotViewAll ? allSnapshots : localSnapshots})
+        }
         let uniqueOwners = sources.reduce((a, d) => {
             const owner = ownerName(d.source);
 
