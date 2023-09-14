@@ -43,7 +43,9 @@ export class SourcesTable extends Component {
     }
 
     componentDidMount() {
+        const { defaultSnapshotViewAll } = this.context;
         this.setState({ isLoading: true });
+        this.setState({ selectedOwner: defaultSnapshotViewAll ? allSnapshots : localSnapshots });
         this.fetchSourcesWithoutSpinner();
         this.interval = window.setInterval(this.fetchSourcesWithoutSpinner, 3000);
     }
@@ -53,7 +55,7 @@ export class SourcesTable extends Component {
     }
 
     fetchSourcesWithoutSpinner() {
-        if( ! this.state.isFetching ){
+        if (!this.state.isFetching) {
             this.setState({
                 isFetching: true,
             });
@@ -78,14 +80,12 @@ export class SourcesTable extends Component {
         }
     }
 
-    selectOwner(h) {
+    selectOwner(owner) {
         const { setDefaultSnapshotViewAll } = this.context;
-        this.setState({
-            selectedOwner: h,
-        });
-        if (h === localSnapshots) {
+        this.setState({ selectedOwner: owner });
+        if (owner === localSnapshots) {
             setDefaultSnapshotViewAll(false);
-	} else if (h === allSnapshots) {
+        } else if (owner === allSnapshots) {
             setDefaultSnapshotViewAll(true);
         }
     }
@@ -217,15 +217,12 @@ export class SourcesTable extends Component {
 
     render() {
         let { sources, isLoading, error } = this.state;
-        const { bytesStringBase2, defaultSnapshotViewAll } = this.context
+        const { bytesStringBase2 } = this.context
         if (error) {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
             return <Spinner animation="border" variant="primary" />;
-        }
-	if (this.state.selectedOwner == null) {
-	    this.setState({ selectedOwner: defaultSnapshotViewAll ? allSnapshots : localSnapshots})
         }
         let uniqueOwners = sources.reduce((a, d) => {
             const owner = ownerName(d.source);
