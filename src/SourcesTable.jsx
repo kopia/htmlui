@@ -44,8 +44,7 @@ export class SourcesTable extends Component {
 
     componentDidMount() {
         const { defaultSnapshotViewAll } = this.context;
-        this.setState({ isLoading: true });
-        this.setState({ selectedOwner: defaultSnapshotViewAll ? allSnapshots : localSnapshots });
+        this.setState({ isLoading: true, selectedOwner: defaultSnapshotViewAll ? allSnapshots : localSnapshots });
         this.fetchSourcesWithoutSpinner();
         this.interval = window.setInterval(this.fetchSourcesWithoutSpinner, 3000);
     }
