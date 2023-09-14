@@ -64,14 +64,13 @@ export default class App extends Component {
   }
 
   fetchTaskSummary() {
-    if( ! this.state.isFetching )	  
-    {
+    if (!this.state.isFetching) {
       this.setState({ isFetching: true });
-    axios.get('/api/v1/tasks-summary').then(result => {
-      this.setState({ isFetching: false, runningTaskCount: result.data["RUNNING"] || 0 });
-    }).catch(error => {
-      this.setState({ isFetching: false, runningTaskCount: -1 });
-    });
+      axios.get('/api/v1/tasks-summary').then(result => {
+        this.setState({ isFetching: false, runningTaskCount: result.data["RUNNING"] || 0 });
+      }).catch(error => {
+        this.setState({ isFetching: false, runningTaskCount: -1 });
+      });
     }
   }
 
