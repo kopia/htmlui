@@ -135,7 +135,7 @@ export default class App extends Component {
                 <Route path="/repo" component={RepoStatus} />
                 <Route path="/preferences" component={PreferencesView} />
                 <Route exact path="/">
-                  <Redirect to="/repo" />
+                  <Redirect to="/snapshots" />
                 </Route>
               </Switch>
             </Container>
