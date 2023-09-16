@@ -435,6 +435,13 @@ export class PolicyEditor extends Component {
                                 {EffectiveListValue(this, "scheduling.cron")}
                             </Row>
                             <Row>
+                                <LabelColumn name="Run Missed Snapshots on Startup" help="Immediately run any missed snapshots when kopia starts (only relevant for Time-of-day snapshots)" />
+                                <ValueColumn>
+                                    {OptionalBoolean(this, "", "policy.scheduling.runMissed", "inherit from parent")}
+                                </ValueColumn>
+                                {EffectiveBooleanValue(this, "scheduling.runMissed")}
+                            </Row>
+                            <Row>
                                 <LabelColumn name="Manual Snapshots Only" help="Only create snapshots manually (disables scheduled snapshots)" />
                                 <ValueColumn>
                                     {OptionalBoolean(this, "", "policy.scheduling.manual", "inherit from parent")}
