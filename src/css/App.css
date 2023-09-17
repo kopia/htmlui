@@ -112,6 +112,7 @@ a:hover {
 
 .table-striped>tbody>tr:nth-of-type(even)>* {
   color: var(--text-color-body);
+  background-color: var(--background-color);
 }
 
 .navbar-light .navbar-nav .nav-link {
