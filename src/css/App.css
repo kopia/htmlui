@@ -105,19 +105,6 @@ a:hover {
   filter: brightness(80%);
 }
 
-.table-striped>tbody>tr:nth-of-type(odd)>* {
-  color: var(--text-color-body);
-  background-color: var(--color-stripe);
-}
-
-.table-striped>tbody>tr:nth-of-type(even)>* {
-  color: var(--text-color-body);
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: var(--text-color-nav);
-}
-
 .table {
   color: var(--text-color-body);
 }
@@ -126,7 +113,17 @@ a:hover {
   color: var(--text-color-body);
 }
 
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  color: var(--text-color-body);
+  background-color: var(--color-stripe);
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>* {
+  color: var(--text-color-body);
+  background-color: var(--background-color);
+}
+
+.navbar-light .navbar-nav .nav-link {
   color: var(--text-color-nav);
 }
 
@@ -135,24 +132,47 @@ a:hover {
   filter: brightness(80%);
 }
 
-.accordion-body {
+.form-control, .form-control:focus, .form-control:active, .form-control:hover {
+  color: var(--text-color-body) !important;
+  background-color: var(--background-color) !important;
+}
+
+.form-select, .form-select:focus, .form-select:active, form-select:hover {
   color: var(--text-color-body);
   background-color: var(--background-color);
 }
 
-.accordion-button:not(.collapsed) {
-  color: var(--text-color-body)  !important;
-  background-color: var(--background-color) !important;
+.form-control-sm, .form-control-sm:focus, .form-control-sm:active, .form-control-sm:hover {
+  color: var(--text-color-body);
+  background-color: var(--background-color);
 }
 
-.accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
-  background-color: var(--color-select) !important;
+.form-check-input, .form-check-input:focus, .form-check-input:active, .form-control-sm:hover {
+  color: var(--text-color-body);
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+  color: var(--text-color-nav);
+}
+
+.accordion-body {
   color: var(--text-color-body) !important;
+  background-color: var(--background-color) !important;
 }
 
 .accordion-button  {
   background-color: var(--background-color) !important;
   color: var(--text-color-body) !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--text-color-body);
+  background-color: var(--background-color);
+}
+
+.accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
+  background-color: var(--color-select);
+  color: var(--text-color-body);
 }
 
 .popover {
