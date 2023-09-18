@@ -15,6 +15,13 @@
 
   --color-error: #d2475a;
   --color-danger: #d2475a;
+
+  --color-badge-warning: #D8A509;
+  --color-badge-primary: #47729A;
+  --color-badge-secondary: #6E7072;
+  --color-badge-info:#127D74;
+  --color-badge-danger:#C14B0B;
+  --color-badge-success:#498235;
 }
 
 .dark {
@@ -32,9 +39,15 @@
   --text-color-body: #cfcfcf;
   --text-color-nav: #cfcfcf;
   
-  
   --color-error: #b31f04;
   --color-danger: #b31f04;
+
+  --color-badge-warning: #C49508;
+  --color-badge-primary: #5B89B4;
+  --color-badge-secondary: #787A7D;
+  --color-badge-info:#159489;
+  --color-badge-danger:#F3712B;
+  --color-badge-success:#5DA745;
 }
 
 .pastel {
@@ -53,6 +66,13 @@
 
   --color-error: #ffadad;
   --color-danger: #ffadad;
+
+  --color-badge-warning: #D8A509;
+  --color-badge-primary: #47729A;
+  --color-badge-secondary: #6E7072;
+  --color-badge-info:#127D74;
+  --color-badge-danger:#C14B0B;
+  --color-badge-success:#498235;
 }
 
 .ocean {
@@ -71,4 +91,11 @@
 
   --color-error: #d2475a;
   --color-danger: #d2475a;
+
+  --color-badge-warning: #D8A509;
+  --color-badge-primary: #47729A;
+  --color-badge-secondary: #6E7072;
+  --color-badge-info:#127D74;
+  --color-badge-danger:#C14B0B;
+  --color-badge-success:#498235;
 }

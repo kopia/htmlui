@@ -54,42 +54,54 @@ body {
   border-color: var(--color-danger);
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active {
   background-color: var(--color-warning);
   border-color: var(--color-warning);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-success:hover, .btn-success:focus, .btn-success:active {
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
   background-color: var(--color-success);
   border-color: var(--color-success);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
   background-color: var(--color-danger);
   border-color: var(--color-danger);
   color: var(--text-color);
   filter: brightness(80%);
 }
 
-.btn-submit:hover, .btn-submit:focus, .btn-submit:active {
+.btn-submit:hover,
+.btn-submit:focus,
+.btn-submit:active {
   background-color: var(--color-submit);
   border-color: var(--color-submit);
   color: var(--text-color);
@@ -132,26 +144,39 @@ a:hover {
   filter: brightness(80%);
 }
 
-.form-control, .form-control:focus, .form-control:active, .form-control:hover {
+.form-control,
+.form-control:focus,
+.form-control:active,
+.form-control:hover {
   color: var(--text-color-body) !important;
   background-color: var(--background-color) !important;
 }
 
-.form-select, .form-select:focus, .form-select:active, form-select:hover {
+.form-select,
+.form-select:focus,
+.form-select:active,
+form-select:hover {
   color: var(--text-color-body);
   background-color: var(--background-color);
 }
 
-.form-control-sm, .form-control-sm:focus, .form-control-sm:active, .form-control-sm:hover {
+.form-control-sm,
+.form-control-sm:focus,
+.form-control-sm:active,
+.form-control-sm:hover {
   color: var(--text-color-body);
   background-color: var(--background-color);
 }
 
-.form-check-input, .form-check-input:focus, .form-check-input:active, .form-control-sm:hover {
+.form-check-input,
+.form-check-input:focus,
+.form-check-input:active,
+.form-control-sm:hover {
   color: var(--text-color-body);
 }
 
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show>.nav-link {
   color: var(--text-color-nav);
 }
 
@@ -160,7 +185,7 @@ a:hover {
   background-color: var(--background-color) !important;
 }
 
-.accordion-button  {
+.accordion-button {
   background-color: var(--background-color) !important;
   color: var(--text-color-body) !important;
 }
@@ -170,9 +195,36 @@ a:hover {
   background-color: var(--background-color);
 }
 
-.accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
+.accordion-button:link,
+.accordion-button:visited,
+.accordion-button:hover,
+.accordion-button:active {
   background-color: var(--color-select);
   color: var(--text-color-body);
+}
+
+.bg-warning {
+  background-color: var(--color-badge-warning) !important;
+}
+
+.bg-danger {
+  background-color: var(--color-badge-danger) !important;
+}
+
+.bg-info {
+  background-color: var(--color-badge-info) !important;
+}
+
+.bg-primary {
+  background-color: var(--color-badge-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--color-badge-secondary) !important;
+}
+
+.bg-success {
+  background-color: var(--color-badge-success) !important;
 }
 
 .popover {
@@ -187,7 +239,7 @@ a:hover {
   height: 32px;
 }
 
-.active{
+.active {
   font-weight: bold;
 }
 
@@ -317,10 +369,28 @@ div.tab-body {
   border: 1px solid #aaa;
 }
 
-.loglevel-0 { color: var(--text-color-body)} /* debug */
-.loglevel-1 { font-weight: bold;} /* info */
-.loglevel-2 { color: var(--color-warning); font-weight: bold;} /* warning */
-.loglevel-3 { color: var(--color-error); font-weight: bold; } /* error */
+.loglevel-0 {
+  color: var(--text-color-body)
+}
+
+/* debug */
+.loglevel-1 {
+  font-weight: bold;
+}
+
+/* info */
+.loglevel-2 {
+  color: var(--color-warning);
+  font-weight: bold;
+}
+
+/* warning */
+.loglevel-3 {
+  color: var(--color-error);
+  font-weight: bold;
+}
+
+/* error */
 
 .counter-badge {
   font-size: 90%;
