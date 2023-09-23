@@ -131,7 +131,7 @@ export class PoliciesTable extends Component {
         }
         for (let pol in policies.policy) {
             if (!isEmpty(policies.policy[pol])) {
-                bits.push(<><Badge className="policy-badge">{pol}</Badge></>);
+                bits.push(<Badge className="policy-badge" key={pol}>{pol}</Badge>);
             }
         }
         return bits;
