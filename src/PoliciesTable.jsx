@@ -120,36 +120,38 @@ export class PoliciesTable extends Component {
         });
     }
 
-    policySummary(p) {
+    policySummary(policies) {
+        let bits = [];
+        /**
+         * Check if the object is empty
+         * @param {*} obj 
+         * @returns true if the object is empty
+         */
+        function isEmptyObject(obj) {
+            return (
+                Object.getPrototypeOf(obj) === Object.prototype &&
+                Object.getOwnPropertyNames(obj).length === 0 &&
+                Object.getOwnPropertySymbols(obj).length === 0
+            );
+        }
+        /**
+         * Check if object has it's key as a property.
+         * However, if the object itself is a set of sets, it has to be checked by isEmptyObject()
+         * @param {*} obj 
+         * @returns 
+         */
         function isEmpty(obj) {
             for (var key in obj) {
                 if (obj.hasOwnProperty(key))
-                    return false;
+                    return isEmptyObject(obj[key]);
             }
-
             return true;
         }
-
-        let bits = [];
-        if (!isEmpty(p.policy.retention)) {
-            bits.push(<><Badge bg="success">retention</Badge>{' '}</>);
+        for (let pol in policies.policy) {
+            if (!isEmpty(policies.policy[pol])) {
+                bits.push(<Badge className="policy-badge" key={pol}>{pol}</Badge>);
+            }
         }
-        if (!isEmpty(p.policy.files)) {
-            bits.push(<><Badge bg="primary">files</Badge>{' '}</>);
-        }
-        if (!isEmpty(p.policy.errorHandling)) {
-            bits.push(<><Badge bg="danger">errors</Badge>{' '}</>);
-        }
-        if (!isEmpty(p.policy.compression)) {
-            bits.push(<><Badge bg="secondary">compression</Badge>{' '}</>);
-        }
-        if (!isEmpty(p.policy.scheduling)) {
-            bits.push(<><Badge bg="warning">scheduling</Badge>{' '}</>);
-        }
-        if (!isEmpty(p.policy.upload)) {
-            bits.push(<><Badge bg="info">upload</Badge>{' '}</>);
-        }
-
         return bits;
     }
 
@@ -213,16 +215,16 @@ export class PoliciesTable extends Component {
                 break;
         };
 
-        policies.sort((l,r) => {
-            const hc = compare(l.target.host,r.target.host);
+        policies.sort((l, r) => {
+            const hc = compare(l.target.host, r.target.host);
             if (hc) {
                 return hc;
             }
-            const uc = compare(l.target.userName,r.target.userName);
+            const uc = compare(l.target.userName, r.target.userName);
             if (uc) {
                 return uc;
             }
-            return compare(l.target.path,r.target.path);
+            return compare(l.target.path, r.target.path);
         });
 
 
@@ -273,8 +275,8 @@ export class PoliciesTable extends Component {
                         {(this.state.selectedOwner === localPolicies || this.state.selectedOwner === this.state.localSourceName || this.state.selectedOwner === applicablePolicies) ? <>
                             <Col>
                                 <DirectorySelector autoFocus onDirectorySelected={p => this.setState({ policyPath: p })}
-                                placeholder="enter directory to find or set policy"
-                                name="policyPath" value={this.state.policyPath} onChange={this.handleChange} />
+                                    placeholder="enter directory to find or set policy"
+                                    name="policyPath" value={this.state.policyPath} onChange={this.handleChange} />
                             </Col>
                             <Col xs="auto">
                                 <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>Set Policy</Button>
