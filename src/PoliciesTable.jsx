@@ -145,7 +145,7 @@ export class PoliciesTable extends Component {
                 if (obj.hasOwnProperty(key))
                     return isEmptyObject(obj[key]);
             }
-            return true;
+            return isEmptyObject(obj);
         }
         for (let pol in policies.policy) {
             if (!isEmpty(policies.policy[pol])) {
