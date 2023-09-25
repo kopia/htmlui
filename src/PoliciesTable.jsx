@@ -122,10 +122,28 @@ export class PoliciesTable extends Component {
 
     policySummary(policies) {
         let bits = [];
+        /**
+         * Check if the object is empty
+         * @param {*} obj 
+         * @returns true if the object is empty
+         */
+        function isEmptyObject(obj) {
+            return (
+                Object.getPrototypeOf(obj) === Object.prototype &&
+                Object.getOwnPropertyNames(obj).length === 0 &&
+                Object.getOwnPropertySymbols(obj).length === 0
+            );
+        }
+        /**
+         * Check if object has it's key as a property.
+         * However, if the object itself is a set of sets, it has to be checked by isEmptyObject()
+         * @param {*} obj 
+         * @returns 
+         */
         function isEmpty(obj) {
             for (var key in obj) {
                 if (obj.hasOwnProperty(key))
-                    return false;
+                    return isEmptyObject(obj[key]);
             }
             return true;
         }
