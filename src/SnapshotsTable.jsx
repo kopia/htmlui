@@ -249,8 +249,8 @@ export class SnapshotsTable extends Component {
                 originalSnapshotDescription: x.description,
             })
         }}
-                  title={x.description + " - Click to update snapshot description."}
-                  className={x.description ? "text-warning" : "text-muted"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
+            title={x.description + " - Click to update snapshot description."}
+            className={x.description ? "text-warning" : "snapshot-description"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
     }
 
     newPinFor(x) {
@@ -353,16 +353,16 @@ export class SnapshotsTable extends Component {
             Header: 'Root',
             width: "",
             accessor: x => x.rootID,
-            Cell: x => <><span className="hash-value">{x.cell.value}</span>
-            {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
+            Cell: x => <><span className="snapshot-hash">{x.cell.value}</span>
+                {x.row.original.description && <div className='snapshot-description'><small>{x.row.original.description}</small></div>}</>,
         }, {
             Header: 'Retention',
             accessor: 'retention',
             width: "",
             Cell: x => <span>
-                {x.cell.value.map(l => <React.Fragment key={l}><Badge bg={pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
+                {x.cell.value.map(l => <React.Fragment key={l}><Badge bg={"retention-badge-"+pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
                 {x.row.original.pins.map(l => <React.Fragment key={l}>
-                    <Badge bg="dark" text="warning" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
+                    <Badge bg="snapshot-pin" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
                 </React.Fragment>)}
                 {this.newPinFor(x.row.original)}
             </span>
@@ -471,9 +471,9 @@ export class SnapshotsTable extends Component {
                     <Form.Group>
                         <Form.Label>Enter new description</Form.Label>
                         <Form.Control as="textarea"
-                                      size="sm"
-                                      value={this.state.updatedSnapshotDescription}
-                                      onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
+                            size="sm"
+                            value={this.state.updatedSnapshotDescription}
+                            onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
                     </Form.Group>
                 </Modal.Body>
 

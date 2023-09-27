@@ -128,14 +128,15 @@ export default function MyTable({ columns, data }) {
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
-              prepareRow(row);
-              return (
+            prepareRow(row);
+            return (
               <tr {...row.getRowProps()} key={i}>
                 {row.cells.map(cell => {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
-              )}
+            )
+          }
           )}
         </tbody>
       </Table>

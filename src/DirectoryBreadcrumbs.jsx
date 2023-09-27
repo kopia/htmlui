@@ -20,15 +20,15 @@ export function DirectoryBreadcrumbs() {
                 breadcrumbs.map((state, i) => {
                     const index = breadcrumbs.length - i - 1 // revert index
                     return <Breadcrumb.Item key={index} size="sm" variant="outline-secondary"
-                                            onClick={() => {
-                                                if (index) history.go(-index);
-                                            }}
-                                            active={!index}>
+                        onClick={() => {
+                            if (index) history.go(-index);
+                        }}
+                        active={!index}>
                         {state.label}
                         {state.oid && !index && <>&nbsp;<OverlayTrigger placement="top"
-                                               trigger="click"
-                                               overlay={<Tooltip
-                                                   className={"wide-tooltip"}>OID: {state.oid}</Tooltip>}
+                            trigger="click"
+                            overlay={<Tooltip
+                                className={"wide-tooltip"}>OID: {state.oid}</Tooltip>}
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
                         </OverlayTrigger></>}
