@@ -216,10 +216,6 @@ a:active {
   box-shadow: 0 0 0 0.10rem var(--color-badge-primary);
 }
 
-.accordion {
-  border-color: #aaa;
-}
-
 .accordion-button:link,
 .accordion-button:visited,
 .accordion-button:hover,
@@ -478,6 +474,10 @@ nav.navbar {
   margin-bottom: 0px;
 }
 
+.select-theme {
+  font-size: 90%;
+}
+
 .snapshot-hash {
   font-family: 'Courier New', Courier, monospace;
   font-size: 80%;
@@ -491,10 +491,6 @@ nav.navbar {
 
 .snapshot-description-set {
   color: var(--color-badge-warning);
-}
-
-.select-theme {
-  font-size: 90%;
 }
 
 .log-parameter {
