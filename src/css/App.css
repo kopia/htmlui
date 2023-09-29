@@ -11,10 +11,6 @@ body {
   color: var(--color-text-body);
 }
 
-.select_theme {
-  font-size: 90%;
-}
-
 .options-select {
   overflow: ellipsis
 }
@@ -152,27 +148,32 @@ a:active {
   background-color: var(--background-color);
 }
 
-.navbar-light .navbar-nav .nav-link {
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show>.nav-link {
   color: var(--color-text-nav);
 }
 
-.nav-link:hover {
-  color: var(--color-text-nav) !important;
+.navbar-light .navbar-nav .nav-link:hover {
+  color: var(--color-text-nav);
   filter: brightness(80%);
 }
 
 .form-control,
+.form-control[readonly],
 .form-control:focus,
 .form-control:active,
-.form-control:hover {
-  color: var(--color-text-body) !important;
-  background-color: var(--background-color) !important;
+.form-control:hover,
+.form-control:disabled {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
 }
 
 .form-select,
 .form-select:focus,
 .form-select:active,
-form-select:hover {
+.form-select:hover,
+.form-select:disabled {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
@@ -180,7 +181,8 @@ form-select:hover {
 .form-control-sm,
 .form-control-sm:focus,
 .form-control-sm:active,
-.form-control-sm:hover {
+.form-control-sm:hover,
+.form-control-sm:disabled {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
@@ -188,36 +190,43 @@ form-select:hover {
 .form-check-input,
 .form-check-input:focus,
 .form-check-input:active,
-.form-control-sm:hover {
+.form-check-input:disabled {
   color: var(--color-text-body);
 }
 
-.navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-nav .show>.nav-link {
-  color: var(--color-text-nav);
-}
-
-.accordion-body {
-  color: var(--color-text-body) !important;
-  background-color: var(--background-color) !important;
-}
-
-.accordion-button {
-  background-color: var(--background-color) !important;
-  color: var(--color-text-body) !important;
-}
-
+.accordion-body,
 .accordion-button:not(.collapsed) {
   color: var(--color-text-body);
   background-color: var(--background-color);
+}
+
+.accordion-button {
+  padding: 10px;
+  font-weight: bold;
+  color: var(--color-text-body);
+  background-color: var(--background-color)
+}
+
+.accordion-button.collapsed {
+  font-weight: bold;
+  padding: 10px;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.10rem var(--color-badge-primary);
+}
+
+.accordion {
+  border-color: #aaa;
 }
 
 .accordion-button:link,
 .accordion-button:visited,
 .accordion-button:hover,
 .accordion-button:active {
-  background-color: var(--color-select);
   color: var(--color-text-body);
+  background-color: var(--background-color);
+  filter: brightness(85%)
 }
 
 .popover {
@@ -306,17 +315,6 @@ form-select:hover {
 
 .hidden {
   display: none;
-}
-
-.accordion-button {
-  padding: 10px;
-  font-weight: bold;
-}
-
-.accordion-button.collapsed {
-  padding: 10px;
-  font-weight: bold;
-  background-color: #f8f8ff;
 }
 
 div.tab-body {
@@ -489,6 +487,14 @@ nav.navbar {
 .snapshot-description {
   font-size: 80%;
   color: var(--color-text-body);
+}
+
+.snapshot-description-set {
+  color: var(--color-badge-warning);
+}
+
+.select-theme {
+  font-size: 90%;
 }
 
 .log-parameter {

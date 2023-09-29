@@ -250,7 +250,7 @@ export class SnapshotsTable extends Component {
             })
         }}
             title={x.description + " - Click to update snapshot description."}
-            className={x.description ? "text-warning" : "snapshot-description"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
+            className={x.description ? "snapshot-description-set" : "snapshot-description"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
     }
 
     newPinFor(x) {
