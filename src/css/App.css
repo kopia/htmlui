@@ -130,17 +130,14 @@ a:active {
   filter: brightness(80%);
 }
 
-.table {
-  color: var(--color-text-body);
-}
-
+.table,
 .table-hover>tbody>tr:hover>* {
   color: var(--color-text-body);
 }
 
 .table-striped>tbody>tr:nth-of-type(odd)>* {
   color: var(--color-text-body);
-  background-color: var(--color-stripe);
+  background-color: var(--color-select);
 }
 
 .table-striped>tbody>tr:nth-of-type(even)>* {
@@ -161,7 +158,6 @@ a:active {
 
 .form-control,
 .form-control[readonly],
-.form-control:focus,
 .form-control:active,
 .form-control:hover,
 .form-control:disabled {
@@ -170,7 +166,6 @@ a:active {
 }
 
 .form-select,
-.form-select:focus,
 .form-select:active,
 .form-select:hover,
 .form-select:disabled {
@@ -179,7 +174,6 @@ a:active {
 }
 
 .form-control-sm,
-.form-control-sm:focus,
 .form-control-sm:active,
 .form-control-sm:hover,
 .form-control-sm:disabled {
@@ -187,8 +181,17 @@ a:active {
   background-color: var(--background-color);
 }
 
-.form-check-input,
+.form-select:focus,
+.form-control:focus,
+.form-control-sm:focus,
 .form-check-input:focus,
+.accordion-button:focus {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+  box-shadow: 0 0 0 0.10rem var(--color-primary);
+}
+
+.form-check-input,
 .form-check-input:active,
 .form-check-input:disabled {
   color: var(--color-text-body);
@@ -207,22 +210,24 @@ a:active {
   background-color: var(--background-color)
 }
 
-.accordion-button.collapsed {
-  font-weight: bold;
-  padding: 10px;
-}
-
-.accordion-button:focus {
-  box-shadow: 0 0 0 0.10rem var(--color-badge-primary);
-}
-
 .accordion-button:link,
 .accordion-button:visited,
 .accordion-button:hover,
-.accordion-button:active {
+.accordion-button:active,
+.accordion-button:focus-within,
+.accordion-button:focus-visible {
   color: var(--color-text-body);
-  background-color: var(--background-color);
-  filter: brightness(85%)
+  background-color: var(--color-select);
+  filter: brightness(95%)
+}
+
+.accordion-item {
+  border: 1px solid rgba(0,0,0,.125);
+}
+
+.accordion-button.collapsed {
+  font-weight: bold;
+  padding: 10px;
 }
 
 .popover {
@@ -342,8 +347,8 @@ div.tab-body {
 .modal-footer,
 .modal-header,
 .modal-body {
-  background-color: var(--background-color);
   color: var(--color-text-body);
+  background-color: var(--background-color);
 }
 
 #mountedPath {
