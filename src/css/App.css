@@ -11,224 +11,163 @@ body {
   color: var(--color-text-body);
 }
 
-
-.options-select {
+#kopia .options-select {
   overflow: ellipsis
 }
 
-.btn-close {
+#kopia .btn-close {
   background-color: var(--background-color);
 }
 
-.btn {
+#kopia .btn {
   color: var(--color-text);
   margin-right: 5px;
 }
 
-.btn-primary {
+#kopia .btn:hover,
+#kopia .btn:focus,
+#kopia .btn:active,
+#kopia .btn:disabled {
+  color: var(--color-text);
+  filter: brightness(80%);
+}
+
+#kopia .btn-primary {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.btn-secondary {
+#kopia .btn-secondary {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
 }
 
-.btn-submit {
+#kopia .btn-submit {
   background-color: var(--color-submit);
   border-color: var(--color-submit);
 }
 
-.btn-success {
+#kopia .btn-success {
   background-color: var(--color-success);
   border-color: var(--color-success);
 }
 
-.btn-warning {
+#kopia .btn-warning {
   background-color: var(--color-warning);
   border-color: var(--color-warning);
 }
 
-.btn-danger {
+#kopia .btn-danger {
   background-color: var(--color-danger);
   border-color: var(--color-danger);
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary:disabled {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-text);
-  filter: brightness(80%);
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active,
-.btn-secondary:disabled {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: var(--color-text);
-  filter: brightness(80%);
-}
-
-.btn-warning:hover,
-.btn-warning:focus,
-.btn-warning:active,
-.btn-warning:disabled {
-  background-color: var(--color-warning);
-  border-color: var(--color-warning);
-  color: var(--color-text);
-  filter: brightness(80%);
-}
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success:disabled {
-  background-color: var(--color-success);
-  border-color: var(--color-success);
-  color: var(--color-text);
-  filter: brightness(80%);
-}
-
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-danger:active,
-.btn-danger:disabled {
-  background-color: var(--color-danger);
-  border-color: var(--color-danger);
-  color: var(--color-text);
-  filter: brightness(80%);
-}
-
-.btn-submit:hover,
-.btn-submit:focus,
-.btn-submit:active,
-.btn-submit:disabled {
-  background-color: var(--color-submit);
-  border-color: var(--color-submit);
-  color: var(--color-text);
-  filter: brightness(80%);
-}
-
-.breadcrumb {
-  color: var(--color-text-body);
-}
-
-a,
-.breadcrumb-item,
-.breadcrumb-item.active {
+#kopia a,
+#kopia .breadcrumb-item,
+#kopia .breadcrumb-item.active {
   color: var(--color-link);
 }
 
-a:hover,
-a:active {
+#kopia a:hover,
+#kopia a:active {
   color: var(--color-link);
   filter: brightness(80%);
 }
 
-.table,
-.table-hover>tbody>tr:hover>* {
+#kopia .table,
+#kopia .table-hover>tbody>tr:hover>* {
   color: var(--color-text-body);
 }
 
-.table-striped>tbody>tr:nth-of-type(odd)>* {
+#kopia .table-striped>tbody>tr:nth-of-type(odd)>* {
   color: var(--color-text-body);
   background-color: var(--color-select);
 }
 
-.table-striped>tbody>tr:nth-of-type(even)>* {
+#kopia .table-striped>tbody>tr:nth-of-type(even)>* {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
 
-.navbar-light .navbar-nav .nav-link,
-.navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-nav .show>.nav-link {
+#kopia nav.navbar {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+#kopia .navbar-light .navbar-nav .nav-link,
+#kopia .navbar-light .navbar-nav .nav-link.active,
+#kopia .navbar-light .navbar-nav .show>.nav-link {
   color: var(--color-text-nav);
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
+#kopia .navbar-light .navbar-nav .nav-link:hover {
   color: var(--color-text-nav);
   filter: brightness(80%);
 }
 
-.form-control,
-.form-control[readonly],
-.form-control:active,
-.form-control:hover,
-.form-control:disabled {
+#kopia .form-control {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
 
-.form-select,
-.form-select:active,
-.form-select:hover,
-.form-select:disabled {
+#kopia .form-select {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
 
-.form-control-sm,
-.form-control-sm:active,
-.form-control-sm:hover,
-.form-control-sm:disabled {
+#kopia .form-control-sm {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
 
-.form-select:focus,
-.form-control:focus,
-.form-control-sm:focus,
-.form-check-input:focus,
-.accordion-button:focus {
+#kopia .form-select:focus,
+#kopia .form-control:focus,
+#kopia .form-control-sm:focus,
+#kopia .form-check-input:focus,
+#kopia .accordion-button:focus {
   color: var(--color-text-body);
   background-color: var(--background-color);
   box-shadow: 0 0 0 0.10rem var(--color-primary);
 }
 
-.form-check-input,
-.form-check-input:active,
-.form-check-input:disabled {
+#kopia .form-check-input {
   color: var(--color-text-body);
 }
 
-.accordion-body,
-.accordion-button:not(.collapsed) {
+#kopia .form-text {
+  color: var(--color-text-form-help)
+}
+
+#kopia .accordion-body,
+#kopia .accordion-button:not(.collapsed) {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
 
-.accordion-button {
+#kopia .accordion-button {
   padding: 10px;
   font-weight: bold;
   color: var(--color-text-body);
   background-color: var(--background-color)
 }
 
-.accordion-button:link,
-.accordion-button:visited,
-.accordion-button:hover,
-.accordion-button:active,
-.accordion-button:focus-within,
-.accordion-button:focus-visible {
+#kopia .accordion-button.collapsed {
+  font-weight: bold;
+  padding: 10px;
+}
+
+#kopia .accordion-button:active,
+#kopia .accordion-button:visited,
+#kopia .accordion-button:hover,
+#kopia .accordion-button:focus {
   color: var(--color-text-body);
   background-color: var(--color-select);
   filter: brightness(95%)
 }
 
-.accordion-item {
+#kopia .accordion-item {
   border: 1px solid rgba(0,0,0,.125);
-}
-
-.accordion-button.collapsed {
-  font-weight: bold;
-  padding: 10px;
 }
 
 .popover {
@@ -339,15 +278,15 @@ div.tab-body {
   width: 400px;
 }
 
-.version-info {
+#kopia .version-info {
   padding-left: 10px;
   color: #aaa;
   font-size: 80%;
 }
 
-.modal-footer,
-.modal-header,
-.modal-body {
+#kopia .modal-footer,
+#kopia .modal-header,
+#kopia .modal-body {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
@@ -396,41 +335,41 @@ div.tab-body {
   margin: 2px;
 }
 
-.badge {
-  margin-block-start: 5px;
-}
-
-.badge.bg-policy-badge {
+#kopia .badge.bg-policy-badge {
   margin-right: 5px;
   background-color: var(--color-primary);
   color: var(--color-text);
 }
 
-.badge.bg-retention-badge-warning {
+#kopia .badge {
+  margin-block-start: 5px;
+}
+
+#kopia .badge.bg-retention-badge-warning {
   background-color: var(--color-badge-warning);
 }
 
-.badge.bg-retention-badge-danger {
+#kopia .badge.bg-retention-badge-danger {
   background-color: var(--color-badge-danger);
 }
 
-.badge.bg-retention-badge-info {
+#kopia .badge.bg-retention-badge-info {
   background-color: var(--color-badge-info);
 }
 
-.badge.bg-retention-badge-primary {
+#kopia .badge.bg-retention-badge-primary {
   background-color: var(--color-badge-primary);
 }
 
-.badge.bg-retention-badge-secondary {
+#kopia .badge.bg-retention-badge-secondary{
   background-color: var(--color-badge-secondary);
 }
 
-.badge.bg-retention-badge-success {
+#kopia .badge.bg-retention-badge-success {
   background-color: var(--color-badge-success);
 }
 
-.badge.bg-snapshot-pin {
+#kopia .badge.bg-snapshot-pin {
   background-color: var(--color-primary);
   color: var(--color-text);
 }
@@ -460,18 +399,12 @@ div.tab-body {
   font-family: monospace;
 }
 
-nav.navbar {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
-}
-
 .vpadded {
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
-.multiselect {
+#kopia .multiselect {
   width: 20px;
   padding-left: 35px;
   padding-top: 0x;
@@ -480,22 +413,22 @@ nav.navbar {
   margin-bottom: 0px;
 }
 
-.select-theme {
+#kopia .select-theme {
   font-size: 90%;
 }
 
-.snapshot-hash {
+#kopia .snapshot-hash {
   font-family: 'Courier New', Courier, monospace;
   font-size: 80%;
   font-weight: bold;
 }
 
-.snapshot-description {
+#kopia .snapshot-description {
   font-size: 80%;
   color: var(--color-text-body);
 }
 
-.snapshot-description-set {
+#kopia .snapshot-description-set {
   color: var(--color-badge-warning);
 }
 
