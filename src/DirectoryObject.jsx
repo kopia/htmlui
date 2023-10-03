@@ -98,7 +98,7 @@ export class DirectoryObject extends Component {
     }
 
     copyPath() {
-        const el = document.querySelector("#mountedPath");
+        const el = document.querySelector(".mounted-path");
         if (!el) {
             return
         }
@@ -125,24 +125,21 @@ export class DirectoryObject extends Component {
                     {this.state.mountInfo.path ? <>
                         <Button size="sm" variant="secondary" onClick={this.unmount}>Unmount</Button>
                         {window.kopiaUI && <>
-                            &nbsp;
                             <Button size="sm" variant="secondary" onClick={this.browseMounted}>Browse</Button>
                         </>}
-                        &nbsp;<input id="mountedPath" value={this.state.mountInfo.path} />
-                        <Button size="sm" variant="primary" onClick={this.copyPath}><FontAwesomeIcon
-                            icon={faCopy} /></Button>
+                        <input readOnly={true} className='form-control form-control-sm mounted-path' value={this.state.mountInfo.path} />
+                        <Button size="sm" variant="success" onClick={this.copyPath}><FontAwesomeIcon icon={faCopy} /></Button>
                     </> : <>
-                        <Button size="sm" variant="primary" onClick={this.mount}>Mount as Local Filesystem</Button>
+                        <Button size="sm" variant="secondary" onClick={this.mount}>Mount as Local Filesystem</Button>
                     </>}
                     &nbsp;
-                    <Button size="sm" variant="secondary"
-                            href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
+                    <Button size="sm" variant="primary"
+                        href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
                         Files & Directories</Button>
                     &nbsp;
                 </Col>
                 <Col xs={12} md={6}>
-                    You can mount/restore all the files & directories that you see below or restore files
-                    individually.
+                    You can mount/restore all the files & directories that you see below or restore files individually.
                 </Col>
             </Row>
             <Row><Col>&nbsp;</Col>

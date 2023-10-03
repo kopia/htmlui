@@ -457,7 +457,7 @@ export class SnapshotsTable extends Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button size="sm" variant="danger" onClick={this.deleteSelectedSnapshots}>Delete</Button>
+                    <Button size="sm" variant="primary" onClick={this.deleteSelectedSnapshots}>Delete</Button>
                     <Button size="sm" variant="warning" onClick={this.cancelDelete}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
@@ -479,8 +479,8 @@ export class SnapshotsTable extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="success" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>Update Description</Button>
-                    {this.state.originalSnapshotDescription && <Button size="sm" variant="danger" onClick={this.removeSnapshotDescription}>Remove Description</Button>}
+                    <Button size="sm" variant="primary" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>Update Description</Button>
+                    {this.state.originalSnapshotDescription && <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>Remove Description</Button>}
                     <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
@@ -502,8 +502,8 @@ export class SnapshotsTable extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="success" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? "Update Pin" : "Add Pin"}</Button>
-                    {this.state.originalPinName && <Button size="sm" variant="danger" onClick={() => this.removePin(this.state.originalPinName)}>Remove Pin</Button>}
+                    <Button size="sm" variant="primary" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? "Update Pin" : "Add Pin"}</Button>
+                    {this.state.originalPinName && <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>Remove Pin</Button>}
                     <Button size="sm" variant="warning" onClick={this.cancelPin}>Cancel</Button>
                 </Modal.Footer>
             </Modal>

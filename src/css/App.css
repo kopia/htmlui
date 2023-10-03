@@ -280,7 +280,7 @@ div.tab-body {
 
 #kopia .version-info {
   padding-left: 10px;
-  color: #aaa;
+  color: var(--color-text-body);
   font-size: 80%;
 }
 
@@ -291,13 +291,11 @@ div.tab-body {
   background-color: var(--background-color);
 }
 
-#mountedPath {
-  color: #444;
+#kopia .mounted-path {
   width: 30em;
-  background-color: #ccc;
-  font-size: 12pt;
-  padding: 4px;
-  border: 1px solid #aaa;
+  display: inline;
+  color: var(--color-text-body);
+  background-color: var(--background-color);
 }
 
 .logs-table {
@@ -432,8 +430,3 @@ div.tab-body {
   color: var(--color-badge-warning);
 }
 
-.log-parameter {
-  color: #000080;
-  font-weight: bold;
-  padding-right: 10px;
-}
