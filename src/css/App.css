@@ -66,6 +66,7 @@ body {
 #kopia .breadcrumb-item,
 #kopia .breadcrumb-item.active {
   color: var(--color-link);
+  --bs-breadcrumb-divider-color: var(--color-link);
 }
 
 #kopia a:hover,
@@ -77,6 +78,8 @@ body {
 #kopia .table,
 #kopia .table-hover>tbody>tr:hover>* {
   color: var(--color-text-body);
+  --bs-table-bg: var(--background-color);
+  --bs-table-color: var(--color-text-body);
 }
 
 #kopia .table-striped>tbody>tr:nth-of-type(odd)>* {
