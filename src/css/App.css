@@ -8,171 +8,166 @@ body {
 }
 
 .container-fluid {
-  color: var(--text-color-body);
+  color: var(--color-text-body);
 }
 
-.select_theme {
-  font-size: 90%;
-}
-
-.options-select {
+#kopia .options-select {
   overflow: ellipsis
 }
 
-.btn {
-  color: var(--text-color);
+#kopia .btn-close {
+  background-color: var(--background-color);
+}
+
+#kopia .btn {
+  color: var(--color-text);
   margin-right: 5px;
 }
 
-.btn-primary {
+#kopia .btn:hover,
+#kopia .btn:focus,
+#kopia .btn:active,
+#kopia .btn:disabled {
+  color: var(--color-text);
+  filter: brightness(80%);
+}
+
+#kopia .btn-primary {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.btn-secondary {
+#kopia .btn-secondary {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
 }
 
-.btn-submit {
+#kopia .btn-submit {
   background-color: var(--color-submit);
   border-color: var(--color-submit);
 }
 
-.btn-success {
+#kopia .btn-success {
   background-color: var(--color-success);
   border-color: var(--color-success);
 }
 
-.btn-warning {
+#kopia .btn-warning {
   background-color: var(--color-warning);
   border-color: var(--color-warning);
 }
 
-.btn-danger {
+#kopia .btn-danger {
   background-color: var(--color-danger);
   border-color: var(--color-danger);
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--text-color);
-  filter: brightness(80%);
-}
-
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: var(--text-color);
-  filter: brightness(80%);
-}
-
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
-  background-color: var(--color-warning);
-  border-color: var(--color-warning);
-  color: var(--text-color);
-  filter: brightness(80%);
-}
-
-.btn-success:hover, .btn-success:focus, .btn-success:active {
-  background-color: var(--color-success);
-  border-color: var(--color-success);
-  color: var(--text-color);
-  filter: brightness(80%);
-}
-
-.btn-danger:hover, .btn-danger:focus, .btn-danger:active {
-  background-color: var(--color-danger);
-  border-color: var(--color-danger);
-  color: var(--text-color);
-  filter: brightness(80%);
-}
-
-.btn-submit:hover, .btn-submit:focus, .btn-submit:active {
-  background-color: var(--color-submit);
-  border-color: var(--color-submit);
-  color: var(--text-color);
-  filter: brightness(80%);
-}
-
-a {
+#kopia a,
+#kopia .breadcrumb-item,
+#kopia .breadcrumb-item.active {
   color: var(--color-link);
 }
 
-a:hover {
+#kopia a:hover,
+#kopia a:active {
   color: var(--color-link);
   filter: brightness(80%);
 }
 
-.table {
-  color: var(--text-color-body);
+#kopia .table,
+#kopia .table-hover>tbody>tr:hover>* {
+  color: var(--color-text-body);
 }
 
-.table-hover>tbody>tr:hover>* {
-  color: var(--text-color-body);
-}
-
-.table-striped>tbody>tr:nth-of-type(odd)>* {
-  color: var(--text-color-body);
-  background-color: var(--color-stripe);
-}
-
-.table-striped>tbody>tr:nth-of-type(even)>* {
-  color: var(--text-color-body);
-  background-color: var(--background-color);
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: var(--text-color-nav);
-}
-
-.nav-link:hover {
-  color: var(--text-color-nav) !important;
-  filter: brightness(80%);
-}
-
-.form-control, .form-control:focus, .form-control:active, .form-control:hover {
-  color: var(--text-color-body) !important;
-  background-color: var(--background-color) !important;
-}
-
-.form-select, .form-select:focus, .form-select:active, form-select:hover {
-  color: var(--text-color-body);
-  background-color: var(--background-color);
-}
-
-.form-control-sm, .form-control-sm:focus, .form-control-sm:active, .form-control-sm:hover {
-  color: var(--text-color-body);
-  background-color: var(--background-color);
-}
-
-.form-check-input, .form-check-input:focus, .form-check-input:active, .form-control-sm:hover {
-  color: var(--text-color-body);
-}
-
-.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
-  color: var(--text-color-nav);
-}
-
-.accordion-body {
-  color: var(--text-color-body) !important;
-  background-color: var(--background-color) !important;
-}
-
-.accordion-button  {
-  background-color: var(--background-color) !important;
-  color: var(--text-color-body) !important;
-}
-
-.accordion-button:not(.collapsed) {
-  color: var(--text-color-body);
-  background-color: var(--background-color);
-}
-
-.accordion-button:link, .accordion-button:visited, .accordion-button:hover, .accordion-button:active  {
+#kopia .table-striped>tbody>tr:nth-of-type(odd)>* {
+  color: var(--color-text-body);
   background-color: var(--color-select);
-  color: var(--text-color-body);
+}
+
+#kopia .table-striped>tbody>tr:nth-of-type(even)>* {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+}
+
+#kopia nav.navbar {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+#kopia .navbar-light .navbar-nav .nav-link,
+#kopia .navbar-light .navbar-nav .nav-link.active,
+#kopia .navbar-light .navbar-nav .show>.nav-link {
+  color: var(--color-text-nav);
+}
+
+#kopia .navbar-light .navbar-nav .nav-link:hover {
+  color: var(--color-text-nav);
+  filter: brightness(80%);
+}
+
+#kopia .form-control {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+}
+
+#kopia .form-select {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+}
+
+#kopia .form-control-sm {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+}
+
+#kopia .form-select:focus,
+#kopia .form-control:focus,
+#kopia .form-control-sm:focus,
+#kopia .form-check-input:focus,
+#kopia .accordion-button:focus {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+  box-shadow: 0 0 0 0.10rem var(--color-primary);
+}
+
+#kopia .form-check-input {
+  color: var(--color-text-body);
+}
+
+#kopia .form-text {
+  color: var(--color-text-form-help)
+}
+
+#kopia .accordion-body,
+#kopia .accordion-button:not(.collapsed) {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+}
+
+#kopia .accordion-button {
+  padding: 10px;
+  font-weight: bold;
+  color: var(--color-text-body);
+  background-color: var(--background-color)
+}
+
+#kopia .accordion-button.collapsed {
+  font-weight: bold;
+  padding: 10px;
+}
+
+#kopia .accordion-button:active,
+#kopia .accordion-button:visited,
+#kopia .accordion-button:hover,
+#kopia .accordion-button:focus {
+  color: var(--color-text-body);
+  background-color: var(--color-select);
+  filter: brightness(95%)
+}
+
+#kopia .accordion-item {
+  border: 1px solid rgba(0,0,0,.125);
 }
 
 .popover {
@@ -187,7 +182,7 @@ a:hover {
   height: 32px;
 }
 
-.active{
+.active {
   font-weight: bold;
 }
 
@@ -263,17 +258,6 @@ a:hover {
   display: none;
 }
 
-.accordion-button {
-  padding: 10px;
-  font-weight: bold;
-}
-
-.accordion-button.collapsed {
-  padding: 10px;
-  font-weight: bold;
-  background-color: #f8f8ff;
-}
-
 div.tab-body {
   padding: 10px;
   border-left: 1px solid #ccc;
@@ -294,19 +278,24 @@ div.tab-body {
   width: 400px;
 }
 
-.version-info {
+#kopia .version-info {
   padding-left: 10px;
-  color: #aaa;
+  color: var(--color-text-body);
   font-size: 80%;
 }
 
-#mountedPath {
-  color: #444;
+#kopia .modal-footer,
+#kopia .modal-header,
+#kopia .modal-body {
+  color: var(--color-text-body);
+  background-color: var(--background-color);
+}
+
+#kopia .mounted-path {
   width: 30em;
-  background-color: #ccc;
-  font-size: 12pt;
-  padding: 4px;
-  border: 1px solid #aaa;
+  display: inline;
+  color: var(--color-text-body);
+  background-color: var(--background-color);
 }
 
 .logs-table {
@@ -317,21 +306,70 @@ div.tab-body {
   border: 1px solid #aaa;
 }
 
-.loglevel-0 { color: var(--text-color-body)} /* debug */
-.loglevel-1 { font-weight: bold;} /* info */
-.loglevel-2 { color: var(--color-warning); font-weight: bold;} /* warning */
-.loglevel-3 { color: var(--color-error); font-weight: bold; } /* error */
+.loglevel-0 {
+  color: var(--color-text-body)
+}
 
+/* debug */
+.loglevel-1 {
+  font-weight: bold;
+}
+
+/* info */
+.loglevel-2 {
+  color: var(--color-warning);
+  font-weight: bold;
+}
+
+/* warning */
+.loglevel-3 {
+  color: var(--color-error);
+  font-weight: bold;
+}
+
+/* error */
 .counter-badge {
   font-size: 90%;
   margin: 2px;
 }
 
-.policy-badge {
-  margin-block-start: 5px;
+#kopia .badge.bg-policy-badge {
   margin-right: 5px;
-  background-color: var(--color-primary) !important;
-  color: var(--text-color) !important;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+#kopia .badge {
+  margin-block-start: 5px;
+}
+
+#kopia .badge.bg-retention-badge-warning {
+  background-color: var(--color-badge-warning);
+}
+
+#kopia .badge.bg-retention-badge-danger {
+  background-color: var(--color-badge-danger);
+}
+
+#kopia .badge.bg-retention-badge-info {
+  background-color: var(--color-badge-info);
+}
+
+#kopia .badge.bg-retention-badge-primary {
+  background-color: var(--color-badge-primary);
+}
+
+#kopia .badge.bg-retention-badge-secondary{
+  background-color: var(--color-badge-secondary);
+}
+
+#kopia .badge.bg-retention-badge-success {
+  background-color: var(--color-badge-success);
+}
+
+#kopia .badge.bg-snapshot-pin {
+  background-color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .page-title {
@@ -359,18 +397,12 @@ div.tab-body {
   font-family: monospace;
 }
 
-nav.navbar {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
-}
-
 .vpadded {
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
-.multiselect {
+#kopia .multiselect {
   width: 20px;
   padding-left: 35px;
   padding-top: 0x;
@@ -379,18 +411,22 @@ nav.navbar {
   margin-bottom: 0px;
 }
 
-.hash-value {
+#kopia .select-theme {
+  font-size: 90%;
+}
+
+#kopia .snapshot-hash {
   font-family: 'Courier New', Courier, monospace;
   font-size: 80%;
   font-weight: bold;
 }
 
-.snapshot-description {
+#kopia .snapshot-description {
   font-size: 80%;
+  color: var(--color-text-body);
 }
 
-.log-parameter {
-  color: #000080;
-  font-weight: bold;
-  padding-right: 10px;
+#kopia .snapshot-description-set {
+  color: var(--color-badge-warning);
 }
+

@@ -249,8 +249,8 @@ export class SnapshotsTable extends Component {
                 originalSnapshotDescription: x.description,
             })
         }}
-                  title={x.description + " - Click to update snapshot description."}
-                  className={x.description ? "text-warning" : "text-muted"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
+            title={x.description + " - Click to update snapshot description."}
+            className={x.description ? "snapshot-description-set" : "snapshot-description"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
     }
 
     newPinFor(x) {
@@ -353,16 +353,16 @@ export class SnapshotsTable extends Component {
             Header: 'Root',
             width: "",
             accessor: x => x.rootID,
-            Cell: x => <><span className="hash-value">{x.cell.value}</span>
-            {x.row.original.description && <div className='text-muted'><small>{x.row.original.description}</small></div>}</>,
+            Cell: x => <><span className="snapshot-hash">{x.cell.value}</span>
+                {x.row.original.description && <div className='snapshot-description'><small>{x.row.original.description}</small></div>}</>,
         }, {
             Header: 'Retention',
             accessor: 'retention',
             width: "",
             Cell: x => <span>
-                {x.cell.value.map(l => <React.Fragment key={l}><Badge bg={pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
+                {x.cell.value.map(l => <React.Fragment key={l}><Badge bg={"retention-badge-"+pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
                 {x.row.original.pins.map(l => <React.Fragment key={l}>
-                    <Badge bg="dark" text="warning" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
+                    <Badge bg="snapshot-pin" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
                 </React.Fragment>)}
                 {this.newPinFor(x.row.original)}
             </span>
@@ -457,7 +457,7 @@ export class SnapshotsTable extends Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button size="sm" variant="danger" onClick={this.deleteSelectedSnapshots}>Delete</Button>
+                    <Button size="sm" variant="primary" onClick={this.deleteSelectedSnapshots}>Delete</Button>
                     <Button size="sm" variant="warning" onClick={this.cancelDelete}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
@@ -471,16 +471,16 @@ export class SnapshotsTable extends Component {
                     <Form.Group>
                         <Form.Label>Enter new description</Form.Label>
                         <Form.Control as="textarea"
-                                      size="sm"
-                                      value={this.state.updatedSnapshotDescription}
-                                      onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
+                            size="sm"
+                            value={this.state.updatedSnapshotDescription}
+                            onChange={e => this.setState({ updatedSnapshotDescription: e.target.value })} />
                     </Form.Group>
                 </Modal.Body>
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="success" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>Update Description</Button>
-                    {this.state.originalSnapshotDescription && <Button size="sm" variant="danger" onClick={this.removeSnapshotDescription}>Remove Description</Button>}
+                    <Button size="sm" variant="primary" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>Update Description</Button>
+                    {this.state.originalSnapshotDescription && <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>Remove Description</Button>}
                     <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
@@ -502,8 +502,8 @@ export class SnapshotsTable extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="success" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? "Update Pin" : "Add Pin"}</Button>
-                    {this.state.originalPinName && <Button size="sm" variant="danger" onClick={() => this.removePin(this.state.originalPinName)}>Remove Pin</Button>}
+                    <Button size="sm" variant="primary" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? "Update Pin" : "Add Pin"}</Button>
+                    {this.state.originalPinName && <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>Remove Pin</Button>}
                     <Button size="sm" variant="warning" onClick={this.cancelPin}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
