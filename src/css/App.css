@@ -433,3 +433,16 @@ div.tab-body {
   color: var(--color-badge-warning);
 }
 
+#kopia .pagination,
+#kopia .pagination-sm {
+  --bs-pagination-bg: var(--background-color);
+  --bs-pagination-disabled-bg: var(--background-color);
+  --bs-pagination-disabled-color: var(--color-text-body);
+  --bs-pagination-active-bg: var(--color-primary);
+  --bs-pagination-active-border-color: var(--color-primary);
+  --bs-pagination-active-color: var(--color-text-body);
+}
+
+#kopia li.page-item:disabled {
+  background-color: var(--background-color)
+}
