@@ -66,6 +66,7 @@ body {
 #kopia .breadcrumb-item,
 #kopia .breadcrumb-item.active {
   color: var(--color-link);
+  --bs-breadcrumb-divider-color: var(--color-link);
 }
 
 #kopia a:hover,
@@ -77,6 +78,8 @@ body {
 #kopia .table,
 #kopia .table-hover>tbody>tr:hover>* {
   color: var(--color-text-body);
+  --bs-table-bg: var(--background-color);
+  --bs-table-color: var(--color-text-body);
 }
 
 #kopia .table-striped>tbody>tr:nth-of-type(odd)>* {
@@ -430,3 +433,16 @@ div.tab-body {
   color: var(--color-badge-warning);
 }
 
+#kopia .pagination,
+#kopia .pagination-sm {
+  --bs-pagination-bg: var(--background-color);
+  --bs-pagination-disabled-bg: var(--background-color);
+  --bs-pagination-disabled-color: var(--color-text-body);
+  --bs-pagination-active-bg: var(--color-primary);
+  --bs-pagination-active-border-color: var(--color-primary);
+  --bs-pagination-active-color: var(--color-text-body);
+}
+
+#kopia li.page-item:disabled {
+  background-color: var(--background-color)
+}
