@@ -8,7 +8,7 @@ export class PreferencesView extends Component {
             <form>
                 <div className='form-group'>
                     <label className='label-description' id='themeLabel'>Theme</label>
-                    <select className="form-select form-select-sm" title='Select theme' value={theme} onChange={e => setTheme(e.target.value)}>
+                    <select className="form-select form-select-sm" title='Select theme' id='themeSelector' value={theme} onChange={e => setTheme(e.target.value)}>
                         <option value="light">light</option>
                         <option value="dark">dark</option>
                         <option value="pastel">pastel</option>
