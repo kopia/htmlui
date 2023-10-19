@@ -142,6 +142,10 @@ body {
   color: var(--color-text-form-help)
 }
 
+#kopia .form-control::placeholder {
+  color: var(--color-text-form-help);
+}
+
 #kopia .accordion-body,
 #kopia .accordion-button:not(.collapsed) {
   color: var(--color-text-body);
