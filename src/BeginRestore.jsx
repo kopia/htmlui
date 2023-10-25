@@ -17,6 +17,7 @@ export class BeginRestore extends Component {
 
         this.state = {
             incremental: true,
+            deleteExtra: false,
             continueOnErrors: false,
             restoreOwnership: true,
             restorePermissions: true,
@@ -50,6 +51,7 @@ export class BeginRestore extends Component {
             root: this.props.match.params.oid,
             options: {
                 incremental: this.state.incremental,
+                deleteExtra: this.state.deleteExtra,
                 ignoreErrors: this.state.continueOnErrors,
                 restoreDirEntryAtDepth: this.state.restoreDirEntryAtDepth,
                 minSizeForPlaceholder: this.state.minSizeForPlaceholder,
@@ -108,6 +110,9 @@ export class BeginRestore extends Component {
                 </Row>
                 <Row>
                     {RequiredBoolean(this, "Skip previously restored files and symlinks", "incremental")}
+                </Row>
+                <Row>
+                    {RequiredBoolean(this, "When restoring into an existing directory structure, delete additional files and directories not in the snapshot", "deleteExtra")}
                 </Row>
                 <Row>
                     {RequiredBoolean(this, "Continue on Errors", "continueOnErrors", "When a restore error occurs, attempt to continue instead of failing fast.")}
