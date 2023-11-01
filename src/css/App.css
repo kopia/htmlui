@@ -130,7 +130,6 @@ body {
 #kopia .form-check-input:focus,
 #kopia .accordion-button:focus {
   color: var(--color-text-body);
-  background-color: var(--background-color);
   box-shadow: 0 0 0 0.10rem var(--color-primary);
 }
 
@@ -138,12 +137,10 @@ body {
   color: var(--color-text-body);
 }
 
-#kopia .form-text {
-  color: var(--color-text-form-help)
-}
-
+#kopia .text-muted.form-text,
+#kopia .form-text,
 #kopia .form-control::placeholder {
-  color: var(--color-text-form-help);
+  color: var(--color-text-form-help) !important
 }
 
 #kopia .accordion-body,
@@ -234,8 +231,9 @@ body {
   vertical-align: middle;
 }
 
-.advancedOptions {
-  background-color: #f0f0f0;
+#kopia .advancedOptions {
+  background-color: var(--background-color);
+  color: var(--color-text-body);
   padding: 10px;
   border: 1px solid #ccc;
 }
