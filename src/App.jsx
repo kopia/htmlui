@@ -5,19 +5,24 @@ import axios from 'axios';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
-import { BeginRestore } from './BeginRestore';
-import { DirectoryObject } from "./DirectoryObject";
-import { PoliciesTable } from "./PoliciesTable";
-import { RepoStatus } from "./RepoStatus";
-import { SnapshotsTable } from "./SnapshotsTable";
-import { SourcesTable } from "./SourcesTable";
-import { TaskDetails } from './TaskDetails';
-import { TasksTable } from './TasksTable';
-import { NewSnapshot } from './NewSnapshot';
-import { PolicyEditorPage } from './PolicyEditorPage';
-import { PreferencesView } from './PreferencesView';
+
+import { SnapshotDirectory } from "./pages/SnapshotDirectory";
+
+import { Policy } from './pages/Policy';
+import { Preferences } from './pages/Preferences';
+import { Policies } from "./pages/Policies";
+import { Repository } from "./pages/Repository";
+import { Task } from './pages/Task';
+import { Tasks } from './pages/Tasks';
+import { Snapshots } from "./pages/Snapshots";
+
+import { SnapshotCreate } from './pages/SnapshotCreate';
+import { SnapshotHistory } from "./pages/SnapshotHistory";
+import { SnapshotRestore } from './pages/SnapshotRestore';
+
 import { AppContext } from './contexts/AppContext';
 import { UIPreferenceProvider } from './contexts/UIPreferencesContext';
+
 
 export default class App extends Component {
   constructor() {
@@ -123,17 +128,17 @@ export default class App extends Component {
               </NavLink>
 
               <Switch>
-                <Route path="/snapshots/new" component={NewSnapshot} />
-                <Route path="/snapshots/single-source/" component={SnapshotsTable} />
-                <Route path="/snapshots/dir/:oid/restore" component={BeginRestore} />
-                <Route path="/snapshots/dir/:oid" component={DirectoryObject} />
-                <Route path="/snapshots" component={SourcesTable} />
-                <Route path="/policies/edit/" component={PolicyEditorPage} />
-                <Route path="/policies" component={PoliciesTable} />
-                <Route path="/tasks/:tid" component={TaskDetails} />
-                <Route path="/tasks" component={TasksTable} />
-                <Route path="/repo" component={RepoStatus} />
-                <Route path="/preferences" component={PreferencesView} />
+                <Route path="/snapshots/new" component={SnapshotCreate} />
+                <Route path="/snapshots/single-source/" component={SnapshotHistory} />
+                <Route path="/snapshots/dir/:oid/restore" component={SnapshotRestore} />
+                <Route path="/snapshots/dir/:oid" component={SnapshotDirectory} />
+                <Route path="/snapshots" component={Snapshots} />
+                <Route path="/policies/edit/" component={Policy} />
+                <Route path="/policies" component={Policies} />
+                <Route path="/tasks/:tid" component={Task} />
+                <Route path="/tasks" component={Tasks} />
+                <Route path="/repo" component={Repository} />
+                <Route path="/preferences" component={Preferences} />
                 <Route exact path="/">
                   <Redirect to="/snapshots" />
                 </Route>
