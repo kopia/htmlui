@@ -6,10 +6,17 @@ import { setupAPIMock } from '../tests/api_mocks';
 import moment from 'moment';
 import { changeControlValue, simulateClick } from '../tests/testutils';
 
-it('e2e', async () => {
-    let ref = React.createRef();
-    let serverMock = setupAPIMock();
+// Mockup for the server
+let serverMock;
+let ref;
 
+// Initialize the server mock before each test
+beforeEach(() => {
+  serverMock = setupAPIMock();
+  ref = React.createRef();
+});
+
+it('e2e', async () => {
     const ust1 = "2021-01-01T12:00:00Z";
     const ust2 = "2021-01-01T13:00:00Z";
 
