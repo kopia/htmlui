@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { Logs } from '../components/Logs';
-import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from '../uiutil';
+import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 export class Task extends Component {

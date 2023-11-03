@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import Form from 'react-bootstrap/Form';
 import { Logs } from './Logs';
-import { cancelTask, redirect, sizeDisplayName } from '../uiutil';
+import { cancelTask, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 export class SnapshotEstimation extends Component {

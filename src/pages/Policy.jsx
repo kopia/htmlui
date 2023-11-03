@@ -1,8 +1,8 @@
 import React, { Component, createRef } from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
-import { PolicyEditor } from '../PolicyEditor';
-import { CLIEquivalent, GoBackButton, parseQuery, PolicyTypeName } from '../uiutil';
+import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
+import { CLIEquivalent, GoBackButton, parseQuery, PolicyTypeName } from '../utils/uiutil';
 
 export class Policy extends Component {
     constructor() {

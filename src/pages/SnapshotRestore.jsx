@@ -9,7 +9,7 @@ import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
 import { RequiredNumberField } from '../forms/RequiredNumberField';
-import { errorAlert, GoBackButton } from '../uiutil';
+import { errorAlert, GoBackButton } from '../utils/uiutil';
 
 export class SnapshotRestore extends Component {
     constructor(props) {

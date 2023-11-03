@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "../components/DirectoryItems";
-import { CLIEquivalent } from '../uiutil';
+import { CLIEquivalent } from '../utils/uiutil';
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 
 export class SnapshotDirectory extends Component {

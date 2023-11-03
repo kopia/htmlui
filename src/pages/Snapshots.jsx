@@ -11,8 +11,8 @@ import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
-import MyTable from '../Table';
-import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirect, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from '../uiutil';
+import KopiaTable from '../utils/KopiaTable';
+import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirect, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 const localSnapshots = "Local Snapshots"
@@ -323,7 +323,7 @@ export class Snapshots extends Component {
                 </Row>
             </div>
 
-            <MyTable data={sources} columns={columns} />
+            <KopiaTable data={sources} columns={columns} />
             <CLIEquivalent command={`snapshot list`} />
         </>;
     }

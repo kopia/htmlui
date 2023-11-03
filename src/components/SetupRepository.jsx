@@ -22,7 +22,7 @@ import { SetupRepositoryS3 } from './SetupRepositoryS3';
 import { SetupRepositorySFTP } from './SetupRepositorySFTP';
 import { SetupRepositoryToken } from './SetupRepositoryToken';
 import { SetupRepositoryWebDAV } from './SetupRepositoryWebDAV';
-import { toAlgorithmOption } from '../uiutil';
+import { toAlgorithmOption } from '../utils/uiutil';
 
 const supportedProviders = [
     { provider: "filesystem", description: "Local Directory or NAS", component: SetupRepositoryFilesystem },

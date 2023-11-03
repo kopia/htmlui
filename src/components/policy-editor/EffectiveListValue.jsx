@@ -1,9 +1,9 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { getDeepStateProperty } from '../deepstate';
+import { getDeepStateProperty } from '../../utils/deepstate';
 import { EffectiveValueColumn } from "./EffectiveValueColumn";
 
-export function EffectiveTextAreaValue(component, policyField) {
+export function EffectiveListValue(component, policyField) {
     const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
 
     return <EffectiveValueColumn>

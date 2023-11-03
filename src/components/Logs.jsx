@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from '../forms';
-import { redirect } from '../uiutil';
+import { redirect } from '../utils/uiutil';
 
 export class Logs extends Component {
     constructor() {
