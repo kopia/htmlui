@@ -37,6 +37,11 @@ body {
   border-color: var(--color-primary);
 }
 
+#kopia .btn-light {
+  background-color: var(--color-light);
+  border-color: var(--color-light);
+}
+
 #kopia .btn-secondary {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
