@@ -10,8 +10,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
-import MyTable from '../Table';
-import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../uiutil';
+import KopiaTable from '../utils/KopiaTable';
+import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -288,7 +288,7 @@ export class Policies extends Component {
 
             {policies.length > 0 ? <div>
                 <p>Found {policies.length} policies matching criteria.</p>
-                <MyTable data={policies} columns={columns} />
+                <KopiaTable data={policies} columns={columns} />
             </div> : ((this.state.selectedOwner === localPolicies && this.state.policyPath) ? <p>
                 No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
             </p> : <p>No policies found.</p>)}

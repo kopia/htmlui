@@ -1,4 +1,4 @@
-import { getDeepStateProperty, setDeepStateProperty } from '../deepstate.js';
+import { getDeepStateProperty, setDeepStateProperty } from '../utils/deepstate';
 
 export function validateRequiredFields(component, fields) {
     let updateState = {};

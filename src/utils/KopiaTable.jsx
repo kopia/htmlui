@@ -3,7 +3,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
 import { usePagination, useSortBy, useTable } from 'react-table';
-import { PAGE_SIZES, UIPreferencesContext } from './contexts/UIPreferencesContext';
+import { PAGE_SIZES, UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 function paginationItems(count, active, gotoPage) {
   let items = [];
@@ -46,7 +46,7 @@ function paginationItems(count, active, gotoPage) {
   return items;
 }
 
-export default function MyTable({ columns, data }) {
+export default function KopiaTable({ columns, data }) {
   const { pageSize, setPageSize } = useContext(UIPreferencesContext);
 
   const {

@@ -5,9 +5,6 @@ import axios from 'axios';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
-
-import { SnapshotDirectory } from "./pages/SnapshotDirectory";
-
 import { Policy } from './pages/Policy';
 import { Preferences } from './pages/Preferences';
 import { Policies } from "./pages/Policies";
@@ -15,14 +12,12 @@ import { Repository } from "./pages/Repository";
 import { Task } from './pages/Task';
 import { Tasks } from './pages/Tasks';
 import { Snapshots } from "./pages/Snapshots";
-
 import { SnapshotCreate } from './pages/SnapshotCreate';
+import { SnapshotDirectory } from "./pages/SnapshotDirectory";
 import { SnapshotHistory } from "./pages/SnapshotHistory";
 import { SnapshotRestore } from './pages/SnapshotRestore';
-
 import { AppContext } from './contexts/AppContext';
 import { UIPreferenceProvider } from './contexts/UIPreferencesContext';
-
 
 export default class App extends Component {
   constructor() {

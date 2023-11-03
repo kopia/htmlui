@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { stateProperty } from '../forms';
+import { stateProperty } from '../../forms';
 import { LabelColumn } from './LabelColumn';
 import { WideValueColumn } from './WideValueColumn';
 import { EffectiveValue } from './EffectiveValue';

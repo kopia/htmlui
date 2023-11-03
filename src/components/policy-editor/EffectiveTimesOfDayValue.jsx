@@ -1,8 +1,8 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { getDeepStateProperty } from '../deepstate';
+import { getDeepStateProperty } from '../../utils/deepstate';
 import { EffectiveValueColumn } from "./EffectiveValueColumn";
-import { TimesOfDayList } from '../forms/TimesOfDayList';
+import { TimesOfDayList } from '../../forms/TimesOfDayList';
 
 export function EffectiveTimesOfDayValue(component, policyField) {
     return <EffectiveValueColumn>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import MyTable from '../Table';
-import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from '../uiutil';
+import KopiaTable from '../utils/KopiaTable';
+import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 function objectName(name, typeID) {
@@ -64,7 +64,7 @@ export class DirectoryItems extends Component {
             width: 100,
         }]
 
-        return <MyTable data={this.props.items} columns={columns} />;
+        return <KopiaTable data={this.props.items} columns={columns} />;
     }
 }
 DirectoryItems.contextType = UIPreferencesContext

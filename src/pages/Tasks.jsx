@@ -11,8 +11,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
-import MyTable from '../Table';
-import { redirect, taskStatusSymbol } from '../uiutil';
+import KopiaTable from '../utils/KopiaTable';
+import { redirect, taskStatusSymbol } from '../utils/uiutil';
 
 export class Tasks extends Component {
     constructor() {
@@ -160,7 +160,7 @@ export class Tasks extends Component {
                         {!items.length ?
                             <Alert variant="info">
                                 <FontAwesomeIcon size="sm" icon={faInfoCircle} /> A list of tasks will appear here when you create snapshots, restore, run maintenance, etc.
-                            </Alert> : <MyTable data={filteredItems} columns={columns} />}
+                            </Alert> : <KopiaTable data={filteredItems} columns={columns} />}
                     </Col>
                 </Row>
             </Form>

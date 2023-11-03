@@ -7,8 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from "react-router-dom";
-import MyTable from '../Table';
-import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirect, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from '../uiutil';
+import KopiaTable from '../utils/KopiaTable';
+import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirect, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from '../utils/uiutil';
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
@@ -429,7 +429,7 @@ export class SnapshotHistory extends Component {
             </Row>}
             <Row>
                 <Col xs={12}>
-                    <MyTable data={snapshots} columns={columns} />
+                    <KopiaTable data={snapshots} columns={columns} />
                 </Col>
             </Row>
 

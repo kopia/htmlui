@@ -5,9 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { handleChange } from '../forms';
-import { PolicyEditor } from '../PolicyEditor';
+import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
-import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirect } from '../uiutil';
+import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
 
 export class SnapshotCreate extends Component {
     constructor() {
