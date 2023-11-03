@@ -1,6 +1,6 @@
 import { render, waitFor, logDOM } from '@testing-library/react';
 import React from 'react';
-import { PolicyEditor } from '../components/policy-editor/PolicyEditor/PolicyEditor';
+import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { MemoryRouter } from 'react-router-dom';
 import { setupAPIMock } from '../tests/api_mocks';
 import moment from 'moment';
