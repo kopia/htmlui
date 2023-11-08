@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the app Should render the app 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <nav
+        class="navbar navbar-expand-sm navbar-light"
+      >
+        <a
+          class="navbar-brand"
+          href="/"
+        >
+          <img
+            alt="logo"
+            class="App-logo"
+            src="/kopia-flat.svg"
+          />
+        </a>
+        <button
+          aria-controls="basic-navbar-nav"
+          aria-label="Toggle navigation"
+          class="navbar-toggler collapsed"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-icon"
+          />
+        </button>
+        <div
+          class="navbar-collapse collapse"
+          id="basic-navbar-nav"
+        >
+          <div
+            class="me-auto navbar-nav"
+          >
+            <a
+              aria-current="page"
+              class="nav-link active"
+              data-testid="tab-snapshots"
+              href="/snapshots"
+            >
+              Snapshots
+            </a>
+            <a
+              class="nav-link"
+              data-testid="tab-policies"
+              href="/policies"
+            >
+              Policies
+            </a>
+            <a
+              class="nav-link"
+              data-testid="tab-tasks"
+              href="/tasks"
+            >
+              Tasks 
+            </a>
+            <a
+              class="nav-link"
+              data-testid="tab-repo"
+              href="/repo"
+            >
+              Repository
+            </a>
+            <a
+              class="nav-link"
+              data-testid="tab-preferences"
+              href="/preferences"
+            >
+              Preferences
+            </a>
+          </div>
+        </div>
+      </nav>
+      <div
+        class="container-fluid"
+      >
+        <a
+          href="/repo"
+          style="text-decoration: inherit;"
+        >
+          <h5
+            class="mb-4"
+          />
+        </a>
+        <div
+          class="spinner-border text-primary"
+        />
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <nav
+      class="navbar navbar-expand-sm navbar-light"
+    >
+      <a
+        class="navbar-brand"
+        href="/"
+      >
+        <img
+          alt="logo"
+          class="App-logo"
+          src="/kopia-flat.svg"
+        />
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler collapsed"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <div
+          class="me-auto navbar-nav"
+        >
+          <a
+            aria-current="page"
+            class="nav-link active"
+            data-testid="tab-snapshots"
+            href="/snapshots"
+          >
+            Snapshots
+          </a>
+          <a
+            class="nav-link"
+            data-testid="tab-policies"
+            href="/policies"
+          >
+            Policies
+          </a>
+          <a
+            class="nav-link"
+            data-testid="tab-tasks"
+            href="/tasks"
+          >
+            Tasks 
+          </a>
+          <a
+            class="nav-link"
+            data-testid="tab-repo"
+            href="/repo"
+          >
+            Repository
+          </a>
+          <a
+            class="nav-link"
+            data-testid="tab-preferences"
+            href="/preferences"
+          >
+            Preferences
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="container-fluid"
+    >
+      <a
+        href="/repo"
+        style="text-decoration: inherit;"
+      >
+        <h5
+          class="mb-4"
+        />
+      </a>
+      <div
+        class="spinner-border text-primary"
+      />
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

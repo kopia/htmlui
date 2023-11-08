@@ -1,13 +1,16 @@
 import { Component } from 'react';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
+/**
+ * Class that exports preferences
+ */
 export class Preferences extends Component {
     render() {
         const { pageSize, theme, bytesStringBase2, setByteStringBase, setTheme } = this.context;
         return <>
             <form>
                 <div className='form-group'>
-                    <label className='label-description' id='themeLabel'>Theme</label>
+                    <label className='label-description' htmlFor='themeSelector' id='themeLabel'>Theme</label>
                     <select className="form-select form-select-sm" title='Select theme' id='themeSelector' value={theme} onChange={e => setTheme(e.target.value)}>
                         <option value="light">light</option>
                         <option value="dark">dark</option>
@@ -18,7 +21,7 @@ export class Preferences extends Component {
                 </div>
                 <br />
                 <div className='form-group'>
-                    <label className='label-description'>Byte representation</label>
+                    <label className='label-description' htmlFor="bytesBaseInput">Byte representation</label>
                     <select className="form-select form-select-sm" title='Select byte representation' id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
                         <option value="true">Base-2 (KiB, MiB, GiB, TiB)</option>
                         <option value="false">Base-10 (KB, MB, GB, TB)</option>
