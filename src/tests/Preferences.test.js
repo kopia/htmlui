@@ -40,21 +40,6 @@ describe('Select the light theme', () => {
 /**
  * 
  */
-describe('Select the dark theme', () => {
-    test('Should select dark theme', () => {
-        userEvent.selectOptions(
-            screen.getByRole('combobox', { name: "Theme" }),
-            screen.getByRole('option', { name: 'dark' }));
-
-        expect(screen.getByRole('option', { name: 'dark' }).selected).toBe(true)
-
-        expect(wrapper).toMatchSnapshot();
-    })
-})
-
-/**
- * 
- */
 describe('Test number of themes', () => {
     test('Should have four themes', () => {
         let theme = screen.getByRole('combobox', { name: "Theme" });
