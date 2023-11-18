@@ -1,0 +1,1093 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Calling the preference page Should render preferences 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <form>
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="themeSelector"
+            id="themeLabel"
+          >
+            Theme
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="themeSelector"
+            title="Select theme"
+          >
+            <option
+              value="light"
+            >
+              light
+            </option>
+            <option
+              value="dark"
+            >
+              dark
+            </option>
+            <option
+              value="pastel"
+            >
+              pastel
+            </option>
+            <option
+              value="ocean"
+            >
+              ocean
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="themeLabel"
+            id="themeHelp"
+          >
+            The current active theme
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="bytesBaseInput"
+          >
+            Byte representation
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="bytesBaseInput"
+            title="Select byte representation"
+          >
+            <option
+              value="true"
+            >
+              Base-2 (KiB, MiB, GiB, TiB)
+            </option>
+            <option
+              value="false"
+            >
+              Base-10 (KB, MB, GB, TB)
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="bytesBaseInput"
+            id="bytesHelp"
+          >
+            Specifies the representation of bytes
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
+            Page size
+          </label>
+          <input
+            class="form-control form-control-sm"
+            disabled=""
+            id="pageSizeInput"
+            placeholder="Page size"
+            type="text"
+            value=""
+          />
+          <small
+            class="form-text text-muted"
+            hmtlfor="pageSizeInput"
+            id="pageSizeHelp"
+          >
+            Specifies the pagination size in tables
+          </small>
+        </div>
+      </form>
+    </div>
+  </body>,
+  "container": <div>
+    <form>
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="themeSelector"
+          id="themeLabel"
+        >
+          Theme
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="themeSelector"
+          title="Select theme"
+        >
+          <option
+            value="light"
+          >
+            light
+          </option>
+          <option
+            value="dark"
+          >
+            dark
+          </option>
+          <option
+            value="pastel"
+          >
+            pastel
+          </option>
+          <option
+            value="ocean"
+          >
+            ocean
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="themeLabel"
+          id="themeHelp"
+        >
+          The current active theme
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="bytesBaseInput"
+        >
+          Byte representation
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="bytesBaseInput"
+          title="Select byte representation"
+        >
+          <option
+            value="true"
+          >
+            Base-2 (KiB, MiB, GiB, TiB)
+          </option>
+          <option
+            value="false"
+          >
+            Base-10 (KB, MB, GB, TB)
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="bytesBaseInput"
+          id="bytesHelp"
+        >
+          Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Page size
+        </label>
+        <input
+          class="form-control form-control-sm"
+          disabled=""
+          id="pageSizeInput"
+          placeholder="Page size"
+          type="text"
+          value=""
+        />
+        <small
+          class="form-text text-muted"
+          hmtlfor="pageSizeInput"
+          id="pageSizeHelp"
+        >
+          Specifies the pagination size in tables
+        </small>
+      </div>
+    </form>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Select the light theme Should select light theme 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <form>
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="themeSelector"
+            id="themeLabel"
+          >
+            Theme
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="themeSelector"
+            title="Select theme"
+          >
+            <option
+              value="light"
+            >
+              light
+            </option>
+            <option
+              value="dark"
+            >
+              dark
+            </option>
+            <option
+              value="pastel"
+            >
+              pastel
+            </option>
+            <option
+              value="ocean"
+            >
+              ocean
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="themeLabel"
+            id="themeHelp"
+          >
+            The current active theme
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="bytesBaseInput"
+          >
+            Byte representation
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="bytesBaseInput"
+            title="Select byte representation"
+          >
+            <option
+              value="true"
+            >
+              Base-2 (KiB, MiB, GiB, TiB)
+            </option>
+            <option
+              value="false"
+            >
+              Base-10 (KB, MB, GB, TB)
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="bytesBaseInput"
+            id="bytesHelp"
+          >
+            Specifies the representation of bytes
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
+            Page size
+          </label>
+          <input
+            class="form-control form-control-sm"
+            disabled=""
+            id="pageSizeInput"
+            placeholder="Page size"
+            type="text"
+            value=""
+          />
+          <small
+            class="form-text text-muted"
+            hmtlfor="pageSizeInput"
+            id="pageSizeHelp"
+          >
+            Specifies the pagination size in tables
+          </small>
+        </div>
+      </form>
+    </div>
+  </body>,
+  "container": <div>
+    <form>
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="themeSelector"
+          id="themeLabel"
+        >
+          Theme
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="themeSelector"
+          title="Select theme"
+        >
+          <option
+            value="light"
+          >
+            light
+          </option>
+          <option
+            value="dark"
+          >
+            dark
+          </option>
+          <option
+            value="pastel"
+          >
+            pastel
+          </option>
+          <option
+            value="ocean"
+          >
+            ocean
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="themeLabel"
+          id="themeHelp"
+        >
+          The current active theme
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="bytesBaseInput"
+        >
+          Byte representation
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="bytesBaseInput"
+          title="Select byte representation"
+        >
+          <option
+            value="true"
+          >
+            Base-2 (KiB, MiB, GiB, TiB)
+          </option>
+          <option
+            value="false"
+          >
+            Base-10 (KB, MB, GB, TB)
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="bytesBaseInput"
+          id="bytesHelp"
+        >
+          Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Page size
+        </label>
+        <input
+          class="form-control form-control-sm"
+          disabled=""
+          id="pageSizeInput"
+          placeholder="Page size"
+          type="text"
+          value=""
+        />
+        <small
+          class="form-text text-muted"
+          hmtlfor="pageSizeInput"
+          id="pageSizeHelp"
+        >
+          Specifies the pagination size in tables
+        </small>
+      </div>
+    </form>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Test byte representation Should have two options 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <form>
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="themeSelector"
+            id="themeLabel"
+          >
+            Theme
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="themeSelector"
+            title="Select theme"
+          >
+            <option
+              value="light"
+            >
+              light
+            </option>
+            <option
+              value="dark"
+            >
+              dark
+            </option>
+            <option
+              value="pastel"
+            >
+              pastel
+            </option>
+            <option
+              value="ocean"
+            >
+              ocean
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="themeLabel"
+            id="themeHelp"
+          >
+            The current active theme
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="bytesBaseInput"
+          >
+            Byte representation
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="bytesBaseInput"
+            title="Select byte representation"
+          >
+            <option
+              value="true"
+            >
+              Base-2 (KiB, MiB, GiB, TiB)
+            </option>
+            <option
+              value="false"
+            >
+              Base-10 (KB, MB, GB, TB)
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="bytesBaseInput"
+            id="bytesHelp"
+          >
+            Specifies the representation of bytes
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
+            Page size
+          </label>
+          <input
+            class="form-control form-control-sm"
+            disabled=""
+            id="pageSizeInput"
+            placeholder="Page size"
+            type="text"
+            value=""
+          />
+          <small
+            class="form-text text-muted"
+            hmtlfor="pageSizeInput"
+            id="pageSizeHelp"
+          >
+            Specifies the pagination size in tables
+          </small>
+        </div>
+      </form>
+    </div>
+  </body>,
+  "container": <div>
+    <form>
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="themeSelector"
+          id="themeLabel"
+        >
+          Theme
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="themeSelector"
+          title="Select theme"
+        >
+          <option
+            value="light"
+          >
+            light
+          </option>
+          <option
+            value="dark"
+          >
+            dark
+          </option>
+          <option
+            value="pastel"
+          >
+            pastel
+          </option>
+          <option
+            value="ocean"
+          >
+            ocean
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="themeLabel"
+          id="themeHelp"
+        >
+          The current active theme
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="bytesBaseInput"
+        >
+          Byte representation
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="bytesBaseInput"
+          title="Select byte representation"
+        >
+          <option
+            value="true"
+          >
+            Base-2 (KiB, MiB, GiB, TiB)
+          </option>
+          <option
+            value="false"
+          >
+            Base-10 (KB, MB, GB, TB)
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="bytesBaseInput"
+          id="bytesHelp"
+        >
+          Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Page size
+        </label>
+        <input
+          class="form-control form-control-sm"
+          disabled=""
+          id="pageSizeInput"
+          placeholder="Page size"
+          type="text"
+          value=""
+        />
+        <small
+          class="form-text text-muted"
+          hmtlfor="pageSizeInput"
+          id="pageSizeHelp"
+        >
+          Specifies the pagination size in tables
+        </small>
+      </div>
+    </form>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Test number of themes Should have four themes 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <form>
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="themeSelector"
+            id="themeLabel"
+          >
+            Theme
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="themeSelector"
+            title="Select theme"
+          >
+            <option
+              value="light"
+            >
+              light
+            </option>
+            <option
+              value="dark"
+            >
+              dark
+            </option>
+            <option
+              value="pastel"
+            >
+              pastel
+            </option>
+            <option
+              value="ocean"
+            >
+              ocean
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="themeLabel"
+            id="themeHelp"
+          >
+            The current active theme
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+            for="bytesBaseInput"
+          >
+            Byte representation
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="bytesBaseInput"
+            title="Select byte representation"
+          >
+            <option
+              value="true"
+            >
+              Base-2 (KiB, MiB, GiB, TiB)
+            </option>
+            <option
+              value="false"
+            >
+              Base-10 (KB, MB, GB, TB)
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="bytesBaseInput"
+            id="bytesHelp"
+          >
+            Specifies the representation of bytes
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
+            Page size
+          </label>
+          <input
+            class="form-control form-control-sm"
+            disabled=""
+            id="pageSizeInput"
+            placeholder="Page size"
+            type="text"
+            value=""
+          />
+          <small
+            class="form-text text-muted"
+            hmtlfor="pageSizeInput"
+            id="pageSizeHelp"
+          >
+            Specifies the pagination size in tables
+          </small>
+        </div>
+      </form>
+    </div>
+  </body>,
+  "container": <div>
+    <form>
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="themeSelector"
+          id="themeLabel"
+        >
+          Theme
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="themeSelector"
+          title="Select theme"
+        >
+          <option
+            value="light"
+          >
+            light
+          </option>
+          <option
+            value="dark"
+          >
+            dark
+          </option>
+          <option
+            value="pastel"
+          >
+            pastel
+          </option>
+          <option
+            value="ocean"
+          >
+            ocean
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="themeLabel"
+          id="themeHelp"
+        >
+          The current active theme
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+          for="bytesBaseInput"
+        >
+          Byte representation
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="bytesBaseInput"
+          title="Select byte representation"
+        >
+          <option
+            value="true"
+          >
+            Base-2 (KiB, MiB, GiB, TiB)
+          </option>
+          <option
+            value="false"
+          >
+            Base-10 (KB, MB, GB, TB)
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="bytesBaseInput"
+          id="bytesHelp"
+        >
+          Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Page size
+        </label>
+        <input
+          class="form-control form-control-sm"
+          disabled=""
+          id="pageSizeInput"
+          placeholder="Page size"
+          type="text"
+          value=""
+        />
+        <small
+          class="form-text text-muted"
+          hmtlfor="pageSizeInput"
+          id="pageSizeHelp"
+        >
+          Specifies the pagination size in tables
+        </small>
+      </div>
+    </form>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

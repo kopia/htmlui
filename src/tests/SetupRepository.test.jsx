@@ -1,12 +1,18 @@
 import { findByTestId, render, waitFor, act } from '@testing-library/react';
 import React from 'react';
-import { SetupRepository } from '../SetupRepository';
+import { SetupRepository } from '../components/SetupRepository';
 import { setupAPIMock } from './api_mocks';
 import { changeControlValue, simulateClick } from './testutils';
 
-it('can create new repository when not initialized', async () => {
-  let serverMock = setupAPIMock();
+// Mockup for the server
+let serverMock;
 
+// Initialize the server mock before each test
+beforeEach(() => {
+  serverMock = setupAPIMock();
+});
+
+it('can create new repository when not initialized', async () => {
   // first attempt to connect says - NOT_INITIALIZED
   serverMock.onPost('/api/v1/repo/exists', {
     storage: { type: 'filesystem', config: { path: 'some-path' } },
@@ -43,8 +49,6 @@ it('can create new repository when not initialized', async () => {
 });
 
 it('can connect to existing repository when already initialized', async () => {
-  let serverMock = setupAPIMock();
-
   // first attempt to connect is immediately successful.
   serverMock.onPost('/api/v1/repo/exists', {
     storage: { type: 'filesystem', config: { path: 'some-path' } },
@@ -61,8 +65,6 @@ it('can connect to existing repository when already initialized', async () => {
 });
 
 it('can connect to existing repository using token', async () => {
-  let serverMock = setupAPIMock();
-
   serverMock.onPost('/api/v1/repo/connect', {
     token: "my-token",
   }).reply(200, {});
