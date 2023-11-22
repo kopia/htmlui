@@ -107,6 +107,16 @@ body {
 #kopia .navbar-light .navbar-nav .nav-link.active,
 #kopia .navbar-light .navbar-nav .show>.nav-link {
   color: var(--color-text-nav);
+  text-align: center;
+}
+
+#kopia .navbar-light .navbar-nav .nav-link::after {
+  display: block;
+  content: attr(data-title);
+  font-weight: bold;
+  height: 0px;
+  overflow: hidden;
+  visibility: hidden;
 }
 
 #kopia .navbar-light .navbar-nav .nav-link:hover {

@@ -105,14 +105,14 @@ export default class App extends Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <NavLink data-testid="tab-snapshots" className="nav-link" activeClassName="active" to="/snapshots">Snapshots</NavLink>
-                  <NavLink data-testid="tab-policies" className="nav-link" activeClassName="active" to="/policies">Policies</NavLink>
-                  <NavLink data-testid="tab-tasks" className="nav-link" activeClassName="active" to="/tasks">Tasks <>
+                  <NavLink data-testid="tab-snapshots" data-title="Snapshots" className="nav-link" activeClassName="active" to="/snapshots">Snapshots</NavLink>
+                  <NavLink data-testid="tab-policies" data-title="Policies" className="nav-link" activeClassName="active" to="/policies">Policies</NavLink>
+                  <NavLink data-testid="tab-tasks" data-title="Tasks" className="nav-link" activeClassName="active" to="/tasks">Tasks <>
                     {runningTaskCount > 0 && <>({runningTaskCount})</>}
                   </>
                   </NavLink>
-                  <NavLink data-testid="tab-repo" className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
-                  <NavLink data-testid="tab-preferences" className="nav-link" activeClassName="active" to="/preferences">Preferences</NavLink>
+                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
+                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" activeClassName="active" to="/preferences">Preferences</NavLink>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
