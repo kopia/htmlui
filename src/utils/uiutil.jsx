@@ -118,6 +118,15 @@ export function redirect(e) {
     }
 }
 
+
+export function repositoryUpdated(isConnected) {
+    if (isConnected) {
+        window.location.replace("/snapshots");
+    } else {
+        window.location.replace("/repo");
+    }
+};
+
 /**
  * Convert a number of milliseconds into a string containing multiple units.
  *

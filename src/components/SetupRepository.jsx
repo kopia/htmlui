@@ -22,7 +22,7 @@ import { SetupRepositoryS3 } from './SetupRepositoryS3';
 import { SetupRepositorySFTP } from './SetupRepositorySFTP';
 import { SetupRepositoryToken } from './SetupRepositoryToken';
 import { SetupRepositoryWebDAV } from './SetupRepositoryWebDAV';
-import { toAlgorithmOption } from '../utils/uiutil';
+import { toAlgorithmOption, repositoryUpdated } from '../utils/uiutil';
 
 const supportedProviders = [
     { provider: "filesystem", description: "Local Directory or NAS", component: SetupRepositoryFilesystem },
@@ -144,7 +144,7 @@ export class SetupRepository extends Component {
         request.clientOptions = this.clientOptions();
 
         axios.post('/api/v1/repo/create', request).then(result => {
-            this.context.repositoryUpdated(true);
+            repositoryUpdated(true);
         }).catch(error => {
             if (error.response.data) {
                 this.setState({
@@ -191,7 +191,7 @@ export class SetupRepository extends Component {
         this.setState({ isLoading: true });
         axios.post('/api/v1/repo/connect', request).then(result => {
             this.setState({ isLoading: false });
-            this.context.repositoryUpdated(true);
+            repositoryUpdated(true);
         }).catch(error => {
             this.setState({ isLoading: false });
             if (error.response.data) {

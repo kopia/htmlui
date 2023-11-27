@@ -1,4 +1,4 @@
-import { getDeepStateProperty, setDeepStateProperty } from '../utils/deepstate';
+import { getDeepStateProperty, setDeepStateProperty, setDeepStatePropertyReduce } from '../utils/deepstate';
 
 export function validateRequiredFields(component, fields) {
     let updateState = {};
@@ -20,6 +20,25 @@ export function validateRequiredFields(component, fields) {
     }
 
     return true;
+}
+
+export function reducer(state, action) {
+    switch (action.type) {
+        case 'initial': {
+            return {
+                data: action.data
+            };
+        }
+        case 'update': {
+            let st = setDeepStatePropertyReduce(state, action);
+            return {
+                data: st.data
+            }
+        }
+        default: {
+            throw Error('Unknown action: ' + action.type);
+        }
+    }
 }
 
 export function handleChange(event, valueGetter = x => x.value) {

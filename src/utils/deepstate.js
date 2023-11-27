@@ -6,6 +6,30 @@
 // getDeepStateProperty("a.b") returns {"c":true}
 // getDeepStateProperty("a.b.c") returns true
 
+export function setDeepStatePropertyReduce(state, action) {
+    let newState = state;
+    let st = newState;
+
+    const parts = action.source.split(/\./);
+
+    for (let i = 0; i < parts.length - 1; i++) {
+        const part = parts[i];
+
+        if (st[part] === undefined) {
+            st[part] = {}
+        } else {
+            st[part] = { ...st[part] }
+        }
+
+        st = st[part]
+    }
+
+    const part = parts[parts.length - 1]
+    st[part] = action.data;
+
+    return newState
+}
+
 export function setDeepStateProperty(component, name, value) {
     let newState = { ...component.state };
     let st = newState;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { useCallback, useLayoutEffect, useState, useContext, useReducer } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -7,240 +7,198 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
-import { handleChange } from '../forms';
 import { SetupRepository } from '../components/SetupRepository';
-import { cancelTask, CLIEquivalent } from '../utils/uiutil';
+import { cancelTask, CLIEquivalent, repositoryUpdated } from '../utils/uiutil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Logs } from '../components/Logs';
 import { AppContext } from '../contexts/AppContext';
+import { reducer } from '../forms'
 
-export class Repository extends Component {
-    constructor() {
-        super();
+export function Repository() {
+    const context = useContext(AppContext)
+    const [state, dispatch] = useReducer(reducer, {})
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showLog, setShowLog] = useState(false);
 
-        this.state = {
-            status: {},
-            isLoading: true,
-            error: null,
-            provider: "",
-            description: "",
-        };
-
-        this.mounted = false;
-        this.disconnect = this.disconnect.bind(this);
-        this.updateDescription = this.updateDescription.bind(this);
-        this.handleChange = handleChange.bind(this);
-        this.fetchStatus = this.fetchStatus.bind(this);
-        this.fetchStatusWithoutSpinner = this.fetchStatusWithoutSpinner.bind(this);
-    }
-
-    componentDidMount() {
-        this.mounted = true;
-        this.fetchStatus(this.props);
-    }
-
-    componentWillUnmount() {
-        this.mounted = false;
-    }
-
-    fetchStatus() {
-        if (this.mounted) {
-            this.setState({
-                isLoading: true,
-            });
-        }
-
-        this.fetchStatusWithoutSpinner();
-    }
-
-    fetchStatusWithoutSpinner() {
+    let mounted = false;
+    const fetchStatusWithoutSpinner = useCallback(() => {
         axios.get('/api/v1/repo/status').then(result => {
-            if (this.mounted) {
-                this.setState({
-                    status: result.data,
-                    isLoading: false,
+            if (mounted) {
+                setIsLoading(false);
+                dispatch({
+                    type: 'initial',
+                    data: result.data
                 });
-
                 // Update the app context to reflect the successfully-loaded description.
-                this.context.repositoryDescriptionUpdated(result.data.description);
-
+                context.repoDescription = result.data.description;
                 if (result.data.initTaskID) {
                     window.setTimeout(() => {
-                        this.fetchStatusWithoutSpinner();
+                        fetchStatusWithoutSpinner();
                     }, 1000);
                 }
             }
         }).catch(error => {
-            if (this.mounted) {
-                this.setState({
-                    error,
-                    isLoading: false
-                })
+            if (mounted) {
+                setError(error);
+                setIsLoading(false);
             }
         });
-    }
+    }, [context, mounted])
 
-    disconnect() {
-        this.setState({ isLoading: true })
+    useLayoutEffect(() => {
+        mounted = true;
+        setIsLoading(true)
+        fetchStatusWithoutSpinner();
+        return () => {
+            mounted = false
+        };
+    }, [mounted, fetchStatusWithoutSpinner]);
+
+    function disconnect() {
+        setIsLoading(true)
         axios.post('/api/v1/repo/disconnect', {}).then(result => {
-            this.context.repositoryUpdated(false);
-        }).catch(error => this.setState({
-            error,
-            isLoading: false
-        }));
-    }
-
-    selectProvider(provider) {
-        this.setState({ provider });
-    }
-
-    updateDescription() {
-        this.setState({
-            isLoading: true
-        });
-
-        axios.post('/api/v1/repo/description', {
-            "description": this.state.status.description,
-        }).then(result => {
-            // Update the app context to reflect the successfully-saved description.
-            this.context.repositoryDescriptionUpdated(result.data.description);
-
-            this.setState({
-                isLoading: false,
-            });
+            repositoryUpdated(false);
         }).catch(error => {
-            this.setState({
-                isLoading: false,
-            });
+            setError(error);
+            setIsLoading(false);
         });
     }
 
-    render() {
-        let { isLoading, error } = this.state;
-        if (error) {
-            return <p>{error.message}</p>;
-        }
+    function updateDescription() {
+        setIsLoading(true);
+        axios.post('/api/v1/repo/description', {
+            "description": state.data.description,
+        }).then(result => {
+            context.repoDescription = result.data.description;
+            setIsLoading(false)
+        }).catch(error => {
+            setIsLoading(false)
+        });
+    }
 
-        if (isLoading) {
-            return <Spinner animation="border" variant="primary" />;
-        }
+    if (error) {
+        return <p>{error.message}</p>;
+    }
+    if (isLoading) {
+        return <Spinner animation="border" variant="primary" />;
+    }
+    if (state.data.initTaskID) {
+        return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
+            {showLog ? <>
+                <Button size="sm" variant="light" onClick={() => setShowLog(false)}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                <Logs taskID={state.data.initTaskID} />
+            </> : <Button size="sm" variant="light" onClick={() => setShowLog(true)}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+            <hr />
+            <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(state.data.initTaskID)}>Cancel Connection</Button>
+        </>;
+    }
 
-        if (this.state.status.initTaskID) {
-            return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
-                {this.state.showLog ? <>
-                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
-                    <Logs taskID={this.state.status.initTaskID} />
-                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
-                <hr />
-                <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>Cancel Connection</Button>
-            </>;
-        }
-
-        if (this.state.status.connected) {
-            return <>
-                <p className="text-success mb-1">
-                    <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
-                    <span>Connected To Repository</span>
-                </p>
-                <Form>
+    if (state.data.connected) {
+        return <>
+            <p className="text-success mb-1">
+                <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
+                <span>Connected To Repository</span>
+            </p>
+            <Form>
+                <Row>
+                    <Form.Group as={Col}>
+                        <InputGroup>
+                            <Form.Control
+                                autoFocus={true}
+                                isInvalid={!state.data.description}
+                                name="data.description"
+                                value={state.data.description}
+                                onChange={e => dispatch({
+                                    type: 'update',
+                                    source: e.target.name,
+                                    data: e.target.value
+                                })}
+                                size="sm" />
+                            &nbsp;
+                            <Button data-testid='update-description' size="sm" onClick={updateDescription} type="button">Update Description</Button>
+                        </InputGroup>
+                        <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+                {state.data.readonly && <Row>
+                    <Badge pill variant="warning">Repository is read-only</Badge>
+                </Row>}
+            </Form>
+            <hr />
+            <Form>
+                {state.data.apiServerURL ? <>
                     <Row>
                         <Form.Group as={Col}>
-                            <InputGroup>
-                                <Form.Control
-                                    autoFocus={true}
-                                    isInvalid={!this.state.status.description}
-                                    name="status.description"
-                                    value={this.state.status.description}
-                                    onChange={this.handleChange}
-                                    size="sm" />
-                                &nbsp;
-                                <Button data-testid='update-description' size="sm" onClick={this.updateDescription} type="button">Update Description</Button>
-                            </InputGroup>
-                            <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
+                            <Form.Label>Server URL</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.apiServerURL} />
                         </Form.Group>
                     </Row>
-                    {this.state.status.readonly && <Row>
-                        <Badge pill variant="warning">Repository is read-only</Badge>
-                    </Row>}
-                </Form>
-                <hr />
-                <Form>
-                    {this.state.status.apiServerURL ? <>
-                        <Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Server URL</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
-                            </Form.Group>
-                        </Row>
-                    </> : <>
-                        <Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Config File</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.configFile} />
-                            </Form.Group>
-                        </Row>
-                        <Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Provider</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.storage} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Encryption Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.encryption} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Hash Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.hash} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Splitter Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.splitter} />
-                            </Form.Group>
-                        </Row>
-                        <Row>
-                            <Form.Group as={Col}>
-                                <Form.Label>Repository Format</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Error Correction Overhead</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : "Disabled"} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Error Correction Algorithm</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                                <Form.Label>Internal Compression</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
-                            </Form.Group>
-                        </Row>
-                    </>}
+                </> : <>
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label>Connected as:</Form.Label>
-                            <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
+                            <Form.Label>Config File</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.configFile} />
                         </Form.Group>
                     </Row>
-                    <Row><Col>&nbsp;</Col></Row>
                     <Row>
-                        <Col>
-                            <Button data-testid='disconnect' size="sm" variant="danger" onClick={this.disconnect}>Disconnect</Button>
-                        </Col>
+                        <Form.Group as={Col}>
+                            <Form.Label>Provider</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.storage} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Encryption Algorithm</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.encryption} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Hash Algorithm</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.hash} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Splitter Algorithm</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.splitter} />
+                        </Form.Group>
                     </Row>
-                </Form>
+                    <Row>
+                        <Form.Group as={Col}>
+                            <Form.Label>Repository Format</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.formatVersion} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Error Correction Overhead</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.eccOverheadPercent > 0 ? state.data.eccOverheadPercent + "%" : "Disabled"} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Error Correction Algorithm</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.ecc || "-"} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>Internal Compression</Form.Label>
+                            <Form.Control readOnly defaultValue={state.data.supportsContentCompression ? "yes" : "no"} />
+                        </Form.Group>
+                    </Row>
+                </>}
+                <Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Connected as:</Form.Label>
+                        <Form.Control readOnly defaultValue={state.data.username + "@" + state.data.hostname} />
+                    </Form.Group>
+                </Row>
                 <Row><Col>&nbsp;</Col></Row>
                 <Row>
-                    <Col xs={12}>
-                        <CLIEquivalent command="repository status" />
+                    <Col>
+                        <Button data-testid='disconnect' size="sm" variant="danger" onClick={disconnect}>Disconnect</Button>
                     </Col>
                 </Row>
-            </>;
-        }
-
-        return <SetupRepository />;
+            </Form>
+            <Row><Col>&nbsp;</Col></Row>
+            <Row>
+                <Col xs={12}>
+                    <CLIEquivalent command="repository status" />
+                </Col>
+            </Row>
+        </>;
     }
+    return <SetupRepository />;
 }
-
-Repository.contextType = AppContext;
