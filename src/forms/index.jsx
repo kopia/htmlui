@@ -24,21 +24,31 @@ export function validateRequiredFields(component, fields) {
 
 export function reducer(state, action) {
     switch (action.type) {
-        case 'initial': {
+        case 'init': {
             return {
-                data: action.data
+                ...action.data
             };
         }
         case 'update': {
-            let st = setDeepStatePropertyReduce(state, action);
+            let updatedState = setDeepStatePropertyReduce(state, action);
             return {
-                data: st.data
+                ...updatedState
+            }
+        }
+        case 'set': {
+            return {
+                ...state,
+                ...action.data
             }
         }
         default: {
             throw Error('Unknown action: ' + action.type);
         }
     }
+}
+
+export function init(initialState) {
+    return initialState;
 }
 
 export function handleChange(event, valueGetter = x => x.value) {

@@ -1,109 +1,111 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { useState, useReducer, useEffect, useRef, useCallback } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { handleChange } from '../forms';
 import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
 import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
+import { reducer, init } from '../forms'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-export class SnapshotCreate extends Component {
-    constructor() {
-        super();
-        this.state = {
-            path: "",
-            estimateTaskID: null,
-            estimateTaskVisible: false,
-            lastEstimatedPath: "",
-            policyEditorVisibleFor: "n/a",
-            localUsername: null,
-        };
+const initalState = {
+    localHost: "",
+    localUsername: "",
+    path: "",
+    lastEstimatedPath: "",
+    estimatingPath: "",
+    didEstimate: false,
+    estimateTaskID: null,
+    estimateTaskVisible: false,
+    policyEditorVisibleFor: "n/a"
+};
 
-        this.policyEditorRef = React.createRef();
-        this.handleChange = handleChange.bind(this);
-        this.estimate = this.estimate.bind(this);
-        this.snapshotNow = this.snapshotNow.bind(this);
-        this.maybeResolveCurrentPath = this.maybeResolveCurrentPath.bind(this);
-    }
+export function SnapshotCreate() {
+    const [state, dispatch] = useReducer(reducer, initalState, init);
+    const [error, setError] = useState(null);
+    let history = useHistory()
 
-    componentDidMount() {
+    const policyEditorRef = useRef();
+    const mounted = useRef(false);
+
+    const fetchUser = useCallback(() => {
         axios.get('/api/v1/sources').then(result => {
-            this.setState({
+            let newState = {
                 localUsername: result.data.localUsername,
-                localHost: result.data.localHost,
+                localHost: result.data.localHost
+            };
+            dispatch({
+                type: 'set',
+                data: newState
             });
         }).catch(error => {
             redirect(error);
+            setError(error);
         });
-    }
+    }, [])
 
-    maybeResolveCurrentPath(lastResolvedPath) {
-        const currentPath = this.state.path;
-
+    const resolvePath = useCallback((lastResolvedPath) => {
+        const currentPath = state.path;
         if (lastResolvedPath !== currentPath) {
-            if (this.state.path) {
+            if (state.path) {
                 axios.post('/api/v1/paths/resolve', { path: currentPath }).then(result => {
-                    this.setState({
+                    let newState = {
                         lastResolvedPath: currentPath,
-                        resolvedSource: result.data.source,
+                        resolvedSource: result.data.source
+                    };
+                    dispatch({
+                        type: 'set',
+                        data: newState
                     });
-
-                    // check again, it's possible that this.state.path has changed
-                    // while we were resolving
-                    this.maybeResolveCurrentPath(currentPath);
+                    resolvePath(currentPath);
                 }).catch(error => {
                     redirect(error);
                 });
             } else {
-                this.setState({
+                let newState = {
                     lastResolvedPath: currentPath,
-                    resolvedSource: null,
+                    resolvedSource: null
+                }
+                dispatch({
+                    type: 'set',
+                    data: newState
                 });
-
-                this.maybeResolveCurrentPath(currentPath);
+                resolvePath(currentPath);
             }
         }
-    }
+    }, [state.path])
 
-    componentDidUpdate() {
-        this.maybeResolveCurrentPath(this.state.lastResolvedPath);
-
-        if (this.state.estimateTaskVisible && this.state.lastEstimatedPath !== this.state.resolvedSource.path) {
-            this.setState({
-                estimateTaskVisible: false,
-            })
-        }
-    }
-
-    estimate(e) {
+    function estimate(e) {
         e.preventDefault();
-
-        if (!this.state.resolvedSource.path) {
+        if (!state.resolvedSource.path) {
             return;
         }
-
-        const pe = this.policyEditorRef.current;
+        const pe = policyEditorRef.current;
         if (!pe) {
             return;
         }
-
         try {
             let req = {
-                root: this.state.resolvedSource.path,
+                root: state.resolvedSource.path,
                 maxExamplesPerBucket: 10,
                 policyOverride: pe.getAndValidatePolicy(),
             }
 
             axios.post('/api/v1/estimate', req).then(result => {
-                this.setState({
-                    lastEstimatedPath: this.state.resolvedSource.path,
-                    estimateTaskID: result.data.id,
+                let newState = {
+                    lastEstimatedPath: state.resolvedSource.path,
                     estimatingPath: result.data.description,
-                    estimateTaskVisible: true,
                     didEstimate: false,
-                })
+                    estimateTaskID: result.data.id,
+                    estimateTaskVisible: true
+                }
+                dispatch({
+                    type: 'set',
+                    data: newState
+                });
+
             }).catch(error => {
                 errorAlert(error);
             });
@@ -112,44 +114,46 @@ export class SnapshotCreate extends Component {
         }
     }
 
-    snapshotNow(e) {
+    function snapshotNow(e) {
         e.preventDefault();
-
-        if (!this.state.resolvedSource.path) {
+        if (!state.resolvedSource.path) {
             alert('Must specify directory to snapshot.');
             return
         }
-
-        const pe = this.policyEditorRef.current;
-        if (!pe) {
+        if (!policyEditorRef.current) {
             return;
         }
-
         try {
             axios.post('/api/v1/sources', {
-                path: this.state.resolvedSource.path,
+                path: state.resolvedSource.path,
                 createSnapshot: true,
-                policy: pe.getAndValidatePolicy(),
-            }).then(result => {
-                this.props.history.goBack();
+                policy: policyEditorRef.current.getAndValidatePolicy(),
+            }).then(_ => {
+                history.goBack()
             }).catch(error => {
                 errorAlert(error);
-
-                this.setState({
-                    error,
-                    isLoading: false
-                });
+                setError(error);
             });
         } catch (e) {
             errorAlert(e);
+            setError(error);
         }
     }
 
-    render() {
-        return <>
+    useEffect(() => {
+        if (!mounted.current) {
+            fetchUser()
+            mounted.current = true;
+        } else {
+            resolvePath(state.lastResolvedPath)
+        }
+    }, [mounted, fetchUser, resolvePath, state.lastResolvedPath]);
+
+    return (
+        <>
             <Row>
                 <Form.Group>
-                    <GoBackButton onClick={this.props.history.goBack} />
+                    <GoBackButton onClick={history.goBack} />
                 </Form.Group>
                 &nbsp;&nbsp;&nbsp;<h4>New Snapshot</h4>
             </Row>
@@ -157,47 +161,56 @@ export class SnapshotCreate extends Component {
             <Row>
                 <Col>
                     <Form.Group>
-                        <DirectorySelector onDirectorySelected={p => this.setState({ path: p })} autoFocus placeholder="enter path to snapshot" name="path" value={this.state.path} onChange={this.handleChange} />
+                        <DirectorySelector
+                            onDirectorySelected={e => dispatch({
+                                type: 'update',
+                                source: e.target.name,
+                                data: e.target.value
+                            })}
+
+                            onChange={e => dispatch({
+                                type: 'update',
+                                source: e.target.name,
+                                data: e.target.value
+                            })}
+                            autoFocus placeholder="enter path to snapshot" name="path" value={state.path} />
                     </Form.Group>
                 </Col>
                 <Col xs="auto">
                     <Button
                         data-testid='estimate-now'
                         size="sm"
-                        disabled={!this.state.resolvedSource?.path}
+                        disabled={!state.resolvedSource?.path}
                         title="Estimate"
                         variant="secondary"
-                        onClick={this.estimate}>Estimate</Button>
+                        onClick={estimate}>Estimate</Button>
                     &nbsp;
                     <Button
                         data-testid='snapshot-now'
                         size="sm"
-                        disabled={!this.state.resolvedSource?.path}
+                        disabled={!state.resolvedSource?.path}
                         title="Snapshot Now"
                         variant="primary"
-                        onClick={this.snapshotNow}>Snapshot Now</Button>
+                        onClick={snapshotNow}>Snapshot Now</Button>
                 </Col>
             </Row>
-            {this.state.estimateTaskID && this.state.estimateTaskVisible &&
-                <SnapshotEstimation taskID={this.state.estimateTaskID} hideDescription={true} showZeroCounters={true} />
+            {state.estimateTaskID && state.estimateTaskVisible &&
+                <SnapshotEstimation taskID={state.estimateTaskID} hideDescription={true} showZeroCounters={true} />
             }
             <br />
-
-            {this.state.resolvedSource && <Row><Col xs={12}>
+            {state.resolvedSource && <Row><Col xs={12}>
                 <Form.Text>
-                    {this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}
+                    {state.resolvedSource ? state.resolvedSource.path : state.path}
                 </Form.Text>
 
-                <PolicyEditor ref={this.policyEditorRef}
+                <PolicyEditor ref={policyEditorRef}
                     embedded
-                    host={this.state.resolvedSource.host}
-                    userName={this.state.resolvedSource.userName}
-                    path={this.state.resolvedSource.path} />
+                    host={state.resolvedSource.host}
+                    userName={state.resolvedSource.userName}
+                    path={state.resolvedSource.path} />
             </Col></Row>}
-
             <Row><Col>&nbsp;</Col></Row>
-
-            <CLIEquivalent command={`snapshot create ${this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}`} />
-        </>;
-    }
+            <CLIEquivalent command={`snapshot create ${state.resolvedSource ? state.resolvedSource.path : state.path}`} />
+        </>
+    )
 }
