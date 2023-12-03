@@ -32,13 +32,12 @@ export function SnapshotCreate() {
 
     const fetchUser = useCallback(() => {
         axios.get('/api/v1/sources').then(result => {
-            let newState = {
-                localUsername: result.data.localUsername,
-                localHost: result.data.localHost
-            };
             dispatch({
                 type: 'set',
-                data: newState
+                data: {
+                    localUsername: result.data.localUsername,
+                    localHost: result.data.localHost
+                }
             });
         }).catch(error => {
             redirect(error);
@@ -51,59 +50,54 @@ export function SnapshotCreate() {
         if (lastResolvedPath !== currentPath) {
             if (state.path) {
                 axios.post('/api/v1/paths/resolve', { path: currentPath }).then(result => {
-                    let newState = {
-                        lastResolvedPath: currentPath,
-                        resolvedSource: result.data.source
-                    };
                     dispatch({
                         type: 'set',
-                        data: newState
+                        data: {
+                            lastResolvedPath: currentPath,
+                            resolvedSource: result.data.source
+                        }
                     });
                     resolvePath(currentPath);
                 }).catch(error => {
                     redirect(error);
                 });
             } else {
-                let newState = {
-                    lastResolvedPath: currentPath,
-                    resolvedSource: null
-                }
                 dispatch({
                     type: 'set',
-                    data: newState
+                    data: {
+                        lastResolvedPath: currentPath,
+                        resolvedSource: null
+                    }
                 });
                 resolvePath(currentPath);
             }
         }
     }, [state.path])
 
-    function estimate(e) {
+    function estimatePath(e) {
         e.preventDefault();
         if (!state.resolvedSource.path) {
             return;
         }
-        const pe = policyEditorRef.current;
-        if (!pe) {
+        if (!policyEditorRef.current) {
             return;
         }
         try {
-            let req = {
+            let request = {
                 root: state.resolvedSource.path,
                 maxExamplesPerBucket: 10,
-                policyOverride: pe.getAndValidatePolicy(),
+                policyOverride: policyEditorRef.current.getAndValidatePolicy(),
             }
-
-            axios.post('/api/v1/estimate', req).then(result => {
-                let newState = {
-                    lastEstimatedPath: state.resolvedSource.path,
-                    estimatingPath: result.data.description,
-                    didEstimate: false,
-                    estimateTaskID: result.data.id,
-                    estimateTaskVisible: true
-                }
+            axios.post('/api/v1/estimate', request).then(result => {
                 dispatch({
                     type: 'set',
-                    data: newState
+                    data: {
+                        lastEstimatedPath: state.resolvedSource.path,
+                        estimatingPath: result.data.description,
+                        didEstimate: false,
+                        estimateTaskID: result.data.id,
+                        estimateTaskVisible: true
+                    }
                 });
 
             }).catch(error => {
@@ -114,7 +108,7 @@ export function SnapshotCreate() {
         }
     }
 
-    function snapshotNow(e) {
+    function snapshotPath(e) {
         e.preventDefault();
         if (!state.resolvedSource.path) {
             alert('Must specify directory to snapshot.');
@@ -155,9 +149,10 @@ export function SnapshotCreate() {
                 <Form.Group>
                     <GoBackButton onClick={history.goBack} />
                 </Form.Group>
-                &nbsp;&nbsp;&nbsp;<h4>New Snapshot</h4>
+                <br/>
+                <h5>New Snapshot</h5>
             </Row>
-            <br />
+            <br/>
             <Row>
                 <Col>
                     <Form.Group>
@@ -183,7 +178,7 @@ export function SnapshotCreate() {
                         disabled={!state.resolvedSource?.path}
                         title="Estimate"
                         variant="secondary"
-                        onClick={estimate}>Estimate</Button>
+                        onClick={estimatePath}>Estimate</Button>
                     &nbsp;
                     <Button
                         data-testid='snapshot-now'
@@ -191,25 +186,24 @@ export function SnapshotCreate() {
                         disabled={!state.resolvedSource?.path}
                         title="Snapshot Now"
                         variant="primary"
-                        onClick={snapshotNow}>Snapshot Now</Button>
+                        onClick={snapshotPath}>Snapshot Now</Button>
                 </Col>
             </Row>
             {state.estimateTaskID && state.estimateTaskVisible &&
                 <SnapshotEstimation taskID={state.estimateTaskID} hideDescription={true} showZeroCounters={true} />
             }
-            <br />
+            <br/>
             {state.resolvedSource && <Row><Col xs={12}>
                 <Form.Text>
-                    {state.resolvedSource ? state.resolvedSource.path : state.path}
+                    <label className='label-description'>Resolved path:</label>{state.resolvedSource ? state.resolvedSource.path : state.path}
                 </Form.Text>
-
                 <PolicyEditor ref={policyEditorRef}
                     embedded
                     host={state.resolvedSource.host}
                     userName={state.resolvedSource.userName}
                     path={state.resolvedSource.path} />
             </Col></Row>}
-            <Row><Col>&nbsp;</Col></Row>
+            <Row><Col><span/></Col></Row>
             <CLIEquivalent command={`snapshot create ${state.resolvedSource ? state.resolvedSource.path : state.path}`} />
         </>
     )
