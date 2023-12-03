@@ -22,6 +22,13 @@ export function validateRequiredFields(component, fields) {
     return true;
 }
 
+/**
+ * 
+ * @param {*} state 
+ * @param {*} action 
+ * @returns 
+ * The new state
+ */
 export function reducer(state, action) {
     switch (action.type) {
         case 'init': {
@@ -47,7 +54,13 @@ export function reducer(state, action) {
     }
 }
 
-export function init(initialState) {
+/**
+ * 
+ * @param {The intial state to set} initialState 
+ * @returns 
+ * The initial state
+ */
+export function initState(initialState) {
     return initialState;
 }
 

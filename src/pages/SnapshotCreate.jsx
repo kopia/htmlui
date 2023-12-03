@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
 import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
-import { reducer, init } from '../forms'
+import { reducer, initState } from '../forms'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const initalState = {
@@ -23,7 +23,7 @@ const initalState = {
 };
 
 export function SnapshotCreate() {
-    const [state, dispatch] = useReducer(reducer, initalState, init);
+    const [state, dispatch] = useReducer(reducer, initalState, initState);
     const [error, setError] = useState(null);
     let history = useHistory()
 
@@ -74,6 +74,11 @@ export function SnapshotCreate() {
         }
     }, [state.path])
 
+    /**
+     * 
+     * @param {*} e 
+     * @returns 
+     */
     function estimatePath(e) {
         e.preventDefault();
         if (!state.resolvedSource.path) {
@@ -108,6 +113,11 @@ export function SnapshotCreate() {
         }
     }
 
+    /**
+     * 
+     * @param {*} e 
+     * @returns 
+     */
     function snapshotPath(e) {
         e.preventDefault();
         if (!state.resolvedSource.path) {
@@ -146,13 +156,8 @@ export function SnapshotCreate() {
     return (
         <>
             <Row>
-                <Form.Group>
-                    <GoBackButton onClick={history.goBack} />
-                </Form.Group>
-                <br/>
-                <h5>New Snapshot</h5>
+                <h6>New Snapshot</h6>
             </Row>
-            <br/>
             <Row>
                 <Col>
                     <Form.Group>
@@ -179,7 +184,6 @@ export function SnapshotCreate() {
                         title="Estimate"
                         variant="secondary"
                         onClick={estimatePath}>Estimate</Button>
-                    &nbsp;
                     <Button
                         data-testid='snapshot-now'
                         size="sm"
@@ -192,18 +196,27 @@ export function SnapshotCreate() {
             {state.estimateTaskID && state.estimateTaskVisible &&
                 <SnapshotEstimation taskID={state.estimateTaskID} hideDescription={true} showZeroCounters={true} />
             }
-            <br/>
-            {state.resolvedSource && <Row><Col xs={12}>
-                <Form.Text>
-                    <label className='label-description'>Resolved path:</label>{state.resolvedSource ? state.resolvedSource.path : state.path}
-                </Form.Text>
-                <PolicyEditor ref={policyEditorRef}
-                    embedded
-                    host={state.resolvedSource.host}
-                    userName={state.resolvedSource.userName}
-                    path={state.resolvedSource.path} />
-            </Col></Row>}
-            <Row><Col><span/></Col></Row>
+            <br />
+            {state.resolvedSource && 
+            <Row>
+                <Col xs={12}>
+                    <Form.Text>
+                        <label className='label-description'>Resolved path:</label>{state.resolvedSource ? state.resolvedSource.path : state.path}
+                    </Form.Text>
+                    <br/>
+                    <PolicyEditor ref={policyEditorRef}
+                        embedded
+                        host={state.resolvedSource.host}
+                        userName={state.resolvedSource.userName}
+                        path={state.resolvedSource.path} />
+                </Col>
+            </Row>}
+            <Row>
+                <Form.Group>
+                    <GoBackButton onClick={history.goBack} />
+                </Form.Group>
+            </Row>
+            <br />
             <CLIEquivalent command={`snapshot create ${state.resolvedSource ? state.resolvedSource.path : state.path}`} />
         </>
     )
