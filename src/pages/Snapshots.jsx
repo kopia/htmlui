@@ -140,7 +140,7 @@ export class Snapshots extends Component {
 
             case "PENDING":
                 return <>
-                    <Spinner data-testid="snapshot-pending" animation="border" variant="secondary" size="sm" title="Snapshot will after the previous snapshot completes" />
+                    <Spinner data-testid="snapshot-pending" animation="border" variant="secondary" size="sm" title="Snapshot will start after the previous snapshot completes" />
                     &nbsp;Pending
                 </>;
 

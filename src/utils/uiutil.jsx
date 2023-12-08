@@ -1,4 +1,4 @@
-import { faBan, faCheck, faChevronLeft, faCopy, faExclamationCircle, faExclamationTriangle, faFolderOpen, faTerminal, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faChevronLeft, faCopy, faExclamationCircle, faExclamationTriangle, faFolderOpen, faRectangleXmark, faTerminal} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -275,7 +275,9 @@ export function taskStatusSymbol(task) {
             return <>
                 <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}
                 &nbsp;
-                <FontAwesomeIcon size="sm" color="red" icon={faWindowClose} title="Cancel task" onClick={() => cancelTask(task.id)} />
+                <button className="btn btn-link" type="button" onClick={() => cancelTask(task.id)}>
+                    <FontAwesomeIcon color="red" title="Cancel task" size='sm' icon={faRectangleXmark} />
+                </button>
             </>;
 
         case "SUCCESS":
