@@ -27,6 +27,7 @@ export default class App extends Component {
       runningTaskCount: 0,
       isFetching: false,
       repoDescription: "",
+      isRepositoryConnected: false
     };
 
     this.fetchTaskSummary = this.fetchTaskSummary.bind(this);
@@ -58,6 +59,7 @@ export default class App extends Component {
       if (result.data.description) {
         this.setState({
           repoDescription: result.data.description,
+          isRepositoryConnected: result.data.connected
         });
       }
     }).catch(error => { /* ignore */ });
@@ -80,6 +82,7 @@ export default class App extends Component {
 
   // this is invoked via AppContext whenever repository is connected, disconnected, etc.
   repositoryUpdated(isConnected) {
+    this.setState({ isRepositoryConnected: isConnected })
     if (isConnected) {
       window.location.replace("/snapshots");
     } else {
@@ -94,7 +97,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { uiPrefs, runningTaskCount } = this.state;
+    const { uiPrefs, runningTaskCount, isRepositoryConnected } = this.state;
 
     return (
       <Router>
@@ -105,14 +108,19 @@ export default class App extends Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <NavLink data-testid="tab-snapshots" data-title="Snapshots" className="nav-link" activeClassName="active" to="/snapshots">Snapshots</NavLink>
-                  <NavLink data-testid="tab-policies" data-title="Policies" className="nav-link" activeClassName="active" to="/policies">Policies</NavLink>
-                  <NavLink data-testid="tab-tasks" data-title="Tasks" className="nav-link" activeClassName="active" to="/tasks">Tasks <>
-                    {runningTaskCount > 0 && <>({runningTaskCount})</>}
-                  </>
-                  </NavLink>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" activeClassName="active" to="/repo">Repository</NavLink>
-                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" activeClassName="active" to="/preferences">Preferences</NavLink>
+                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                    <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">Snapshots</NavLink>
+                  </span>
+                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                    <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">Policies</NavLink>
+                  </span>
+                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                    <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">Tasks
+                      <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
+                    </NavLink>
+                  </span>
+                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">Repository</NavLink>
+                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">Preferences</NavLink>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
