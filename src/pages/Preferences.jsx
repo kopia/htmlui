@@ -6,7 +6,7 @@ import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
  */
 export class Preferences extends Component {
     render() {
-        const { pageSize, theme, bytesStringBase2, setByteStringBase, setTheme } = this.context;
+        const { pageSize, theme, bytesStringBase2, preferWebDav, fontSize, setByteStringBase, setTheme, setPreferWebDav, setFontSize} = this.context;
         return <>
             <form>
                 <div className='form-group'>
@@ -27,6 +27,26 @@ export class Preferences extends Component {
                         <option value="false">Base-10 (KB, MB, GB, TB)</option>
                     </select>
                     <small hmtlfor='bytesBaseInput' id='bytesHelp' className='form-text text-muted'>Specifies the representation of bytes</small>
+                </div>
+                <br />
+                <div className='form-group'>
+                    <label className='label-description'>Preferred filesystem for mounts</label>
+                    <select className="form-select form-select-sm" title='Select filesystem type for mounts' id='mountOptionInput' value={preferWebDav} onChange={e => setPreferWebDav(e.target.value)}>
+                        <option value="false">Fuse</option>
+                        <option value="true">WebDav</option>
+                    </select>
+                    <small hmtlfor="mountOptionInput" id='mountOptionHelp' className='form-text text-muted'>Specifies the filesystem that KopiaUI uses to mount snapshots</small>
+                </div>
+                <br />
+                <div className='form-group'>
+                    <label className='label-description'>Appereance</label>
+                    <select className="form-select form-select-sm" title='Select font size' id='fontSizeInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
+                        <option value="fs-6">small</option>
+                        <option value="fs-5">medium</option>
+                        <option value="fs-4">large</option>
+                        <option value="fs-3">larger</option>
+                    </select>
+                    <small hmtlfor="fontSizeInput" id='fontSizeHelp' className='form-text text-muted'>Specifies the font size</small>
                 </div>
                 <br />
                 <div className='form-group'>
