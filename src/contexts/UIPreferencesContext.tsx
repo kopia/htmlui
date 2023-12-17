@@ -9,20 +9,18 @@ const PREFERENCES_URL = '/api/v1/ui-preferences';
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
-export type fontSize = "fs-6" | "fs-5" | "fs-4" | "fs-3";
+export type fontSize = "fs-6" | "fs-5" | "fs-4";
 
 export interface UIPreferences {
     get pageSize(): PageSize
     get theme(): Theme
     get bytesStringBase2(): boolean
     get defaultSnapshotViewAll(): boolean
-    get preferWebDav(): boolean
     get fontSize(): fontSize
     setTheme: (theme: Theme) => void
     setPageSize: (pageSize: number) => void
     setByteStringBase: (bytesStringBase2: String) => void
     setDefaultSnapshotViewAll: (defaultSnapshotView: boolean) => void
-    setPreferWebDav: (preferWebDav: String) => void
     setFontSize: (size: String) => void
 }
 
@@ -31,7 +29,6 @@ interface SerializedUIPreferences {
     bytesStringBase2?: boolean
     defaultSnapshotView?: boolean
     theme: Theme
-    preferWebDav?: boolean
     fontSize: fontSize
 }
 
@@ -77,7 +74,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     const setTheme = useCallback((theme: Theme) => setPreferences(oldPreferences => {
         syncTheme(theme, oldPreferences.theme);
         return { ...oldPreferences, theme };
-    }),[]);
+    }), []);
 
     const setPageSize = (pageSize: PageSize) => setPreferences(oldPreferences => {
         return { ...oldPreferences, pageSize };
@@ -92,15 +89,10 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         return { ...oldPreferences, input };
     });
 
-    const setPreferWebDav = (input: String) => setPreferences(oldPreferences => {
-        var preferWebDav = input === "true";
-        return { ...oldPreferences, preferWebDav };
-    });
-
     const setFontSize = useCallback((fontSize: fontSize) => setPreferences(oldPreferences => {
         syncFontSize(fontSize, oldPreferences.fontSize);
         return { ...oldPreferences, fontSize };
-    }),[]);
+    }), []);
 
     useEffect(() => {
         axios.get(PREFERENCES_URL).then(result => {
@@ -153,9 +145,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         }
     }
 
-
-
-    const providedValue = { ...preferences, setTheme, setPageSize, setByteStringBase, setDefaultSnapshotViewAll, setPreferWebDav, setFontSize } as UIPreferences;
+    const providedValue = { ...preferences, setTheme, setPageSize, setByteStringBase, setDefaultSnapshotViewAll, setFontSize } as UIPreferences;
 
     return <UIPreferencesContext.Provider value={providedValue}>
         {props.children}
