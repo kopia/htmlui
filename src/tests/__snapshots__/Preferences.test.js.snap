@@ -91,6 +91,44 @@ Object {
           <label
             class="label-description"
           >
+            Appearance
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="fontSizeInput"
+            title="Select font size"
+          >
+            <option
+              value="fs-6"
+            >
+              small
+            </option>
+            <option
+              value="fs-5"
+            >
+              medium
+            </option>
+            <option
+              value="fs-4"
+            >
+              large
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="fontSizeInput"
+            id="fontSizeHelp"
+          >
+            Specifies the appearance of the user interface
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
             Page size
           </label>
           <input
@@ -190,6 +228,44 @@ Object {
           id="bytesHelp"
         >
           Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Appearance
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="fontSizeInput"
+          title="Select font size"
+        >
+          <option
+            value="fs-6"
+          >
+            small
+          </option>
+          <option
+            value="fs-5"
+          >
+            medium
+          </option>
+          <option
+            value="fs-4"
+          >
+            large
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="fontSizeInput"
+          id="fontSizeHelp"
+        >
+          Specifies the appearance of the user interface
         </small>
       </div>
       <br />
@@ -364,6 +440,44 @@ Object {
           <label
             class="label-description"
           >
+            Appearance
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="fontSizeInput"
+            title="Select font size"
+          >
+            <option
+              value="fs-6"
+            >
+              small
+            </option>
+            <option
+              value="fs-5"
+            >
+              medium
+            </option>
+            <option
+              value="fs-4"
+            >
+              large
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="fontSizeInput"
+            id="fontSizeHelp"
+          >
+            Specifies the appearance of the user interface
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
             Page size
           </label>
           <input
@@ -463,6 +577,44 @@ Object {
           id="bytesHelp"
         >
           Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Appearance
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="fontSizeInput"
+          title="Select font size"
+        >
+          <option
+            value="fs-6"
+          >
+            small
+          </option>
+          <option
+            value="fs-5"
+          >
+            medium
+          </option>
+          <option
+            value="fs-4"
+          >
+            large
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="fontSizeInput"
+          id="fontSizeHelp"
+        >
+          Specifies the appearance of the user interface
         </small>
       </div>
       <br />
@@ -637,6 +789,44 @@ Object {
           <label
             class="label-description"
           >
+            Appearance
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="fontSizeInput"
+            title="Select font size"
+          >
+            <option
+              value="fs-6"
+            >
+              small
+            </option>
+            <option
+              value="fs-5"
+            >
+              medium
+            </option>
+            <option
+              value="fs-4"
+            >
+              large
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="fontSizeInput"
+            id="fontSizeHelp"
+          >
+            Specifies the appearance of the user interface
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
             Page size
           </label>
           <input
@@ -736,6 +926,44 @@ Object {
           id="bytesHelp"
         >
           Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Appearance
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="fontSizeInput"
+          title="Select font size"
+        >
+          <option
+            value="fs-6"
+          >
+            small
+          </option>
+          <option
+            value="fs-5"
+          >
+            medium
+          </option>
+          <option
+            value="fs-4"
+          >
+            large
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="fontSizeInput"
+          id="fontSizeHelp"
+        >
+          Specifies the appearance of the user interface
         </small>
       </div>
       <br />
@@ -910,6 +1138,44 @@ Object {
           <label
             class="label-description"
           >
+            Appearance
+          </label>
+          <select
+            class="form-select form-select-sm"
+            id="fontSizeInput"
+            title="Select font size"
+          >
+            <option
+              value="fs-6"
+            >
+              small
+            </option>
+            <option
+              value="fs-5"
+            >
+              medium
+            </option>
+            <option
+              value="fs-4"
+            >
+              large
+            </option>
+          </select>
+          <small
+            class="form-text text-muted"
+            hmtlfor="fontSizeInput"
+            id="fontSizeHelp"
+          >
+            Specifies the appearance of the user interface
+          </small>
+        </div>
+        <br />
+        <div
+          class="form-group"
+        >
+          <label
+            class="label-description"
+          >
             Page size
           </label>
           <input
@@ -1009,6 +1275,44 @@ Object {
           id="bytesHelp"
         >
           Specifies the representation of bytes
+        </small>
+      </div>
+      <br />
+      <div
+        class="form-group"
+      >
+        <label
+          class="label-description"
+        >
+          Appearance
+        </label>
+        <select
+          class="form-select form-select-sm"
+          id="fontSizeInput"
+          title="Select font size"
+        >
+          <option
+            value="fs-6"
+          >
+            small
+          </option>
+          <option
+            value="fs-5"
+          >
+            medium
+          </option>
+          <option
+            value="fs-4"
+          >
+            large
+          </option>
+        </select>
+        <small
+          class="form-text text-muted"
+          hmtlfor="fontSizeInput"
+          id="fontSizeHelp"
+        >
+          Specifies the appearance of the user interface
         </small>
       </div>
       <br />
