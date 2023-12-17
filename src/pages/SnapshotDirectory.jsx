@@ -69,7 +69,7 @@ export class SnapshotDirectory extends Component {
     }
 
     mount() {
-        axios.post('/api/v1/mounts', { "root": this.state.oid, "options": {"PreferWebDav": this.context.preferWebDav}}).then(result => {
+        axios.post('/api/v1/mounts', { "root": this.state.oid} ).then(result => {
             this.setState({
                 mountInfo: result.data,
             });
