@@ -367,6 +367,12 @@ export function errorAlert(err, prefix) {
     }
 }
 
+/**
+ * A selector that openes a file browser to select a directory. 
+ * The selector checks, if the it is used in the context of the native or web-ui.
+ * @param {*} props 
+ * @returns 
+ */
 export function DirectorySelector(props) {
     let { onDirectorySelected, ...inputProps } = props;
 
