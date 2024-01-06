@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredDirectory } from '../forms/RequiredDirectory';
-import { Row } from 'react-bootstrap';
 
 export class SetupRepositoryFilesystem extends Component {
     constructor(props) {

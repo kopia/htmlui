@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row';
 import { handleChange } from '../forms';
 import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
-import { CLIEquivalent, DirectorySelector, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
+import { RequiredDirectory } from '../forms/RequiredDirectory';
+import { CLIEquivalent, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
 
 export class SnapshotCreate extends Component {
     constructor() {
@@ -147,18 +148,15 @@ export class SnapshotCreate extends Component {
 
     render() {
         return <>
-            <Row>
                 <Form.Group>
                     <GoBackButton onClick={this.props.history.goBack} />
                 </Form.Group>
-                &nbsp;&nbsp;&nbsp;<h4>New Snapshot</h4>
-            </Row>
+                <br/>
+                <h4>New Snapshot</h4>
             <br />
             <Row>
                 <Col>
-                    <Form.Group>
-                        <DirectorySelector onDirectorySelected={p => this.setState({ path: p })} autoFocus placeholder="enter path to snapshot" name="path" value={this.state.path} onChange={this.handleChange} />
-                    </Form.Group>
+                    {RequiredDirectory(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter path to snapshot" })}
                 </Col>
                 <Col xs="auto">
                     <Button
@@ -168,7 +166,6 @@ export class SnapshotCreate extends Component {
                         title="Estimate"
                         variant="secondary"
                         onClick={this.estimate}>Estimate</Button>
-                    &nbsp;
                     <Button
                         data-testid='snapshot-now'
                         size="sm"

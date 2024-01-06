@@ -1,9 +1,8 @@
-import { faBan, faCheck, faChevronLeft, faCopy, faExclamationCircle, faExclamationTriangle, faFolderOpen, faTerminal, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faChevronLeft, faCopy, faExclamationCircle, faExclamationTriangle, faTerminal, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
@@ -365,27 +364,6 @@ export function errorAlert(err, prefix) {
     } else {
         alert(prefix + JSON.stringify(err));
     }
-}
-
-/**
- * A selector that openes a file browser to select a directory. 
- * The selector checks, if the it is used in the context of the native or web-ui.
- * @param {*} props 
- * @returns 
- */
-export function DirectorySelector(props) {
-    let { onDirectorySelected, ...inputProps } = props;
-
-    if (!window.kopiaUI) {
-        return <Form.Control size="sm" {...inputProps} />
-    }
-
-    return <InputGroup>
-        <FormControl size="sm" {...inputProps} />
-        <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
-            <FontAwesomeIcon icon={faFolderOpen} />
-        </Button>
-    </InputGroup>;
 }
 
 export function CLIEquivalent(props) {
