@@ -35,6 +35,7 @@ export function OptionalDirectory(component, label, name, props = {}) {
                 size="sm"
                 name={name}
                 value={stateProperty(component, name)}
+                data-testid={'control-' + name}
                 onChange={component.handleChange}{...props}></FormControl>
             {window.kopiaUI &&
                 <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>

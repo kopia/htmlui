@@ -36,6 +36,7 @@ export function RequiredDirectory(component, label, name, props = {}) {
                 name={name}
                 isInvalid={stateProperty(component, name, null) === ''}
                 value={stateProperty(component, name)}
+                data-testid={'control-' + name}
                 onChange={component.handleChange}{...props}></FormControl>
             {window.kopiaUI &&
                 <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
