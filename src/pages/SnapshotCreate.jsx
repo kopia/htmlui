@@ -60,7 +60,7 @@ export class SnapshotCreate extends Component {
             } else {
                 this.setState({
                     lastResolvedPath: currentPath,
-                    resolvedSource: null,
+                    resolvedSource: "",
                 });
 
                 this.maybeResolveCurrentPath(currentPath);
