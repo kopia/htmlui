@@ -1,28 +1,46 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Col, FormGroup } from 'react-bootstrap';
-import FormControl from 'react-bootstrap/FormControl';
-import InputGroup from 'react-bootstrap/InputGroup';
+import { Col, FormGroup, FormControl, InputGroup } from 'react-bootstrap';
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { stateProperty } from '.';
+import { setDeepStateProperty } from '../utils/deepstate';
 
-export function RequiredDirectory(component, label, name, props = {}, helpText = null) {
-    let { onDirectorySelected, ...inputProps } = props;
+/**
+ * This functions returns a directory selector that allows the user to select a directory. 
+ * The selections is invoked using a button that calls a functions within the electron app. 
+ * If the electron app is not present, the button is not visible. The path is required.
+ * 
+ * @param {The component that this function is called from} component 
+ * @param {Label, that is added before the input field} label 
+ * @param {Name of the variable in which the directory path is stored} name 
+ * @param {Additional properties of the component} props 
+ * @returns The form group with the components
+ */
+export function RequiredDirectory(component, label, name, props = {}) {
+    /**
+    * Saves the selected path as a deepstate variable within the component
+    * @param {The path that has been selected} path 
+    */
+    function onDirectorySelected(path) {
+        setDeepStateProperty(component, name, path)
+    }
+    
     return <FormGroup>
-        {label ? <Form.Label className="required">{label}</Form.Label> : <></>}
+        {label && <Form.Label className="required">{label}</Form.Label>}
         <InputGroup as={Col}>
-            <FormControl name={name} size="sm" id='directoryInput'
+            <FormControl
+                id='directoryInput'
+                size="sm"
+                name={name}
                 isInvalid={stateProperty(component, name, null) === ''}
                 value={stateProperty(component, name)}
-                onDirectorySelected={p => component.setState({ name: p })}
-                onChange={component.handleChange}{...inputProps}></FormControl>
-            {window.kopiaUI ? 
-            <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
-                <FontAwesomeIcon icon={faFolderOpen} />
-            </Button> : <></>}
-            {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
+                onChange={component.handleChange}{...props}></FormControl>
+            {window.kopiaUI &&
+                <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
+                    <FontAwesomeIcon icon={faFolderOpen} />
+                </Button>}
             <Form.Control.Feedback type="invalid">Required field</Form.Control.Feedback>
         </InputGroup>
     </FormGroup>

@@ -148,15 +148,15 @@ export class SnapshotCreate extends Component {
 
     render() {
         return <>
-                <Form.Group>
-                    <GoBackButton onClick={this.props.history.goBack} />
-                </Form.Group>
-                <br/>
-                <h4>New Snapshot</h4>
+            <Form.Group>
+                <GoBackButton onClick={this.props.history.goBack} />
+            </Form.Group>
+            <br />
+            <h4>New Snapshot</h4>
             <br />
             <Row>
                 <Col>
-                    {RequiredDirectory(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter path to snapshot" })}
+                    {RequiredDirectory(this, null, "path", { autoFocus: true, placeholder: "enter path to snapshot" })}
                 </Col>
                 <Col xs="auto">
                     <Button
@@ -179,21 +179,17 @@ export class SnapshotCreate extends Component {
                 <SnapshotEstimation taskID={this.state.estimateTaskID} hideDescription={true} showZeroCounters={true} />
             }
             <br />
-
             {this.state.resolvedSource && <Row><Col xs={12}>
                 <Form.Text>
                     {this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}
                 </Form.Text>
-
                 <PolicyEditor ref={this.policyEditorRef}
                     embedded
                     host={this.state.resolvedSource.host}
                     userName={this.state.resolvedSource.userName}
                     path={this.state.resolvedSource.path} />
             </Col></Row>}
-
-            <Row><Col>&nbsp;</Col></Row>
-
+            <br />
             <CLIEquivalent command={`snapshot create ${this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}`} />
         </>;
     }

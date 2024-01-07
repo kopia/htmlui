@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { stateProperty } from '.';
 
-export function OptionalField(component, label, name, props = {}, helpText = null, invalidFeedback = null) {
+export function OptionalField(component, label, name, props = {}, helpText = null) {
     return <Form.Group as={Col}>
         <Form.Label>{label}</Form.Label>
         <Form.Control
@@ -14,6 +14,5 @@ export function OptionalField(component, label, name, props = {}, helpText = nul
             onChange={component.handleChange}
             {...props} />
         {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
-        {invalidFeedback && <Form.Control.Feedback type="invalid">{invalidFeedback}</Form.Control.Feedback>}
     </Form.Group>;
 }
