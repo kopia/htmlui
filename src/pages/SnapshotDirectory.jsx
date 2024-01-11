@@ -9,6 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from '../utils/uiutil';
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
+import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 export class SnapshotDirectory extends Component {
     constructor() {
@@ -68,7 +69,7 @@ export class SnapshotDirectory extends Component {
     }
 
     mount() {
-        axios.post('/api/v1/mounts', { "root": this.state.oid }).then(result => {
+        axios.post('/api/v1/mounts', { "root": this.state.oid} ).then(result => {
             this.setState({
                 mountInfo: result.data,
             });
@@ -151,3 +152,4 @@ export class SnapshotDirectory extends Component {
         </>
     }
 }
+SnapshotDirectory.contextType = UIPreferencesContext

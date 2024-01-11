@@ -6,7 +6,7 @@ import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
  */
 export class Preferences extends Component {
     render() {
-        const { pageSize, theme, bytesStringBase2, setByteStringBase, setTheme } = this.context;
+        const { pageSize, theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize} = this.context;
         return <>
             <form>
                 <div className='form-group'>
@@ -27,6 +27,16 @@ export class Preferences extends Component {
                         <option value="false">Base-10 (KB, MB, GB, TB)</option>
                     </select>
                     <small hmtlfor='bytesBaseInput' id='bytesHelp' className='form-text text-muted'>Specifies the representation of bytes</small>
+                </div>
+                <br />
+                <div className='form-group'>
+                    <label className='label-description'>Appearance</label>
+                    <select className="form-select form-select-sm" title='Select font size' id='fontSizeInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
+                        <option value="fs-6">small</option>
+                        <option value="fs-5">medium</option>
+                        <option value="fs-4">large</option>
+                    </select>
+                    <small hmtlfor="fontSizeInput" id='fontSizeHelp' className='form-text text-muted'>Specifies the appearance of the user interface</small>
                 </div>
                 <br />
                 <div className='form-group'>
