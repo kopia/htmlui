@@ -12,10 +12,14 @@ import { setDeepStateProperty } from '../utils/deepstate';
  * The selections is invoked using a button that calls a functions within the electron app. 
  * If the electron app is not present, the button is not visible. The path is required.
  * 
- * @param {The component that this function is called from} component 
- * @param {Label, that is added before the input field} label 
- * @param {Name of the variable in which the directory path is stored} name 
- * @param {Additional properties of the component} props 
+ * @param {*} component
+ * The component that this function is called from 
+ * @param {string} label
+ * Label, that is added before the input field 
+ * @param {string} name
+ * Name of the variable in which the directory path is stored 
+ * @param {*} props
+ * Additional properties of the component 
  * @returns The form group with the components
  */
 export function RequiredDirectory(component, label, name, props = {}) {
