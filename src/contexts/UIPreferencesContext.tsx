@@ -9,14 +9,14 @@ const PREFERENCES_URL = '/api/v1/ui-preferences';
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
-export type fontSize = "fs-6" | "fs-5" | "fs-4";
+export type FontSize = "fs-6" | "fs-5" | "fs-4";
 
 export interface UIPreferences {
     get pageSize(): PageSize
     get theme(): Theme
     get bytesStringBase2(): boolean
     get defaultSnapshotViewAll(): boolean
-    get fontSize(): fontSize
+    get fontSize(): FontSize
     setTheme: (theme: Theme) => void
     setPageSize: (pageSize: number) => void
     setByteStringBase: (bytesStringBase2: String) => void
@@ -29,7 +29,7 @@ interface SerializedUIPreferences {
     bytesStringBase2?: boolean
     defaultSnapshotView?: boolean
     theme: Theme
-    fontSize: fontSize
+    fontSize: FontSize
 }
 
 export interface UIPreferenceProviderProps {
@@ -66,13 +66,9 @@ function normalizePageSize(pageSize: number): PageSize {
 
 export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
-    /**
-         * 
-         * @param theme 
-         * @returns 
-         */
+   
     const setTheme = useCallback((theme: Theme) => setPreferences(oldPreferences => {
-        syncTheme(theme, oldPreferences.theme);
+        syncTheme(theme, oldPreferences.fontSize);
         return { ...oldPreferences, theme };
     }), []);
 
@@ -89,8 +85,8 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         return { ...oldPreferences, input };
     });
 
-    const setFontSize = useCallback((fontSize: fontSize) => setPreferences(oldPreferences => {
-        syncFontSize(fontSize, oldPreferences.fontSize);
+    const setFontSize = useCallback((fontSize: FontSize) => setPreferences(oldPreferences => {
+        syncTheme(oldPreferences.theme, fontSize);
         return { ...oldPreferences, fontSize };
     }), []);
 
@@ -99,6 +95,9 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
             let storedPreferences = result.data as SerializedUIPreferences;
             if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
                 storedPreferences.theme = getDefaultTheme();
+            }
+            if (!storedPreferences.fontSize || (storedPreferences.fontSize as string) === "") {
+                storedPreferences.fontSize = DEFAULT_PREFERENCES.fontSize
             }
             if (!storedPreferences.pageSize || storedPreferences.pageSize === 0) {
                 storedPreferences.pageSize = DEFAULT_PREFERENCES.pageSize;
@@ -120,29 +119,19 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     }, [preferences]);
 
     /**
-     * Synchronizes the selected theme with the html class
+     * Synchronizes the theme as well as the font size with the class.
+     * To prevent any situations, where the theme or the font size is not in sync with the class, 
+     * we first remove every element and set them again.
      * 
      * @param theme 
      * The theme to be set
+     * @param fontSize 
+     * The font size to be set
      */
-    const syncTheme = (newTheme: Theme, oldTheme: Theme) => {
+    const syncTheme = (theme: Theme, fontSize: FontSize) => {
         var doc = document.querySelector("html")!;
-        if (!doc.classList.replace(oldTheme, newTheme)) {
-            doc.classList.add(newTheme)
-        }
-    }
-
-    /**
-     * Synchronizes the selected theme with the html class
-     * 
-     * @param theme 
-     * The theme to be set
-     */
-    const syncFontSize = (newFontSize: fontSize, oldFontSize: fontSize) => {
-        var doc = document.querySelector("html")!;
-        if (!doc.classList.replace(oldFontSize, newFontSize)) {
-            doc.classList.add(newFontSize)
-        }
+        doc.classList.remove(...doc.classList);
+        doc.classList.add(theme, fontSize)
     }
 
     const providedValue = { ...preferences, setTheme, setPageSize, setByteStringBase, setDefaultSnapshotViewAll, setFontSize } as UIPreferences;
