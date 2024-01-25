@@ -10,8 +10,9 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
+import { OptionalDirectory } from '../forms/OptionalDirectory'
 import KopiaTable from '../utils/KopiaTable';
-import { CLIEquivalent, compare, DirectorySelector, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
+import { CLIEquivalent, compare, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -274,9 +275,7 @@ export class Policies extends Component {
                         </Col>
                         {(this.state.selectedOwner === localPolicies || this.state.selectedOwner === this.state.localSourceName || this.state.selectedOwner === applicablePolicies) ? <>
                             <Col>
-                                <DirectorySelector autoFocus onDirectorySelected={p => this.setState({ policyPath: p })}
-                                    placeholder="enter directory to find or set policy"
-                                    name="policyPath" value={this.state.policyPath} onChange={this.handleChange} />
+                                {OptionalDirectory(this, null, "policyPath", { autoFocus: true, placeholder: "enter directory to find or set policy" })}
                             </Col>
                             <Col xs="auto">
                                 <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>Set Policy</Button>

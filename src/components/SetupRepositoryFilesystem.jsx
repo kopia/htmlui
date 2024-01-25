@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
-import { RequiredField } from '../forms/RequiredField';
+import { RequiredDirectory } from '../forms/RequiredDirectory';
 
 export class SetupRepositoryFilesystem extends Component {
     constructor(props) {
@@ -19,9 +18,7 @@ export class SetupRepositoryFilesystem extends Component {
 
     render() {
         return <>
-            <Row>
-                {RequiredField(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter directory path where you want to store repository files" })}
-            </Row>
+            {RequiredDirectory(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter directory path where you want to store repository files"})}
         </>;
     }
 }
