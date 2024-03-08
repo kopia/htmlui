@@ -1,16 +1,29 @@
 {
 	"user.interface": "Benutzeroberfläche",
+	"user.interface.appearance":"Erscheinungsbild",
+	"user.interface.appearance.small":"klein",
+	"user.interface.appearance.medium":"mittel",
+	"user.interface.appearance.large":"groß",
+
+	"user.interface.pagesize.description": "Page size",
+	"user.interface.pagesize.help": "Specifies the pagination size in tables",
+	"user.interface.pagesize.hint": "Page size",
 
 	"lang.en": "Englisch",
 	"lang.de": "Deutsch",
 	"lang.es": "Spanisch",
+	"lang.fr": "Französisch",
+	"lang.ru": "Russisch",
+	"lang.jp": "Japanisch",
+	"lang.it": "Italienisch",
+
 	"lang.help": "Ändert die Sprache",
 	"lang.select": "Select language",
 	"lang.description": "Select the language",
 
-	"theme.description": "Theme",
-	"theme.select":"Theme auswählen",
-	"theme.help": "Das aktuelle Theme",
+	"theme.description": "Thema",
+	"theme.select":"Thema auswählen",
+	"theme.help": "Das aktuelle Thema",
 	"theme.dark":"Dunkel",
 	"theme.light": "Hell",
 	"theme.pastel": "Pastelfarbend",

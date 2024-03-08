@@ -1,21 +1,35 @@
 {
-	"user.interface": "User interface",
+	"user.interface": "Interfaz de usuario",
+	"user.interface.appearance":"Presentación",
+	"user.interface.appearance.small":"pequeño",
+	"user.interface.appearance.medium":"medio",
+	"user.interface.appearance.large":"gran",
 
-	"lang.en": "Ingles",
-	"lang.de": "German",
-	"lang.es": "Spanish",
-	"lang.help": "Sets the language for the user interface",
-	"lang.select": "Select language",
-	"lang.select.description": "Select the language",
+	"user.interface.pagesize.description": "Page size",
+	"user.interface.pagesize.help": "Specifies the pagination size in tables",
+	"user.interface.pagesize.hint": "Page size",
 
-	"theme.description": "Theme",
+	"lang.en": "Inglés",
+	"lang.de": "Alemán",
+	"lang.es": "Español",
+	"lang.fr": "Francés",
+	"lang.ru": "Russian",
+	"lang.jp": "Japanese",
+	"lang.it": "Italian",
+	
+	"lang.help": "Establece el idioma de la interfaz de usuario",
+	"lang.select": "Seleccionar idioma",
+	"lang.description": "Seleccione el idioma",
+
+	"theme.description": "Tema",
 	"theme.select": "Select theme",
 	"theme.help": "The current active theme",
-	"theme.dark":"dark",
-	"theme.light": "light",
+	"theme.dark":"oscuro",
+	"theme.light": "luz",
 	"theme.pastel": "pastel",
-	"theme.ocean":"ocean",
+	"theme.ocean":"océano",
 
+	"byte.representation.description":"Select byte representation",
 	"byte.representation.select":"Select byte representation",
 	"byte.representation.help":"Specifies the representation of bytes"
 }

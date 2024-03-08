@@ -12,7 +12,7 @@ const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], bytesStringBase2: false, 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 export type FontSize = "fs-6" | "fs-5" | "fs-4";
-export type Language = "en-GB" | "de-DE" | "es-ES";
+export type Language = "en-GB" | "de-DE" | "es-ES" | "fr-FR" | "jp-JP" | "ru-RU" | "it-IT";
 
 export interface UIPreferences {
     get pageSize(): PageSize

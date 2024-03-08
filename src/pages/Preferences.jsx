@@ -36,20 +36,20 @@ export function Preferences() {
                         </div>
                         <br />
                         <div className='form-group'>
-                            <label className='label-description'>Appearance</label>
+                            <label className='label-description'>{t('user.interface.appearance')}</label>
                             <select className="form-select form-select-sm" title='Select font size' id='fontSizeInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
-                                <option value="fs-6">small</option>
-                                <option value="fs-5">medium</option>
-                                <option value="fs-4">large</option>
+                                <option value="fs-6">{t('user.interface.appearance.small')}</option>
+                                <option value="fs-5">{t('user.interface.appearance.medium')}</option>
+                                <option value="fs-4">{t('user.interface.appearance.large')}</option>
                             </select>
                             <small hmtlfor="fontSizeInput" id='fontSizeHelp' className='form-text text-muted'>Specifies the appearance of the user interface</small>
                         </div>
                         <br />
                         <div className='form-group'>
-                            <label className='label-description'>Page size</label>
+                            <label className='label-description'>{t('user.interface.pagesize.description')}</label>
                             <input className='form-control form-control-sm' id='pageSizeInput'
-                                type='text' placeholder='Page size' value={pageSize} disabled={true} />
-                            <small hmtlfor="pageSizeInput" id='pageSizeHelp' className='form-text text-muted'>Specifies the pagination size in tables</small>
+                                type='text' placeholder={t('user.interface.pagesize.hint')} value={pageSize} disabled={true} />
+                            <small hmtlfor="pageSizeInput" id='pageSizeHelp' className='form-text text-muted'>{t('user.interface.pagesize.help')}</small>
                         </div>
                     </form >
                 </Accordion.Body>
@@ -63,6 +63,10 @@ export function Preferences() {
                             <option value="en-GB">{t('lang.en')}</option>
                             <option value="de-DE">{t('lang.de')}</option>
                             <option value="es-ES">{t('lang.es')}</option>
+                            <option value="fr-FR">{t('lang.fr')}</option>
+                            <option value="it-IT">{t('lang.it')}</option>
+                            <option value="ru-RU">{t('lang.ru')}</option>
+                            <option value="jp-JP">{t('lang.jp')}</option>
                         </select>
                         <small hmtlfor="languageInput" id='languageInputHelp' className='form-text text-muted'>{t('lang.help')}</small>
                     </div>

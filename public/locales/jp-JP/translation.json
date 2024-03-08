@@ -1,5 +1,5 @@
 {
-	"user.interface": "User interface",
+	"user.interface": "Interface utilisateur",
 	"user.interface.appearance":"Appearance",
 	"user.interface.appearance.small":"small",
 	"user.interface.appearance.medium":"medium",
@@ -12,11 +12,11 @@
 	"lang.en": "English",
 	"lang.de": "German",
 	"lang.es": "Spanish",
-	"lang.fr": "French",
+	"lang.fr": "Français",
 	"lang.ru": "Russian",
 	"lang.jp": "Japanese",
 	"lang.it": "Italian",
-
+	
 	"lang.help": "Sets the language for the user interface",
 	"lang.select": "Select language",
 	"lang.description": "Select the language",
