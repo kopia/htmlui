@@ -65,6 +65,7 @@ export function Preferences() {
                             <option value="es-ES">{t('lang.es')}</option>
                             <option value="fr-FR">{t('lang.fr')}</option>
                             <option value="it-IT">{t('lang.it')}</option>
+                            <option value="pl-PL">{t('lang.pl')}</option>
                             <option value="ru-RU">{t('lang.ru')}</option>
                             <option value="jp-JP">{t('lang.jp')}</option>
                         </select>

@@ -156,13 +156,13 @@ export class Repository extends Component {
                                     onChange={this.handleChange}
                                     size="sm" />
                                 &nbsp;
-                                <Button data-testid='update-description' size="sm" onClick={this.updateDescription} type="button">Update Description</Button>
+                                <Button data-testid='update-description' size="sm" onClick={this.updateDescription} type="button">{i18n.t('repository.event.description.update')}</Button>
                             </InputGroup>
-                            <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{i18n.t('repository.feedback.description.required')}</Form.Control.Feedback>
                         </Form.Group>
                     </Row>
                     {this.state.status.readonly && <Row>
-                        <Badge pill variant="warning">Repository is read-only</Badge>
+                        <Badge pill variant="warning">{i18n.t('repository.feedback.read.only')}</Badge>
                     </Row>}
                 </Form>
                 <hr />
@@ -170,68 +170,71 @@ export class Repository extends Component {
                     {this.state.status.apiServerURL ? <>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Server URL</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.server.url')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
                             </Form.Group>
                         </Row>
                     </> : <>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Config File</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.config.file')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.configFile} />
                             </Form.Group>
                         </Row>
+                        <br />
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Provider</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.provider')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.storage} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Encryption Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.algorithm.encryption')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.encryption} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Hash Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.algorithm.hash')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.hash} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Splitter Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.algorithm.splitter')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.splitter} />
                             </Form.Group>
                         </Row>
+                        <br />
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Repository Format</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.format')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Error Correction Overhead</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : "Disabled"} />
+                                <Form.Label>{i18n.t('repository.attribute.eco')}:</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : i18n.t('repository.feedback.eco.disabled')} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Error Correction Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.algorithm.eco')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Internal Compression</Form.Label>
+                                <Form.Label>{i18n.t('repository.attribute.compression.internal')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
                             </Form.Group>
                         </Row>
                     </>}
+                    <br />
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label>Connected as:</Form.Label>
+                            <Form.Label>{i18n.t('repository.attribute.connected.as')}:</Form.Label>
                             <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
                         </Form.Group>
                     </Row>
-                    <Row><Col>&nbsp;</Col></Row>
+                    <br />
                     <Row>
                         <Col>
-                            <Button data-testid='disconnect' size="sm" variant="danger" onClick={this.disconnect}>Disconnect</Button>
+                            <Button data-testid='disconnect' size="sm" variant="danger" onClick={this.disconnect}>{i18n.t('repository.event.connection.disconnect')}</Button>
                         </Col>
                     </Row>
                 </Form>
-                <Row><Col>&nbsp;</Col></Row>
+                <br />
                 <Row>
                     <Col xs={12}>
                         <CLIEquivalent command="repository status" />
@@ -239,7 +242,6 @@ export class Repository extends Component {
                 </Row>
             </>;
         }
-
         return <SetupRepository />;
     }
 }

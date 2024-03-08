@@ -29,12 +29,30 @@
 	"task.header.value": "Value",
 
 	"repository.status.initializing": "Initializing repository...",
-	"repository.event.connection.cancel":"Cancel connection",
 	"repository.status.connected": "Connected to repository",
+	"repository.event.connection.cancel":"Cancel connection",
+	"repository.event.connection.disconnect": "Disconnect from repository",
+	"repository.event.description.update": "Update description",
+
+	"repository.feedback.description.required":"Repository description is required",
+	"repository.feedback.read.only": "Repository is read-only",
+	"repository.feedback.eco.disabled":"Disabled",
+
+	"repository.attribute.server.url": "Server URL",
+	"repository.attribute.config.file": "Config file",
+	"repository.attribute.provider": "Provider",
+	"repository.attribute.algorithm.encryption": "Encryption algorithm",
+	"repository.attribute.algorithm.hash": "Hash algorithm",
+	"repository.attribute.algorithm.splitter": "Splitter algorithm",
+	"repository.attribute.algorithm.eco": "Error correction algorithm",
+
+	"repository.attribute.connected.as": "Connected as",
+	"repository.attribute.compression.internal": "Internal compression",
+	"repository.attribute.format": "Repository format",
+	"repository.attribute.eco": "Error correction overhead",
 
 	"log.event.hide": "Hide log",
 	"log.event.show": "Show log",
-
 
 	"user.interface": "User interface",
 	"user.interface.appearance":"Appearance",
@@ -62,6 +80,7 @@
 	"lang.ru": "Russian",
 	"lang.jp": "Japanese",
 	"lang.it": "Italian",
+	"lang.pl": "Polish",
 
 	"lang.help": "Sets the language for the user interface",
 	"lang.select": "Select language",
