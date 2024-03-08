@@ -1,0 +1,21 @@
+{
+	"user.interface": "User interface",
+
+	"lang.en": "English",
+	"lang.de": "German",
+	"lang.es": "Spanish",
+	"lang.help": "Sets the language for the user interface",
+	"lang.select": "Select language",
+	"lang.select.description": "Select the language",
+
+	"theme.description": "Theme",
+	"theme.select": "Select theme",
+	"theme.help": "The current active theme",
+	"theme.dark":"dark",
+	"theme.light": "light",
+	"theme.pastel": "pastel",
+	"theme.ocean":"ocean",
+
+	"byte.representation.select":"Select byte representation",
+	"byte.representation.help":"Specifies the representation of bytes"
+}

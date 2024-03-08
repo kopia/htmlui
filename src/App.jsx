@@ -36,6 +36,7 @@ export default class App extends Component {
     this.fetchInitialRepositoryDescription = this.fetchInitialRepositoryDescription.bind(this);
 
     const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
+    
     if (tok && tok.content) {
       axios.defaults.headers.common['X-Kopia-Csrf-Token'] = tok.content;
     } else {

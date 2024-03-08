@@ -1,15 +1,18 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
+import i18next from 'i18next';
+
+const PREFERENCES_URL = '/api/v1/ui-preferences';
 
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
-const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], bytesStringBase2: false, defaultSnapshotViewAll: false, theme: getDefaultTheme(), preferWebDav: false, fontSize: "fs-6" } as SerializedUIPreferences;
-const PREFERENCES_URL = '/api/v1/ui-preferences';
+const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], bytesStringBase2: false, defaultSnapshotViewAll: false, theme: getDefaultTheme(), fontSize: "fs-6", language: "en-GB" } as SerializedUIPreferences;
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 export type FontSize = "fs-6" | "fs-5" | "fs-4";
+export type Language = "en-GB" | "de-DE" | "es-ES";
 
 export interface UIPreferences {
     get pageSize(): PageSize
@@ -17,11 +20,14 @@ export interface UIPreferences {
     get bytesStringBase2(): boolean
     get defaultSnapshotViewAll(): boolean
     get fontSize(): FontSize
+    get language(): Language
+
     setTheme: (theme: Theme) => void
     setPageSize: (pageSize: number) => void
     setByteStringBase: (bytesStringBase2: String) => void
     setDefaultSnapshotViewAll: (defaultSnapshotView: boolean) => void
     setFontSize: (size: String) => void
+    setLanguage: (lang: Language) => void
 }
 
 interface SerializedUIPreferences {
@@ -30,6 +36,7 @@ interface SerializedUIPreferences {
     defaultSnapshotView?: boolean
     theme: Theme
     fontSize: FontSize
+    language: Language
 }
 
 export interface UIPreferenceProviderProps {
@@ -66,7 +73,7 @@ function normalizePageSize(pageSize: number): PageSize {
 
 export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
-   
+
     const setTheme = useCallback((theme: Theme) => setPreferences(oldPreferences => {
         syncTheme(theme, oldPreferences.fontSize);
         return { ...oldPreferences, theme };
@@ -90,6 +97,11 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         return { ...oldPreferences, fontSize };
     }), []);
 
+    const setLanguage = useCallback((language: Language) => setPreferences(oldPreferences => {
+        i18next.changeLanguage(language);
+        return { ...oldPreferences, language };
+    }), []);
+
     useEffect(() => {
         axios.get(PREFERENCES_URL).then(result => {
             let storedPreferences = result.data as SerializedUIPreferences;
@@ -99,17 +111,21 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
             if (!storedPreferences.fontSize || (storedPreferences.fontSize as string) === "") {
                 storedPreferences.fontSize = DEFAULT_PREFERENCES.fontSize
             }
+            if (!storedPreferences.language || (storedPreferences.language as string) === "") {
+                storedPreferences.language = DEFAULT_PREFERENCES.language
+            }
             if (!storedPreferences.pageSize || storedPreferences.pageSize === 0) {
                 storedPreferences.pageSize = DEFAULT_PREFERENCES.pageSize;
             } else {
                 storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
             }
             setTheme(storedPreferences.theme);
+            setLanguage(storedPreferences.language);
             setFontSize(storedPreferences.fontSize);
             setPreferences(storedPreferences);
         }).catch(err => console.error(err));
 
-    }, [setTheme, setFontSize]);
+    }, [setTheme, setFontSize, setLanguage]);
 
     useEffect(() => {
         if (!preferences) {
@@ -134,7 +150,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         doc.classList.add(theme, fontSize)
     }
 
-    const providedValue = { ...preferences, setTheme, setPageSize, setByteStringBase, setDefaultSnapshotViewAll, setFontSize } as UIPreferences;
+    const providedValue = { ...preferences, setTheme, setPageSize, setByteStringBase, setDefaultSnapshotViewAll, setFontSize, setLanguage } as UIPreferences;
 
     return <UIPreferencesContext.Provider value={providedValue}>
         {props.children}

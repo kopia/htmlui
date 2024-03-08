@@ -1,0 +1,22 @@
+{
+	"user.interface": "Benutzeroberfläche",
+
+	"lang.en": "Englisch",
+	"lang.de": "Deutsch",
+	"lang.es": "Spanisch",
+	"lang.help": "Ändert die Sprache",
+	"lang.select": "Select language",
+	"lang.description": "Select the language",
+
+	"theme.description": "Theme",
+	"theme.select":"Theme auswählen",
+	"theme.help": "Das aktuelle Theme",
+	"theme.dark":"Dunkel",
+	"theme.light": "Hell",
+	"theme.pastel": "Pastelfarbend",
+	"theme.ocean":"Ozean",
+
+	"byte.representation.description":"Byte Darstellung",
+	"byte.representation.select": "Darstellung der Bytes auswählen",
+	"byte.representation.help": "Gibt die Darstellung der Bytes an"
+}
