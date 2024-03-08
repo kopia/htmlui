@@ -27,22 +27,22 @@ export function Preferences() {
                         </div>
                         <br />
                         <div className='form-group'>
-                            <label className='label-description' htmlFor="bytesBaseInput">{t('byte.representation.description')}</label>
-                            <select className="form-select form-select-sm" title={t('byte.representation.select')} id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
+                            <label className='label-description' htmlFor="bytesBaseInput">{t('user.interface.byte.representation.description')}</label>
+                            <select className="form-select form-select-sm" title={t('user.interface.byte.representation.select')} id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
                                 <option value="true">Base-2 (KiB, MiB, GiB, TiB)</option>
                                 <option value="false">Base-10 (KB, MB, GB, TB)</option>
                             </select>
-                            <small hmtlfor='bytesBaseInput' id='bytesHelp' className='form-text text-muted'>{t('byte.representation.help')}</small>
+                            <small hmtlfor='bytesBaseInput' id='bytesHelp' className='form-text text-muted'>{t('user.interface.byte.representation.help')}</small>
                         </div>
                         <br />
                         <div className='form-group'>
                             <label className='label-description'>{t('user.interface.appearance')}</label>
-                            <select className="form-select form-select-sm" title='Select font size' id='fontSizeInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
+                            <select className="form-select form-select-sm" title={t('user.interface.appearance.hint')} id='appearanceInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
                                 <option value="fs-6">{t('user.interface.appearance.small')}</option>
                                 <option value="fs-5">{t('user.interface.appearance.medium')}</option>
                                 <option value="fs-4">{t('user.interface.appearance.large')}</option>
                             </select>
-                            <small hmtlfor="fontSizeInput" id='fontSizeHelp' className='form-text text-muted'>Specifies the appearance of the user interface</small>
+                            <small hmtlfor="appearanceInput" id='appearanceHelp' className='form-text text-muted'>{t('user.interface.appearance.help')}</small>
                         </div>
                         <br />
                         <div className='form-group'>
@@ -55,7 +55,7 @@ export function Preferences() {
                 </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="language">
-                <Accordion.Header>Language</Accordion.Header>
+                <Accordion.Header>{t('user.language')}</Accordion.Header>
                 <Accordion.Body>
                     <div className='form-group'>
                         <label className='label-description'>{t('lang.description')}</label>

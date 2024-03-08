@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/Theme.css';
 import './css/App.css';
 import axios from 'axios';
+import i18n from './utils/18ns'
+
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
@@ -99,7 +101,6 @@ export default class App extends Component {
 
   render() {
     const { uiPrefs, runningTaskCount, isRepositoryConnected } = this.state;
-
     return (
       <Router>
         <AppContext.Provider value={this}>
@@ -110,18 +111,18 @@ export default class App extends Component {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                   <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">Snapshots</NavLink>
+                    <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">{i18n.t('tab.snapshots')}</NavLink>
                   </span>
                   <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">Policies</NavLink>
+                    <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">{i18n.t('tab.policies')}</NavLink>
                   </span>
                   <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">Tasks
+                    <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">{i18n.t('tab.tasks')}
                       <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
                     </NavLink>
                   </span>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">Repository</NavLink>
-                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">Preferences</NavLink>
+                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">{i18n.t('tab.repository')}</NavLink>
+                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">{i18n.t('tab.preferences')}</NavLink>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>

@@ -5,1342 +5,509 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <form>
+      <div
+        class="accordion"
+      >
         <div
-          class="form-group"
+          class="accordion-item"
         >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
+          <h2
+            class="accordion-header"
           >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
+            <button
+              aria-expanded="true"
+              class="accordion-button"
+              type="button"
+            >
+              user.interface
+            </button>
+          </h2>
+          <div
+            class="accordion-collapse collapse show"
           >
-            <option
-              value="light"
+            <div
+              class="accordion-body"
             >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
+              <form>
+                <div
+                  class="form-group"
+                >
+                  <label
+                    class="label-description"
+                    for="themeSelector"
+                    id="themeLabel"
+                  >
+                    theme.description
+                  </label>
+                  <select
+                    class="form-select form-select-sm"
+                    id="themeSelector"
+                    title="theme.select"
+                  >
+                    <option
+                      value="light"
+                    >
+                      theme.light
+                    </option>
+                    <option
+                      value="dark"
+                    >
+                      theme.dark
+                    </option>
+                    <option
+                      value="pastel"
+                    >
+                      theme.pastel
+                    </option>
+                    <option
+                      value="ocean"
+                    >
+                      theme.ocean
+                    </option>
+                  </select>
+                  <small
+                    class="form-text text-muted"
+                    hmtlfor="themeLabel"
+                    id="themeHelp"
+                  >
+                    theme.help
+                  </small>
+                </div>
+                <br />
+                <div
+                  class="form-group"
+                >
+                  <label
+                    class="label-description"
+                    for="bytesBaseInput"
+                  >
+                    user.interface.byte.representation.description
+                  </label>
+                  <select
+                    class="form-select form-select-sm"
+                    id="bytesBaseInput"
+                    title="user.interface.byte.representation.select"
+                  >
+                    <option
+                      value="true"
+                    >
+                      Base-2 (KiB, MiB, GiB, TiB)
+                    </option>
+                    <option
+                      value="false"
+                    >
+                      Base-10 (KB, MB, GB, TB)
+                    </option>
+                  </select>
+                  <small
+                    class="form-text text-muted"
+                    hmtlfor="bytesBaseInput"
+                    id="bytesHelp"
+                  >
+                    user.interface.byte.representation.help
+                  </small>
+                </div>
+                <br />
+                <div
+                  class="form-group"
+                >
+                  <label
+                    class="label-description"
+                  >
+                    user.interface.appearance
+                  </label>
+                  <select
+                    class="form-select form-select-sm"
+                    id="appearanceInput"
+                    title="user.interface.appearance.hint"
+                  >
+                    <option
+                      value="fs-6"
+                    >
+                      user.interface.appearance.small
+                    </option>
+                    <option
+                      value="fs-5"
+                    >
+                      user.interface.appearance.medium
+                    </option>
+                    <option
+                      value="fs-4"
+                    >
+                      user.interface.appearance.large
+                    </option>
+                  </select>
+                  <small
+                    class="form-text text-muted"
+                    hmtlfor="appearanceInput"
+                    id="appearanceHelp"
+                  >
+                    user.interface.appearance.help
+                  </small>
+                </div>
+                <br />
+                <div
+                  class="form-group"
+                >
+                  <label
+                    class="label-description"
+                  >
+                    user.interface.pagesize.description
+                  </label>
+                  <input
+                    class="form-control form-control-sm"
+                    disabled=""
+                    id="pageSizeInput"
+                    placeholder="user.interface.pagesize.hint"
+                    type="text"
+                    value=""
+                  />
+                  <small
+                    class="form-text text-muted"
+                    hmtlfor="pageSizeInput"
+                    id="pageSizeHelp"
+                  >
+                    user.interface.pagesize.help
+                  </small>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <br />
         <div
-          class="form-group"
+          class="accordion-item"
         >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
+          <h2
+            class="accordion-header"
           >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
+            <button
+              aria-expanded="false"
+              class="accordion-button collapsed"
+              type="button"
             >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
+              user.language
+            </button>
+          </h2>
+          <div
+            class="accordion-collapse collapse"
           >
-            Specifies the representation of bytes
-          </small>
+            <div
+              class="accordion-body"
+            >
+              <div
+                class="form-group"
+              >
+                <label
+                  class="label-description"
+                >
+                  lang.description
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="languageInput"
+                  title="lang.select"
+                >
+                  <option
+                    value="en-GB"
+                  >
+                    lang.en
+                  </option>
+                  <option
+                    value="de-DE"
+                  >
+                    lang.de
+                  </option>
+                  <option
+                    value="es-ES"
+                  >
+                    lang.es
+                  </option>
+                  <option
+                    value="fr-FR"
+                  >
+                    lang.fr
+                  </option>
+                  <option
+                    value="it-IT"
+                  >
+                    lang.it
+                  </option>
+                  <option
+                    value="ru-RU"
+                  >
+                    lang.ru
+                  </option>
+                  <option
+                    value="jp-JP"
+                  >
+                    lang.jp
+                  </option>
+                </select>
+                <small
+                  class="form-text text-muted"
+                  hmtlfor="languageInput"
+                  id="languageInputHelp"
+                >
+                  lang.help
+                </small>
+              </div>
+            </div>
+          </div>
         </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
-          >
-            Specifies the pagination size in tables
-          </small>
-        </div>
-      </form>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <form>
+    <div
+      class="accordion"
+    >
       <div
-        class="form-group"
+        class="accordion-item"
       >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
+        <h2
+          class="accordion-header"
         >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
+          <button
+            aria-expanded="true"
+            class="accordion-button"
+            type="button"
+          >
+            user.interface
+          </button>
+        </h2>
+        <div
+          class="accordion-collapse collapse show"
         >
-          <option
-            value="light"
+          <div
+            class="accordion-body"
           >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
+            <form>
+              <div
+                class="form-group"
+              >
+                <label
+                  class="label-description"
+                  for="themeSelector"
+                  id="themeLabel"
+                >
+                  theme.description
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="themeSelector"
+                  title="theme.select"
+                >
+                  <option
+                    value="light"
+                  >
+                    theme.light
+                  </option>
+                  <option
+                    value="dark"
+                  >
+                    theme.dark
+                  </option>
+                  <option
+                    value="pastel"
+                  >
+                    theme.pastel
+                  </option>
+                  <option
+                    value="ocean"
+                  >
+                    theme.ocean
+                  </option>
+                </select>
+                <small
+                  class="form-text text-muted"
+                  hmtlfor="themeLabel"
+                  id="themeHelp"
+                >
+                  theme.help
+                </small>
+              </div>
+              <br />
+              <div
+                class="form-group"
+              >
+                <label
+                  class="label-description"
+                  for="bytesBaseInput"
+                >
+                  user.interface.byte.representation.description
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="bytesBaseInput"
+                  title="user.interface.byte.representation.select"
+                >
+                  <option
+                    value="true"
+                  >
+                    Base-2 (KiB, MiB, GiB, TiB)
+                  </option>
+                  <option
+                    value="false"
+                  >
+                    Base-10 (KB, MB, GB, TB)
+                  </option>
+                </select>
+                <small
+                  class="form-text text-muted"
+                  hmtlfor="bytesBaseInput"
+                  id="bytesHelp"
+                >
+                  user.interface.byte.representation.help
+                </small>
+              </div>
+              <br />
+              <div
+                class="form-group"
+              >
+                <label
+                  class="label-description"
+                >
+                  user.interface.appearance
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="appearanceInput"
+                  title="user.interface.appearance.hint"
+                >
+                  <option
+                    value="fs-6"
+                  >
+                    user.interface.appearance.small
+                  </option>
+                  <option
+                    value="fs-5"
+                  >
+                    user.interface.appearance.medium
+                  </option>
+                  <option
+                    value="fs-4"
+                  >
+                    user.interface.appearance.large
+                  </option>
+                </select>
+                <small
+                  class="form-text text-muted"
+                  hmtlfor="appearanceInput"
+                  id="appearanceHelp"
+                >
+                  user.interface.appearance.help
+                </small>
+              </div>
+              <br />
+              <div
+                class="form-group"
+              >
+                <label
+                  class="label-description"
+                >
+                  user.interface.pagesize.description
+                </label>
+                <input
+                  class="form-control form-control-sm"
+                  disabled=""
+                  id="pageSizeInput"
+                  placeholder="user.interface.pagesize.hint"
+                  type="text"
+                  value=""
+                />
+                <small
+                  class="form-text text-muted"
+                  hmtlfor="pageSizeInput"
+                  id="pageSizeHelp"
+                >
+                  user.interface.pagesize.help
+                </small>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <br />
       <div
-        class="form-group"
+        class="accordion-item"
       >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
+        <h2
+          class="accordion-header"
         >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
+          <button
+            aria-expanded="false"
+            class="accordion-button collapsed"
+            type="button"
           >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
+            user.language
+          </button>
+        </h2>
+        <div
+          class="accordion-collapse collapse"
         >
-          Specifies the representation of bytes
-        </small>
+          <div
+            class="accordion-body"
+          >
+            <div
+              class="form-group"
+            >
+              <label
+                class="label-description"
+              >
+                lang.description
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="languageInput"
+                title="lang.select"
+              >
+                <option
+                  value="en-GB"
+                >
+                  lang.en
+                </option>
+                <option
+                  value="de-DE"
+                >
+                  lang.de
+                </option>
+                <option
+                  value="es-ES"
+                >
+                  lang.es
+                </option>
+                <option
+                  value="fr-FR"
+                >
+                  lang.fr
+                </option>
+                <option
+                  value="it-IT"
+                >
+                  lang.it
+                </option>
+                <option
+                  value="ru-RU"
+                >
+                  lang.ru
+                </option>
+                <option
+                  value="jp-JP"
+                >
+                  lang.jp
+                </option>
+              </select>
+              <small
+                class="form-text text-muted"
+                hmtlfor="languageInput"
+                id="languageInputHelp"
+              >
+                lang.help
+              </small>
+            </div>
+          </div>
+        </div>
       </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
-        >
-          Specifies the pagination size in tables
-        </small>
-      </div>
-    </form>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
-`;
-
-exports[`Select the light theme Should select light theme 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <form>
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
-          >
-            Specifies the pagination size in tables
-          </small>
-        </div>
-      </form>
     </div>
-  </body>,
-  "container": <div>
-    <form>
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
-        >
-          Specifies the pagination size in tables
-        </small>
-      </div>
-    </form>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
-`;
-
-exports[`Test byte representation Should have two options 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <form>
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
-          >
-            Specifies the pagination size in tables
-          </small>
-        </div>
-      </form>
-    </div>
-  </body>,
-  "container": <div>
-    <form>
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
-        >
-          Specifies the pagination size in tables
-        </small>
-      </div>
-    </form>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
-`;
-
-exports[`Test number of themes Should have four themes 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <form>
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-          >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
-          >
-            Specifies the pagination size in tables
-          </small>
-        </div>
-      </form>
-    </div>
-  </body>,
-  "container": <div>
-    <form>
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-        >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
-        >
-          Specifies the pagination size in tables
-        </small>
-      </div>
-    </form>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

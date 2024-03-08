@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Logs } from '../components/Logs';
 import { AppContext } from '../contexts/AppContext';
+import i18n from '../utils/18ns'
 
 export class Repository extends Component {
     constructor() {
@@ -127,13 +128,13 @@ export class Repository extends Component {
         }
 
         if (this.state.status.initTaskID) {
-            return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
+            return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;{i18n.t('repository.status.initializing')}</h4>
                 {this.state.showLog ? <>
-                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} />{i18n.t('log.event.hide')}</Button>
                     <Logs taskID={this.state.status.initTaskID} />
-                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} />{i18n.t('log.event.show')}</Button>}
                 <hr />
-                <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>Cancel Connection</Button>
+                <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>{i18n.t('repository.event.connection.cancel')}</Button>
             </>;
         }
 
@@ -141,7 +142,7 @@ export class Repository extends Component {
             return <>
                 <p className="text-success mb-1">
                     <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
-                    <span>Connected To Repository</span>
+                    <span>{i18n.t('repository.status.connected')}</span>
                 </p>
                 <Form>
                     <Row>

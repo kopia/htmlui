@@ -2,7 +2,10 @@ import { render, screen } from '@testing-library/react'
 import { expect, test } from '@jest/globals';
 import userEvent from "@testing-library/user-event";
 import { Preferences } from '../pages/Preferences';
-const { setTheme } = jest.requireActual('../pages/Preferences');
+
+import { configure } from '@testing-library/dom'
+configure({ testIdAttribute: 'id' })
+
 // Wrapper
 let wrapper;
 
@@ -22,16 +25,17 @@ describe('Calling the preference page', () => {
     })
 })
 
+
 /**
  * 
  */
 describe('Select the light theme', () => {
     test('Should select light theme', () => {
      userEvent.selectOptions(
-            screen.getByRole('combobox', { name: "Theme" }),
-            screen.getByRole('option', { name: 'light' }));
+            screen.getByTestId('themeSelector'),
+            screen.getByRole('option', { name: "light" }));
 
-        expect(screen.getByRole('option', { name: 'light' }).selected).toBe(true)
+        expect(screen.getByRole('option', { name: "light" }).selected).toBe(true)
 
         expect(wrapper).toMatchSnapshot();
     })

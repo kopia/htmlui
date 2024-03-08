@@ -13,6 +13,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Logs } from '../components/Logs';
 import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import i18n from '../utils/18ns'
 
 export class Task extends Component {
     constructor() {
@@ -81,21 +82,21 @@ export class Task extends Component {
         switch (task.status) {
 
             case "SUCCESS":
-                return <Alert size="sm" variant="success">Task succeeded after {dur}.</Alert>;
+                return <Alert size="sm" variant="success">{i18n.t('task.status.succeed.after')} {dur}.</Alert>;
 
             case "FAILED":
-                return <Alert variant="danger"><b>Error:</b> {task.errorMessage}.</Alert>;
+                return <Alert variant="danger"><b>{i18n.t('task.status.error')}:</b> {task.errorMessage}.</Alert>;
 
             case "CANCELED":
-                return <Alert variant="warning">Task canceled.</Alert>;
+                return <Alert variant="warning">{i18n.t('task.status.canceled')}.</Alert>;
 
             case "CANCELING":
                 return <Alert variant="primary">
-                    <Spinner animation="border" variant="warning" size="sm" /> Canceling {dur}: {task.progressInfo}.</Alert>;
+                    <Spinner animation="border" variant="warning" size="sm" />{i18n.t('task.status.canceling')} {dur}: {task.progressInfo}.</Alert>;
 
             default:
                 return <Alert variant="primary">
-                    <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}: {task.progressInfo}.</Alert>;
+                    <Spinner animation="border" variant="primary" size="sm" />{i18n.t('task.status.running.for')} {dur}: {task.progressInfo}.</Alert>;
         }
     }
 
@@ -174,7 +175,7 @@ export class Task extends Component {
                         <h4>
                             <GoBackButton onClick={this.props.history.goBack} />
                             {task.status === "RUNNING" && <>
-                                &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> Stop </Button>
+                                &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> {i18n.t('task.event.stop')} </Button>
                             </>}
                             &nbsp;{task.kind}: {task.description}</h4>
                     </Form.Group>
@@ -189,8 +190,8 @@ export class Task extends Component {
                     <Table bordered hover size="sm">
                         <thead>
                             <tr>
-                                <th>Counter</th>
-                                <th>Value</th>
+                                <th>{i18n.t('task.header.counter')}</th>
+                                <th>{i18n.t('task.header.value')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -202,25 +203,25 @@ export class Task extends Component {
             <Row>
                 <Col xs={6}>
                     <Form.Group>
-                        <Form.Label>Started</Form.Label>
+                        <Form.Label><b>{i18n.t('task.status.started')}</b></Form.Label>
                         <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
                     </Form.Group>
                 </Col>
                 <Col xs={6}>
                     <Form.Group>
-                        <Form.Label>Finished</Form.Label>
+                        <Form.Label><b>{i18n.t('task.status.finished')}</b></Form.Label>
                         <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
                     </Form.Group>
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Form.Group>
-                    <Form.Label>Logs</Form.Label>
+                    <Form.Label><b>{i18n.t('task.logs')}</b></Form.Label>
                     <Logs taskID={this.taskID(this.props)} />
                 </Form.Group>
             </Row>
         </Form>
-            ;
     }
 }
 Task.contextType = UIPreferencesContext

@@ -1,6 +1,46 @@
 {
-	"user.interface": "Interface utilisateur",
+	"tab.preferences":"Preferences",
+	"tab.repository":"Repository",
+	"tab.tasks":"Tasks",
+	"tab.policies":"Policies",
+	"tab.snapshots":"Snapshots",
+
+	"task.all":"All",
+	"task.running":"Running",
+	"task.failed":"Failed",
+	"task.loading": "Loading...",
+	"task.time.start": "Start time",
+	"task.status": "Status",
+	"task.kind": "Kind",
+	"task.description": "Description",
+
+	"task.status.succeed.after": "Task succeeded after",
+	"task.status.canceled": "Task canceled after",
+	"task.status.canceling": "Canceling",
+	"task.status.error": "Task error",
+	"task.status.running.for": "Task running for",
+
+	"task.status.started": "Started",
+	"task.status.finished": "Finished",
+	"task.logs": "Logs",
+
+	"task.event.stop": "Stop",
+	"task.header.counter": "Counter",
+	"task.header.value": "Value",
+
+	"repository.status.initializing": "Initializing repository...",
+	"repository.event.connection.cancel":"Cancel connection",
+	"repository.status.connected": "Connected to repository",
+
+	"log.event.hide": "Hide log",
+	"log.event.show": "Show log",
+
+
+	"user.interface": "User interface",
 	"user.interface.appearance":"Appearance",
+	"user.interface.appearance.hint":"Select font size",
+	"user.interface.appearance.help": "Specifies the appearance of the user interface",
+
 	"user.interface.appearance.small":"small",
 	"user.interface.appearance.medium":"medium",
 	"user.interface.appearance.large":"large",
@@ -9,14 +49,20 @@
 	"user.interface.pagesize.help": "Specifies the pagination size in tables",
 	"user.interface.pagesize.hint": "Page size",
 
+	"user.interface.byte.representation.description":"Select byte representation",
+	"user.interface.byte.representation.select":"Select byte representation",
+	"user.interface.byte.representation.help":"Specifies the representation of bytes",
+
+	"user.language":"Language",
+
 	"lang.en": "English",
 	"lang.de": "German",
 	"lang.es": "Spanish",
-	"lang.fr": "Français",
+	"lang.fr": "French",
 	"lang.ru": "Russian",
 	"lang.jp": "Japanese",
 	"lang.it": "Italian",
-	
+
 	"lang.help": "Sets the language for the user interface",
 	"lang.select": "Select language",
 	"lang.description": "Select the language",
@@ -27,9 +73,5 @@
 	"theme.dark":"dark",
 	"theme.light": "light",
 	"theme.pastel": "pastel",
-	"theme.ocean":"ocean",
-
-	"byte.representation.description":"Select byte representation",
-	"byte.representation.select":"Select byte representation",
-	"byte.representation.help":"Specifies the representation of bytes"
+	"theme.ocean":"ocean"
 }
