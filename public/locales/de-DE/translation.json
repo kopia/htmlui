@@ -22,16 +22,16 @@
 
 	"task.status.started": "Gestartet",
 	"task.status.finished": "Abgeschlossen",
-	"task.logs": "Logs",
+	"task.logs": "Protokoll",
 
 	"task.event.stop": "Stop",
 	"task.header.counter": "Counter",
 	"task.header.value": "Value",
 
 	"repository.status.initializing": "Initializing repository...",
-	"repository.status.connected": "Connected to repository",
+	"repository.status.connected": "Mit Repository verbunden",
 	"repository.event.connection.cancel":"Cancel connection",
-	"repository.event.connection.disconnect": "Disconnect from repository",
+	"repository.event.connection.disconnect": "Repository trennen",
 	"repository.event.description.update": "Update description",
 
 	"repository.feedback.description.required":"Repository description is required",
@@ -65,9 +65,9 @@
 	"user.interface.appearance.medium":"mittel",
 	"user.interface.appearance.large":"groß",
 
-	"user.interface.pagesize.description": "Page size",
-	"user.interface.pagesize.help": "Gibt die Anzahl der anzuzeigenden Elemente in Listen an",
-	"user.interface.pagesize.hint": "Page size",
+	"user.interface.pagesize.description": "Anzahl an Einträgen",
+	"user.interface.pagesize.help": "Gibt die Anzahl der Einträge in Listen an",
+	"user.interface.pagesize.hint": "Anzahl Einträge",
 
 	"user.interface.byte.representation.description":"Select byte representation",
 	"user.interface.byte.representation.select":"Select byte representation",
