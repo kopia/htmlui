@@ -75,15 +75,6 @@
 
 	"user.language":"Language",
 
-	"lang.en": "English",
-	"lang.de": "German",
-	"lang.es": "Spanish",
-	"lang.fr": "French",
-	"lang.ru": "Russian",
-	"lang.jp": "Japanese",
-	"lang.it": "Italian",
-	"lang.pl": "Polish",
-
 	"lang.help": "Sets the language for the user interface",
 	"lang.select": "Select language",
 	"lang.description": "Select the language",

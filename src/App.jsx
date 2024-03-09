@@ -4,6 +4,7 @@ import './css/App.css';
 import axios from 'axios';
 import i18n from './utils/18ns'
 
+import { LanguageSelection } from './components/LanguageSelection';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
@@ -123,6 +124,9 @@ export default class App extends Component {
                   </span>
                   <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">{i18n.t('tab.repository')}</NavLink>
                   <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">{i18n.t('tab.preferences')}</NavLink>
+                </Nav>
+                <Nav>
+                  <LanguageSelection/>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>

@@ -11,6 +11,10 @@ body {
   color: var(--color-text-body);
 }
 
+#select-language {
+  width: 10em;
+}
+
 #kopia .options-select {
   overflow: ellipsis
 }
