@@ -37,6 +37,8 @@
 	"repository.feedback.description.required":"Repository description is required",
 	"repository.feedback.read.only": "Repository is read-only",
 	"repository.feedback.eco.disabled":"Disabled",
+	"repository.feedback.compression.internal.supported": "yes",
+	"repository.feedback.compression.internal.not.supported": "no",
 
 	"repository.attribute.server.url": "Server URL",
 	"repository.attribute.config.file": "Config file",

@@ -216,7 +216,7 @@ export class Repository extends Component {
                             </Form.Group>
                             <Form.Group as={Col}>
                                 <Form.Label>{i18n.t('repository.attribute.compression.internal')}:</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
+                                <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? i18n.t('repository.feedback.compression.internal.supported') : i18n.t('repository.feedback.compression.internal.not.supported')} />
                             </Form.Group>
                         </Row>
                     </>}
