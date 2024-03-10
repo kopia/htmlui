@@ -1,42 +1,42 @@
-[
-    {
+{
+    "en-GB": {
         "label": "English",
         "code": "GB",
         "value": "en-GB"
     },
-    {
+    "de-DE": {
         "label": "Deutsch",
         "code": "DE",
         "value": "de-DE"
     },
-    {
+    "es-ES": {
         "label": "Español",
         "code": "ES",
         "value": "es-ES"
     },
-    {
+    "fr-FR": {
         "label": "Français",
         "code": "FR",
         "value": "fr-FR"
     },
-    {
+    "ru-RU": {
         "label": "Русский",
         "code": "RU",
         "value": "ru-RU"
     },
-    {
+    "jp-JP": {
         "label": "日本語",
         "code": "JP",
         "value": "jp-JP"
     },
-    {
+    "it-IT": {
         "label": "Italiano",
         "code": "IT",
         "value": "it-IT"
     },
-    {
+    "pl-PL": {
         "label": "Polski",
         "code": "PL",
         "value": "pl-PL"
     }
-]
+}

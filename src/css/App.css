@@ -12,11 +12,12 @@ body {
 }
 
 #select-language {
-  width: 10em;
+  width: 8em;
+  font-size: 90%;
 }
 
 #kopia .options-select {
-  overflow: ellipsis
+  overflow: ellipsis;
 }
 
 #kopia .btn-close {

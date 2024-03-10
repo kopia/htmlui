@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 import languages from '../assets/languages.json'
 import Flags from 'country-flag-icons/react/3x2'
 import Select, { components } from "react-select";
+import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 const { Option } = components;
 const LanguageOption = props => {
@@ -15,16 +15,19 @@ const LanguageOption = props => {
   </>
 };
 
-
 export function LanguageSelection() {
   const { language, setLanguage } = useContext(UIPreferencesContext);
+  const allLanguages = Object.values(languages)
   return <>
     <Select
       classNamePrefix="select"
       id='select-language'
-      onChange={e => setLanguage(e.value)}
-      value={LanguageOption.language}
-      options={languages}
+      onChange={selection => setLanguage(selection.value)}
+      value={languages[language]}
+      options={allLanguages}
+      //To render the select component before the input group
+      menuPortalTarget={document.body}
+      styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
       components={{ Option: LanguageOption }}>
     </Select>
   </>

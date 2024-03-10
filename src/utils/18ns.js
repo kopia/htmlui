@@ -9,15 +9,13 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en-GB",
-    deubg: true, 
     ns: ["translation"],
     defaultNS: "translation",
     interpolation: {
       escapeValue: false,
     },
-    react: {
-      wait: true
-    }
+    react:
+      { useSuspense: true }
   });
 
 export default i18n;
