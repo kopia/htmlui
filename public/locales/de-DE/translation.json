@@ -28,6 +28,21 @@
 	"task.header.counter": "Counter",
 	"task.header.value": "Value",
 
+	"snapshot.header.actions": "Aktionen",
+	"snapshot.header.status": "Status",
+	"snapshot.header.snapshot.next":"Nächster Snapshot",
+	"snapshot.header.snapshot.last":"Letzter Snapshot",
+	"snapshot.header.snapshot.size":"Größe",
+	"snapshot.header.snapshot.owner":"Eigentümer",
+	"snapshot.header.snapshot.path":"Pfad",
+
+	"snapshot.event.sychronize":"Synchronisieren",
+	"snapshot.event.snapshot.policy": "Richtlinie",
+	"snapshot.event.snapshot.now": "Snapshot erstellen",
+	"snapshot.event.snapshot.pending": "Wartend",
+	"snapshot.feedback.snapshot.start": "Der Snapshot startet, sobald der vorherige abgeschlossen ist",
+	"snapshot.event.snapshot.new": "Neuer Snapshot",
+
 	"repository.status.initializing": "Initializing repository...",
 	"repository.status.connected": "Mit Repository verbunden",
 	"repository.event.connection.cancel":"Cancel connection",

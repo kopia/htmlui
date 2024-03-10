@@ -14,6 +14,7 @@ import { handleChange } from '../forms';
 import KopiaTable from '../utils/KopiaTable';
 import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirect, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import i18n from '../utils/18ns'
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
@@ -111,10 +112,10 @@ export class Snapshots extends Component {
         switch (x.cell.value) {
             case "IDLE":
             case "PAUSED":
-                return x.cell.column.Header = "Actions"
+                return x.cell.column.Header = i18n.t('snapshot.header.actions');
             case "PENDING":
             case "UPLOADING":
-                return x.cell.column.Header = "Status"
+                return x.cell.column.Header = i18n.t('snapshot.header.status');
             default:
                 return x.cell.column.Header = ""
         }
@@ -131,17 +132,17 @@ export class Snapshots extends Component {
             case "IDLE":
             case "PAUSED":
                 return <>
-                    <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.source)} variant="primary" size="sm">Policy</Button>
+                    <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.source)} variant="primary" size="sm">{i18n.t('snapshot.event.snapshot.policy')}</Button>
                     <Button data-testid="snapshot-now" variant="success" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
-                    }}>Snapshot Now
+                    }}>{i18n.t('snapshot.event.snapshot.now')}
                     </Button>
                 </>;
 
             case "PENDING":
                 return <>
-                    <Spinner data-testid="snapshot-pending" animation="border" variant="secondary" size="sm" title="Snapshot will start after the previous snapshot completes" />
-                    &nbsp;Pending
+                    <Spinner data-testid="snapshot-pending" animation="border" variant="secondary" size="sm" title={i18n.t('snapshot.feedback.snapshot.start')} />
+                    &nbsp;{i18n.t('snapshot.event.snapshot.pending')}
                 </>;
 
             case "UPLOADING":
@@ -152,13 +153,10 @@ export class Snapshots extends Component {
                     title = " hashed " + u.hashedFiles + " files (" + sizeDisplayName(u.hashedBytes, bytesStringBase2) + ")\n" +
                         " cached " + u.cachedFiles + " files (" + sizeDisplayName(u.cachedBytes, bytesStringBase2) + ")\n" +
                         " dir " + u.directory;
-
                     const totalBytes = u.hashedBytes + u.cachedBytes;
-
                     totals = sizeDisplayName(totalBytes, bytesStringBase2);
                     if (u.estimatedBytes) {
                         totals += "/" + sizeDisplayName(u.estimatedBytes, bytesStringBase2);
-
                         const percent = Math.round(totalBytes * 1000.0 / u.estimatedBytes) / 10.0;
                         if (percent <= 100) {
                             totals += " " + percent + "%";
@@ -198,7 +196,6 @@ export class Snapshots extends Component {
             if (x.row.original.status === "PAUSED") {
                 return "paused";
             }
-
             return "";
         }
 
@@ -248,26 +245,25 @@ export class Snapshots extends Component {
 
         const columns = [{
             id: 'path',
-            Header: 'Path',
+            Header: i18n.t('snapshot.header.snapshot.path'),
             accessor: x => x.source,
             sortType: (a, b) => {
                 const v = compare(a.original.source.path, b.original.source.path);
                 if (v !== 0) {
                     return v;
                 }
-
                 return compare(ownerName(a.original.source), ownerName(b.original.source));
             },
             width: "",
             Cell: x => <Link to={'/snapshots/single-source?' + sourceQueryStringParams(x.cell.value)}>{x.cell.value.path}</Link>,
         }, {
             id: 'owner',
-            Header: 'Owner',
+            Header: i18n.t('snapshot.header.snapshot.owner'),
             accessor: x => x.source.userName + '@' + x.source.host,
             width: 250,
         }, {
             id: 'lastSnapshotSize',
-            Header: 'Size',
+            Header: i18n.t('snapshot.header.snapshot.size'),
             width: 120,
             accessor: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
             Cell: x => sizeWithFailures(
@@ -275,13 +271,13 @@ export class Snapshots extends Component {
                 x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null, bytesStringBase2),
         }, {
             id: 'lastSnapshotTime',
-            Header: 'Last Snapshot',
+            Header: i18n.t('snapshot.header.snapshot.last'),
             width: 160,
             accessor: x => x.lastSnapshot ? x.lastSnapshot.startTime : null,
             Cell: x => x.cell.value ? <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}</p> : '',
         }, {
             id: 'nextSnapshotTime',
-            Header: 'Next Snapshot',
+            Header: i18n.t('snapshot.header.snapshot.next'),
             width: 160,
             accessor: x => x.nextSnapshotTime,
             Cell: x => this.nextSnapshotTimeCell(x, this),
@@ -311,12 +307,12 @@ export class Snapshots extends Component {
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">New Snapshot</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">{i18n.t('snapshot.event.snapshot.new')}</Button>
                     </Col>
                     <Col>
                     </Col>
                     <Col xs="auto">
-                        <Button size="sm" title="Synchronize" variant="primary">
+                        <Button size="sm" title={i18n.t('snapshot.event.sychronize')} variant="primary">
                             {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} onClick={this.sync} />}
                         </Button>
                     </Col>
