@@ -10,14 +10,15 @@ i18n
   .init({
     lng: "en",
     fallbackLng: "en",
-    debug: true,
     ns: ["translation"],
     defaultNS: "translation",
     interpolation: {
       escapeValue: false,
     },
     react:
-      { useSuspense: true }
+    {
+      useSuspense: true
+    }
   });
 
 export default i18n;
