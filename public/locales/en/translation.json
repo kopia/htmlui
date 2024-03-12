@@ -44,7 +44,7 @@
 	"snapshot.feedback.snapshot.start": "Snapshot will start after the previous snapshot completes",
 	"snapshot.event.snapshot.new": "New Snapshot",
 
-	"snapshot.event.sychronize":"Synchronize",
+	"snapshot.event.synchronize":"Synchronize",
 
 	"repository.status.initializing": "Initializing repository...",
 	"repository.status.connected": "Connected to repository",

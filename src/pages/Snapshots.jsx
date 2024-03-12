@@ -14,7 +14,7 @@ import { handleChange } from '../forms';
 import KopiaTable from '../utils/KopiaTable';
 import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirect, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
-import i18n from '../utils/18ns'
+import i18n from '../utils/i18n'
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
@@ -218,7 +218,9 @@ export class Snapshots extends Component {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
-            return <Spinner animation="border" variant="primary" />;
+            return (<div className='loader-container'>
+                <span className="loader"></span>
+            </div>);
         }
         let uniqueOwners = sources.reduce((a, d) => {
             const owner = ownerName(d.source);
@@ -312,7 +314,7 @@ export class Snapshots extends Component {
                     <Col>
                     </Col>
                     <Col xs="auto">
-                        <Button size="sm" title={i18n.t('snapshot.event.sychronize')} variant="primary">
+                        <Button size="sm" title={i18n.t('snapshot.event.synchronize')} variant="primary">
                             {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} onClick={this.sync} />}
                         </Button>
                     </Col>

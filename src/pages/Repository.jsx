@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Logs } from '../components/Logs';
 import { AppContext } from '../contexts/AppContext';
-import i18n from '../utils/18ns'
+import i18n from '../utils/i18n'
 
 export class Repository extends Component {
     constructor() {

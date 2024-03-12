@@ -13,7 +13,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Logs } from '../components/Logs';
 import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
-import i18n from '../utils/18ns'
+import i18n from '../utils/i18n'
 
 export class Task extends Component {
     constructor() {

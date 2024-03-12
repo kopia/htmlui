@@ -1,0 +1,107 @@
+{
+	"tab.preferences": "設定",
+	"tab.repository": "リポジトリ",
+	"tab.tasks": "タスク",
+	"tab.policies": "ポリシー",
+	"tab.snapshots": "スナップショット",
+
+	"task.all": "すべて",
+	"task.running": "実行中",
+	"task.failed": "失敗",
+	"task.loading": "読み込み中...",
+	"task.header.time.start": "開始時刻",
+	"task.header.status": "ステータス",
+	"task.header.kind": "種類",
+	"task.header.description": "説明",
+	"task.feedback.search": "説明でログを検索",
+	"task.feedback.entries": "スナップショットを作成したり、復元したり、メンテナンスを実行したりすると、ここにタスクの一覧が表示されます。",
+
+	"task.status.succeed.after": "タスクは成功しました。",
+	"task.status.canceled": "タスクはキャンセルされました。",
+	"task.status.canceling": "キャンセル中",
+	"task.status.error": "タスクエラー",
+	"task.status.running.for": "タスク実行中",
+
+	"task.status.started": "開始済み",
+	"task.status.finished": "完了済み",
+	"task.logs": "ログ",
+
+	"task.event.stop": "停止",
+	"task.header.counter": "カウンター",
+	"task.header.value": "値",
+
+	"snapshot.header.actions": "アクション",
+	"snapshot.header.status": "ステータス",
+	"snapshot.header.snapshot.next": "次のスナップショット",
+	"snapshot.header.snapshot.last": "最後のスナップショット",
+	"snapshot.header.snapshot.size": "サイズ",
+	"snapshot.header.snapshot.owner": "オーナー",
+	"snapshot.header.snapshot.path": "パス",
+
+	"snapshot.event.snapshot.now": "スナップショットを作成",
+	"snapshot.event.snapshot.policy": "ポリシー",
+	"snapshot.event.snapshot.pending": "保留中",
+	"snapshot.feedback.snapshot.start": "前のスナップショットが完了した後にスナップショットが開始されます",
+	"snapshot.event.snapshot.new": "新しいスナップショット",
+
+	"snapshot.event.synchronize": "同期",
+
+	"repository.status.initializing": "リポジトリの初期化中...",
+	"repository.status.connected": "リポジトリに接続済み",
+	"repository.event.connection.cancel": "接続をキャンセル",
+	"repository.event.connection.disconnect": "リポジトリから切断",
+	"repository.event.description.update": "説明を更新",
+
+	"repository.feedback.description.required": "リポジトリの説明は必須です",
+	"repository.feedback.read.only": "リポジトリは読み取り専用です",
+	"repository.feedback.eco.disabled": "無効",
+	"repository.feedback.compression.internal.supported": "はい",
+	"repository.feedback.compression.internal.not.supported": "いいえ",
+
+	"repository.attribute.server.url": "サーバーのURL",
+	"repository.attribute.config.file": "設定ファイル",
+	"repository.attribute.provider": "プロバイダー",
+	"repository.attribute.algorithm.encryption": "暗号化アルゴリズム",
+	"repository.attribute.algorithm.hash": "ハッシュアルゴリズム",
+	"repository.attribute.algorithm.splitter": "分割アルゴリズム",
+	"repository.attribute.algorithm.eco": "エラー訂正アルゴリズム",
+
+	"repository.attribute.connected.as": "接続されたユーザー",
+	"repository.attribute.compression.internal": "内部圧縮",
+	"repository.attribute.format": "リポジトリの形式",
+	"repository.attribute.eco": "エラー訂正オーバーヘッド",
+
+	"log.event.hide": "ログを非表示",
+	"log.event.show": "ログを表示",
+	
+	"user.interface": "ユーザーインターフェース",
+	"user.interface.appearance": "外観",
+	"user.interface.appearance.hint": "フォントサイズを選択",
+	"user.interface.appearance.help": "ユーザーインターフェースの外観を指定します",
+
+	"user.interface.appearance.small": "小",
+	"user.interface.appearance.medium": "中",
+	"user.interface.appearance.large": "大",
+
+	"user.interface.pagesize.description": "ページサイズ",
+	"user.interface.pagesize.help": "テーブルのページネーションサイズを指定します",
+	"user.interface.pagesize.hint": "ページサイズ",
+
+	"user.interface.byte.representation.description": "バイトの表現を選択",
+	"user.interface.byte.representation.select": "バイトの表現を選択",
+	"user.interface.byte.representation.help": "バイトの表現を指定します",
+
+	"user.language": "言語",
+
+	"lang.help": "ユーザーインターフェースの言語を設定します",
+	"lang.select": "言語を選択",
+	"lang.description": "言語を選択してください",
+
+	"theme.description": "テーマ",
+	"theme.select": "テーマを選択",
+	"theme.help": "現在のアクティブなテーマ",
+	"theme.dark": "ダーク",
+	"theme.light": "ライト",
+	"theme.pastel": "パステル",
+	"theme.ocean": "オーシャン"
+}

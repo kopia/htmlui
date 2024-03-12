@@ -1,42 +1,42 @@
 {
-    "en-GB": {
+    "en": {
         "label": "English",
         "code": "GB",
-        "value": "en-GB"
+        "value": "en"
     },
-    "de-DE": {
+    "de": {
         "label": "Deutsch",
         "code": "DE",
-        "value": "de-DE"
+        "value": "de"
     },
-    "es-ES": {
+    "es": {
         "label": "Español",
         "code": "ES",
-        "value": "es-ES"
+        "value": "es"
     },
-    "fr-FR": {
+    "fr": {
         "label": "Français",
         "code": "FR",
-        "value": "fr-FR"
+        "value": "fr"
     },
-    "ru-RU": {
+    "ru": {
         "label": "Русский",
         "code": "RU",
-        "value": "ru-RU"
+        "value": "ru"
     },
-    "jp-JP": {
+    "jp": {
         "label": "日本語",
         "code": "JP",
-        "value": "jp-JP"
+        "value": "jp"
     },
-    "it-IT": {
+    "it": {
         "label": "Italiano",
         "code": "IT",
-        "value": "it-IT"
+        "value": "it"
     },
-    "pl-PL": {
+    "pl": {
         "label": "Polski",
         "code": "PL",
-        "value": "pl-PL"
+        "value": "pl"
     }
 }

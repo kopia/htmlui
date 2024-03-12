@@ -2,8 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/Theme.css';
 import './css/App.css';
 import axios from 'axios';
-import i18n from './utils/18ns'
-
+import i18n from './utils/i18n'
 import { LanguageSelection } from './components/LanguageSelection';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
@@ -39,7 +38,7 @@ export default class App extends Component {
     this.fetchInitialRepositoryDescription = this.fetchInitialRepositoryDescription.bind(this);
 
     const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
-    
+
     if (tok && tok.content) {
       axios.defaults.headers.common['X-Kopia-Csrf-Token'] = tok.content;
     } else {
@@ -103,59 +102,59 @@ export default class App extends Component {
   render() {
     const { uiPrefs, runningTaskCount, isRepositoryConnected } = this.state;
     return (
-      <Router>
-        <AppContext.Provider value={this}>
-          <UIPreferenceProvider initalValue={uiPrefs}>
-            <Navbar expand="sm" variant="light">
-              <Navbar.Brand href="/"><img src="/kopia-flat.svg" className="App-logo" alt="logo" /></Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">{i18n.t('tab.snapshots')}</NavLink>
-                  </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">{i18n.t('tab.policies')}</NavLink>
-                  </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">{i18n.t('tab.tasks')}
-                      <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
-                    </NavLink>
-                  </span>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">{i18n.t('tab.repository')}</NavLink>
-                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">{i18n.t('tab.preferences')}</NavLink>
-                </Nav>
-                <Nav>
-                  <LanguageSelection/>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar>
+          <Router>
+            <AppContext.Provider value={this}>
+              <UIPreferenceProvider initalValue={uiPrefs}>
+                <Navbar expand="sm" variant="light">
+                  <Navbar.Brand href="/"><img src="/kopia-flat.svg" className="App-logo" alt="logo" /></Navbar.Brand>
+                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                  <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                      <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                        <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">{i18n.t('tab.snapshots')}</NavLink>
+                      </span>
+                      <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                        <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">{i18n.t('tab.policies')}</NavLink>
+                      </span>
+                      <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                        <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">{i18n.t('tab.tasks')}
+                          <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
+                        </NavLink>
+                      </span>
+                      <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">{i18n.t('tab.repository')}</NavLink>
+                      <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">{i18n.t('tab.preferences')}</NavLink>
+                    </Nav>
+                    <Nav>
+                      <LanguageSelection />
+                    </Nav>
+                  </Navbar.Collapse>
+                </Navbar>
 
-            <Container fluid>
-              <NavLink to="/repo" style={{ color: "inherit", textDecoration: "inherit" }}>
-                <h5 className="mb-4">{this.state.repoDescription}</h5>
-              </NavLink>
+                <Container fluid>
+                  <NavLink to="/repo" style={{ color: "inherit", textDecoration: "inherit" }}>
+                    <h5 className="mb-4">{this.state.repoDescription}</h5>
+                  </NavLink>
 
-              <Switch>
-                <Route path="/snapshots/new" component={SnapshotCreate} />
-                <Route path="/snapshots/single-source/" component={SnapshotHistory} />
-                <Route path="/snapshots/dir/:oid/restore" component={SnapshotRestore} />
-                <Route path="/snapshots/dir/:oid" component={SnapshotDirectory} />
-                <Route path="/snapshots" component={Snapshots} />
-                <Route path="/policies/edit/" component={Policy} />
-                <Route path="/policies" component={Policies} />
-                <Route path="/tasks/:tid" component={Task} />
-                <Route path="/tasks" component={Tasks} />
-                <Route path="/repo" component={Repository} />
-                <Route path="/preferences" component={Preferences} />
-                <Route exact path="/">
-                  <Redirect to="/snapshots" />
-                </Route>
-              </Switch>
-            </Container>
-          </UIPreferenceProvider>
-        </AppContext.Provider>
-      </Router>
+                  <Switch>
+                    <Route path="/snapshots/new" component={SnapshotCreate} />
+                    <Route path="/snapshots/single-source/" component={SnapshotHistory} />
+                    <Route path="/snapshots/dir/:oid/restore" component={SnapshotRestore} />
+                    <Route path="/snapshots/dir/:oid" component={SnapshotDirectory} />
+                    <Route path="/snapshots" component={Snapshots} />
+                    <Route path="/policies/edit/" component={Policy} />
+                    <Route path="/policies" component={Policies} />
+                    <Route path="/tasks/:tid" component={Task} />
+                    <Route path="/tasks" component={Tasks} />
+                    <Route path="/repo" component={Repository} />
+                    <Route path="/preferences" component={Preferences} />
+                    <Route exact path="/">
+                      <Redirect to="/snapshots" />
+                    </Route>
+                  </Switch>
+                </Container>
+              </UIPreferenceProvider>
+            </AppContext.Provider>
+          </Router>
     );
   }
 }

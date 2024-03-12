@@ -1,0 +1,107 @@
+{
+	"tab.preferences": "Preferenze",
+	"tab.repository": "Repository",
+	"tab.tasks": "Attività",
+	"tab.policies": "Politiche",
+	"tab.snapshots": "Istantanee",
+
+	"task.all": "Tutte",
+	"task.running": "In esecuzione",
+	"task.failed": "Fallite",
+	"task.loading": "Caricamento...",
+	"task.header.time.start": "Ora di inizio",
+	"task.header.status": "Stato",
+	"task.header.kind": "Tipo",
+	"task.header.description": "Descrizione",
+	"task.feedback.search": "Cerca log per descrizione",
+	"task.feedback.entries": "Un elenco di attività apparirà qui quando crei istantanee, ripristini, esegui manutenzione, ecc.",
+
+	"task.status.succeed.after": "Attività completata dopo",
+	"task.status.canceled": "Attività annullata dopo",
+	"task.status.canceling": "Annullamento in corso",
+	"task.status.error": "Errore nell'attività",
+	"task.status.running.for": "Attività in esecuzione da",
+
+	"task.status.started": "Avviata",
+	"task.status.finished": "Completata",
+	"task.logs": "Log",
+
+	"task.event.stop": "Arresta",
+	"task.header.counter": "Contatore",
+	"task.header.value": "Valore",
+
+	"snapshot.header.actions": "Azioni",
+	"snapshot.header.status": "Stato",
+	"snapshot.header.snapshot.next": "Prossima istantanea",
+	"snapshot.header.snapshot.last": "Ultima istantanea",
+	"snapshot.header.snapshot.size": "Dimensione",
+	"snapshot.header.snapshot.owner": "Proprietario",
+	"snapshot.header.snapshot.path": "Percorso",
+
+	"snapshot.event.snapshot.now": "**Crea Istantanea Ora**",
+	"snapshot.event.snapshot.policy": "Politica",
+	"snapshot.event.snapshot.pending": "In attesa",
+	"snapshot.feedback.snapshot.start": "L'istantanea inizierà dopo il completamento dell'istantanea precedente",
+	"snapshot.event.snapshot.new": "Nuova Istantanea",
+
+	"snapshot.event.synchronize":"Sincronizza",
+
+	"repository.status.initializing": "Inizializzazione del repository...",
+	"repository.status.connected": "Connesso al repository",
+	"repository.event.connection.cancel":"Annulla connessione",
+	"repository.event.connection.disconnect": "Disconnetti dal repository",
+	"repository.event.description.update": "Aggiorna descrizione",
+
+	"repository.feedback.description.required":"La descrizione del repository è obbligatoria",
+	"repository.feedback.read.only": "Il repository è in sola lettura",
+	"repository.feedback.eco.disabled":"Disabilitato",
+	"repository.feedback.compression.internal.supported": "sì",
+	"repository.feedback.compression.internal.not.supported": "no",
+
+	"repository.attribute.server.url": "URL del server",
+	"repository.attribute.config.file": "File di configurazione",
+	"repository.attribute.provider": "Provider",
+	"repository.attribute.algorithm.encryption": "Algoritmo di crittografia",
+	"repository.attribute.algorithm.hash": "Algoritmo di hash",
+	"repository.attribute.algorithm.splitter": "Algoritmo di suddivisione",
+	"repository.attribute.algorithm.eco": "Algoritmo di correzione degli errori",
+
+	"repository.attribute.connected.as": "Connesso come",
+	"repository.attribute.compression.internal": "Compressione interna",
+	"repository.attribute.format": "Formato del repository",
+	"repository.attribute.eco": "Overhead di correzione degli errori",
+
+	"log.event.hide": "Nascondi log",
+	"log.event.show": "Mostra log",
+
+	"user.interface": "Interfaccia utente",
+	"user.interface.appearance":"Aspetto",
+	"user.interface.appearance.hint":"Seleziona la dimensione del carattere",
+	"user.interface.appearance.help": "Specifica l'aspetto dell'interfaccia utente",
+
+	"user.interface.appearance.small": "piccolo",
+	"user.interface.appearance.medium": "medio",
+	"user.interface.appearance.large": "grande",
+
+	"user.interface.pagesize.description": "Dimensione pagina",
+	"user.interface.pagesize.help": "Specifica la dimensione di paginazione nelle tabelle",
+	"user.interface.pagesize.hint": "Dimensione pagina",
+
+	"user.interface.byte.representation.description": "Seleziona la rappresentazione dei byte",
+	"user.interface.byte.representation.select": "Seleziona la rappresentazione dei byte",
+	"user.interface.byte.representation.help": "Specifica la rappresentazione dei byte",
+
+	"user.language": "Lingua",
+
+	"lang.help": "Imposta la lingua per l'interfaccia utente",
+	"lang.select": "Seleziona la lingua",
+	"lang.description": "Seleziona la lingua",
+
+	"theme.description": "Tema",
+	"theme.select": "Seleziona il tema",
+	"theme.help": "Il tema attivo corrente",
+	"theme.dark": "scuro",
+	"theme.light": "chiaro",
+	"theme.pastel": "pastello",
+	"theme.ocean": "oceano"
+}

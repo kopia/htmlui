@@ -10,7 +10,7 @@ import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
 import { RequiredNumberField } from '../forms/RequiredNumberField';
 import { errorAlert, GoBackButton } from '../utils/uiutil';
-import i18n from '../utils/18ns'
+import i18n from '../utils/i18n'
 
 export class SnapshotRestore extends Component {
     constructor(props) {

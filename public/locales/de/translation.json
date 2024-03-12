@@ -38,7 +38,7 @@
 	"snapshot.header.snapshot.owner":"Eigentümer",
 	"snapshot.header.snapshot.path":"Pfad",
 
-	"snapshot.event.sychronize":"Synchronisieren",
+	"snapshot.event.synchronize":"Synchronisieren",
 	"snapshot.event.snapshot.policy": "Richtlinie",
 	"snapshot.event.snapshot.now": "Snapshot erstellen",
 	"snapshot.event.snapshot.pending": "Wartend",

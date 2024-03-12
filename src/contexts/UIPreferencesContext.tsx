@@ -7,12 +7,12 @@ const PREFERENCES_URL = '/api/v1/ui-preferences';
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
-const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], bytesStringBase2: false, defaultSnapshotViewAll: false, theme: getDefaultTheme(), fontSize: "fs-6", language: "en-GB" } as SerializedUIPreferences;
+const DEFAULT_PREFERENCES = { pageSize: PAGE_SIZES[0], bytesStringBase2: false, defaultSnapshotViewAll: false, theme: getDefaultTheme(), fontSize: "fs-6", language: "en" } as SerializedUIPreferences;
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 export type FontSize = "fs-6" | "fs-5" | "fs-4";
-export type Language = "en-GB" | "de-DE" | "es-ES" | "fr-FR" | "jp-JP" | "ru-RU" | "it-IT" | "pl-PL";
+export type Language = "en" | "de" | "es" | "fr" | "jp" | "ru" | "it" | "pl";
 
 export interface UIPreferences {
     get pageSize(): PageSize

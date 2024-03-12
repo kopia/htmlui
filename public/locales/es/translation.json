@@ -41,7 +41,7 @@
 	"snapshot.event.snapshot.pending": "Pendiente",
 	"snapshot.feedback.snapshot.start": "La instantánea comenzará después de que se complete la instantánea anterior",
 	"snapshot.event.snapshot.new": "Nueva instantánea",
-	"snapshot.event.sychronize": "Sincronizar",
+	"snapshot.event.synchronize": "Sincronizar",
 	
 	"repository.status.initializing": "Inicializando el repositorio...",
 	"repository.status.connected": "Conectado al repositorio",
