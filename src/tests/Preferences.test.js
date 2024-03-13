@@ -25,7 +25,6 @@ describe('Calling the preference page', () => {
     })
 })
 
-
 /**
  * 
  */
@@ -33,10 +32,9 @@ describe('Select the light theme', () => {
     test('Should select light theme', () => {
      userEvent.selectOptions(
             screen.getByTestId('themeSelector'),
-            screen.getByRole('option', { name: "light" }));
+            screen.getByRole('option', { name: "theme.light" }));
 
-        expect(screen.getByRole('option', { name: "light" }).selected).toBe(true)
-
+        expect(screen.getByRole('option', { name: "theme.light" }).selected).toBe(true)
         expect(wrapper).toMatchSnapshot();
     })
 })
@@ -46,8 +44,8 @@ describe('Select the light theme', () => {
  */
 describe('Test number of themes', () => {
     test('Should have four themes', () => {
-        let theme = screen.getByRole('combobox', { name: "Theme" });
-        expect(theme).toHaveLength(4);
+        let selector = screen.getByTestId('themeSelector');
+        expect(selector).toHaveLength(4);
         expect(wrapper).toMatchSnapshot();
     })
 })
@@ -57,8 +55,8 @@ describe('Test number of themes', () => {
  */
 describe('Test byte representation', () => {
     test('Should have two options', () => {
-        let theme = screen.getByRole('combobox', { name: "Byte representation" });
-        expect(theme).toHaveLength(2);
+        let selector = screen.getByTestId('bytesBaseInput');
+        expect(selector).toHaveLength(2);
         expect(wrapper).toMatchSnapshot();
     })
 })
