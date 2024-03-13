@@ -5,6 +5,8 @@
 	"tab.policies":"Konfiguracje",
 	"tab.snapshots":"Kopie",
 
+	"common.return": "Wróć",
+
 	"task.all":"wszystkie",
 	"task.running":"w toku",
 	"task.failed":"nieudane",
@@ -27,6 +29,29 @@
 	"task.event.stop": "Zatrzymaj",
 	"task.header.counter": "Licznik",
 	"task.header.value": "Wartość",
+
+	"snapshot.event.restore.task.go": "Przejdź do zadania przywracania",
+	"snapshot.event.restore": "Przywróć",
+	"snapshot.feedback.restore.destination": "Cel",
+	"snapshot.feedback.restore.destination.path": "Wprowadź ścieżkę docelową",
+	"snapshot.feedback.restore.destination.help": "Możesz również przywrócić do pliku .zip lub .tar, podając odpowiednie rozszerzenie.",
+	"snapshot.feedback.restore.skip": "Pomiń wcześniej przywrócone pliki i dowiązania symboliczne",
+	"snapshot.feedback.restore.continue.errors": "Kontynuuj w przypadku błędów",
+	"snapshot.feedback.restore.continue.errors.help": "Gdy wystąpi błąd przywracania, spróbuj kontynuować zamiast szybko zakończyć.",
+	"snapshot.feedback.restore.file.ownership": "Przywróć własność plików",
+	"snapshot.feedback.restore.file.permission": "Przywróć uprawnienia plików",
+	"snapshot.feedback.restore.file.modification.time": "Przywróć czas modyfikacji plików",
+	"snapshot.feedback.restore.file.overwrite": "Nadpisz pliki",
+	"snapshot.feedback.restore.directory.overwrite": "Nadpisz katalogi",
+	"snapshot.feedback.restore.link.overwrite": "Nadpisz dowiązania symboliczne",
+	"snapshot.feedback.restore.file.atomically": "Zapisuj pliki atomowo",
+	"snapshot.feedback.restore.file.sparse": "Zapisuj pliki rzadkie",
+
+	"snapshot.feedback.restore.shallow.depth": "Płytkie przywracanie na określonej głębokości",
+	"snapshot.feedback.restore.shallow.file.size.minimal": "Minimalny rozmiar pliku dla płytkiego przywracania",
+	"snapshot.feedback.restore.disable.compression.zip": "Wyłącz kompresję ZIP",
+	"snapshot.feedback.restore.disable.compression.zip.help": "Nie kompresuj przy przywracaniu do pliku ZIP (szybciej).",
+	"snapshot.event.restore.begin": "Rozpocznij przywracanie",
 
 	"repository.status.initializing": "Inicjalizacja w toku...",
 	"repository.status.connected": "Podłączone repoytorium",

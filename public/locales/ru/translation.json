@@ -5,6 +5,8 @@
 	"tab.policies": "Политики",
 	"tab.snapshots": "Снимки",
 
+	"common.return": "Возврат",
+
 	"task.all": "Все",
 	"task.running": "Выполняются",
 	"task.failed": "Не удалось",
@@ -45,6 +47,29 @@
 	"snapshot.event.snapshot.new": "Новый снимок",
 
 	"snapshot.event.synchronize": "Синхронизировать",
+
+	"snapshot.event.restore.task.go": "Перейти к задаче восстановления",
+	"snapshot.event.restore": "Восстановить",
+	"snapshot.feedback.restore.destination": "Назначение",
+	"snapshot.feedback.restore.destination.path": "Введите путь назначения",
+	"snapshot.feedback.restore.destination.help": "Вы также можете восстановить в файл .zip или .tar, указав соответствующее расширение.",
+	"snapshot.feedback.restore.skip": "Пропустить ранее восстановленные файлы и символические ссылки",
+	"snapshot.feedback.restore.continue.errors": "Продолжить при возникновении ошибок",
+	"snapshot.feedback.restore.continue.errors.help": "При возникновении ошибки восстановления попробуйте продолжить, а не прекращать операцию.",
+	"snapshot.feedback.restore.file.ownership": "Восстановить владение файлами",
+	"snapshot.feedback.restore.file.permission": "Восстановить разрешения файлов",
+	"snapshot.feedback.restore.file.modification.time": "Восстановить время изменения файлов",
+	"snapshot.feedback.restore.file.overwrite": "Перезаписать файлы",
+	"snapshot.feedback.restore.directory.overwrite": "Перезаписать директории",
+	"snapshot.feedback.restore.link.overwrite": "Перезаписать символические ссылки",
+	"snapshot.feedback.restore.file.atomically": "Записывать файлы атомарно",
+	"snapshot.feedback.restore.file.sparse": "Записывать разреженные файлы",
+
+	"snapshot.feedback.restore.shallow.depth": "Поверхностное восстановление на определенной глубине",
+	"snapshot.feedback.restore.shallow.file.size.minimal": "Минимальный размер файла для поверхностного восстановления",
+	"snapshot.feedback.restore.disable.compression.zip": "Отключить сжатие ZIP",
+	"snapshot.feedback.restore.disable.compression.zip.help": "Не сжимать при восстановлении в файл ZIP (быстрее).",
+	"snapshot.event.restore.begin": "Начать восстановление",
 
 	"repository.status.initializing": "Инициализация репозитория...",
 	"repository.status.connected": "Подключено к репозиторию",

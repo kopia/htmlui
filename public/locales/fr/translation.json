@@ -5,6 +5,8 @@
 	"tab.policies": "Politiques",
 	"tab.snapshots": "Instantanés",
 
+	"common.return": "Retour",
+
 	"task.all": "Tous",
 	"task.running": "En cours",
 	"task.failed": "Échoué",
@@ -40,6 +42,29 @@
 	"snapshot.feedback.snapshot.start": "L'instantané démarrera après la fin de l'instantané précédent",
 	"snapshot.event.snapshot.new": "Nouvel instantané",
 	"snapshot.event.synchronize": "Synchroniser",
+
+	"snapshot.event.restore.task.go": "Aller à la tâche de restauration",
+	"snapshot.event.restore": "Restaurer",
+	"snapshot.feedback.restore.destination": "Destination",
+	"snapshot.feedback.restore.destination.path": "Entrez le chemin de destination",
+	"snapshot.feedback.restore.destination.help": "Vous pouvez également restaurer vers un fichier .zip ou .tar en fournissant l'extension appropriée.",
+	"snapshot.feedback.restore.skip": "Ignorer les fichiers et liens symboliques déjà restaurés",
+	"snapshot.feedback.restore.continue.errors": "Continuer en cas d'erreurs",
+	"snapshot.feedback.restore.continue.errors.help": "Lorsqu'une erreur de restauration se produit, essayez de continuer au lieu d'échouer rapidement.",
+	"snapshot.feedback.restore.file.ownership": "Restaurer la propriété des fichiers",
+	"snapshot.feedback.restore.file.permission": "Restaurer les permissions des fichiers",
+	"snapshot.feedback.restore.file.modification.time": "Restaurer l'heure de modification des fichiers",
+	"snapshot.feedback.restore.file.overwrite": "Écraser les fichiers",
+	"snapshot.feedback.restore.directory.overwrite": "Écraser les répertoires",
+	"snapshot.feedback.restore.link.overwrite": "Écraser les liens symboliques",
+	"snapshot.feedback.restore.file.atomically": "Écrire les fichiers de manière atomique",
+	"snapshot.feedback.restore.file.sparse": "Écrire les fichiers en mode sparse",
+
+	"snapshot.feedback.restore.shallow.depth": "Restauration superficielle à une profondeur spécifique",
+	"snapshot.feedback.restore.shallow.file.size.minimal": "Taille minimale des fichiers pour une restauration superficielle",
+	"snapshot.feedback.restore.disable.compression.zip": "Désactiver la compression ZIP",
+	"snapshot.feedback.restore.disable.compression.zip.help": "Ne pas compresser lors de la restauration vers un fichier ZIP (plus rapide).",
+	"snapshot.event.restore.begin": "Démarrer la restauration",
 
 	"repository.status.initializing": "Initialisation du répertoire...",
 	"repository.status.connected": "Connecté au répertoire",
