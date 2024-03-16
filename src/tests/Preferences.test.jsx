@@ -32,9 +32,9 @@ describe('Select the light theme', () => {
     test('Should select light theme', () => {
      userEvent.selectOptions(
             screen.getByTestId('themeSelector'),
-            screen.getByRole('option', { name: "theme.light" }));
+            screen.getByRole('option', { name: "ui.value.theme-light" }));
 
-        expect(screen.getByRole('option', { name: "theme.light" }).selected).toBe(true)
+        expect(screen.getByRole('option', { name: "ui.value.theme-light" }).selected).toBe(true)
         expect(wrapper).toMatchSnapshot();
     })
 })
