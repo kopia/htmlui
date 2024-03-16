@@ -14,7 +14,7 @@ import { handleChange } from '../forms';
 import KopiaTable from '../utils/KopiaTable';
 import { CLIEquivalent, compare, errorAlert, ownerName, policyEditorURL, redirect, sizeDisplayName, sizeWithFailures, sourceQueryStringParams } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
-import i18n from '../utils/i18n'
+import i18n from '../utils/i18n';
 
 const localSnapshots = "Local Snapshots"
 const allSnapshots = "All Snapshots"
@@ -135,14 +135,14 @@ export class Snapshots extends Component {
                     <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.source)} variant="primary" size="sm">{i18n.t('snapshot.event.snapshot.policy')}</Button>
                     <Button data-testid="snapshot-now" variant="success" size="sm" onClick={() => {
                         parent.startSnapshot(x.row.original.source);
-                    }}>{i18n.t('snapshot.event.snapshot.now')}
+                    }}>{i18n.t('snapshot.event.create.now')}
                     </Button>
                 </>;
 
             case "PENDING":
                 return <>
                     <Spinner data-testid="snapshot-pending" animation="border" variant="secondary" size="sm" title={i18n.t('snapshot.feedback.snapshot.start')} />
-                    &nbsp;{i18n.t('snapshot.event.snapshot.pending')}
+                    {' '}{i18n.t('snapshot.event.snapshot.pending')}
                 </>;
 
             case "UPLOADING":
@@ -210,6 +210,11 @@ export class Snapshots extends Component {
             </>}
         </p>;
     }
+
+    navigateTo(path) {
+        this.props.history.push(path);
+    }
+
 
     render() {
         let { sources, isLoading, error } = this.state;
@@ -297,7 +302,7 @@ export class Snapshots extends Component {
                     {this.state.multiUser && <><Col xs="auto">
                         <Dropdown>
                             <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
-                                <FontAwesomeIcon icon={faUserFriends} />&nbsp;{this.state.selectedOwner}
+                                <FontAwesomeIcon icon={faUserFriends} />{' '}{this.state.selectedOwner}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
@@ -309,7 +314,7 @@ export class Snapshots extends Component {
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">{i18n.t('snapshot.event.snapshot.new')}</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="primary" onClick={() => this.navigateTo("/snapshots/new")}>{i18n.t('snapshot.event.snapshot.new')}</Button>
                     </Col>
                     <Col>
                     </Col>

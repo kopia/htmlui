@@ -58,12 +58,12 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            user.interface.byte.representation.description
+            ui.feedback.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="user.interface.byte.representation.select"
+            title="ui.feedback.byte-representation-select"
           >
             <option
               value="true"
@@ -81,7 +81,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            user.interface.byte.representation.help
+            ui.feedback.byte-representation-help
           </small>
         </div>
         <br />
@@ -91,27 +91,27 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.appearance
+            ui.feedback.appearance
           </label>
           <select
             class="form-select form-select-sm"
             id="appearanceInput"
-            title="user.interface.appearance.hint"
+            title="ui.feedback.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              user.interface.appearance.small
+              ui.value.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              user.interface.appearance.medium
+              ui.value.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              user.interface.appearance.large
+              ui.value.appearance-large
             </option>
           </select>
           <small
@@ -119,7 +119,7 @@ Object {
             hmtlfor="appearanceInput"
             id="appearanceHelp"
           >
-            user.interface.appearance.help
+            ui.feedback.appearance-help
           </small>
         </div>
         <br />
@@ -129,22 +129,21 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.pagesize.description
+            ui.feedback.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="user.interface.pagesize.hint"
+            placeholder="ui.feedback.pagesize-hint"
             type="text"
-            value=""
           />
           <small
             class="form-text text-muted"
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            user.interface.pagesize.help
+            ui.feedback.pagesize-help
           </small>
         </div>
       </form>
@@ -204,12 +203,12 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          user.interface.byte.representation.description
+          ui.feedback.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="user.interface.byte.representation.select"
+          title="ui.feedback.byte-representation-select"
         >
           <option
             value="true"
@@ -227,7 +226,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          user.interface.byte.representation.help
+          ui.feedback.byte-representation-help
         </small>
       </div>
       <br />
@@ -237,27 +236,27 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.appearance
+          ui.feedback.appearance
         </label>
         <select
           class="form-select form-select-sm"
           id="appearanceInput"
-          title="user.interface.appearance.hint"
+          title="ui.feedback.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            user.interface.appearance.small
+            ui.value.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            user.interface.appearance.medium
+            ui.value.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            user.interface.appearance.large
+            ui.value.appearance-large
           </option>
         </select>
         <small
@@ -265,7 +264,7 @@ Object {
           hmtlfor="appearanceInput"
           id="appearanceHelp"
         >
-          user.interface.appearance.help
+          ui.feedback.appearance-help
         </small>
       </div>
       <br />
@@ -275,22 +274,21 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.pagesize.description
+          ui.feedback.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="user.interface.pagesize.hint"
+          placeholder="ui.feedback.pagesize-hint"
           type="text"
-          value=""
         />
         <small
           class="form-text text-muted"
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          user.interface.pagesize.help
+          ui.feedback.pagesize-help
         </small>
       </div>
     </form>
@@ -407,12 +405,12 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            user.interface.byte.representation.description
+            ui.feedback.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="user.interface.byte.representation.select"
+            title="ui.feedback.byte-representation-select"
           >
             <option
               value="true"
@@ -430,7 +428,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            user.interface.byte.representation.help
+            ui.feedback.byte-representation-help
           </small>
         </div>
         <br />
@@ -440,27 +438,27 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.appearance
+            ui.feedback.appearance
           </label>
           <select
             class="form-select form-select-sm"
             id="appearanceInput"
-            title="user.interface.appearance.hint"
+            title="ui.feedback.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              user.interface.appearance.small
+              ui.value.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              user.interface.appearance.medium
+              ui.value.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              user.interface.appearance.large
+              ui.value.appearance-large
             </option>
           </select>
           <small
@@ -468,7 +466,7 @@ Object {
             hmtlfor="appearanceInput"
             id="appearanceHelp"
           >
-            user.interface.appearance.help
+            ui.feedback.appearance-help
           </small>
         </div>
         <br />
@@ -478,22 +476,21 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.pagesize.description
+            ui.feedback.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="user.interface.pagesize.hint"
+            placeholder="ui.feedback.pagesize-hint"
             type="text"
-            value=""
           />
           <small
             class="form-text text-muted"
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            user.interface.pagesize.help
+            ui.feedback.pagesize-help
           </small>
         </div>
       </form>
@@ -553,12 +550,12 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          user.interface.byte.representation.description
+          ui.feedback.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="user.interface.byte.representation.select"
+          title="ui.feedback.byte-representation-select"
         >
           <option
             value="true"
@@ -576,7 +573,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          user.interface.byte.representation.help
+          ui.feedback.byte-representation-help
         </small>
       </div>
       <br />
@@ -586,27 +583,27 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.appearance
+          ui.feedback.appearance
         </label>
         <select
           class="form-select form-select-sm"
           id="appearanceInput"
-          title="user.interface.appearance.hint"
+          title="ui.feedback.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            user.interface.appearance.small
+            ui.value.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            user.interface.appearance.medium
+            ui.value.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            user.interface.appearance.large
+            ui.value.appearance-large
           </option>
         </select>
         <small
@@ -614,7 +611,7 @@ Object {
           hmtlfor="appearanceInput"
           id="appearanceHelp"
         >
-          user.interface.appearance.help
+          ui.feedback.appearance-help
         </small>
       </div>
       <br />
@@ -624,22 +621,21 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.pagesize.description
+          ui.feedback.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="user.interface.pagesize.hint"
+          placeholder="ui.feedback.pagesize-hint"
           type="text"
-          value=""
         />
         <small
           class="form-text text-muted"
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          user.interface.pagesize.help
+          ui.feedback.pagesize-help
         </small>
       </div>
     </form>
@@ -756,12 +752,12 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            user.interface.byte.representation.description
+            ui.feedback.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="user.interface.byte.representation.select"
+            title="ui.feedback.byte-representation-select"
           >
             <option
               value="true"
@@ -779,7 +775,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            user.interface.byte.representation.help
+            ui.feedback.byte-representation-help
           </small>
         </div>
         <br />
@@ -789,27 +785,27 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.appearance
+            ui.feedback.appearance
           </label>
           <select
             class="form-select form-select-sm"
             id="appearanceInput"
-            title="user.interface.appearance.hint"
+            title="ui.feedback.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              user.interface.appearance.small
+              ui.value.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              user.interface.appearance.medium
+              ui.value.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              user.interface.appearance.large
+              ui.value.appearance-large
             </option>
           </select>
           <small
@@ -817,7 +813,7 @@ Object {
             hmtlfor="appearanceInput"
             id="appearanceHelp"
           >
-            user.interface.appearance.help
+            ui.feedback.appearance-help
           </small>
         </div>
         <br />
@@ -827,22 +823,21 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.pagesize.description
+            ui.feedback.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="user.interface.pagesize.hint"
+            placeholder="ui.feedback.pagesize-hint"
             type="text"
-            value=""
           />
           <small
             class="form-text text-muted"
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            user.interface.pagesize.help
+            ui.feedback.pagesize-help
           </small>
         </div>
       </form>
@@ -902,12 +897,12 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          user.interface.byte.representation.description
+          ui.feedback.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="user.interface.byte.representation.select"
+          title="ui.feedback.byte-representation-select"
         >
           <option
             value="true"
@@ -925,7 +920,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          user.interface.byte.representation.help
+          ui.feedback.byte-representation-help
         </small>
       </div>
       <br />
@@ -935,27 +930,27 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.appearance
+          ui.feedback.appearance
         </label>
         <select
           class="form-select form-select-sm"
           id="appearanceInput"
-          title="user.interface.appearance.hint"
+          title="ui.feedback.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            user.interface.appearance.small
+            ui.value.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            user.interface.appearance.medium
+            ui.value.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            user.interface.appearance.large
+            ui.value.appearance-large
           </option>
         </select>
         <small
@@ -963,7 +958,7 @@ Object {
           hmtlfor="appearanceInput"
           id="appearanceHelp"
         >
-          user.interface.appearance.help
+          ui.feedback.appearance-help
         </small>
       </div>
       <br />
@@ -973,22 +968,21 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.pagesize.description
+          ui.feedback.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="user.interface.pagesize.hint"
+          placeholder="ui.feedback.pagesize-hint"
           type="text"
-          value=""
         />
         <small
           class="form-text text-muted"
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          user.interface.pagesize.help
+          ui.feedback.pagesize-help
         </small>
       </div>
     </form>
@@ -1105,12 +1099,12 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            user.interface.byte.representation.description
+            ui.feedback.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="user.interface.byte.representation.select"
+            title="ui.feedback.byte-representation-select"
           >
             <option
               value="true"
@@ -1128,7 +1122,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            user.interface.byte.representation.help
+            ui.feedback.byte-representation-help
           </small>
         </div>
         <br />
@@ -1138,27 +1132,27 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.appearance
+            ui.feedback.appearance
           </label>
           <select
             class="form-select form-select-sm"
             id="appearanceInput"
-            title="user.interface.appearance.hint"
+            title="ui.feedback.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              user.interface.appearance.small
+              ui.value.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              user.interface.appearance.medium
+              ui.value.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              user.interface.appearance.large
+              ui.value.appearance-large
             </option>
           </select>
           <small
@@ -1166,7 +1160,7 @@ Object {
             hmtlfor="appearanceInput"
             id="appearanceHelp"
           >
-            user.interface.appearance.help
+            ui.feedback.appearance-help
           </small>
         </div>
         <br />
@@ -1176,22 +1170,21 @@ Object {
           <label
             class="label-description"
           >
-            user.interface.pagesize.description
+            ui.feedback.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="user.interface.pagesize.hint"
+            placeholder="ui.feedback.pagesize-hint"
             type="text"
-            value=""
           />
           <small
             class="form-text text-muted"
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            user.interface.pagesize.help
+            ui.feedback.pagesize-help
           </small>
         </div>
       </form>
@@ -1251,12 +1244,12 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          user.interface.byte.representation.description
+          ui.feedback.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="user.interface.byte.representation.select"
+          title="ui.feedback.byte-representation-select"
         >
           <option
             value="true"
@@ -1274,7 +1267,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          user.interface.byte.representation.help
+          ui.feedback.byte-representation-help
         </small>
       </div>
       <br />
@@ -1284,27 +1277,27 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.appearance
+          ui.feedback.appearance
         </label>
         <select
           class="form-select form-select-sm"
           id="appearanceInput"
-          title="user.interface.appearance.hint"
+          title="ui.feedback.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            user.interface.appearance.small
+            ui.value.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            user.interface.appearance.medium
+            ui.value.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            user.interface.appearance.large
+            ui.value.appearance-large
           </option>
         </select>
         <small
@@ -1312,7 +1305,7 @@ Object {
           hmtlfor="appearanceInput"
           id="appearanceHelp"
         >
-          user.interface.appearance.help
+          ui.feedback.appearance-help
         </small>
       </div>
       <br />
@@ -1322,22 +1315,21 @@ Object {
         <label
           class="label-description"
         >
-          user.interface.pagesize.description
+          ui.feedback.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="user.interface.pagesize.hint"
+          placeholder="ui.feedback.pagesize-hint"
           type="text"
-          value=""
         />
         <small
           class="form-text text-muted"
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          user.interface.pagesize.help
+          ui.feedback.pagesize-help
         </small>
       </div>
     </form>

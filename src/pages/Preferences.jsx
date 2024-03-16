@@ -11,40 +11,40 @@ export function Preferences() {
     return <>
         <form>
             <div className='form-group'>
-                <label className='label-description' htmlFor='themeSelector' id='themeLabel'>{t('theme.description')}</label>
-                <select className="form-select form-select-sm" title={t('theme.select')} id='themeSelector' value={theme} onChange={e => setTheme(e.target.value)}>
-                    <option value="light">{t('theme.light')}</option>
-                    <option value="dark">{t('theme.dark')}</option>
-                    <option value="pastel">{t('theme.pastel')}</option>
-                    <option value="ocean">{t('theme.ocean')}</option>
+                <label className='label-description' htmlFor='themeSelector' id='themeLabel'>{t('ui.feedback.theme-description')}</label>
+                <select className="form-select form-select-sm" title={t('feedback.ui.theme-select')} id='themeSelector' value={theme} onChange={e => setTheme(e.target.value)}>
+                    <option value="light">{t('ui.value.theme-light')}</option>
+                    <option value="dark">{t('ui.value.theme-dark')}</option>
+                    <option value="pastel">{t('ui.value.theme-pastel')}</option>
+                    <option value="ocean">{t('ui.value.theme-ocean')}</option>
                 </select>
-                <small hmtlfor='themeLabel' id='themeHelp' className='form-text text-muted'>{t('theme.help')}</small>
+                <small hmtlfor='themeLabel' id='themeHelp' className='form-text text-muted'>{t('ui.feedback.theme-help')}</small>
             </div>
             <br />
             <div className='form-group'>
-                <label className='label-description' htmlFor="bytesBaseInput">{t('user.interface.byte.representation.description')}</label>
-                <select className="form-select form-select-sm" title={t('user.interface.byte.representation.select')} id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
+                <label className='label-description' htmlFor="bytesBaseInput">{t('ui.feedback.byte-representation-description')}</label>
+                <select className="form-select form-select-sm" title={t('ui.feedback.byte-representation-select')} id='bytesBaseInput' value={bytesStringBase2} onChange={e => setByteStringBase(e.target.value)}>
                     <option value="true">Base-2 (KiB, MiB, GiB, TiB)</option>
                     <option value="false">Base-10 (KB, MB, GB, TB)</option>
                 </select>
-                <small hmtlfor='bytesBaseInput' id='bytesHelp' className='form-text text-muted'>{t('user.interface.byte.representation.help')}</small>
+                <small hmtlfor='bytesBaseInput' id='bytesHelp' className='form-text text-muted'>{t('ui.feedback.byte-representation-help')}</small>
             </div>
             <br />
             <div className='form-group'>
-                <label className='label-description'>{t('user.interface.appearance')}</label>
-                <select className="form-select form-select-sm" title={t('user.interface.appearance.hint')} id='appearanceInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
-                    <option value="fs-6">{t('user.interface.appearance.small')}</option>
-                    <option value="fs-5">{t('user.interface.appearance.medium')}</option>
-                    <option value="fs-4">{t('user.interface.appearance.large')}</option>
+                <label className='label-description'>{t('feedback.ui.appearance')}</label>
+                <select className="form-select form-select-sm" title={t('feedback.ui.appearance-hint')} id='appearanceInput' value={fontSize} onChange={e => setFontSize(e.target.value)}>
+                    <option value="fs-6">{t('ui.value.appearance-small')}</option>
+                    <option value="fs-5">{t('ui.value.appearance-medium')}</option>
+                    <option value="fs-4">{t('ui.value.appearance-large')}</option>
                 </select>
-                <small hmtlfor="appearanceInput" id='appearanceHelp' className='form-text text-muted'>{t('user.interface.appearance.help')}</small>
+                <small hmtlfor="appearanceInput" id='appearanceHelp' className='form-text text-muted'>{t('feedback.ui.appearance-help')}</small>
             </div>
             <br />
             <div className='form-group'>
-                <label className='label-description'>{t('user.interface.pagesize.description')}</label>
+                <label className='label-description'>{t('ui.feedback.pagesize-description')}</label>
                 <input className='form-control form-control-sm' id='pageSizeInput'
-                    type='text' placeholder={t('user.interface.pagesize.hint')} value={pageSize} disabled={true} />
-                <small hmtlfor="pageSizeInput" id='pageSizeHelp' className='form-text text-muted'>{t('user.interface.pagesize.help')}</small>
+                    type='text' placeholder={t('ui.feedback.pagesize-hint')} value={pageSize} disabled={true} />
+                <small hmtlfor="pageSizeInput" id='pageSizeHelp' className='form-text text-muted'>{t('ui.feedback.pagesize-help')}</small>
             </div>
         </form >
     </>

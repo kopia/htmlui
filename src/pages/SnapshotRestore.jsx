@@ -92,7 +92,7 @@ export class SnapshotRestore extends Component {
         if (this.state.restoreTask) {
             return <p>
                 <GoBackButton onClick={this.props.history.goBack} />
-                <Link replace={true} to={"/tasks/" + this.state.restoreTask}>Go To Restore Task</Link>.
+                <Link replace={true} to={"/tasks/" + this.state.restoreTask}>{i18n.t('snapshot.feedback.restore.task.go')}</Link>.
             </p>;
         }
 

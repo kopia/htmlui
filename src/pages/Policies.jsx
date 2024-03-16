@@ -13,6 +13,7 @@ import { handleChange } from '../forms';
 import { OptionalDirectory } from '../forms/OptionalDirectory'
 import KopiaTable from '../utils/KopiaTable';
 import { CLIEquivalent, compare, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
+import i18n from '../utils/i18n'
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -104,7 +105,7 @@ export class Policies extends Component {
         }
 
         if (!isAbsolutePath(this.state.policyPath)) {
-            alert("Policies can only be defined for absolute paths.");
+            alert(i18n.t('policies.feedback.path.absolute'));
             return;
         }
 
@@ -174,7 +175,7 @@ export class Policies extends Component {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
-            return <p>Loading ...</p>;
+            return <p>{i18n.t('policies.feedback.loading')}</p>;
         }
 
         let uniqueOwners = sources.reduce((a, d) => {
@@ -230,22 +231,22 @@ export class Policies extends Component {
 
 
         const columns = [{
-            Header: 'Username',
+            Header: i18n.t('policies.header.username'),
             width: 100,
             accessor: x => x.target.userName || "*",
         }, {
-            Header: 'Host',
+            Header: i18n.t('policies.header.host'),
             width: 100,
             accessor: x => x.target.host || "*",
         }, {
-            Header: 'Path',
+            Header: i18n.t('policies.header.path'),
             accessor: x => x.target.path || "*",
         }, {
-            Header: 'Defined',
+            Header: i18n.t('policies.header.defined'),
             accessor: x => this.policySummary(x),
         }, {
             id: 'edit',
-            Header: 'Actions',
+            Header: i18n.t('policies.header.actions'),
             width: 50,
             Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
         }]
@@ -257,17 +258,17 @@ export class Policies extends Component {
                         <Col xs="auto">
                             <Dropdown>
                                 <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
-                                    <FontAwesomeIcon icon={faUserFriends} />&nbsp;{this.state.selectedOwner}
+                                    <FontAwesomeIcon icon={faUserFriends} />{' '}{this.state.selectedOwner}
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>{applicablePolicies}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{localPolicies}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{allPolicies}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>{i18n.t('policies.kind.applicable')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{i18n.t('policies.kind.local')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{i18n.t('policies.kind.all')}</Dropdown.Item>
                                     <Dropdown.Divider />
-                                    <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{globalPolicy}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{perUserPolicies}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{perHostPolicies}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{i18n.t('policies.kind.global')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{i18n.t('policies.kind.user')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{i18n.t('policies.kind.host')}</Dropdown.Item>
                                     <Dropdown.Divider />
                                     {uniqueOwners.map(v => <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>{v}</Dropdown.Item>)}
                                 </Dropdown.Menu>
@@ -275,7 +276,7 @@ export class Policies extends Component {
                         </Col>
                         {(this.state.selectedOwner === localPolicies || this.state.selectedOwner === this.state.localSourceName || this.state.selectedOwner === applicablePolicies) ? <>
                             <Col>
-                                {OptionalDirectory(this, null, "policyPath", { autoFocus: true, placeholder: "enter directory to find or set policy" })}
+                                {OptionalDirectory(this, null, "policyPath", { autoFocus: true, placeholder: i18n.t('policies.feedback.policy.find') })}
                             </Col>
                             <Col xs="auto">
                                 <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>Set Policy</Button>
@@ -286,11 +287,11 @@ export class Policies extends Component {
             </div>}
 
             {policies.length > 0 ? <div>
-                <p>Found {policies.length} policies matching criteria.</p>
+                <p>{i18n.t('policies.feedback.find.count', { count: policies.length })}</p>
                 <KopiaTable data={policies} columns={columns} />
             </div> : ((this.state.selectedOwner === localPolicies && this.state.policyPath) ? <p>
-                No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
-            </p> : <p>No policies found.</p>)}
+                {i18n.t('policies.feedback.find.none.create', { path: this.state.policyPath })}
+            </p> : <p>{i18n.t('policies.feedback.find.none')}</p>)}
             <CLIEquivalent command="policy list" />
         </>;
     }

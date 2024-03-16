@@ -128,7 +128,7 @@ export class Repository extends Component {
         }
 
         if (this.state.status.initTaskID) {
-            return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;{i18n.t('repository.status.initializing')}</h4>
+            return <><h4><Spinner animation="border" variant="primary" size="sm" />{' '}{i18n.t('repository.status.initializing')}</h4>
                 {this.state.showLog ? <>
                     <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} />{i18n.t('log.event.hide')}</Button>
                     <Logs taskID={this.state.status.initTaskID} />

@@ -10,6 +10,7 @@ import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from '../utils/uiutil';
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import i18n from '../utils/i18n';
 
 export class SnapshotDirectory extends Component {
     constructor() {
@@ -91,7 +92,7 @@ export class SnapshotDirectory extends Component {
 
     browseMounted() {
         if (!window.kopiaUI) {
-            alert('Directory browsing is not supported in a web browser. Use Kopia UI.');
+            alert(i18n.t('snapshot.event.directory.browsing'));
             return;
         }
 
@@ -124,24 +125,22 @@ export class SnapshotDirectory extends Component {
             <Row>
                 <Col xs="auto">
                     {this.state.mountInfo.path ? <>
-                        <Button size="sm" variant="secondary" onClick={this.unmount}>Unmount</Button>
+                        <Button size="sm" variant="secondary" onClick={this.unmount}>{i18n.t('snapshot.event.directory.unmount')}</Button>
                         {window.kopiaUI && <>
-                            <Button size="sm" variant="secondary" onClick={this.browseMounted}>Browse</Button>
+                            <Button size="sm" variant="secondary" onClick={this.browseMounted}>{i18n.t('snapshot.event.directory.browse')}</Button>
                         </>}
                         <input readOnly={true} className='form-control form-control-sm mounted-path' value={this.state.mountInfo.path} />
                         <Button size="sm" variant="success" onClick={this.copyPath}><FontAwesomeIcon icon={faCopy} /></Button>
                     </> : <>
-                        <Button size="sm" variant="secondary" onClick={this.mount}>Mount as Local Filesystem</Button>
+                        <Button size="sm" variant="secondary" onClick={this.mount}>{i18n.t('snapshot.event.directory.mount')}</Button>
                     </>}
                     &nbsp;
                     <Button size="sm" variant="primary"
-                        href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
-                        Files & Directories</Button>
+                        href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>{i18n.t('snapshot.event.directory.restore')}</Button>
                     &nbsp;
                 </Col>
                 <Col xs={12} md={6}>
-                    You can mount/restore all the files & directories that you see below or restore files individually.
-                </Col>
+                    {i18n.t('snapshot.feedback.directory.mount.restore')} </Col>
             </Row>
             <Row><Col>&nbsp;</Col>
             </Row>

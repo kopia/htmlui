@@ -165,7 +165,7 @@ export class Task extends Component {
         }
 
         if (isLoading) {
-            return <p>Loading ...</p>;
+            return <p>{i18n.t('common.loading')}</p>;
         }
 
         return <Form>
