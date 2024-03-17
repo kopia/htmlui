@@ -70,7 +70,7 @@ export class SnapshotDirectory extends Component {
     }
 
     mount() {
-        axios.post('/api/v1/mounts', { "root": this.state.oid} ).then(result => {
+        axios.post('/api/v1/mounts', { "root": this.state.oid }).then(result => {
             this.setState({
                 mountInfo: result.data,
             });
@@ -111,6 +111,10 @@ export class SnapshotDirectory extends Component {
         document.execCommand("copy");
     }
 
+    navigateTo(path) {
+        this.props.history.push(path);
+    }
+
     render() {
         let { items, isLoading, error } = this.state;
         if (error) {
@@ -132,18 +136,15 @@ export class SnapshotDirectory extends Component {
                         <input readOnly={true} className='form-control form-control-sm mounted-path' value={this.state.mountInfo.path} />
                         <Button size="sm" variant="success" onClick={this.copyPath}><FontAwesomeIcon icon={faCopy} /></Button>
                     </> : <>
-                        <Button size="sm" variant="secondary" onClick={this.mount}>{i18n.t('snapshot.event.directory.mount')}</Button>
+                        <Button size="sm" variant="secondary" onClick={this.mount}>{i18n.t('snapshot.event.directory.mount')}{' '}</Button>
                     </>}
-                    &nbsp;
-                    <Button size="sm" variant="primary"
-                        href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>{i18n.t('snapshot.event.directory.restore')}</Button>
-                    &nbsp;
+                    <Button size="sm" variant="primary" onClick={() => this.navigateTo("/snapshots/dir/" + this.props.match.params.oid + "/restore")}>
+                        {i18n.t('snapshot.event.directory.restore')}{' '}</Button>
                 </Col>
                 <Col xs={12} md={6}>
                     {i18n.t('snapshot.feedback.directory.mount.restore')} </Col>
             </Row>
-            <Row><Col>&nbsp;</Col>
-            </Row>
+            <br />
             <Row>
                 <Col xs={12}><DirectoryItems items={items} historyState={this.props.location.state} /></Col>
             </Row>

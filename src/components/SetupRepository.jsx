@@ -39,7 +39,7 @@ const supportedProviders = [
     { provider: "webdav", description: 'feedback.provider.webdav-server', component: SetupRepositoryWebDAV },
     { provider: "_server", description: 'feedback.provider.kopia-repository-server', component: SetupRepositoryServer },
     { provider: "_token", description: 'feedback.provider.use-repository-token', component: SetupRepositoryToken },
-    ];
+];
 
 export class SetupRepository extends Component {
     constructor() {
@@ -333,8 +333,7 @@ export class SetupRepository extends Component {
             variant="primary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
-            size="sm"
-        >
+            size="sm">
             <FontAwesomeIcon icon={icon} style={{ marginRight: 4 }} />
             {text}
         </Button>;
@@ -342,11 +341,11 @@ export class SetupRepository extends Component {
 
     renderConfirmCreate() {
         return <Form onSubmit={this.createRepository}>
-            <h3>Create New Repository</h3>
-            <p>Enter a strong password to create Kopia repository in the provided storage.</p>
+            <h3>{i18n.t('feedback.repository.create-repository-new')}</h3>
+            <p>{i18n.t('feedback.repository.create-repository-new-help')}</p>
             <Row>
-                {RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
-                {RequiredField(this, "Confirm Repository Password", "confirmPassword", { type: "password", placeholder: "enter repository password again" })}
+                {RequiredField(this, i18n.t('feedback.validation.required.password-repository'), "password", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.validation.required.password-repository-hint') }, i18n.t('feedback.validation.required.password-repository-help'))}
+                {RequiredField(this, i18n.t('feedback.validation.required.repository-password-confirm'), "confirmPassword", { type: "password", placeholder: i18n.t('feedback.validation.required.repository-password-confirm-again')})}
             </Row>
             <div style={{ marginTop: "1rem" }}>
                 {this.toggleAdvancedButton()}
@@ -355,7 +354,7 @@ export class SetupRepository extends Component {
                 <div id="advanced-options-div" style={{ marginTop: "1rem" }}>
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Encryption</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.encryption')}</Form.Label>
                             <Form.Control as="select"
                                 name="encryption"
                                 onChange={this.handleChange}
@@ -367,20 +366,20 @@ export class SetupRepository extends Component {
                         <Form.Group as={Col}>
                             <Form.Label className="required">Hash Algorithm</Form.Label>
                             <Form.Control as="select"
-                                          name="hash"
-                                          onChange={this.handleChange}
-                                          data-testid="control-hash"
-                                          value={this.state.hash}>
+                                name="hash"
+                                onChange={this.handleChange}
+                                data-testid="control-hash"
+                                value={this.state.hash}>
                                 {this.state.algorithms.hash.map(x => toAlgorithmOption(x, this.state.defaultHash))}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Splitter</Form.Label>
                             <Form.Control as="select"
-                                          name="splitter"
-                                          onChange={this.handleChange}
-                                          data-testid="control-splitter"
-                                          value={this.state.splitter}>
+                                name="splitter"
+                                onChange={this.handleChange}
+                                data-testid="control-splitter"
+                                value={this.state.splitter}>
                                 {this.state.algorithms.splitter.map(x => toAlgorithmOption(x, this.state.defaultSplitter))}
                             </Form.Control>
                         </Form.Group>
@@ -389,10 +388,10 @@ export class SetupRepository extends Component {
                         <Form.Group as={Col}>
                             <Form.Label className="required">Repository Format</Form.Label>
                             <Form.Control as="select"
-                                          name="formatVersion"
-                                          onChange={this.handleChange}
-                                          data-testid="control-formatVersion"
-                                          value={this.state.formatVersion}>
+                                name="formatVersion"
+                                onChange={this.handleChange}
+                                data-testid="control-formatVersion"
+                                value={this.state.formatVersion}>
                                 <option value="2">Latest format</option>
                                 <option value="1">Legacy format compatible with v0.8</option>
                             </Form.Control>
@@ -400,10 +399,10 @@ export class SetupRepository extends Component {
                         <Form.Group as={Col}>
                             <Form.Label className="required">Error Correction Overhead</Form.Label>
                             <Form.Control as="select"
-                                          name="eccOverheadPercent"
-                                          onChange={this.handleChange}
-                                          data-testid="control-eccOverheadPercent"
-                                          value={this.state.eccOverheadPercent}>
+                                name="eccOverheadPercent"
+                                onChange={this.handleChange}
+                                data-testid="control-eccOverheadPercent"
+                                value={this.state.eccOverheadPercent}>
                                 <option value="0">Disabled</option>
                                 <option value="1">1%</option>
                                 <option value="2">2%</option>
@@ -431,7 +430,7 @@ export class SetupRepository extends Component {
                             [EXPERIMENTAL] Error correction can help protect from certain
                             kinds of data corruption due to spontaneous bit flips in the storage
                             media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
-                            learn more.</a>
+                                learn more.</a>
                         </Col>
                     </Row>
                     {this.overrideUsernameHostnameRow()}

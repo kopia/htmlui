@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryAzure extends Component {
     constructor(props) {
@@ -21,16 +22,16 @@ export class SetupRepositoryAzure extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Container", "container", { autoFocus: true, placeholder: "enter container name" })}
-                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
+                {RequiredField(this, i18n.t('feedback.validation.azure.container'), "container", { autoFocus: true, placeholder: i18n.t('feedback.validation.azure.container-hint') })}
+                {OptionalField(this, i18n.t('feedback.validation.azure.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.validation.azure.object-name-prefix-hint') })}
             </Row>
             <Row>
-                {RequiredField(this, "Storage Account", "storageAccount", { placeholder: "enter storage account name" })}
-                {OptionalField(this, "Access Key", "storageKey", { placeholder: "enter secret access key", type: "password" })}
+                {RequiredField(this, i18n.t('feedback.validation.azure.storage-account'), "storageAccount", { placeholder: i18n.t('feedback.validation.azure.storage-account-hint') })}
+                {OptionalField(this, i18n.t('feedback.validation.azure.access-key'), "storageKey", { placeholder: i18n.t('feedback.validation.azure.access-key-hint'), type: "password" })}
             </Row>
             <Row>
-                {OptionalField(this, "Azure Storage Domain", "storageDomain", { placeholder: "enter storage domain or leave empty for default 'blob.core.windows.net'" })}
-                {OptionalField(this, "SAS Token", "sasToken", { placeholder: "enter secret SAS Token", type: "password" })}
+                {OptionalField(this, i18n.t('feedback.validation.azure.azure-storage-domain'), "storageDomain", { placeholder: i18n.t('feedback.validation.azure.azure-storage-domain-hint') })}
+                {OptionalField(this, i18n.t('feedback.validation.azure.sas-token'), "sasToken", { placeholder: i18n.t('feedback.validation.azure.sas-token-hint'), type: "password" })}
             </Row>
         </>;
     }

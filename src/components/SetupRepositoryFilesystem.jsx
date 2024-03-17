@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredDirectory } from '../forms/RequiredDirectory';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryFilesystem extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export class SetupRepositoryFilesystem extends Component {
 
     render() {
         return <>
-            {RequiredDirectory(this, "Directory Path", "path", { autoFocus: true, placeholder: "enter directory path where you want to store repository files"})}
+            {RequiredDirectory(this, i18n.t('feedback.validation.local.directory-path'), "path", { autoFocus: true, placeholder: i18n.t('feedback.validation.local.directory-path-hint')})}
         </>;
     }
 }
