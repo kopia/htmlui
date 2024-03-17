@@ -231,22 +231,22 @@ export class Policies extends Component {
 
 
         const columns = [{
-            Header: i18n.t('policies.header.username'),
+            Header: i18n.t('feedback.header.username'),
             width: 100,
             accessor: x => x.target.userName || "*",
         }, {
-            Header: i18n.t('policies.header.host'),
+            Header: i18n.t('feedback.header.host'),
             width: 100,
             accessor: x => x.target.host || "*",
         }, {
-            Header: i18n.t('policies.header.path'),
+            Header: i18n.t('feedback.header.path'),
             accessor: x => x.target.path || "*",
         }, {
-            Header: i18n.t('policies.header.defined'),
+            Header: i18n.t('feedback.header.defined'),
             accessor: x => this.policySummary(x),
         }, {
             id: 'edit',
-            Header: i18n.t('policies.header.actions'),
+            Header: i18n.t('feedback.header.actions'),
             width: 50,
             Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
         }]

@@ -3,5 +3,17 @@
         "public/locales"
     ],
     "i18n-ally.keystyle": "flat",
-    "i18n-ally.sourceLanguage": "en"
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.keysInUse": [
+        "feedback.provider.s3-or-compatible-storage",
+        "feedback.provider.kopia-repository-server",
+        "feedback.provider.local-directory-or-nas",
+        "feedback.provider.google-cloud-storage",
+        "feedback.provider.use-repository-token",
+        "feedback.provider.azure-blob-storage",
+        "feedback.provider.rclone-remote",
+        "feedback.provider.webdav-server",
+        "feedback.provider.backblaze-b2",
+        "feedback.provider.sftp-server"
+    ]
 }

@@ -2,4 +2,4 @@ build/
 node_modules/
 coverage/
 .idea/
-.vscode/settings.json
+.vscode/

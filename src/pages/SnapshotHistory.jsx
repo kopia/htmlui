@@ -261,7 +261,7 @@ export class SnapshotHistory extends Component {
             this.setState({
                 editPinFor: [x.id],
                 originalPinName: "",
-                newPinName: i18n.t('pin.feedback.standard-text'),
+                newPinName: i18n.t('feedback.pin.standard-text'),
             });
         }
         } title={i18n.t('snapshot.event.history.pin.add')}><FontAwesomeIcon icon={faThumbtack} color="#ccc" /></a>;
@@ -438,7 +438,7 @@ export class SnapshotHistory extends Component {
 
             <Modal show={this.state.showDeleteConfirmationDialog} onHide={this.cancelDelete}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{i18n.t('common.delete.confirm')}</Modal.Title>
+                    <Modal.Title>{i18n.t('common.delete-confirm')}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -463,12 +463,12 @@ export class SnapshotHistory extends Component {
 
             <Modal show={!!this.state.editingDescriptionFor} onHide={this.cancelSnapshotDescription}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{i18n.t('description.feedback.description')}</Modal.Title>
+                    <Modal.Title>{i18n.t('feedback.description.modal-title')}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label>{i18n.t('description.event.new')}</Form.Label>
+                        <Form.Label>{i18n.t('event.description.new')}</Form.Label>
                         <Form.Control as="textarea"
                             size="sm"
                             value={this.state.updatedSnapshotDescription}
@@ -478,20 +478,20 @@ export class SnapshotHistory extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="primary" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>{i18n.t('description.event.update')}</Button>
-                    {this.state.originalSnapshotDescription && <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>{i18n.t('description.event.remove')}</Button>}
-                    <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>{i18n.t('description.event.cancel')}</Button>
+                    <Button size="sm" variant="primary" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>{i18n.t('event.description.update')}</Button>
+                    {this.state.originalSnapshotDescription && <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>{i18n.t('event.description.remove')}</Button>}
+                    <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>{i18n.t('event.description.cancel')}</Button>
                 </Modal.Footer>
             </Modal>
 
             <Modal show={!!this.state.editPinFor} onHide={this.cancelPin}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{i18n.t('pin.event.snapshot.pin')}</Modal.Title>
+                    <Modal.Title>{i18n.t('event.pin.snapshot-pin')}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label>{i18n.t('pin.feedback.name')}</Form.Label>
+                        <Form.Label>{i18n.t('feedback.pin.name')}</Form.Label>
                         <Form.Control
                             size="sm"
                             value={this.state.newPinName}
@@ -501,9 +501,9 @@ export class SnapshotHistory extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="primary" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? i18n.t('pin.event.update') : i18n.t('pin.event.add')}</Button>
-                    {this.state.originalPinName && <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>{i18n.t('pin.event.remove')}</Button>}
-                    <Button size="sm" variant="warning" onClick={this.cancelPin}>{i18n.t('pin.event.cancel')}</Button>
+                    <Button size="sm" variant="primary" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? i18n.t('event.pin.update') : i18n.t('event.pin.add')}</Button>
+                    {this.state.originalPinName && <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>{i18n.t('event.pin.remove')}</Button>}
+                    <Button size="sm" variant="warning" onClick={this.cancelPin}>{i18n.t('event.pin.cancel')}</Button>
                 </Modal.Footer>
             </Modal>
         </>;

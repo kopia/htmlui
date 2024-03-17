@@ -23,19 +23,23 @@ import { SetupRepositorySFTP } from './SetupRepositorySFTP';
 import { SetupRepositoryToken } from './SetupRepositoryToken';
 import { SetupRepositoryWebDAV } from './SetupRepositoryWebDAV';
 import { toAlgorithmOption } from '../utils/uiutil';
+import i18n from '../utils/i18n';
 
+/**
+ * Descriptions will be translated when rendering the providers
+ */
 const supportedProviders = [
-    { provider: "filesystem", description: "Local Directory or NAS", component: SetupRepositoryFilesystem },
-    { provider: "gcs", description: "Google Cloud Storage", component: SetupRepositoryGCS },
-    { provider: "s3", description: "Amazon S3 or Compatible Storage", component: SetupRepositoryS3 },
-    { provider: "b2", description: "Backblaze B2", component: SetupRepositoryB2 },
-    { provider: "azureBlob", description: "Azure Blob Storage", component: SetupRepositoryAzure },
-    { provider: "sftp", description: "SFTP Server", component: SetupRepositorySFTP },
-    { provider: "rclone", description: "Rclone Remote", component: SetupRepositoryRclone },
-    { provider: "webdav", description: "WebDAV Server", component: SetupRepositoryWebDAV },
-    { provider: "_server", description: "Kopia Repository Server", component: SetupRepositoryServer },
-    { provider: "_token", description: "Use Repository Token", component: SetupRepositoryToken },
-];
+    { provider: "filesystem", description: 'feedback.provider.local-directory-or-nas', component: SetupRepositoryFilesystem },
+    { provider: "gcs", description: 'feedback.provider.google-cloud-storage', component: SetupRepositoryGCS },
+    { provider: "s3", description: 'feedback.provider.s3-or-compatible-storage', component: SetupRepositoryS3 },
+    { provider: "b2", description: 'feedback.provider.backblaze-b2', component: SetupRepositoryB2 },
+    { provider: "azureBlob", description: 'feedback.provider.azure-blob-storage', component: SetupRepositoryAzure },
+    { provider: "sftp", description: 'feedback.provider.sftp-server', component: SetupRepositorySFTP },
+    { provider: "rclone", description: 'feedback.provider.rclone-remote', component: SetupRepositoryRclone },
+    { provider: "webdav", description: 'feedback.provider.webdav-server', component: SetupRepositoryWebDAV },
+    { provider: "_server", description: 'feedback.provider.kopia-repository-server', component: SetupRepositoryServer },
+    { provider: "_token", description: 'feedback.provider.use-repository-token', component: SetupRepositoryToken },
+    ];
 
 export class SetupRepository extends Component {
     constructor() {
@@ -47,7 +51,7 @@ export class SetupRepository extends Component {
             showAdvanced: false,
             storageVerified: false,
             providerSettings: {},
-            description: "My Repository",
+            description: i18n.t('feedback.repository.name-default'),
             formatVersion: "2",
         };
 
@@ -106,7 +110,7 @@ export class SetupRepository extends Component {
             }
 
             if (valid && this.state.password !== this.state.confirmPassword) {
-                alert("Passwords don't match");
+                alert(i18n.t('feedback.validation.passwords-dont-match'));
                 return false;
             }
         }
@@ -222,15 +226,15 @@ export class SetupRepository extends Component {
 
     renderProviderSelection() {
         return <>
-            <h3>Select Storage Type</h3>
-            <p>To connect to a repository or create one, select the preferred storage type:</p>
+            <h3>{i18n.t('feedback.repository.provider-selection')}</h3>
+            <p>{i18n.t('feedback.repository.provider-selection-hint')}</p>
             <Row>
                 {supportedProviders.map(x =>
                     <Button key={x.provider}
                         data-testid={'provider-' + x.provider}
                         onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
                         variant={x.provider.startsWith("_") ? "secondary" : "primary"}
-                        className="providerIcon" >{x.description}</Button>
+                        className="providerIcon" >{i18n.t(x.description)}</Button>
                 )}
             </Row>
         </>;
@@ -304,18 +308,18 @@ export class SetupRepository extends Component {
         }
 
         return <Form onSubmit={this.verifyStorage}>
-            {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
-            {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
-            {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
+            {!this.state.provider.startsWith("_") && <h3>{i18n.t('feedback.repository.configuration')}</h3>}
+            {this.state.provider === "_token" && <h3>{i18n.t('feedback.repository.repository-token-enter')}</h3>}
+            {this.state.provider === "_server" && <h3>{i18n.t('feedback.repository.kopia-server-parameters')}</h3>}
 
             <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
 
             {this.connectionErrorInfo()}
             <hr />
 
-            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>{i18n.t('common.back')}</Button>
             &nbsp;
-            <Button variant="primary" type="submit" data-testid="submit-button">Next</Button>
+            <Button variant="primary" type="submit" data-testid="submit-button">{i18n.t('common.next')}</Button>
             {this.loadingSpinner()}
         </Form>;
     }
@@ -323,7 +327,7 @@ export class SetupRepository extends Component {
     toggleAdvancedButton() {
         // Determine button icon and text based upon component state.
         const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
-        const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
+        const text = this.state.showAdvanced ? i18n.t('event.repository.advanced-options-hide') : i18n.t('event.repository.advanced-options.show');
 
         return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
             variant="primary"

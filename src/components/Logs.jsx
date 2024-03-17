@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from '../forms';
 import { redirect } from '../utils/uiutil';
+import i18n from '../utils/i18n';
 
 export class Logs extends Component {
     constructor() {
@@ -105,7 +106,7 @@ export class Logs extends Component {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
-            return <p>Loading ...</p>;
+            return <p>{i18n.t('common.loading')}</p>;
         }
 
         if (logs) {

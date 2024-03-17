@@ -130,9 +130,9 @@ export class Repository extends Component {
         if (this.state.status.initTaskID) {
             return <><h4><Spinner animation="border" variant="primary" size="sm" />{' '}{i18n.t('repository.status.initializing')}</h4>
                 {this.state.showLog ? <>
-                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} />{i18n.t('log.event.hide')}</Button>
+                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} />{i18n.t('event.log.hide')}</Button>
                     <Logs taskID={this.state.status.initTaskID} />
-                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} />{i18n.t('log.event.show')}</Button>}
+                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} />{i18n.t('event.log.show')}</Button>}
                 <hr />
                 <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>{i18n.t('repository.event.connection.cancel')}</Button>
             </>;

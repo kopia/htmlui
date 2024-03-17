@@ -10,7 +10,7 @@ const LanguageOption = props => {
   return <>
     <Option {...props}>
       <Flag title={props.data.label} width={30} height={20} />
-      {props.data.label}
+      {' '}{props.data.label}
     </Option>
   </>
 };

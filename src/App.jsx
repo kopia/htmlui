@@ -110,19 +110,19 @@ export default class App extends Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">{i18n.t('tab.snapshots')}</NavLink>
+                  <span className="d-inline-block" data-toggle="tooltip" title={i18n.t('feedback.tab.repository-is-not-connected')}>
+                    <NavLink data-testid="tab-snapshots" title="" data-title="Snapshots" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/snapshots">{i18n.t('feedback.tab.snapshots')}</NavLink>
                   </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">{i18n.t('tab.policies')}</NavLink>
+                  <span className="d-inline-block" data-toggle="tooltip" title={i18n.t('feedback.tab.repository-is-not-connected')}>
+                    <NavLink data-testid="tab-policies" title="" data-title="Policies" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/policies">{i18n.t('feedback.tab.policies')}</NavLink>
                   </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
-                    <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">{i18n.t('tab.tasks')}
+                  <span className="d-inline-block" data-toggle="tooltip" title={i18n.t('feedback.tab.repository-is-not-connected')}>
+                    <NavLink data-testid="tab-tasks" title="" data-title="Tasks" className={isRepositoryConnected ? "nav-link" : "nav-link disabled"} to="/tasks">{i18n.t('feedback.tab.tasks')}
                       <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
                     </NavLink>
                   </span>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">{i18n.t('tab.repository')}</NavLink>
-                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">{i18n.t('tab.preferences')}</NavLink>
+                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">{i18n.t('feedback.tab.repository')}</NavLink>
+                  <NavLink data-testid="tab-preferences" data-title="Preferences" className="nav-link" to="/preferences">{i18n.t('feedback.tab.preferences')}</NavLink>
                 </Nav>
                 <Nav>
                   <LanguageSelection />
