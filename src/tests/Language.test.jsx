@@ -12,8 +12,8 @@ function computeIntersection(dataA, dataB) {
 /**
  * 
  */
-describe('Check completeness of tranlations', () => {
-  test('Translations should not have unused keys', () => {
+describe('Check for unused translations', () => {
+  test('Translations should be declared and used', () => {
   })
 })
 
@@ -26,6 +26,8 @@ describe('Check for empty translations', () => {
     for (const localeFile in localesPaths) {
       let locale = localesPaths[localeFile]
       let data = require(locale);
+      expect(data).not.toBeNull()
+
       for (const key in data) {
         expect(data[key]).toBeTruthy();
       }
@@ -40,23 +42,28 @@ describe('Check for empty translations', () => {
  * Each file is checked against the others.  
  */
 describe('Check that translations are in sync', () => {
-  test('All translations should be in sync with each other', () => {
-    for (const localeF1 in localesPaths) {
-      let l1 = localesPaths[localeF1]
+  test.each(localesPaths)('All translations should be in sync with each other', l1 => {
       for (const localeF2 in localesPaths) {
         let l2 = localesPaths[localeF2]
-        // We do not have to check the files with itself
+        // We do not have to check the file with itself
         if (l1 == l2) {
           break;
         }
+
+        let msg = `${l1} should be in sync with ${l2}`
         let dataA = require(l1)
         let dataB = require(l2)
+        expect(dataA).not.toBeNull()
+        expect(dataB).not.toBeNull()
+
         let keysA = Object.keys(dataA)
         let keysB = Object.keys(dataB)
+        expect(keysA.length).toBeGreaterThan(0)
+        expect(keysB.length).toBeGreaterThan(0)
+
         let intersection = computeIntersection(keysA, keysB)
-        expect(intersection.length).toEqual(keysA.length)
+        expect({msg, result:intersection.length}).toEqual({msg, result:keysA.length})
       }
-    }
-  })
+    })
 })
 

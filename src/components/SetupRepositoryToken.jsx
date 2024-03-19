@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryToken extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export class SetupRepositoryToken extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Token", "token", { autoFocus: true, type: "password", placeholder: "paste connection token" })}
+                {RequiredField(this, i18n.t('feedback.validation.repository-token.token'), "token", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.validation.repository-token.token-hint') })}
             </Row>
         </>;
     }
