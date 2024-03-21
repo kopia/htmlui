@@ -13,26 +13,23 @@ import i18n from '../utils/i18n';
 import { Trans } from 'react-i18next';
 
 export class SnapshotEstimation extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isLoading: true,
             error: null,
             showLog: false,
         };
-
         this.taskID = this.taskID.bind(this);
         this.fetchTask = this.fetchTask.bind(this);
-
-        // poll frequently, we will stop as soon as the task ends.
-        this.interval = window.setInterval(() => this.fetchTask(this.props), 500);
     }
 
     componentDidMount() {
         this.setState({
             isLoading: true,
         });
-
+        // poll frequently, we will stop as soon as the task ends.
+        this.interval = window.setInterval(() => this.fetchTask(this.props), 500);
         this.fetchTask(this.props);
     }
 

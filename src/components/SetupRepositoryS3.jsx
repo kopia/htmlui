@@ -4,6 +4,7 @@ import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryS3 extends Component {
     constructor(props) {
@@ -24,21 +25,21 @@ export class SetupRepositoryS3 extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
-                {RequiredField(this, "Server Endpoint", "endpoint", { placeholder: "enter server address (e.g., s3.amazonaws.com)" })}
-                {OptionalField(this, "Override Region", "region", { placeholder: "enter specific region (e.g., us-west-1) or leave empty" })}
+                {RequiredField(this, i18n.t('feedback.validation.s3.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.validation.s3.bucket-name-hint') })}
+                {RequiredField(this, i18n.t('feedback.validation.s3.server-endpoint'), "endpoint", { placeholder: i18n.t('feedback.validation.s3.server-endpoint-hint') })}
+                {OptionalField(this, i18n.t('feedback.validation.s3.override-region'), "region", { placeholder: i18n.t('feedback.validation.s3.override-region-hint') })}
             </Row>
             <Row>
-                {RequiredBoolean(this, "Use HTTP connection (insecure)", "doNotUseTLS")}
-                {RequiredBoolean(this, "Do not verify TLS certificate", "doNotVerifyTLS")}
+                {RequiredBoolean(this, i18n.t('value.provider.s3.http-connection-insecure'), "doNotUseTLS")}
+                {RequiredBoolean(this, i18n.t('value.provider.s3.no-tls-verification'), "doNotVerifyTLS")}
             </Row>
             <Row>
-                {RequiredField(this, "Access Key ID", "accessKeyID", { placeholder: "enter access key ID" })}
-                {RequiredField(this, "Secret Access Key", "secretAccessKey", { placeholder: "enter secret access key", type: "password" })}
-                {OptionalField(this, "Session Token", "sessionToken", { placeholder: "enter session token or leave empty", type: "password" })}
+                {RequiredField(this, i18n.t('feedback.validation.s3.access-key-id'), "accessKeyID", { placeholder: i18n.t('feedback.validation.s3.access-key-id-hint') })}
+                {RequiredField(this, i18n.t('feedback.validation.s3.secret-access-key'), "secretAccessKey", { placeholder: i18n.t('feedback.validation.s3.secret-access-key-hint'), type: "password" })}
+                {OptionalField(this, i18n.t('feedback.validation.s3.session-token'), "sessionToken", { placeholder: i18n.t('feedback.validation.s3.session-token-hint'), type: "password" })}
             </Row>
             <Row>
-                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
+                {OptionalField(this, i18n.t('feedback.validation.s3.object-name-prefix'), "prefix", { placeholder: i18n.t('enter-object-name-prefix-or-leave-empty-hint') })}
             </Row>
         </>;
     }

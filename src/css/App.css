@@ -158,9 +158,10 @@ body {
 }
 
 #kopia .text-muted.form-text,
+#kopia .text-muted,
 #kopia .form-text,
 #kopia .form-control::placeholder {
-  color: var(--color-text-form-help) !important
+  color: var(--color-text-form-help) !important;
 }
 
 #kopia .accordion-body,

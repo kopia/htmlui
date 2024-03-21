@@ -16,8 +16,8 @@ import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 import i18n from '../utils/i18n'
 
 export class Task extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             items: [],
             isLoading: true,
@@ -27,9 +27,6 @@ export class Task extends Component {
 
         this.taskID = this.taskID.bind(this);
         this.fetchTask = this.fetchTask.bind(this);
-
-        // poll frequently, we will stop as soon as the task ends.
-        this.interval = window.setInterval(() => this.fetchTask(), 500);
     }
 
     componentDidMount() {
@@ -37,6 +34,8 @@ export class Task extends Component {
             isLoading: true,
         });
 
+        // poll frequently, we will stop as soon as the task ends.
+        this.interval = window.setInterval(() => this.fetchTask(), 500);
         this.fetchTask();
     }
 
