@@ -29,15 +29,18 @@ export class SetupRepositoryS3 extends Component {
                 {RequiredField(this, i18n.t('feedback.validation.s3.server-endpoint'), "endpoint", { placeholder: i18n.t('feedback.validation.s3.server-endpoint-hint') })}
                 {OptionalField(this, i18n.t('feedback.validation.s3.override-region'), "region", { placeholder: i18n.t('feedback.validation.s3.override-region-hint') })}
             </Row>
+            <br/>
             <Row>
                 {RequiredBoolean(this, i18n.t('value.provider.s3.http-connection-insecure'), "doNotUseTLS")}
                 {RequiredBoolean(this, i18n.t('value.provider.s3.no-tls-verification'), "doNotVerifyTLS")}
             </Row>
+            <br/>
             <Row>
                 {RequiredField(this, i18n.t('feedback.validation.s3.access-key-id'), "accessKeyID", { placeholder: i18n.t('feedback.validation.s3.access-key-id-hint') })}
                 {RequiredField(this, i18n.t('feedback.validation.s3.secret-access-key'), "secretAccessKey", { placeholder: i18n.t('feedback.validation.s3.secret-access-key-hint'), type: "password" })}
                 {OptionalField(this, i18n.t('feedback.validation.s3.session-token'), "sessionToken", { placeholder: i18n.t('feedback.validation.s3.session-token-hint'), type: "password" })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.s3.object-name-prefix'), "prefix", { placeholder: i18n.t('enter-object-name-prefix-or-leave-empty-hint') })}
             </Row>

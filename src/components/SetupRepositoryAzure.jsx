@@ -25,10 +25,12 @@ export class SetupRepositoryAzure extends Component {
                 {RequiredField(this, i18n.t('feedback.validation.azure.container'), "container", { autoFocus: true, placeholder: i18n.t('feedback.validation.azure.container-hint') })}
                 {OptionalField(this, i18n.t('feedback.validation.azure.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.validation.azure.object-name-prefix-hint') })}
             </Row>
+            <br/>
             <Row>
                 {RequiredField(this, i18n.t('feedback.validation.azure.storage-account'), "storageAccount", { placeholder: i18n.t('feedback.validation.azure.storage-account-hint') })}
                 {OptionalField(this, i18n.t('feedback.validation.azure.access-key'), "storageKey", { placeholder: i18n.t('feedback.validation.azure.access-key-hint'), type: "password" })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.azure.azure-storage-domain'), "storageDomain", { placeholder: i18n.t('feedback.validation.azure.azure-storage-domain-hint') })}
                 {OptionalField(this, i18n.t('feedback.validation.azure.sas-token'), "sasToken", { placeholder: i18n.t('feedback.validation.azure.sas-token-hint'), type: "password" })}

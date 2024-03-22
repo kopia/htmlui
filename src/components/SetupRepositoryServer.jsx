@@ -24,6 +24,7 @@ export class SetupRepositoryServer extends Component {
             <Row>
                 {RequiredField(this, i18n.t('feedback.validation.repository-server.server-address'), "url", { autoFocus: true, placeholder: i18n.t('feedback.validation.repository-server.server-address-hint') })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.repository-server.server-certificate-fingerprint'), "serverCertFingerprint", { placeholder: i18n.t('feedback.validation.repository-server.server-certificate-fingerprint-hint') })}
             </Row>

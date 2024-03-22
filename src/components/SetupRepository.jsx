@@ -364,7 +364,7 @@ export class SetupRepository extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Hash Algorithm</Form.Label>
+                            <Form.Label className="required">{i18n.t('repository.attribute.algorithm.hash')}</Form.Label>
                             <Form.Control as="select"
                                 name="hash"
                                 onChange={this.handleChange}
@@ -374,7 +374,7 @@ export class SetupRepository extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Splitter</Form.Label>
+                            <Form.Label className="required">{i18n.t('repository.attribute.algorithm.splitter')}</Form.Label>
                             <Form.Control as="select"
                                 name="splitter"
                                 onChange={this.handleChange}
@@ -387,24 +387,24 @@ export class SetupRepository extends Component {
                     <br/>
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Repository Format</Form.Label>
+                            <Form.Label className="required">{i18n.t('repository.attribute.format')}</Form.Label>
                             <Form.Control as="select"
                                 name="formatVersion"
                                 onChange={this.handleChange}
                                 data-testid="control-formatVersion"
                                 value={this.state.formatVersion}>
-                                <option value="2">Latest format</option>
-                                <option value="1">Legacy format compatible with v0.8</option>
+                                <option value="2">{i18n.t('value.repository.format.latest')}</option>
+                                <option value="1">{i18n.t('value.repository.format.legacy')}</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Error Correction Overhead</Form.Label>
+                            <Form.Label className="required">{i18n.t('repository.attribute.eco')}</Form.Label>
                             <Form.Control as="select"
                                 name="eccOverheadPercent"
                                 onChange={this.handleChange}
                                 data-testid="control-eccOverheadPercent"
                                 value={this.state.eccOverheadPercent}>
-                                <option value="0">Disabled</option>
+                                <option value="0">{i18n.t('value.algorithm.eco-disabled')}</option>
                                 <option value="1">1%</option>
                                 <option value="2">2%</option>
                                 <option value="5">5%</option>
@@ -412,7 +412,7 @@ export class SetupRepository extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Error Correction Algorithm</Form.Label>
+                            <Form.Label className="required">{i18n.t('repository.attribute.algorithm.eco')}</Form.Label>
                             <Form.Control as="select"
                                 name="ecc"
                                 onChange={this.handleChange}

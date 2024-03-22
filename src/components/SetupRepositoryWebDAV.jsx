@@ -24,6 +24,7 @@ export class SetupRepositoryWebDAV extends Component {
             <Row>
                 {RequiredField(this, i18n.t('feedback.validation.webdav.server-url'), "url", { autoFocus: true, placeholder: "http[s]://server:port/path" })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.webdav.username'), "username", { placeholder: i18n.t('feedback.validation.webdav.username-hint') })}
                 {OptionalField(this, i18n.t('feedback.validation.webdav.password'), "password", { placeholder: i18n.t('feedback.validation.webdav.password-hint'), type: "password" })}

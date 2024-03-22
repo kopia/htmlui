@@ -25,9 +25,11 @@ export class SetupRepositoryGCS extends Component {
                 {RequiredField(this, i18n.t('feedback.validation.gcs.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.validation.gcs.bucket-name-hint') })}
                 {OptionalField(this, i18n.t('feedback.validation.gcs.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.validation.gcs.object-name-prefix-hint'), type: "password" })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.gcs.credentials-file'), "credentialsFile", { placeholder: i18n.t('feedback.validation.gcs.credentials-file-hint') })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.gcs.credentials-json'), "credentials", { placeholder: i18n.t('feedback.validation.gcs.credentials-json-paste'), as: "textarea", rows: 5 })}
             </Row>

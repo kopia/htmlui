@@ -24,6 +24,7 @@ export class SetupRepositoryRclone extends Component {
             <Row>
                 {RequiredField(this, i18n.t('feedback.validation.rclone.rclone-remote-path'), "remotePath", { autoFocus: true, placeholder: i18n.t('feedback.validation.rclone.rclone-remote-path-hint') })}
             </Row>
+            <br/>
             <Row>
                 {OptionalField(this, i18n.t('feedback.validation.rclone.rclone-executable-path'), "rcloneExe", { placeholder: i18n.t('feedback.validation.rclone.rclone-executable-path-hint') })}
             </Row>
