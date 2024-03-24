@@ -5,18 +5,19 @@ import { stateProperty } from '../../forms';
 import { LabelColumn } from './LabelColumn';
 import { WideValueColumn } from './WideValueColumn';
 import { EffectiveValue } from './EffectiveValue';
+import i18n from '../../utils/i18n'
 
 export function ActionRowMode(component, action) {
     return <Row>
-        <LabelColumn name="Command Mode" help="Essential (must succeed; default behavior), optional (failures are tolerated), or async (Kopia will start the action but not wait for it to finish)" />
+        <LabelColumn name="Command Mode" help={i18n.t('feedback.policy.command-mode-help')} />
         <WideValueColumn>
             <Form.Control as="select" size="sm"
                 name={"policy." + action}
                 onChange={component.handleChange}
                 value={stateProperty(component, "policy." + action)}>
-                <option value="essential">must succeed</option>
-                <option value="optional">ignore failures</option>
-                <option value="async">run asynchronously, ignore failures</option>
+                <option value="essential">{i18n.t('value.policy.essential')}</option>
+                <option value="optional">{i18n.t('value.policy.optional')}</option>
+                <option value="async">{i18n.t('value.policy.async')}</option>
             </Form.Control>
         </WideValueColumn>
         {EffectiveValue(component, action)}

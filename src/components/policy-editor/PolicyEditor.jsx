@@ -29,6 +29,7 @@ import { SectionHeaderRow } from './SectionHeaderRow';
 import { ActionRowScript } from './ActionRowScript';
 import { ActionRowTimeout } from './ActionRowTimeout';
 import { ActionRowMode } from './ActionRowMode';
+import i18n from '../../utils/i18n';
 
 export class PolicyEditor extends Component {
     constructor() {
@@ -117,7 +118,7 @@ export class PolicyEditor extends Component {
         }
 
         if (p.userName === this.props.userName && p.host === this.props.host && p.path === this.props.path) {
-            return "(Defined by this policy)";
+            return i18n.t('feedback.policy.defined-by-this-policy');
         }
 
         return <>Defined by {PolicyEditorLink(p)}</>;
@@ -212,7 +213,7 @@ export class PolicyEditor extends Component {
                 this.props.close();
             }).catch(error => {
                 this.setState({ saving: false });
-                errorAlert(error, 'Error saving policy');
+                errorAlert(error, i18n.t('feedback.policy.error-saving-policy'));
             });
         } catch (e) {
             errorAlert(e);
@@ -221,14 +222,14 @@ export class PolicyEditor extends Component {
     }
 
     deletePolicy() {
-        if (window.confirm('Are you sure you want to delete this policy?')) {
+        if (window.confirm(i18n.t('feedback.policy.confirm-delete-policy'))) {
             this.setState({ saving: true });
 
             axios.delete(this.policyURL(this.props)).then(result => {
                 this.props.close();
             }).catch(error => {
                 this.setState({ saving: false });
-                errorAlert(error, 'Error deleting policy');
+                errorAlert(error, i18n.t('feedback.policy.error-delete-policy'));
             });
         }
     }
@@ -248,155 +249,155 @@ export class PolicyEditor extends Component {
         }
 
         if (isLoading) {
-            return <p>Loading ...</p>;
+            return <p>{i18n.t('common.loading')}</p>;
         }
 
         return <>
             <Form className='policy-editor' onSubmit={this.saveChanges}>
-                <Accordion defaultActiveKey="scheduling">
+                <Accordion defaultActiveKey="retention">
                     <Accordion.Item eventKey="retention">
-                        <Accordion.Header><FontAwesomeIcon icon={faCalendarTimes} />&nbsp;Snapshot Retention</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faCalendarTimes} className="policy-icon" />{i18n.t('feedback.policy.header.snapshot-retention')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Latest Snapshots" help="Number of the most recent snapshots to retain per source" />
-                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepLatest", { placeholder: "# of latest snapshots" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.latest-snapshot-retain')} help={i18n.t('feedback.policy.retention.latest-snapshot-retain-help')} />
+                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepLatest", { placeholder: i18n.t('feedback.policy.retention.keep-latest-help') })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepLatest")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Hourly" help="How many hourly snapshots to retain per source. The latest snapshot from each hour will be retained" />
-                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepHourly", { placeholder: "# of hourly snapshots" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.hourly-snapshot-retain')} help={i18n.t('feedback.policy.retention.hourly-snapshot-retain-help')} />
+                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepHourly", { placeholder: i18n.t('feedback.policy.retention.hourly-snapshot-retain-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepHourly")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Daily" help="How many daily snapshots to retain per source. The latest snapshot from each day will be retained" />
-                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepDaily", { placeholder: "# of daily snapshots" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.daily-snapshot-retain')} help={i18n.t('feedback.policy.retention.daily-snapshot-retain-help')} />
+                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepDaily", { placeholder: i18n.t('feedback.policy.retention.daily-snapshot-retain-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepDaily")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Weekly" help="How many weekly snapshots to retain per source. The latest snapshot from each week will be retained" />
-                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepWeekly", { placeholder: "# of weekly snapshots" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.weekly-snapshot-retain')} help={i18n.t('feedback.policy.retention.weekly-snapshot-retain-help')} />
+                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepWeekly", { placeholder: i18n.t('feedback.policy.retention.weekly-snapshot-retain-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepWeekly")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Monthly" help="How many monthly snapshots to retain per source. The latest snapshot from each calendar month will be retained" />
-                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepMonthly", { placeholder: "# of monthly snapshots" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.monthly-snapshot-retain')} help={i18n.t('feedback.policy.retention.monthly-snapshot-retain-help')} />
+                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepMonthly", { placeholder: i18n.t('feedback.policy.retention.monthly-snapshot-retain-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepMonthly")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Annual" help="How many annual snapshots to retain per source. The latest snapshot from each calendar year will be retained" />
-                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepAnnual", { placeholder: "# of annual snapshots" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.annual-snapshot-retain')} help={i18n.t('feedback.policy.retention.annual-snapshot-retain-help')} />
+                                <ValueColumn>{OptionalNumberField(this, null, "policy.retention.keepAnnual", { placeholder: i18n.t('feedback.policy.retention.annual-snapshot-retain-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "retention.keepAnnual")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore Identical Snapshots" help="Do NOT save a snapshot when no files have been changed" />
-                                <ValueColumn>{OptionalBoolean(this, null, "policy.retention.ignoreIdenticalSnapshots", "inherit from parent")}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.retention.ignore-identical-snapshots')} help={i18n.t('feedback.policy.retention.ignore-identical-snapshots-help')} />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.retention.ignoreIdenticalSnapshots", i18n.t('value.policy.inherent-from-parent'))}</ValueColumn>
                                 {EffectiveValue(this, "retention.ignoreIdenticalSnapshots")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="files">
-                        <Accordion.Header><FontAwesomeIcon icon={faFolderOpen} />&nbsp;Files</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faFolderOpen} className="policy-icon" />{i18n.t('feedback.policy.header.files')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Ignore Files" help={<> List of file and directory names to ignore. <br /> (See <a target="_blank" rel="noreferrer" href="https://kopia.io/docs/advanced/kopiaignore/">documentation on ignoring files</a>).</>} />
-                                <WideValueColumn>{StringList(this, "policy.files.ignore", { placeholder: "e.g. /file.txt" })}</WideValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.files.ignore-files')} help={<> List of file and directory names to ignore. <br /> (See <a target="_blank" rel="noreferrer" href="https://kopia.io/docs/advanced/kopiaignore/">documentation on ignoring files</a>).</>} />
+                                <WideValueColumn>{StringList(this, "policy.files.ignore", { placeholder: i18n.t('feedback.policy.files.ignore-files-hint') })}</WideValueColumn>
                                 {EffectiveTextAreaValue(this, "files.ignore")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore Rules From Parent Directories" help="When set, ignore rules from the parent directory are ignored" />
+                                <LabelColumn name={i18n.t('feedback.policy.files.ignore-rules-from-parent-directories')} help={i18n.t('feedback.policy.files.ignore-rules-from-parent-directories-help')} />
                                 <ValueColumn>{RequiredBoolean(this, "", "policy.files.noParentIgnore")}</ValueColumn>
                                 <EffectiveValueColumn />
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore Rule Files" help="List of additional files containing ignore rules (each file configures ignore rules for the directory and its subdirectories)" />
-                                <ValueColumn>{StringList(this, "policy.files.ignoreDotFiles", { placeholder: "e.g. .kopiaignore" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.files.ignore-rule-files')} help={i18n.t('feedback.policy.files.ignore-rule-files-help')} />
+                                <ValueColumn>{StringList(this, "policy.files.ignoreDotFiles", { placeholder: i18n.t('feedback.policy.files.ignore-rule-files-hint') })}</ValueColumn>
                                 {EffectiveTextAreaValue(this, "files.ignoreDotFiles")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore Rule Files From Parent Directories" help="When set, the files specifying ignore rules (.kopiaignore, etc.) from the parent directory are ignored" />
+                                <LabelColumn name={i18n.t('feedback.policy.files.ignore-rule-files-from-parent-directories')} help={i18n.t('feedback.policy.files.ignore-rule-files-from-parent-directories-help')} />
                                 <ValueColumn>{RequiredBoolean(this, "", "policy.files.noParentDotFiles")}</ValueColumn>
                                 <EffectiveValueColumn />
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore Well-Known Cache Directories" help="Ignore directories containing CACHEDIR.TAG and similar" />
-                                <ValueColumn>{OptionalBoolean(this, null, "policy.files.ignoreCacheDirs", "inherit from parent")}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.files.ignore-well-known-cache-directories')} help={i18n.t('feedback.policy.files.ignore-well-known-cache-directories-help')} />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.files.ignoreCacheDirs", i18n.t('value.policy.inherent-from-parent'))}</ValueColumn>
                                 {EffectiveBooleanValue(this, "files.ignoreCacheDirs")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Scan only one filesystem" help="Do not cross filesystem boundaries when creating a snapshot" />
-                                <ValueColumn>{OptionalBoolean(this, null, "policy.files.oneFileSystem", "inherit from parent")}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.files.scan-only-one-filesystem')} help={i18n.t('feedback.policy.files.scan-only-one-filesystem-help')} />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.files.oneFileSystem", i18n.t('value.policy.inherent-from-parent'))}</ValueColumn>
                                 {EffectiveBooleanValue(this, "files.oneFileSystem")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="errors">
-                        <Accordion.Header><FontAwesomeIcon icon={faExclamationTriangle} />&nbsp;Error Handling</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faExclamationTriangle} className="policy-icon" />{i18n.t('feedback.policy.header.error-handling')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Ignore Directory Errors" help="Treat directory read errors as non-fatal." />
-                                <ValueColumn>{OptionalBoolean(this, null, "policy.errorHandling.ignoreDirectoryErrors", "inherit from parent")}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.error-handling.ignore-directory-errors')} help={i18n.t('feedback.policy.error-handling.ignore-directory-errors-help')} />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.errorHandling.ignoreDirectoryErrors", i18n.t('value.policy.inherent-from-parent') )}</ValueColumn>
                                 {EffectiveBooleanValue(this, "errorHandling.ignoreDirectoryErrors")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore File Errors" help="Treat file read errors as non-fatal." />
-                                <ValueColumn>{OptionalBoolean(this, null, "policy.errorHandling.ignoreFileErrors", "inherit from parent")}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.error-handling.ignore-file-errors')} help={i18n.t('feedback.policy.error-handling.ignore-file-errors-help')} />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.errorHandling.ignoreFileErrors", i18n.t('value.policy.inherent-from-parent') )}</ValueColumn>
                                 {EffectiveBooleanValue(this, "errorHandling.ignoreFileErrors")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Ignore Unknown Directory Entries" help="Treat unrecognized/unsupported directory entries as non-fatal errors." />
-                                <ValueColumn>{OptionalBoolean(this, null, "policy.errorHandling.ignoreUnknownTypes", "inherit from parent")}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.error-handling.ignore-unknown-directories')} help={i18n.t('feedback.policy.error-handling.ignore-unknown-directories-help')} />
+                                <ValueColumn>{OptionalBoolean(this, null, "policy.errorHandling.ignoreUnknownTypes", i18n.t('value.policy.inherent-from-parent') )}</ValueColumn>
                                 {EffectiveBooleanValue(this, "errorHandling.ignoreUnknownTypes")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="compression">
-                        <Accordion.Header><FontAwesomeIcon icon={faFileArchive} />&nbsp;Compression</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faFileArchive} className="policy-icon" />{i18n.t('feedback.policy.header.compression')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
-                                <LabelColumn name="Compression Algorithm" help="Specify compression algorithm to use when snapshotting files in this directory and subdirectories" />
+                                <LabelColumn name={i18n.t('feedback.policy.compression.compression-algorithm')} help={i18n.t('feedback.policy.compression.compression-algorithm-help')} />
                                 <WideValueColumn>
                                     <Form.Control as="select" size="sm"
                                         name="policy.compression.compressorName"
                                         onChange={this.handleChange}
                                         value={stateProperty(this, "policy.compression.compressorName")}>
-                                        <option value="">(none)</option>
+                                        <option value="">{i18n.t('value.policy.none')}</option>
                                         {this.state.algorithms && this.state.algorithms.compression.map(x => toAlgorithmOption(x, ""))}
                                     </Form.Control>
                                 </WideValueColumn>
                                 {EffectiveValue(this, "compression.compressorName")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Minimum File Size" help="Files that are smaller than the provided value will not be compressed" />
-                                <ValueColumn>{OptionalNumberField(this, "", "policy.compression.minSize", { placeholder: "minimum file size in bytes" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.compression.minimal-file-size')} help={i18n.t('feedback.policy.compression.minimal-file-size-help')} />
+                                <ValueColumn>{OptionalNumberField(this, "", "policy.compression.minSize", { placeholder: i18n.t('feedback.policy.compression.minimal-file-size-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "compression.minSize")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Max File Size" help="Files whose size exceeds the provided value will not be compressed" />
-                                <ValueColumn>{OptionalNumberField(this, "", "policy.compression.maxSize", { placeholder: "maximum file size in bytes" })}</ValueColumn>
+                                <LabelColumn name={i18n.t('feedback.policy.compression.maximal-file-size')} help={i18n.t('feedback.policy.compression.maximal-file-size-help')} />
+                                <ValueColumn>{OptionalNumberField(this, "", "policy.compression.maxSize", { placeholder: i18n.t('feedback.policy.compression.maximal-file-size-hint') })}</ValueColumn>
                                 {EffectiveValue(this, "compression.maxSize")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Only Compress Extensions" help="Only compress files with the following file extensions (one extension per line)" />
+                                <LabelColumn name={i18n.t('feedback.policy.compression.only-compress-extensions')} help={i18n.t('feedback.policy.compression.only-compress-extensions-help')} />
                                 <WideValueColumn>
-                                    {StringList(this, "policy.compression.onlyCompress", { placeholder: "e.g. *.txt" })}
+                                    {StringList(this, "policy.compression.onlyCompress", { placeholder: i18n.t('feedback.policy.compression.only-compress-extensions-hint') })}
                                 </WideValueColumn>
                                 {EffectiveTextAreaValue(this, "compression.onlyCompress")}
                             </Row>
                             <Row>
-                                <LabelColumn name="Never Compress Extensions" help="Never compress the following file extensions (one extension per line)" />
+                                <LabelColumn name={i18n.t('feedback.policy.compression.never-compress-extensions')} help={i18n.t('feedback.policy.compression.never-compress-extensions-help')} />
                                 <WideValueColumn>
-                                    {StringList(this, "policy.compression.neverCompress", { placeholder: "e.g. *.mp4" })}
+                                    {StringList(this, "policy.compression.neverCompress", { placeholder: i18n.t('feedback.policy.compression.never-compress-extensions-hint') })}
                                 </WideValueColumn>
                                 {EffectiveTextAreaValue(this, "compression.neverCompress")}
                             </Row>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="scheduling">
-                        <Accordion.Header><FontAwesomeIcon icon={faClock} />&nbsp;Scheduling</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faClock} className="policy-icon" />{i18n.t('feedback.policy.header.scheduling')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
@@ -459,7 +460,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="upload">
-                        <Accordion.Header><FontAwesomeIcon icon={faUpload} />&nbsp;Upload</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faUpload} className="policy-icon" />{i18n.t('feedback.policy.header.upload')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
@@ -476,7 +477,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="snapshot-actions">
-                        <Accordion.Header><FontAwesomeIcon icon={faCogs} />&nbsp;Snapshot Actions</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faCogs} className="policy-icon" />{i18n.t('feedback.policy.header.snapshot-action')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             {ActionRowScript(this, "actions.beforeSnapshotRoot.script", "Before Snapshot", "Script to run before snapshot")}
@@ -489,7 +490,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="folder-actions">
-                        <Accordion.Header><FontAwesomeIcon icon={faCog} />&nbsp;Folder Actions</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faCog} className="policy-icon" />{i18n.t('feedback.policy.header.folder-actions')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             {ActionRowScript(this, "actions.beforeFolder.script", "Before Folder", "Script to run before folder")}
@@ -502,7 +503,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="logging">
-                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} />&nbsp;Logging</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faFileAlt} className="policy-icon" />{i18n.t('feedback.policy.header.logging')}</Accordion.Header>
                         <Accordion.Body>
                             <SectionHeaderRow />
                             <Row>
@@ -550,7 +551,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="other">
-                        <Accordion.Header><FontAwesomeIcon icon={faMagic} />&nbsp;Other</Accordion.Header>
+                        <Accordion.Header><FontAwesomeIcon icon={faMagic} className="policy-icon" />{i18n.t('feedback.policy.header.other')}</Accordion.Header>
                         <Accordion.Body>
                             <Row>
                                 <LabelColumn name="Disable Parent Policy Evaluation" help="Prevents any parent policies from affecting this directory and its subdirectories" />
@@ -568,7 +569,7 @@ export class PolicyEditor extends Component {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-
+                <br />
                 {!this.props.embedded && <Button size="sm" variant="success" onClick={this.saveChanges} data-testid="button-save" disabled={this.state.saving}>Save Policy</Button>}
                 {!this.state.isNew && !this.props.embedded && <>&nbsp;
                     <Button size="sm" variant="danger" disabled={this.isGlobal() || this.state.saving} onClick={this.deletePolicy}>Delete Policy</Button>

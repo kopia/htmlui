@@ -18,5 +18,10 @@
         "feedback.task.estimate-results",
         "feedback.provider.required-either-known-host-data",
         "feedback.provider.required-either-key-file"
-    ]
+    ],
+    "i18n-ally.extract.ignoredByFiles": {
+        "src\\components\\policy-editor\\PolicyEditor.jsx": [
+            "Do not cross filesystem boundaries when creating a snapshot"
+        ]
+    }
 }

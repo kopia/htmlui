@@ -195,6 +195,13 @@ body {
   border: 1px solid rgba(0,0,0,.125);
 }
 
+#kopia .policy-icon {
+  margin-left: 0; 
+  margin-right:0.5em;
+  height: 1.25em;
+  width: 1.25em;
+}
+
 .popover {
   max-width: 1000px;
 }
