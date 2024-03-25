@@ -5,6 +5,8 @@ import { OptionalField } from '../forms/OptionalField';
 import { OptionalNumberField } from '../forms/OptionalNumberField';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
+import { Trans } from 'react-i18next';
 
 function hasExactlyOneOf(component, names) {
     let count = 0;
@@ -57,41 +59,46 @@ export class SetupRepositorySFTP extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g., example.com)" })}
-                {RequiredField(this, "User", "username", { placeholder: "user name" })}
-                {OptionalNumberField(this, "Port", "port", { placeholder: "port number (e.g., 22)" })}
+                {RequiredField(this, i18n.t('validation.provider.host'), "host", { autoFocus: true, placeholder: i18n.t('validation.provider.host-hint') })}
+                {RequiredField(this, i18n.t('validation.provider.user'), "username", { placeholder: i18n.t('validation.provider.user-hint') })}
+                {OptionalNumberField(this, i18n.t('validation.provider.port'), "port", { placeholder: i18n.t('validation.provider.port-hint') })}
             </Row>
+            <br />
             <Row>
-                {RequiredField(this, "Path", "path", { placeholder: "enter remote path to repository, e.g., '/mnt/data/repository'" })}
+                {RequiredField(this, i18n.t('validation.provider.path'), "path", { placeholder: i18n.t('validation.provider.path-hint') })}
             </Row>
+            <br />
             {!this.state.externalSSH && <>
                 <Row>
-                    {OptionalField(this, "Password", "password", { type: "password", placeholder: "password" })}
+                    {OptionalField(this, i18n.t('validation.password'), "password", { type: "password", placeholder: i18n.t('validation.password-hint') })}
                 </Row>
+                <br />
                 <Row>
-                    {OptionalField(this, "Path to key file", "keyfile", { placeholder: "enter path to the key file" })}
-                    {OptionalField(this, "Path to known_hosts File", "knownHostsFile", { placeholder: "enter path to the known_hosts file" })}
+                    {OptionalField(this, i18n.t('validation.provider.path-key-file'), "keyfile", { placeholder: i18n.t('validation.provider.path-key-file-hint') })}
+                    {OptionalField(this, i18n.t('validation.provider.path-host-file'), "knownHostsFile", { placeholder: i18n.t('validation.provider.path-host-file-hint') })}
                 </Row>
+                <br />
                 <Row>
-                    {OptionalField(this, "Key Data", "keyData", {
-                        placeholder: "paste contents of the key file",
+                    {OptionalField(this, i18n.t('validation.provider.key-data'), "keyData", {
+                        placeholder: i18n.t('validation.provider.key-data-hint'),
                         as: "textarea",
                         rows: 5,
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["password", "keyfile", "keyData"]),
-                    }, null, <>One of <b>Password</b>, <b>Key File</b> or <b>Key Data</b> is required.</>)}
-                    {OptionalField(this, "Known Hosts Data", "knownHostsData", {
-                        placeholder: "paste contents of the known_hosts file",
+                    }, <Trans i18nKey={'feedback.provider.required-either-key-file'}/>)}
+                    {OptionalField(this, i18n.t('validation.provider.known-host-data'), "knownHostsData", {
+                        placeholder: i18n.t('validation.provider.known-host-data-hint'),
                         as: "textarea",
                         rows: 5,
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["knownHostsFile", "knownHostsData"]),
-                    }, null, <>Either <b>Known Hosts File</b> or <b>Known Hosts Data</b> is required, but not both.</>)}
+                    }, <Trans i18nKey={'feedback.provider.required-either-known-host-data'}/>)}
                 </Row>
-                <hr/>
+                <hr />
             </>}
-            {RequiredBoolean(this, "Launch external password-less SSH command", "externalSSH", "By default Kopia connects to the server using internal SSH client which supports limited options. Alternatively it may launch external password-less SSH command, which supports additional options, but is generally less efficient than the built-in client.")}
+            {RequiredBoolean(this, i18n.t('validation.provider.external-ssh-command'), "externalSSH", i18n.t('validation.provider.external-ssh-command-hint'))}
+            <br/>
             {this.state.externalSSH && <><Row>
-                {OptionalField(this, "SSH Command", "sshCommand", { placeholder: "provide enter passwordless SSH command to execute (typically 'ssh')" })}
-                {OptionalField(this, "SSH Arguments", "sshArguments", { placeholder: "enter SSH command arguments ('user@host -s sftp' will be appended automatically)" })}
+                {OptionalField(this, i18n.t('validation.provider.ssh-command'), "sshCommand", { placeholder: i18n.t('validation.provider.ssh-command-hint') })}
+                {OptionalField(this, i18n.t('validation.provider.ssh-arguments'), "sshArguments", { placeholder: i18n.t('validation.provider.ssh-arguments-hint') })}
             </Row></>}
 
         </>;

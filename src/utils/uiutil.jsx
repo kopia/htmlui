@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
+import i18n from './i18n'
 
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
@@ -298,7 +299,7 @@ export function cancelTask(tid) {
 }
 
 export function GoBackButton(props) {
-    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
+    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> {i18n.t('common.return')} </Button>;
 }
 
 export function PolicyTypeName(s) {

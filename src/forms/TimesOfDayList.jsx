@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import FormGroup from 'react-bootstrap/FormGroup';
 import { stateProperty } from '.';
+import i18n from '../utils/i18n'
 
 export function TimesOfDayList(component, name, props = {}) {
     function parseTimeOfDay(v) {
@@ -68,6 +69,6 @@ export function TimesOfDayList(component, name, props = {}) {
             rows="5"
             {...props}>
         </Form.Control>
-        <Form.Control.Feedback type="invalid">Invalid Times of Day</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{i18n.t('feedback.validation.invalid-times-of-day')}</Form.Control.Feedback>
     </FormGroup>;
 }

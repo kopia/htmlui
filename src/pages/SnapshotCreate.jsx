@@ -9,6 +9,7 @@ import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
 import { RequiredDirectory } from '../forms/RequiredDirectory';
 import { CLIEquivalent, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
+import i18n from '../utils/i18n'
 
 export class SnapshotCreate extends Component {
     constructor() {
@@ -117,7 +118,7 @@ export class SnapshotCreate extends Component {
         e.preventDefault();
 
         if (!this.state.resolvedSource.path) {
-            alert('Must specify directory to snapshot.');
+            alert(i18n.t('snapshot.event.create.path.resolve'));
             return
         }
 
@@ -152,27 +153,27 @@ export class SnapshotCreate extends Component {
                 <GoBackButton onClick={this.props.history.goBack} />
             </Form.Group>
             <br />
-            <h4>New Snapshot</h4>
+            <h4>{i18n.t('snapshot.feedback.snapshot.new')}</h4>
             <br />
             <Row>
                 <Col>
-                    {RequiredDirectory(this, null, "path", { autoFocus: true, placeholder: "enter path to snapshot" })}
+                    {RequiredDirectory(this, null, "path", { autoFocus: true, placeholder: i18n.t('snapshot.event.create.path')})}
                 </Col>
                 <Col xs="auto">
                     <Button
                         data-testid='estimate-now'
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
-                        title="Estimate"
+                        title= {i18n.t('snapshot.event.create.estimate')}
                         variant="secondary"
-                        onClick={this.estimate}>Estimate</Button>
+                        onClick={this.estimate}>{i18n.t('snapshot.event.create.estimate')}</Button>
                     <Button
                         data-testid='snapshot-now'
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
-                        title="Snapshot Now"
+                        title={i18n.t('snapshot.event.create.now')}
                         variant="primary"
-                        onClick={this.snapshotNow}>Snapshot Now</Button>
+                        onClick={this.snapshotNow}>{i18n.t('snapshot.event.create.now')}</Button>
                 </Col>
             </Row>
             {this.state.estimateTaskID && this.state.estimateTaskVisible &&

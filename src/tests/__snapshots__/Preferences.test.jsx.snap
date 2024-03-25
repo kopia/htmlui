@@ -14,32 +14,32 @@ Object {
             for="themeSelector"
             id="themeLabel"
           >
-            Theme
+            feedback.ui.theme-description
           </label>
           <select
             class="form-select form-select-sm"
             id="themeSelector"
-            title="Select theme"
+            title="feedback.ui.theme-select"
           >
             <option
               value="light"
             >
-              light
+              value.ui.theme-light
             </option>
             <option
               value="dark"
             >
-              dark
+              value.ui.theme-dark
             </option>
             <option
               value="pastel"
             >
-              pastel
+              value.ui.theme-pastel
             </option>
             <option
               value="ocean"
             >
-              ocean
+              value.ui.theme-ocean
             </option>
           </select>
           <small
@@ -47,7 +47,7 @@ Object {
             hmtlfor="themeLabel"
             id="themeHelp"
           >
-            The current active theme
+            feedback.ui.theme-help
           </small>
         </div>
         <br />
@@ -58,22 +58,22 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            Byte representation
+            feedback.ui.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="Select byte representation"
+            title="feedback.ui.byte-representation-select"
           >
             <option
               value="true"
             >
-              Base-2 (KiB, MiB, GiB, TiB)
+              value.ui.byte-representation-base2
             </option>
             <option
               value="false"
             >
-              Base-10 (KB, MB, GB, TB)
+              value.ui.byte-representation-base10
             </option>
           </select>
           <small
@@ -81,7 +81,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            Specifies the representation of bytes
+            feedback.ui.byte-representation-help
           </small>
         </div>
         <br />
@@ -91,35 +91,35 @@ Object {
           <label
             class="label-description"
           >
-            Appearance
+            feedback.ui.appearance
           </label>
           <select
             class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
+            id="appearanceInput"
+            title="feedback.ui.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              small
+              value.ui.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              medium
+              value.ui.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              large
+              value.ui.appearance-large
             </option>
           </select>
           <small
             class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
+            hmtlfor="appearanceInput"
+            id="appearanceHelp"
           >
-            Specifies the appearance of the user interface
+            feedback.ui.appearance-help
           </small>
         </div>
         <br />
@@ -129,13 +129,13 @@ Object {
           <label
             class="label-description"
           >
-            Page size
+            feedback.ui.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="Page size"
+            placeholder="feedback.ui.pagesize-hint"
             type="text"
             value=""
           />
@@ -144,7 +144,7 @@ Object {
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            Specifies the pagination size in tables
+            feedback.ui.pagesize-help
           </small>
         </div>
       </form>
@@ -160,32 +160,32 @@ Object {
           for="themeSelector"
           id="themeLabel"
         >
-          Theme
+          feedback.ui.theme-description
         </label>
         <select
           class="form-select form-select-sm"
           id="themeSelector"
-          title="Select theme"
+          title="feedback.ui.theme-select"
         >
           <option
             value="light"
           >
-            light
+            value.ui.theme-light
           </option>
           <option
             value="dark"
           >
-            dark
+            value.ui.theme-dark
           </option>
           <option
             value="pastel"
           >
-            pastel
+            value.ui.theme-pastel
           </option>
           <option
             value="ocean"
           >
-            ocean
+            value.ui.theme-ocean
           </option>
         </select>
         <small
@@ -193,7 +193,7 @@ Object {
           hmtlfor="themeLabel"
           id="themeHelp"
         >
-          The current active theme
+          feedback.ui.theme-help
         </small>
       </div>
       <br />
@@ -204,22 +204,22 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          Byte representation
+          feedback.ui.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="Select byte representation"
+          title="feedback.ui.byte-representation-select"
         >
           <option
             value="true"
           >
-            Base-2 (KiB, MiB, GiB, TiB)
+            value.ui.byte-representation-base2
           </option>
           <option
             value="false"
           >
-            Base-10 (KB, MB, GB, TB)
+            value.ui.byte-representation-base10
           </option>
         </select>
         <small
@@ -227,7 +227,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          Specifies the representation of bytes
+          feedback.ui.byte-representation-help
         </small>
       </div>
       <br />
@@ -237,35 +237,35 @@ Object {
         <label
           class="label-description"
         >
-          Appearance
+          feedback.ui.appearance
         </label>
         <select
           class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
+          id="appearanceInput"
+          title="feedback.ui.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            small
+            value.ui.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            medium
+            value.ui.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            large
+            value.ui.appearance-large
           </option>
         </select>
         <small
           class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
+          hmtlfor="appearanceInput"
+          id="appearanceHelp"
         >
-          Specifies the appearance of the user interface
+          feedback.ui.appearance-help
         </small>
       </div>
       <br />
@@ -275,13 +275,13 @@ Object {
         <label
           class="label-description"
         >
-          Page size
+          feedback.ui.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="Page size"
+          placeholder="feedback.ui.pagesize-hint"
           type="text"
           value=""
         />
@@ -290,7 +290,7 @@ Object {
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          Specifies the pagination size in tables
+          feedback.ui.pagesize-help
         </small>
       </div>
     </form>
@@ -363,32 +363,32 @@ Object {
             for="themeSelector"
             id="themeLabel"
           >
-            Theme
+            feedback.ui.theme-description
           </label>
           <select
             class="form-select form-select-sm"
             id="themeSelector"
-            title="Select theme"
+            title="feedback.ui.theme-select"
           >
             <option
               value="light"
             >
-              light
+              value.ui.theme-light
             </option>
             <option
               value="dark"
             >
-              dark
+              value.ui.theme-dark
             </option>
             <option
               value="pastel"
             >
-              pastel
+              value.ui.theme-pastel
             </option>
             <option
               value="ocean"
             >
-              ocean
+              value.ui.theme-ocean
             </option>
           </select>
           <small
@@ -396,7 +396,7 @@ Object {
             hmtlfor="themeLabel"
             id="themeHelp"
           >
-            The current active theme
+            feedback.ui.theme-help
           </small>
         </div>
         <br />
@@ -407,22 +407,22 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            Byte representation
+            feedback.ui.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="Select byte representation"
+            title="feedback.ui.byte-representation-select"
           >
             <option
               value="true"
             >
-              Base-2 (KiB, MiB, GiB, TiB)
+              value.ui.byte-representation-base2
             </option>
             <option
               value="false"
             >
-              Base-10 (KB, MB, GB, TB)
+              value.ui.byte-representation-base10
             </option>
           </select>
           <small
@@ -430,7 +430,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            Specifies the representation of bytes
+            feedback.ui.byte-representation-help
           </small>
         </div>
         <br />
@@ -440,35 +440,35 @@ Object {
           <label
             class="label-description"
           >
-            Appearance
+            feedback.ui.appearance
           </label>
           <select
             class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
+            id="appearanceInput"
+            title="feedback.ui.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              small
+              value.ui.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              medium
+              value.ui.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              large
+              value.ui.appearance-large
             </option>
           </select>
           <small
             class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
+            hmtlfor="appearanceInput"
+            id="appearanceHelp"
           >
-            Specifies the appearance of the user interface
+            feedback.ui.appearance-help
           </small>
         </div>
         <br />
@@ -478,13 +478,13 @@ Object {
           <label
             class="label-description"
           >
-            Page size
+            feedback.ui.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="Page size"
+            placeholder="feedback.ui.pagesize-hint"
             type="text"
             value=""
           />
@@ -493,7 +493,7 @@ Object {
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            Specifies the pagination size in tables
+            feedback.ui.pagesize-help
           </small>
         </div>
       </form>
@@ -509,32 +509,32 @@ Object {
           for="themeSelector"
           id="themeLabel"
         >
-          Theme
+          feedback.ui.theme-description
         </label>
         <select
           class="form-select form-select-sm"
           id="themeSelector"
-          title="Select theme"
+          title="feedback.ui.theme-select"
         >
           <option
             value="light"
           >
-            light
+            value.ui.theme-light
           </option>
           <option
             value="dark"
           >
-            dark
+            value.ui.theme-dark
           </option>
           <option
             value="pastel"
           >
-            pastel
+            value.ui.theme-pastel
           </option>
           <option
             value="ocean"
           >
-            ocean
+            value.ui.theme-ocean
           </option>
         </select>
         <small
@@ -542,7 +542,7 @@ Object {
           hmtlfor="themeLabel"
           id="themeHelp"
         >
-          The current active theme
+          feedback.ui.theme-help
         </small>
       </div>
       <br />
@@ -553,22 +553,22 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          Byte representation
+          feedback.ui.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="Select byte representation"
+          title="feedback.ui.byte-representation-select"
         >
           <option
             value="true"
           >
-            Base-2 (KiB, MiB, GiB, TiB)
+            value.ui.byte-representation-base2
           </option>
           <option
             value="false"
           >
-            Base-10 (KB, MB, GB, TB)
+            value.ui.byte-representation-base10
           </option>
         </select>
         <small
@@ -576,7 +576,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          Specifies the representation of bytes
+          feedback.ui.byte-representation-help
         </small>
       </div>
       <br />
@@ -586,35 +586,35 @@ Object {
         <label
           class="label-description"
         >
-          Appearance
+          feedback.ui.appearance
         </label>
         <select
           class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
+          id="appearanceInput"
+          title="feedback.ui.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            small
+            value.ui.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            medium
+            value.ui.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            large
+            value.ui.appearance-large
           </option>
         </select>
         <small
           class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
+          hmtlfor="appearanceInput"
+          id="appearanceHelp"
         >
-          Specifies the appearance of the user interface
+          feedback.ui.appearance-help
         </small>
       </div>
       <br />
@@ -624,13 +624,13 @@ Object {
         <label
           class="label-description"
         >
-          Page size
+          feedback.ui.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="Page size"
+          placeholder="feedback.ui.pagesize-hint"
           type="text"
           value=""
         />
@@ -639,7 +639,7 @@ Object {
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          Specifies the pagination size in tables
+          feedback.ui.pagesize-help
         </small>
       </div>
     </form>
@@ -712,32 +712,32 @@ Object {
             for="themeSelector"
             id="themeLabel"
           >
-            Theme
+            feedback.ui.theme-description
           </label>
           <select
             class="form-select form-select-sm"
             id="themeSelector"
-            title="Select theme"
+            title="feedback.ui.theme-select"
           >
             <option
               value="light"
             >
-              light
+              value.ui.theme-light
             </option>
             <option
               value="dark"
             >
-              dark
+              value.ui.theme-dark
             </option>
             <option
               value="pastel"
             >
-              pastel
+              value.ui.theme-pastel
             </option>
             <option
               value="ocean"
             >
-              ocean
+              value.ui.theme-ocean
             </option>
           </select>
           <small
@@ -745,7 +745,7 @@ Object {
             hmtlfor="themeLabel"
             id="themeHelp"
           >
-            The current active theme
+            feedback.ui.theme-help
           </small>
         </div>
         <br />
@@ -756,22 +756,22 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            Byte representation
+            feedback.ui.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="Select byte representation"
+            title="feedback.ui.byte-representation-select"
           >
             <option
               value="true"
             >
-              Base-2 (KiB, MiB, GiB, TiB)
+              value.ui.byte-representation-base2
             </option>
             <option
               value="false"
             >
-              Base-10 (KB, MB, GB, TB)
+              value.ui.byte-representation-base10
             </option>
           </select>
           <small
@@ -779,7 +779,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            Specifies the representation of bytes
+            feedback.ui.byte-representation-help
           </small>
         </div>
         <br />
@@ -789,35 +789,35 @@ Object {
           <label
             class="label-description"
           >
-            Appearance
+            feedback.ui.appearance
           </label>
           <select
             class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
+            id="appearanceInput"
+            title="feedback.ui.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              small
+              value.ui.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              medium
+              value.ui.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              large
+              value.ui.appearance-large
             </option>
           </select>
           <small
             class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
+            hmtlfor="appearanceInput"
+            id="appearanceHelp"
           >
-            Specifies the appearance of the user interface
+            feedback.ui.appearance-help
           </small>
         </div>
         <br />
@@ -827,13 +827,13 @@ Object {
           <label
             class="label-description"
           >
-            Page size
+            feedback.ui.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="Page size"
+            placeholder="feedback.ui.pagesize-hint"
             type="text"
             value=""
           />
@@ -842,7 +842,7 @@ Object {
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            Specifies the pagination size in tables
+            feedback.ui.pagesize-help
           </small>
         </div>
       </form>
@@ -858,32 +858,32 @@ Object {
           for="themeSelector"
           id="themeLabel"
         >
-          Theme
+          feedback.ui.theme-description
         </label>
         <select
           class="form-select form-select-sm"
           id="themeSelector"
-          title="Select theme"
+          title="feedback.ui.theme-select"
         >
           <option
             value="light"
           >
-            light
+            value.ui.theme-light
           </option>
           <option
             value="dark"
           >
-            dark
+            value.ui.theme-dark
           </option>
           <option
             value="pastel"
           >
-            pastel
+            value.ui.theme-pastel
           </option>
           <option
             value="ocean"
           >
-            ocean
+            value.ui.theme-ocean
           </option>
         </select>
         <small
@@ -891,7 +891,7 @@ Object {
           hmtlfor="themeLabel"
           id="themeHelp"
         >
-          The current active theme
+          feedback.ui.theme-help
         </small>
       </div>
       <br />
@@ -902,22 +902,22 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          Byte representation
+          feedback.ui.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="Select byte representation"
+          title="feedback.ui.byte-representation-select"
         >
           <option
             value="true"
           >
-            Base-2 (KiB, MiB, GiB, TiB)
+            value.ui.byte-representation-base2
           </option>
           <option
             value="false"
           >
-            Base-10 (KB, MB, GB, TB)
+            value.ui.byte-representation-base10
           </option>
         </select>
         <small
@@ -925,7 +925,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          Specifies the representation of bytes
+          feedback.ui.byte-representation-help
         </small>
       </div>
       <br />
@@ -935,35 +935,35 @@ Object {
         <label
           class="label-description"
         >
-          Appearance
+          feedback.ui.appearance
         </label>
         <select
           class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
+          id="appearanceInput"
+          title="feedback.ui.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            small
+            value.ui.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            medium
+            value.ui.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            large
+            value.ui.appearance-large
           </option>
         </select>
         <small
           class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
+          hmtlfor="appearanceInput"
+          id="appearanceHelp"
         >
-          Specifies the appearance of the user interface
+          feedback.ui.appearance-help
         </small>
       </div>
       <br />
@@ -973,13 +973,13 @@ Object {
         <label
           class="label-description"
         >
-          Page size
+          feedback.ui.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="Page size"
+          placeholder="feedback.ui.pagesize-hint"
           type="text"
           value=""
         />
@@ -988,7 +988,7 @@ Object {
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          Specifies the pagination size in tables
+          feedback.ui.pagesize-help
         </small>
       </div>
     </form>
@@ -1061,32 +1061,32 @@ Object {
             for="themeSelector"
             id="themeLabel"
           >
-            Theme
+            feedback.ui.theme-description
           </label>
           <select
             class="form-select form-select-sm"
             id="themeSelector"
-            title="Select theme"
+            title="feedback.ui.theme-select"
           >
             <option
               value="light"
             >
-              light
+              value.ui.theme-light
             </option>
             <option
               value="dark"
             >
-              dark
+              value.ui.theme-dark
             </option>
             <option
               value="pastel"
             >
-              pastel
+              value.ui.theme-pastel
             </option>
             <option
               value="ocean"
             >
-              ocean
+              value.ui.theme-ocean
             </option>
           </select>
           <small
@@ -1094,7 +1094,7 @@ Object {
             hmtlfor="themeLabel"
             id="themeHelp"
           >
-            The current active theme
+            feedback.ui.theme-help
           </small>
         </div>
         <br />
@@ -1105,22 +1105,22 @@ Object {
             class="label-description"
             for="bytesBaseInput"
           >
-            Byte representation
+            feedback.ui.byte-representation-description
           </label>
           <select
             class="form-select form-select-sm"
             id="bytesBaseInput"
-            title="Select byte representation"
+            title="feedback.ui.byte-representation-select"
           >
             <option
               value="true"
             >
-              Base-2 (KiB, MiB, GiB, TiB)
+              value.ui.byte-representation-base2
             </option>
             <option
               value="false"
             >
-              Base-10 (KB, MB, GB, TB)
+              value.ui.byte-representation-base10
             </option>
           </select>
           <small
@@ -1128,7 +1128,7 @@ Object {
             hmtlfor="bytesBaseInput"
             id="bytesHelp"
           >
-            Specifies the representation of bytes
+            feedback.ui.byte-representation-help
           </small>
         </div>
         <br />
@@ -1138,35 +1138,35 @@ Object {
           <label
             class="label-description"
           >
-            Appearance
+            feedback.ui.appearance
           </label>
           <select
             class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
+            id="appearanceInput"
+            title="feedback.ui.appearance-hint"
           >
             <option
               value="fs-6"
             >
-              small
+              value.ui.appearance-small
             </option>
             <option
               value="fs-5"
             >
-              medium
+              value.ui.appearance-medium
             </option>
             <option
               value="fs-4"
             >
-              large
+              value.ui.appearance-large
             </option>
           </select>
           <small
             class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
+            hmtlfor="appearanceInput"
+            id="appearanceHelp"
           >
-            Specifies the appearance of the user interface
+            feedback.ui.appearance-help
           </small>
         </div>
         <br />
@@ -1176,13 +1176,13 @@ Object {
           <label
             class="label-description"
           >
-            Page size
+            feedback.ui.pagesize-description
           </label>
           <input
             class="form-control form-control-sm"
             disabled=""
             id="pageSizeInput"
-            placeholder="Page size"
+            placeholder="feedback.ui.pagesize-hint"
             type="text"
             value=""
           />
@@ -1191,7 +1191,7 @@ Object {
             hmtlfor="pageSizeInput"
             id="pageSizeHelp"
           >
-            Specifies the pagination size in tables
+            feedback.ui.pagesize-help
           </small>
         </div>
       </form>
@@ -1207,32 +1207,32 @@ Object {
           for="themeSelector"
           id="themeLabel"
         >
-          Theme
+          feedback.ui.theme-description
         </label>
         <select
           class="form-select form-select-sm"
           id="themeSelector"
-          title="Select theme"
+          title="feedback.ui.theme-select"
         >
           <option
             value="light"
           >
-            light
+            value.ui.theme-light
           </option>
           <option
             value="dark"
           >
-            dark
+            value.ui.theme-dark
           </option>
           <option
             value="pastel"
           >
-            pastel
+            value.ui.theme-pastel
           </option>
           <option
             value="ocean"
           >
-            ocean
+            value.ui.theme-ocean
           </option>
         </select>
         <small
@@ -1240,7 +1240,7 @@ Object {
           hmtlfor="themeLabel"
           id="themeHelp"
         >
-          The current active theme
+          feedback.ui.theme-help
         </small>
       </div>
       <br />
@@ -1251,22 +1251,22 @@ Object {
           class="label-description"
           for="bytesBaseInput"
         >
-          Byte representation
+          feedback.ui.byte-representation-description
         </label>
         <select
           class="form-select form-select-sm"
           id="bytesBaseInput"
-          title="Select byte representation"
+          title="feedback.ui.byte-representation-select"
         >
           <option
             value="true"
           >
-            Base-2 (KiB, MiB, GiB, TiB)
+            value.ui.byte-representation-base2
           </option>
           <option
             value="false"
           >
-            Base-10 (KB, MB, GB, TB)
+            value.ui.byte-representation-base10
           </option>
         </select>
         <small
@@ -1274,7 +1274,7 @@ Object {
           hmtlfor="bytesBaseInput"
           id="bytesHelp"
         >
-          Specifies the representation of bytes
+          feedback.ui.byte-representation-help
         </small>
       </div>
       <br />
@@ -1284,35 +1284,35 @@ Object {
         <label
           class="label-description"
         >
-          Appearance
+          feedback.ui.appearance
         </label>
         <select
           class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
+          id="appearanceInput"
+          title="feedback.ui.appearance-hint"
         >
           <option
             value="fs-6"
           >
-            small
+            value.ui.appearance-small
           </option>
           <option
             value="fs-5"
           >
-            medium
+            value.ui.appearance-medium
           </option>
           <option
             value="fs-4"
           >
-            large
+            value.ui.appearance-large
           </option>
         </select>
         <small
           class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
+          hmtlfor="appearanceInput"
+          id="appearanceHelp"
         >
-          Specifies the appearance of the user interface
+          feedback.ui.appearance-help
         </small>
       </div>
       <br />
@@ -1322,13 +1322,13 @@ Object {
         <label
           class="label-description"
         >
-          Page size
+          feedback.ui.pagesize-description
         </label>
         <input
           class="form-control form-control-sm"
           disabled=""
           id="pageSizeInput"
-          placeholder="Page size"
+          placeholder="feedback.ui.pagesize-hint"
           type="text"
           value=""
         />
@@ -1337,7 +1337,7 @@ Object {
           hmtlfor="pageSizeInput"
           id="pageSizeHelp"
         >
-          Specifies the pagination size in tables
+          feedback.ui.pagesize-help
         </small>
       </div>
     </form>

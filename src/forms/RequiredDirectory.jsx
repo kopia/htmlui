@@ -6,6 +6,7 @@ import { faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { stateProperty } from '.';
 import { setDeepStateProperty } from '../utils/deepstate';
+import i18n from '../utils/i18n'
 
 /**
  * This functions returns a directory selector that allows the user to select a directory. 
@@ -46,7 +47,7 @@ export function RequiredDirectory(component, label, name, props = {}) {
                 <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
                     <FontAwesomeIcon icon={faFolderOpen} />
                 </Button>}
-            <Form.Control.Feedback type="invalid">Required field</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{i18n.t('feedback.validation.required.directory')}</Form.Control.Feedback>
         </InputGroup>
     </FormGroup>
 }

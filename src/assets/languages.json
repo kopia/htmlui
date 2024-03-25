@@ -1,0 +1,42 @@
+{
+    "en": {
+        "label": "English",
+        "code": "GB",
+        "value": "en"
+    },
+    "de": {
+        "label": "Deutsch",
+        "code": "DE",
+        "value": "de"
+    },
+    "es": {
+        "label": "Español",
+        "code": "ES",
+        "value": "es"
+    },
+    "fr": {
+        "label": "Français",
+        "code": "FR",
+        "value": "fr"
+    },
+    "ru": {
+        "label": "Русский",
+        "code": "RU",
+        "value": "ru"
+    },
+    "jp": {
+        "label": "日本語",
+        "code": "JP",
+        "value": "jp"
+    },
+    "it": {
+        "label": "Italiano",
+        "code": "IT",
+        "value": "it"
+    },
+    "pl": {
+        "label": "Polski",
+        "code": "PL",
+        "value": "pl"
+    }
+}

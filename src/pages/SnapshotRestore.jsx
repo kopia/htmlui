@@ -10,6 +10,7 @@ import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
 import { RequiredNumberField } from '../forms/RequiredNumberField';
 import { errorAlert, GoBackButton } from '../utils/uiutil';
+import i18n from '../utils/i18n'
 
 export class SnapshotRestore extends Component {
     constructor(props) {
@@ -91,70 +92,71 @@ export class SnapshotRestore extends Component {
         if (this.state.restoreTask) {
             return <p>
                 <GoBackButton onClick={this.props.history.goBack} />
-                <Link replace={true} to={"/tasks/" + this.state.restoreTask}>Go To Restore Task</Link>.
+                <Link replace={true} to={"/tasks/" + this.state.restoreTask}>{i18n.t('snapshot.feedback.restore.task.go')}</Link>.
             </p>;
         }
 
         return <div className="padded-top">
-            <GoBackButton onClick={this.props.history.goBack} />&nbsp;<span className="page-title">Restore</span>
-            <hr/>
+            <GoBackButton onClick={this.props.history.goBack} />{' '}<span className="page-title">{i18n.t('snapshot.event.restore')}</span>
+            <hr />
             <Form onSubmit={this.start}>
                 <Row>
-                    {RequiredField(this, "Destination", "destination", {
-                        autoFocus: true,
-                        placeholder: "enter destination path",
-                    },
-                        "You can also restore to a .zip or .tar file by providing the appropriate extension.")}
+                    {RequiredField(this, i18n.t('snapshot.feedback.restore.destination'), "destination",
+                        {
+                            autoFocus: true,
+                            placeholder: i18n.t('snapshot.feedback.restore.destination.path'),
+                        }, i18n.t('snapshot.feedback.restore.destination.help'))}
+                </Row>
+                <br/>
+                <Row>
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.skip'), "incremental")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Skip previously restored files and symlinks", "incremental")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.continue.errors'), "continueOnErrors", i18n.t('snapshot.feedback.restore.continue.errors.help'))}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Continue on Errors", "continueOnErrors", "When a restore error occurs, attempt to continue instead of failing fast.")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.file.ownership'), "restoreOwnership")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Restore File Ownership", "restoreOwnership")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.file.permission'), "restorePermissions")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Restore File Permissions", "restorePermissions")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.file.modification.time'), "restoreModTimes")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Restore File Modification Time", "restoreModTimes")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.file.overwrite'), "overwriteFiles")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Overwrite Files", "overwriteFiles")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.directory.overwrite'), "overwriteDirectories")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Overwrite Directories", "overwriteDirectories")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.link.overwrite'), "overwriteSymlinks")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Overwrite Symbolic Links", "overwriteSymlinks")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.file.atomically'), "writeFilesAtomically")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Write files atomically", "writeFilesAtomically")}
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.file.sparse'), "writeSparseFiles")}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Write Sparse Files", "writeSparseFiles")}
+                    <Col><hr /></Col>
                 </Row>
                 <Row>
-                    <Col><hr/></Col>
+                    {RequiredNumberField(this, i18n.t('snapshot.feedback.restore.shallow.depth'), "restoreDirEntryAtDepth")}
+                    {RequiredNumberField(this, i18n.t('snapshot.feedback.restore.shallow.file.size.minimal'), "minSizeForPlaceholder")}
                 </Row>
                 <Row>
-                    {RequiredNumberField(this, "Shallow Restore At Depth", "restoreDirEntryAtDepth")}
-                    {RequiredNumberField(this, "Minimal File Size For Shallow Restore", "minSizeForPlaceholder")}
+                    <Col><hr /></Col>
                 </Row>
                 <Row>
-                    <Col><hr/></Col>
+                    {RequiredBoolean(this, i18n.t('snapshot.feedback.restore.disable.compression.zip'), "uncompressedZip", i18n.t('snapshot.feedback.restore.disable.compression.zip.help'))}
                 </Row>
                 <Row>
-                    {RequiredBoolean(this, "Disable ZIP compression", "uncompressedZip", "Do not compress when restoring to a ZIP file (faster).")}
-                </Row>
-                <Row>
-                    <Col><hr/></Col>
+                    <Col><hr /></Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Button variant="primary" type="submit" data-testid="submit-button">Begin Restore</Button>
+                        <Button variant="primary" type="submit" data-testid="submit-button">{i18n.t('snapshot.event.restore.begin')}</Button>
                     </Col>
                 </Row>
             </Form>
