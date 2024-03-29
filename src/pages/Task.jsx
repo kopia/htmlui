@@ -184,6 +184,20 @@ export class Task extends Component {
                     {this.summaryControl(task)}
                 </Col>
             </Row>
+            <Row>
+                <Col xs={6}>
+                    <Form.Group>
+                        <Form.Label>Started</Form.Label>
+                        <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
+                    </Form.Group>
+                </Col>
+                <Col xs={6}>
+                    <Form.Group>
+                        <Form.Label>Finished</Form.Label>
+                        <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
+                    </Form.Group>
+                </Col>
+            </Row>
             {task.counters && <Row>
                 <Col>
                     <p class="mt-2 mb-1">Statistics</p>
@@ -200,20 +214,6 @@ export class Task extends Component {
                     </Table>
                 </Col>
             </Row>}
-            <Row>
-                <Col xs={6}>
-                    <Form.Group>
-                        <Form.Label>Started</Form.Label>
-                        <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
-                    </Form.Group>
-                </Col>
-                <Col xs={6}>
-                    <Form.Group>
-                        <Form.Label>Finished</Form.Label>
-                        <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
-                    </Form.Group>
-                </Col>
-            </Row>
             <Row>
                 <Form.Group>
                     <Form.Label>Logs</Form.Label>
