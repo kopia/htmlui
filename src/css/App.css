@@ -124,6 +124,10 @@ body {
   filter: brightness(80%);
 }
 
+#kopia .form-label {
+  margin-top: 0.5rem;
+}
+
 #kopia .form-control {
   color: var(--color-text-body);
   background-color: var(--background-color);
