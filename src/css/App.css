@@ -240,9 +240,10 @@ body {
 }
 
 .providerIcon {
+  padding: 10px;
   min-width: 120px;
-  max-width: 240px;
-  min-height: 110px;
+  max-width: calc(20% - calc(2 * 10px));
+  min-height: 120px;
   margin: 10px;
   vertical-align: middle;
 }
