@@ -304,9 +304,9 @@ export class SetupRepository extends Component {
         }
 
         return <Form onSubmit={this.verifyStorage}>
-            {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
-            {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
-            {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
+            <h3>{supportedProviders.find(x => x.provider == this.state.provider).description}</h3>
+            <h6><b>Configuring a Storage Repository</b></h6>
+            <h6>To configure a storage repository, please fill out the following.</h6>
 
             <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
 
