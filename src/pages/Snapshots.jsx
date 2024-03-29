@@ -314,7 +314,7 @@ export class Snapshots extends Component {
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">New Snapshot</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="success" href="/snapshots/new">New Snapshot</Button>
                     </Col>
                     <Col>
                     </Col>
