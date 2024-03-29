@@ -167,9 +167,10 @@ export class Snapshots extends Component {
                 }
 
                 return <>
-                    <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />&nbsp;{totals}
+                    <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />
                     &nbsp;
-                    {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
+                    {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>In progress</Link>}
+                    &nbsp;{totals}
                 </>;
 
             default:
