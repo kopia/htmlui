@@ -196,20 +196,20 @@ export class Snapshots extends Component {
     nextSnapshotTimeCell(x, parent) {
         if (!x.cell.value) {
             if (x.row.original.status === "PAUSED") {
-                return "paused";
+                return <Badge bg="warning">Paused</Badge>;
             }
 
-            return "";
+            return <Badge bg="dark">Not Available</Badge>;
         }
 
         if (x.row.original.status === "UPLOADING") {
-            return "";
+            return <Badge bg="secondary">Uploading</Badge>;
         }
 
         return <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}
             {moment(x.cell.value).isBefore(moment()) && <>
                 &nbsp;
-                <Badge bg="secondary">overdue</Badge>
+                <Badge bg="danger">Overdue</Badge>
             </>}
         </p>;
     }

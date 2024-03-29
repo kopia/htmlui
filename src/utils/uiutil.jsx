@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
+import Badge from "react-bootstrap/Badge";
 
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
@@ -30,7 +31,7 @@ function toDecimalUnitString(f, thousand, prefixes, suffix) {
 
 export function sizeWithFailures(size, summ, bytesStringBase2) {
     if (size === undefined) {
-        return "";
+        return <Badge bg="danger">Unknown</Badge>;;
     }
 
     if (!summ || !summ.errors || !summ.numFailed) {
@@ -303,18 +304,18 @@ export function GoBackButton(props) {
 
 export function PolicyTypeName(s) {
     if (!s.host && !s.userName) {
-        return "Global Policy"
+        return <span><Badge pill variant="primary">Global</Badge>&nbsp;Global Policy</span>
     }
 
     if (!s.userName) {
-        return "Host: " + s.host;
+        return <span><Badge pill variant="primary">Host</Badge>&nbsp;{s.host}</span>;
     }
 
     if (!s.path) {
-        return "User: " + s.userName + "@" + s.host;
+        return <span><Badge pill variant="secondary">User</Badge>&nbsp;s.userName + "@" + s.host</span>;
     }
 
-    return "Directory: " + s.userName + "@" + s.host + ":" + s.path;
+    return <span><Badge pill variant="success">Directory</Badge>&nbsp;{s.userName + "@" + s.host + ":" + s.path}</span>;
 }
 
 export function policyEditorURL(s) {
