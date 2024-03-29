@@ -284,7 +284,7 @@ export function taskStatusSymbol(task) {
             return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}</p>;
 
         case "CANCELED":
-            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} color="grey" /> Canceled after {dur}</p>;
 
         default:
             return st;
