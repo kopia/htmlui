@@ -186,6 +186,7 @@ export class Task extends Component {
             </Row>
             {task.counters && <Row>
                 <Col>
+                    <p class="mt-2 mb-1">Statistics</p>
                     <Table bordered hover size="sm">
                         <thead>
                             <tr>

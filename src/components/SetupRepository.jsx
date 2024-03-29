@@ -325,7 +325,7 @@ export class SetupRepository extends Component {
         const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
         const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
 
-        return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
+        return <Button data-testid='advanced-options' className="mt-2" onClick={this.toggleAdvanced}
             variant="primary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
@@ -477,13 +477,14 @@ export class SetupRepository extends Component {
             </Row>
             <Row>
                 {(this.state.provider !== "_token" && this.state.provider !== "_server") && RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
+                <br/>
                 {this.state.provider === "_server" && RequiredField(this, "Server Password", "password", { autoFocus: true, type: "password", placeholder: "enter password to connect to server" })}
             </Row>
             <Row>
                 {RequiredField(this, "Repository Description", "description", { autoFocus: this.state.provider === "_token", placeholder: "enter repository description" }, "Helps to distinguish between multiple connected repositories")}
             </Row>
             {this.toggleAdvancedButton()}
-            <Collapse in={this.state.showAdvanced}>
+            <Collapse className="m-2" in={this.state.showAdvanced}>
                 <div id="advanced-options-div" className="advancedOptions">
                     <Row>
                         {RequiredBoolean(this, "Connect in read-only mode", "readonly", "Read-only mode prevents any changes to the repository.")}
