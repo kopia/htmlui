@@ -230,7 +230,7 @@ export class SetupRepository extends Component {
                         data-testid={'provider-' + x.provider}
                         onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
                         variant={x.provider.startsWith("_") ? "secondary" : "primary"}
-                        className="providerIcon" >{x.description}</Button>
+                        className="providerIcon" ><b>{x.description}</b></Button>
                 )}
             </Row>
         </>;
@@ -465,6 +465,7 @@ export class SetupRepository extends Component {
     renderConfirmConnect() {
         return <Form onSubmit={this.connectToRepository}>
             <h3>Connect To Repository</h3>
+            <h6>Finish connecting to this repository by configuring these options.</h6>
             <Row>
                 <Form.Group as={Col}>
                     <Form.Label className="required">Connect As</Form.Label>
