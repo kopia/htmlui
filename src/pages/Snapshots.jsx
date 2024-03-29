@@ -305,7 +305,9 @@ export class Snapshots extends Component {
                             <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => this.selectOwner(localSnapshots)}>{localSnapshots}</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.selectOwner(allSnapshots)}>{allSnapshots}</Dropdown.Item>
-                                <Dropdown.Divider />
+                                <Dropdown.Divider style={{
+                                    display: uniqueOwners.length > 0 ? "" : "none",
+                                }}/>
                                 {uniqueOwners.map(v => <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>{v}</Dropdown.Item>)}
                             </Dropdown.Menu>
                         </Dropdown>
