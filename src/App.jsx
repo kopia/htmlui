@@ -126,12 +126,12 @@ export default class App extends Component {
                   <NavLink to="/repo" className="nav-link" style={{textAlign: "right"}}>
                     <p className="mb-0 text-sm"
                        style={{
-                         fontSize: "40%",
+                         fontSize: "50%",
                        }}>{this.state.isRepositoryConnected ? "Connected Repository" : "Repository Disconnected"}</p>
                     <h5 className="mb-0 fw-light text-sm"
                         style={{
                           color: "#7a7a7a",
-                          fontSize: "60%",
+                          fontSize: "50%",
                         }}
                     ><i>{this.state.isRepositoryConnected ? this.state.repoDescription : "Please connect to a repository first!"}</i></h5>
                   </NavLink>
