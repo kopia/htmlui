@@ -9,7 +9,7 @@ import i18n from '../../utils/i18n'
 
 export function ActionRowMode(component, action) {
     return <Row>
-        <LabelColumn name="Command Mode" help={i18n.t('feedback.policy.command-mode-help')} />
+        <LabelColumn name={i18n.t('feedback.policy.action.command-mode')} help={i18n.t('feedback.policy.command-mode-help')} />
         <WideValueColumn>
             <Form.Control as="select" size="sm"
                 name={"policy." + action}

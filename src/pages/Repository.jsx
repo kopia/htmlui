@@ -134,7 +134,7 @@ export class Repository extends Component {
                     <Logs taskID={this.state.status.initTaskID} />
                 </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} />{i18n.t('event.log.show')}</Button>}
                 <hr />
-                <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>{i18n.t('repository.event.connection.cancel')}</Button>
+                <Button size="sm" variant="danger" icon={faWindowClose} title={i18n.t('common.cancel')} onClick={() => cancelTask(this.state.status.initTaskID)}>{i18n.t('repository.event.connection.cancel')}</Button>
             </>;
         }
 

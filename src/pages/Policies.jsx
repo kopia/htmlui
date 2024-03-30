@@ -248,7 +248,7 @@ export class Policies extends Component {
             id: 'edit',
             Header: i18n.t('feedback.header.actions'),
             width: 50,
-            Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
+            Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">{i18n.t('event.policy.edit')}</Button>
         }]
 
         return <>
@@ -279,7 +279,7 @@ export class Policies extends Component {
                                 {OptionalDirectory(this, null, "policyPath", { autoFocus: true, placeholder: i18n.t('policies.feedback.policy.find') })}
                             </Col>
                             <Col xs="auto">
-                                <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>Set Policy</Button>
+                                <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>{i18n.t('event.policy.set')}</Button>
                             </Col>
                         </> : <Col />}
                     </Row>

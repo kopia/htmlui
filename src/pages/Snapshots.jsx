@@ -167,7 +167,7 @@ export class Snapshots extends Component {
                 return <>
                     <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />&nbsp;{totals}
                     &nbsp;
-                    {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
+                    {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>{i18n.t('feedback.header.details')}</Link>}
                 </>;
 
             default:
@@ -206,7 +206,7 @@ export class Snapshots extends Component {
         return <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}
             {moment(x.cell.value).isBefore(moment()) && <>
                 &nbsp;
-                <Badge bg="secondary">overdue</Badge>
+                <Badge bg="secondary">{i18n.t('feedback.snapshot.status.overdue')}</Badge>
             </>}
         </p>;
     }

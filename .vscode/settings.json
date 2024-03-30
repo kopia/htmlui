@@ -17,11 +17,28 @@
         "feedback.provider.sftp-server",
         "feedback.task.estimate-results",
         "feedback.provider.required-either-known-host-data",
-        "feedback.provider.required-either-key-file"
+        "feedback.provider.required-either-key-file",
+        "feedback.policy.files.ignore-files-help",
+        "feedback.policy.scheduling.cron-help"
     ],
     "i18n-ally.extract.ignoredByFiles": {
         "src\\components\\policy-editor\\PolicyEditor.jsx": [
             "Do not cross filesystem boundaries when creating a snapshot"
+        ],
+        "src\\components\\policy-editor\\UpcomingSnapshotTimes.jsx": [
+            "L LT"
+        ],
+        "src\\contexts\\UIPreferencesContext.tsx": [
+            "(prefers-color-scheme: dark)"
+        ],
+        "src\\pages\\Policies.jsx": [
+            "policy list"
         ]
-    }
+    },
+    "i18n-ally.extract.ignored": [
+        " (",
+        " (",
+        ")",
+        ")"
+    ]
 }
