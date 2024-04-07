@@ -87,25 +87,25 @@ export function Tasks() {
         return <p>{error.message}</p>;
     }
     if (isLoading) {
-        return <p>{t('task.loading')}</p>;
+        return <p>{t('common.label.loading')}</p>;
     }
 
     const columns = [{
-        Header: t('task.header.time.start'),
+        Header: t('feedback.task.table.header-start-time'),
         width: 160,
         accessor: x => <Link to={'/tasks/' + x.id} title={moment(x.startTime).toLocaleString()}>
             {moment(x.startTime).fromNow()}
         </Link>
     }, {
-        Header: t('task.header.status'),
+        Header: t('feedback.task.table.header-status'),
         width: 240,
         accessor: x => taskStatusSymbol(x),
     }, {
-        Header: t('task.header.kind'),
+        Header: t('feedback.task.table.header-kind'),
         width: "",
         accessor: x => <p>{x.kind}</p>,
     }, {
-        Header: t('task.header.description'),
+        Header: t('feedback.task.table.header-description'),
         width: "",
         accessor: x => <p>{x.description}</p>,
     }]
@@ -118,27 +118,27 @@ export function Tasks() {
                     <Row>
                         <Col xs="auto">
                             <Dropdown>
-                                <Dropdown.Toggle size="sm" variant="primary">{t('task.header.status')}: {status}</Dropdown.Toggle>
+                                <Dropdown.Toggle size="sm" variant="primary">{t('feedback.task.table.header-status')}: {status}</Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => setStatus("All")}>{t('task.all')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setStatus("All")}>{t('event.task.select.task-all')}</Dropdown.Item>
                                     <Dropdown.Divider />
-                                    <Dropdown.Item onClick={() => setStatus("Running")}>{t('task.running')}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setStatus("Failed")}>{t('task.failed')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setStatus("Running")}>{t('event.task.select.task-running')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setStatus("Failed")}>{t('event.task.select.task-failed')}</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
                         <Col xs="auto">
                             <Dropdown>
-                                <Dropdown.Toggle size="sm" variant="primary">{t('task.header.kind')}: {kind}</Dropdown.Toggle>
+                                <Dropdown.Toggle size="sm" variant="primary">{t('feedback.task.table.header-kind')}: {kind}</Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => setKind("All")}>{t('task.all')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => setKind("All")}>{t('event.task.select.task-all')}</Dropdown.Item>
                                     <Dropdown.Divider />
                                     {response.kinds.map(kind => <Dropdown.Item key={kind} onClick={() => setKind(kind)}>{kind}</Dropdown.Item>)}
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
                         <Col xs="4">
-                            <Form.Control size="sm" type="text" name="searchDescription" placeholder={t('task.feedback.search')} value={searchDescription} onChange={handleDescription} autoFocus={true} />
+                            <Form.Control size="sm" type="text" name="searchDescription" placeholder={t('feedback.task.search-tasks-by-hint')} value={searchDescription} onChange={handleDescription} autoFocus={true} />
                         </Col>
                     </Row>
                 </div>
@@ -146,7 +146,7 @@ export function Tasks() {
                     <Col>
                         {!response.items.length ?
                             <Alert variant="info">
-                                <FontAwesomeIcon size="sm" icon={faInfoCircle} /> {t('task.feedback.entries')}
+                                <FontAwesomeIcon size="sm" icon={faInfoCircle} /> {t('feedback.task.no-tasks-help')}
                             </Alert> : <KopiaTable data={filteredItems} columns={columns} />}
                     </Col>
                 </Row>

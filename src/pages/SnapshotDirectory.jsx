@@ -92,7 +92,7 @@ export class SnapshotDirectory extends Component {
 
     browseMounted() {
         if (!window.kopiaUI) {
-            alert(i18n.t('snapshot.event.directory.browsing'));
+            alert(i18n.t('feedback.snapshot.directory.browsing-not-supported'));
             return;
         }
 
@@ -129,20 +129,20 @@ export class SnapshotDirectory extends Component {
             <Row>
                 <Col xs="auto">
                     {this.state.mountInfo.path ? <>
-                        <Button size="sm" variant="secondary" onClick={this.unmount}>{i18n.t('snapshot.event.directory.unmount')}</Button>
+                        <Button size="sm" variant="secondary" onClick={this.unmount}>{i18n.t('event.snapshot.unmount-directory')}</Button>
                         {window.kopiaUI && <>
-                            <Button size="sm" variant="secondary" onClick={this.browseMounted}>{i18n.t('snapshot.event.directory.browse')}</Button>
+                            <Button size="sm" variant="secondary" onClick={this.browseMounted}>{i18n.t('event.snapshot.browse-directory')}</Button>
                         </>}
                         <input readOnly={true} className='form-control form-control-sm mounted-path' value={this.state.mountInfo.path} />
                         <Button size="sm" variant="success" onClick={this.copyPath}><FontAwesomeIcon icon={faCopy} /></Button>
                     </> : <>
-                        <Button size="sm" variant="secondary" onClick={this.mount}>{i18n.t('snapshot.event.directory.mount')}{' '}</Button>
+                        <Button size="sm" variant="secondary" onClick={this.mount}>{i18n.t('event.snapshot.mount-directory')}{' '}</Button>
                     </>}
                     <Button size="sm" variant="primary" onClick={() => this.navigateTo("/snapshots/dir/" + this.props.match.params.oid + "/restore")}>
-                        {i18n.t('snapshot.event.directory.restore')}{' '}</Button>
+                        {i18n.t('event.snapshot.restore-file-directories')}{' '}</Button>
                 </Col>
                 <Col xs={12} md={6}>
-                    {i18n.t('snapshot.feedback.directory.mount.restore')} </Col>
+                    {i18n.t('feedback.snapshot.directory.restore-all-files-help')} </Col>
             </Row>
             <br />
             <Row>

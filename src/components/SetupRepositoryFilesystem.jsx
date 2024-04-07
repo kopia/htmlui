@@ -19,7 +19,7 @@ export class SetupRepositoryFilesystem extends Component {
 
     render() {
         return <>
-            {RequiredDirectory(this, i18n.t('feedback.validation.local.directory-path'), "path", { autoFocus: true, placeholder: i18n.t('feedback.validation.local.directory-path-hint')})}
+            {RequiredDirectory(this, i18n.t('feedback.provider.filesystem.directory-path'), "path", { autoFocus: true, placeholder: i18n.t('feedback.provider.filesystem.enter-directory-path')})}
         </>;
     }
 }

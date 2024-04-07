@@ -273,19 +273,19 @@ export function taskStatusSymbol(task) {
     switch (st) {
         case "RUNNING":
             return <>
-                <Spinner animation="border" variant="primary" size="sm" /> {i18n.t('feedback.task.running-for')} {dur}
+                <Spinner animation="border" variant="primary" size="sm" /> {i18n.t('feedback.task.status.task-running-for')} {dur}
                 <button className="btn btn-sm btn-link" type="button" onClick={() => cancelTask(task.id)}>
-                    <FontAwesomeIcon color="red" size='lg' title={i18n.t('event.task.cancel')} icon={faXmark} />
+                    <FontAwesomeIcon color="red" size='lg' title={i18n.t('event.task.action.cancel')} icon={faXmark} />
                 </button>
             </>
         case "SUCCESS":
-            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> {i18n.t('feedback.task.finished-in')} {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> {i18n.t('feedback.task.status.task-finished-in')} {dur}</p>;
 
         case "FAILED":
-            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> {i18n.t('feedback.task.failed-after')} {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> {i18n.t('feedback.task.status.task-failed-after')} {dur}</p>;
 
         case "CANCELED":
-            return <p title={dur}><FontAwesomeIcon icon={faBan} /> {i18n.t('feedback.task.canceled-after')} {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} /> {i18n.t('feedback.task.status.task-canceled-after')} {dur}</p>;
 
         default:
             return st;
@@ -299,7 +299,7 @@ export function cancelTask(tid) {
 }
 
 export function GoBackButton(props) {
-    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> {i18n.t('common.return')} </Button>;
+    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> {i18n.t('common.action.return')} </Button>;
 }
 
 export function PolicyTypeName(s) {

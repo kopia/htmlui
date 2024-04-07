@@ -22,16 +22,16 @@ export class SetupRepositoryGCS extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, i18n.t('feedback.validation.gcs.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.validation.gcs.bucket-name-hint') })}
-                {OptionalField(this, i18n.t('feedback.validation.gcs.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.validation.gcs.object-name-prefix-hint'), type: "password" })}
+                {RequiredField(this, i18n.t('feedback.provider.gcs.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.provider.gcs.enter-bucket-name') })}
+                {OptionalField(this, i18n.t('feedback.provider.gcs.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.provider.gcs.enter-object-name-prefix'), type: "password" })}
             </Row>
             <br/>
             <Row>
-                {OptionalField(this, i18n.t('feedback.validation.gcs.credentials-file'), "credentialsFile", { placeholder: i18n.t('feedback.validation.gcs.credentials-file-hint') })}
+                {OptionalField(this, i18n.t('feedback.provider.gcs.credentials-file'), "credentialsFile", { placeholder: i18n.t('feedback.provider.gcs.enter-credentials-file-name') })}
             </Row>
             <br/>
             <Row>
-                {OptionalField(this, i18n.t('feedback.validation.gcs.credentials-json'), "credentials", { placeholder: i18n.t('feedback.validation.gcs.credentials-json-paste'), as: "textarea", rows: 5 })}
+                {OptionalField(this, i18n.t('feedback.provider.gcs.credentials-json'), "credentials", { placeholder: i18n.t('feedback.prodiver.gcs.paste-json-credentials'), as: "textarea", rows: 5 })}
             </Row>
         </>;
     }

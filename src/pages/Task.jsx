@@ -81,21 +81,21 @@ export class Task extends Component {
         switch (task.status) {
 
             case "SUCCESS":
-                return <Alert size="sm" variant="success">{i18n.t('task.status.succeed.after')} {dur}.</Alert>;
+                return <Alert size="sm" variant="success">{i18n.t('feedback.task.status.task-succeeded-after')} {dur}.</Alert>;
 
             case "FAILED":
-                return <Alert variant="danger"><b>{i18n.t('task.status.error')}:</b> {task.errorMessage}.</Alert>;
+                return <Alert variant="danger"><b>{i18n.t('feedback.task.status.task-error')}:</b> {task.errorMessage}.</Alert>;
 
             case "CANCELED":
-                return <Alert variant="warning">{i18n.t('task.status.canceled')}.</Alert>;
+                return <Alert variant="warning">{i18n.t('feedback.task.status.task-canceled')}.</Alert>;
 
             case "CANCELING":
                 return <Alert variant="primary">
-                    <Spinner animation="border" variant="warning" size="sm" />{i18n.t('task.status.canceling')} {dur}: {task.progressInfo}.</Alert>;
+                    <Spinner animation="border" variant="warning" size="sm" />{i18n.t('feedback.task.status.task-canceling')} {dur}: {task.progressInfo}.</Alert>;
 
             default:
                 return <Alert variant="primary">
-                    <Spinner animation="border" variant="primary" size="sm" />{i18n.t('task.status.running.for')} {dur}: {task.progressInfo}.</Alert>;
+                    <Spinner animation="border" variant="primary" size="sm" />{i18n.t('feedback.task.status.task-running-for')} {dur}: {task.progressInfo}.</Alert>;
         }
     }
 
@@ -164,7 +164,7 @@ export class Task extends Component {
         }
 
         if (isLoading) {
-            return <p>{i18n.t('common.loading')}</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         return <Form>
@@ -174,7 +174,7 @@ export class Task extends Component {
                         <h4>
                             <GoBackButton onClick={this.props.history.goBack} />
                             {task.status === "RUNNING" && <>
-                                &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> {i18n.t('task.event.stop')} </Button>
+                                &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> {i18n.t('common.action.stop')} </Button>
                             </>}
                             &nbsp;{task.kind}: {task.description}</h4>
                     </Form.Group>
@@ -189,8 +189,8 @@ export class Task extends Component {
                     <Table bordered hover size="sm">
                         <thead>
                             <tr>
-                                <th>{i18n.t('task.header.counter')}</th>
-                                <th>{i18n.t('task.header.value')}</th>
+                                <th>{i18n.t('feedback.task.header.counter')}</th>
+                                <th>{i18n.t('feedback.task.header.value')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -202,13 +202,13 @@ export class Task extends Component {
             <Row>
                 <Col xs={6}>
                     <Form.Group>
-                        <Form.Label><b>{i18n.t('task.status.started')}</b></Form.Label>
+                        <Form.Label><b>{i18n.t('feedback.task.status.task-started')}</b></Form.Label>
                         <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
                     </Form.Group>
                 </Col>
                 <Col xs={6}>
                     <Form.Group>
-                        <Form.Label><b>{i18n.t('task.status.finished')}</b></Form.Label>
+                        <Form.Label><b>{i18n.t('feedback.task.status.task-finished')}</b></Form.Label>
                         <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
                     </Form.Group>
                 </Col>
@@ -216,7 +216,7 @@ export class Task extends Component {
             <br />
             <Row>
                 <Form.Group>
-                    <Form.Label><b>{i18n.t('task.logs')}</b></Form.Label>
+                    <Form.Label><b>{i18n.t('feedback.task.logs')}</b></Form.Label>
                     <Logs taskID={this.taskID(this.props)} />
                 </Form.Group>
             </Row>

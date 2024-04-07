@@ -75,7 +75,7 @@ export class SnapshotEstimation extends Component {
         }
 
         if (task.status === "SUCCESS") {
-            return i18n.t('feedback.task.total')
+            return i18n.t('feedback.task.tasks-total')
         }
 
         if (task.status === "CANCELED") {
@@ -93,12 +93,12 @@ export class SnapshotEstimation extends Component {
         }
 
         if (isLoading) {
-            return <p>{i18n.t('common.loading')}</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         return <>
             {task.counters && <Form.Text className="estimateResults">
-                <Trans i18nKey={'feedback.task.estimate-results'} values={
+                <Trans i18nKey={'feedback.task.estimated-results'} values={
                     {
                         "description": this.taskStatusDescription(task),
                         "bytes": sizeDisplayName(task.counters["Bytes"]?.value, bytesStringBase2),
@@ -114,14 +114,13 @@ export class SnapshotEstimation extends Component {
             </Form.Text>
             }
             {task.status === "RUNNING" && <>
-                {' '}<Button size="sm" variant="light" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} color="red" /> {i18n.t('common.cancel')} </Button>
+                {' '}<Button size="sm" variant="light" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} color="red" /> {i18n.t('common.action.cancel')} </Button>
             </>}
             {this.state.showLog ? <>
-                <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> {i18n.t('event.log.hide')}</Button>
+                <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> {i18n.t('event.log.hide-log')}</Button>
                 <Logs taskID={this.taskID(this.props)} />
-            </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> {i18n.t('event.log.show')}</Button>}
-        </>
-            ;
+            </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> {i18n.t('event.log.show-log')}</Button>}
+        </>;
     }
 }
 SnapshotEstimation.contextType = UIPreferencesContext

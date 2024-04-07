@@ -250,7 +250,7 @@ export class SnapshotHistory extends Component {
                 originalSnapshotDescription: x.description,
             })
         }}
-            title={i18n.t('snapshot.event.history.description.update', {description: x.description})}
+            title={i18n.t('event.snapshot.history.update-snapshot-description', {description: x.description})}
             className={x.description ? "snapshot-description-set" : "snapshot-description"}><b><FontAwesomeIcon icon={faFileAlt} /></b></a>;
     }
 
@@ -261,10 +261,10 @@ export class SnapshotHistory extends Component {
             this.setState({
                 editPinFor: [x.id],
                 originalPinName: "",
-                newPinName: i18n.t('feedback.pin.standard-text'),
+                newPinName: i18n.t('feedback.pin.do-not-delete'),
             });
         }
-        } title={i18n.t('snapshot.event.history.pin.add')}><FontAwesomeIcon icon={faThumbtack} color="#ccc" /></a>;
+        } title={i18n.t('feedback.pin.add-pin-to-protect')}><FontAwesomeIcon icon={faThumbtack} color="#ccc" /></a>;
     }
 
     editPin(snap, pin) {
@@ -332,13 +332,13 @@ export class SnapshotHistory extends Component {
 
         const columns = [{
             id: 'selected',
-            Header: i18n.t('snapshot.history.header.selected'),
+            Header: i18n.t('feedback.snapshot.header.selected'),
             width: 20,
             align: "center",
             Cell: x => <div className="form-check multiselect"><input type="checkbox" className="form-check-input" checked={this.isSelected(x.row.original)} onChange={() => this.toggleSelected(x.row.original)} /></div>,
         }, {
             id: 'startTime',
-            Header: i18n.t('snapshot.history.header.time.start'),
+            Header: i18n.t('feedback.snapshot.header.start-time'),
             width: 200,
             accessor: x => {
                 let timestamp = rfc3339TimestampForDisplay(x.startTime);
@@ -346,18 +346,18 @@ export class SnapshotHistory extends Component {
             },
         }, {
             id: 'description',
-            Header: i18n.t('snapshot.history.header.description'),
+            Header: i18n.t('feedback.snapshot.description'),
             width: 20,
             Cell: x => this.descriptionFor(x.row.original),
         }, {
             id: 'rootID',
-            Header: i18n.t('snapshot.history.header.root'),
+            Header: i18n.t('feedback.snapshot.header.root'),
             width: "",
             accessor: x => x.rootID,
             Cell: x => <><span className="snapshot-hash">{x.cell.value}</span>
                 {x.row.original.description && <div className='snapshot-description'><small>{x.row.original.description}</small></div>}</>,
         }, {
-            Header: i18n.t('snapshot.history.header.retention'),
+            Header: i18n.t('feedback.snapshot.header.retention'),
             accessor: 'retention',
             width: "",
             Cell: x => <span>
@@ -368,16 +368,16 @@ export class SnapshotHistory extends Component {
                 {this.newPinFor(x.row.original)}
             </span>
         }, {
-            Header: i18n.t('snapshot.history.header.size'),
+            Header: i18n.t('feedback.snapshot.header.snapshot-size'),
             accessor: 'summary.size',
             width: 100,
             Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary, bytesStringBase2),
         }, {
-            Header: i18n.t('snapshot.history.header.files'),
+            Header: i18n.t('feedback.snapshot.header.files'),
             accessor: 'summary.files',
             width: 100,
         }, {
-            Header: i18n.t('snapshot.history.header.directories'),
+            Header: i18n.t('feedback.snapshot.header.directories'),
             accessor: 'summary.dirs',
             width: 100,
         }]
@@ -390,28 +390,28 @@ export class SnapshotHistory extends Component {
                     <GoBackButton onClick={this.props.history.goBack} />
                     {' '}
                     {snapshots.length > 0 && (selectedElements.length < snapshots.length ?
-                        <Button size="sm" variant="primary" onClick={this.selectAll}>{i18n.t('snapshot.event.history.select.all')}</Button> :
-                        <Button size="sm" variant="primary" onClick={this.deselectAll}>{i18n.t('snapshot.event.history.deselect.all')}</Button>)}
+                        <Button size="sm" variant="primary" onClick={this.selectAll}>{i18n.t('event.snapshot.history.select-all-snapshots')}</Button> :
+                        <Button size="sm" variant="primary" onClick={this.deselectAll}>{i18n.t('event.snapshot.history.deselect-all')}</Button>)}
                     {' '}
                     {selectedElements.length > 0 && <>{' '}
-                        <Button size="sm" variant="danger" onClick={this.showDeleteConfirm}>{i18n.t('snapshot.event.history.selected.delete')}{selectedElements.length})</Button>
+                        <Button size="sm" variant="danger" onClick={this.showDeleteConfirm}>{i18n.t('event.snapshot.history.delete-selected', { count: selectedElements.length})}</Button>
                     </>}
                     {snapshots.length === 0 && <>{' '}
-                        <Button size="sm" variant="danger" onClick={this.deleteSnapshotSource}>{i18n.t('snapshot.event.history.delete.source')}</Button>
+                        <Button size="sm" variant="danger" onClick={this.deleteSnapshotSource}>{i18n.t('event.snapshot.history.delete-snapshot-source')}</Button>
                     </>}
                 </Col>
                 <Col>
                 </Col>
                 <Col xs="auto">
                     <Button size="sm" variant="primary">
-                        {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} title={i18n.t('snapshot.event.history.fetch.snapshots')} onClick={this.fetchSnapshots} />}
+                        {this.state.isRefreshing ? <Spinner animation="border" variant="light" size="sm" /> : <FontAwesomeIcon icon={faSync} title={i18n.t('event.snapshot.fetch-snapshots')} onClick={this.fetchSnapshots} />}
                     </Button>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <div className="vpadded">
-                        {i18n.t('snapshot.feedback.history.display')} {snapshots.length !== unfilteredCount ? snapshots.length + ' out of ' + unfilteredCount : snapshots.length} snapshots of{' '}<b>{this.state.userName}@{this.state.host}:{this.state.path}</b>
+                        {i18n.t('feedback.snapshot.history.snapshot-displaying')} {snapshots.length !== unfilteredCount ? snapshots.length + ' out of ' + unfilteredCount : snapshots.length} snapshots of{' '}<b>{this.state.userName}@{this.state.host}:{this.state.path}</b>
                     </div>
                 </Col>
             </Row>
@@ -422,7 +422,7 @@ export class SnapshotHistory extends Component {
                             <Form.Check
                                 type="checkbox"
                                 checked={this.state.showHidden}
-                                label={i18n.t('snapshot.history.feedack.unfiltered.count',{count: unfilteredCount})}
+                                label={i18n.t('feedback.snapshot.show-individual-snapshots-count',{count: unfilteredCount})}
                                 onChange={this.toggleShowHidden} />
                         </Form.Group>
                     </div>
@@ -438,15 +438,15 @@ export class SnapshotHistory extends Component {
 
             <Modal show={this.state.showDeleteConfirmationDialog} onHide={this.cancelDelete}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{i18n.t('common.delete-confirm')}</Modal.Title>
+                    <Modal.Title>{i18n.t('common.action.confirm-delete')}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <>
-                        <p>{i18n.t('snapshot.event.delete.selected',{count: selectedElements.length})}</p>
+                        <p>{i18n.t('event.snapshot.delete-selected',{count: selectedElements.length})}</p>
                         {selectedElements.length === snapshots.length && <Row><Form.Group>
                             <Form.Check
-                                label={i18n.t('snapshot.feedback.history.wipe.all')}
+                                label={i18n.t('feedback.snapshot.history.wipe-all-snapshots')}
                                 className="required"
                                 checked={this.state.alsoDeleteSource}
                                 onChange={() => this.setState({ alsoDeleteSource: !this.state.alsoDeleteSource })}
@@ -456,19 +456,19 @@ export class SnapshotHistory extends Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button size="sm" variant="primary" onClick={this.deleteSelectedSnapshots}>{i18n.t('common.delete')}</Button>
-                    <Button size="sm" variant="warning" onClick={this.cancelDelete}>{i18n.t('common.cancel')}</Button>
+                    <Button size="sm" variant="primary" onClick={this.deleteSelectedSnapshots}>{i18n.t('common.action.delete')}</Button>
+                    <Button size="sm" variant="warning" onClick={this.cancelDelete}>{i18n.t('common.action.cancel')}</Button>
                 </Modal.Footer>
             </Modal>
 
             <Modal show={!!this.state.editingDescriptionFor} onHide={this.cancelSnapshotDescription}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{i18n.t('feedback.description.modal-title')}</Modal.Title>
+                    <Modal.Title>{i18n.t('feedback.snapshot.description.snapshot-description')}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label>{i18n.t('event.description.new')}</Form.Label>
+                        <Form.Label>{i18n.t('event.snapshot.description.enter-new-description')}</Form.Label>
                         <Form.Control as="textarea"
                             size="sm"
                             value={this.state.updatedSnapshotDescription}
@@ -478,20 +478,20 @@ export class SnapshotHistory extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="primary" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>{i18n.t('event.description.update')}</Button>
-                    {this.state.originalSnapshotDescription && <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>{i18n.t('event.description.remove')}</Button>}
-                    <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>{i18n.t('event.description.cancel')}</Button>
+                    <Button size="sm" variant="primary" disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription} onClick={this.saveSnapshotDescription}>{i18n.t('event.snapshot.description.update-description')}</Button>
+                    {this.state.originalSnapshotDescription && <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>{i18n.t('event.snapshot.description.remove-description')}</Button>}
+                    <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>{i18n.t('common.action.cancel')}</Button>
                 </Modal.Footer>
             </Modal>
 
             <Modal show={!!this.state.editPinFor} onHide={this.cancelPin}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{i18n.t('event.pin.snapshot-pin')}</Modal.Title>
+                    <Modal.Title>{i18n.t('event.pin.pin-snapshot')}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
                     <Form.Group>
-                        <Form.Label>{i18n.t('feedback.pin.name')}</Form.Label>
+                        <Form.Label>{i18n.t('feedback.pin.name-of-the-pin')}</Form.Label>
                         <Form.Control
                             size="sm"
                             value={this.state.newPinName}
@@ -501,9 +501,9 @@ export class SnapshotHistory extends Component {
 
                 <Modal.Footer>
                     {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
-                    <Button size="sm" variant="primary" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? i18n.t('event.pin.update') : i18n.t('event.pin.add')}</Button>
-                    {this.state.originalPinName && <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>{i18n.t('event.pin.remove')}</Button>}
-                    <Button size="sm" variant="warning" onClick={this.cancelPin}>{i18n.t('event.pin.cancel')}</Button>
+                    <Button size="sm" variant="primary" onClick={this.savePin} disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}>{this.state.originalPinName ? i18n.t('event.pin.update-pin') : i18n.t('event.pin.add-pin')}</Button>
+                    {this.state.originalPinName && <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>{i18n.t('event.pin.remove-pin')}</Button>}
+                    <Button size="sm" variant="warning" onClick={this.cancelPin}>{i18n.t('common.action.cancel')}</Button>
                 </Modal.Footer>
             </Modal>
         </>;

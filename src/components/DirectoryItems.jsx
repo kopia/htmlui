@@ -38,30 +38,30 @@ export class DirectoryItems extends Component {
         const { bytesStringBase2 } = this.context;
         const columns = [{
             id: "name",
-            Header: i18n.t('feedback.header.name'),
+            Header: i18n.t('feedback.directory.header.name'),
             width: "",
             accessor: x => directoryLinkOrDownload(x, this.props.historyState),
         }, {
             id: "mtime",
             accessor: "mtime",
-            Header: i18n.t('feedback.header.modification-last'),
+            Header: i18n.t('feedback.directory.header.last-modification'),
             width: 200,
             Cell: x => rfc3339TimestampForDisplay(x.cell.value),
         }, {
             id: "size",
             accessor: x => sizeInfo(x),
-            Header: i18n.t('feedback.header.size'),
+            Header: i18n.t('feedback.directory.header.size'),
             width: 100,
             Cell: x => sizeWithFailures(x.cell.value, x.row.original.summ, bytesStringBase2),
         }, {
             id: "files",
             accessor: "summ.files",
-            Header: i18n.t('feedback.header.files'),
+            Header: i18n.t('feedback.directory.header.files'),
             width: 100,
         }, {
             id: "dirs",
             accessor: "summ.dirs",
-            Header: i18n.t('feedback.header.directories'),
+            Header: i18n.t('feedback.directory.header.directories'),
             width: 100,
         }]
 

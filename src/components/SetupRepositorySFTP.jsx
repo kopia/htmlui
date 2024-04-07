@@ -59,34 +59,34 @@ export class SetupRepositorySFTP extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, i18n.t('validation.provider.host'), "host", { autoFocus: true, placeholder: i18n.t('validation.provider.host-hint') })}
-                {RequiredField(this, i18n.t('validation.provider.user'), "username", { placeholder: i18n.t('validation.provider.user-hint') })}
-                {OptionalNumberField(this, i18n.t('validation.provider.port'), "port", { placeholder: i18n.t('validation.provider.port-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.sftp.host'), "host", { autoFocus: true, placeholder: i18n.t('feedback.provider.sftp.enter-ssh-host-name') })}
+                {RequiredField(this, i18n.t('feedback.provider.sftp.user'), "username", { placeholder: i18n.t('feedback.provider.sftp.user-name') })}
+                {OptionalNumberField(this, i18n.t('feedback.provider.sftp.port'), "port", { placeholder: i18n.t('feedback.provider.sftp.port-number') })}
             </Row>
             <br />
             <Row>
-                {RequiredField(this, i18n.t('validation.provider.path'), "path", { placeholder: i18n.t('validation.provider.path-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.sftp.path'), "path", { placeholder: i18n.t('feedback.provider.sftp.enter-remote-path') })}
             </Row>
             <br />
             {!this.state.externalSSH && <>
                 <Row>
-                    {OptionalField(this, i18n.t('validation.password'), "password", { type: "password", placeholder: i18n.t('validation.password-hint') })}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.password'), "password", { type: "password", placeholder: i18n.t('feedback.provider.sftp.enter-password') })}
                 </Row>
                 <br />
                 <Row>
-                    {OptionalField(this, i18n.t('validation.provider.path-key-file'), "keyfile", { placeholder: i18n.t('validation.provider.path-key-file-hint') })}
-                    {OptionalField(this, i18n.t('validation.provider.path-host-file'), "knownHostsFile", { placeholder: i18n.t('validation.provider.path-host-file-hint') })}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.path-key-file'), "keyfile", { placeholder: i18n.t('feedback.provider.sftp.enter-path-to-key-file') })}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.path-host-file'), "knownHostsFile", { placeholder: i18n.t('feedback.provider.sftp.enter-path-host-file') })}
                 </Row>
                 <br />
                 <Row>
-                    {OptionalField(this, i18n.t('validation.provider.key-data'), "keyData", {
-                        placeholder: i18n.t('validation.provider.key-data-hint'),
+                    {OptionalField(this, i18n.t('feedback.provider.sftp-key-data'), "keyData", {
+                        placeholder: i18n.t('feedback.provider.sftp-key-data-hint'),
                         as: "textarea",
                         rows: 5,
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["password", "keyfile", "keyData"]),
                     }, <Trans i18nKey={'feedback.provider.required-either-key-file'}/>)}
-                    {OptionalField(this, i18n.t('validation.provider.known-host-data'), "knownHostsData", {
-                        placeholder: i18n.t('validation.provider.known-host-data-hint'),
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.known-host-data'), "knownHostsData", {
+                        placeholder: i18n.t('feedback.provider.sftp.paste-content-of-known-host'),
                         as: "textarea",
                         rows: 5,
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["knownHostsFile", "knownHostsData"]),
@@ -94,11 +94,11 @@ export class SetupRepositorySFTP extends Component {
                 </Row>
                 <hr />
             </>}
-            {RequiredBoolean(this, i18n.t('validation.provider.external-ssh-command'), "externalSSH", i18n.t('validation.provider.external-ssh-command-hint'))}
+            {RequiredBoolean(this, i18n.t('feedback.provider.sftp.launch-external-ssh-command'), "externalSSH", i18n.t('feedback.provider.sftp.launch-external-ssh-command-hint'))}
             <br/>
             {this.state.externalSSH && <><Row>
-                {OptionalField(this, i18n.t('validation.provider.ssh-command'), "sshCommand", { placeholder: i18n.t('validation.provider.ssh-command-hint') })}
-                {OptionalField(this, i18n.t('validation.provider.ssh-arguments'), "sshArguments", { placeholder: i18n.t('validation.provider.ssh-arguments-hint') })}
+                {OptionalField(this, i18n.t('feedback.provider.sftp.ssh-command'), "sshCommand", { placeholder: i18n.t('feedback.provider.sftp.provide-passwordless-ssh-command') })}
+                {OptionalField(this, i18n.t('feedback.provider.sftp.ssh-arguments'), "sshArguments", { placeholder: i18n.t('feedback.provider.sftp.enter-ssh-arguments') })}
             </Row></>}
 
         </>;

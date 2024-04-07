@@ -250,7 +250,7 @@ export class PolicyEditor extends Component {
         }
 
         if (isLoading) {
-            return <p>{i18n.t('common.loading')}</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         return <>

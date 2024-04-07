@@ -21,7 +21,7 @@ export class SetupRepositoryToken extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, i18n.t('feedback.validation.repository-token.token'), "token", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.validation.repository-token.token-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.repositorytoken.token'), "token", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.provider.repositorytoken.paste-token') })}
             </Row>
         </>;
     }

@@ -19,7 +19,13 @@
         "feedback.provider.required-either-known-host-data",
         "feedback.provider.required-either-key-file",
         "feedback.policy.files.ignore-files-help",
-        "feedback.policy.scheduling.cron-help"
+        "feedback.policy.scheduling.cron-help",
+        "feedback.policy.find-count",
+        "feedback.policy.find-count_one",
+        "feedback.policy.find-count_other",
+        "feedback.task.estimated-results",
+        "feedback.snapshot.show-individual-snapshots-count_other",
+        "feedback.snapshot.show-individual-snapshots-count_one"
     ],
     "i18n-ally.extract.ignoredByFiles": {
         "src\\components\\policy-editor\\PolicyEditor.jsx": [

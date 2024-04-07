@@ -118,7 +118,7 @@ export class SnapshotCreate extends Component {
         e.preventDefault();
 
         if (!this.state.resolvedSource.path) {
-            alert(i18n.t('snapshot.event.create.path.resolve'));
+            alert(i18n.t('feedback.snapshot.create.must-specify-path'));
             return
         }
 
@@ -153,27 +153,27 @@ export class SnapshotCreate extends Component {
                 <GoBackButton onClick={this.props.history.goBack} />
             </Form.Group>
             <br />
-            <h4>{i18n.t('snapshot.feedback.snapshot.new')}</h4>
+            <h4>{i18n.t('feedback.snapshot.create.snapshot-new')}</h4>
             <br />
             <Row>
                 <Col>
-                    {RequiredDirectory(this, null, "path", { autoFocus: true, placeholder: i18n.t('snapshot.event.create.path')})}
+                    {RequiredDirectory(this, null, "path", { autoFocus: true, placeholder: i18n.t('feedback.snapshot.create.enter-path-to-snapshot-hint')})}
                 </Col>
                 <Col xs="auto">
                     <Button
                         data-testid='estimate-now'
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
-                        title= {i18n.t('snapshot.event.create.estimate')}
+                        title= {i18n.t('event.snapshot.estimate')}
                         variant="secondary"
-                        onClick={this.estimate}>{i18n.t('snapshot.event.create.estimate')}</Button>
+                        onClick={this.estimate}>{i18n.t('event.snapshot.estimate')}</Button>
                     <Button
                         data-testid='snapshot-now'
                         size="sm"
                         disabled={!this.state.resolvedSource?.path}
-                        title={i18n.t('snapshot.event.create.now')}
+                        title={i18n.t('event.snapshot.snapshot-now')}
                         variant="primary"
-                        onClick={this.snapshotNow}>{i18n.t('snapshot.event.create.now')}</Button>
+                        onClick={this.snapshotNow}>{i18n.t('event.snapshot.snapshot-now')}</Button>
                 </Col>
             </Row>
             {this.state.estimateTaskID && this.state.estimateTaskVisible &&

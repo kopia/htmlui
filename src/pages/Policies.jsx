@@ -105,7 +105,7 @@ export class Policies extends Component {
         }
 
         if (!isAbsolutePath(this.state.policyPath)) {
-            alert(i18n.t('policies.feedback.path.absolute'));
+            alert(i18n.t('feedback.policy.policies-defined-by-path-absolute'));
             return;
         }
 
@@ -175,7 +175,7 @@ export class Policies extends Component {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
-            return <p>{i18n.t('policies.feedback.loading')}</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         let uniqueOwners = sources.reduce((a, d) => {
@@ -235,18 +235,18 @@ export class Policies extends Component {
             width: 100,
             accessor: x => x.target.userName || "*",
         }, {
-            Header: i18n.t('feedback.header.host'),
+            Header: i18n.t('feedback.policy.header.host'),
             width: 100,
             accessor: x => x.target.host || "*",
         }, {
-            Header: i18n.t('feedback.header.path'),
+            Header: i18n.t('feedback.policy.header.path'),
             accessor: x => x.target.path || "*",
         }, {
-            Header: i18n.t('feedback.header.defined'),
+            Header: i18n.t('feedback.policy.header.defined'),
             accessor: x => this.policySummary(x),
         }, {
             id: 'edit',
-            Header: i18n.t('feedback.header.actions'),
+            Header: i18n.t('feedback.policy.header.actions'),
             width: 50,
             Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">{i18n.t('event.policy.edit')}</Button>
         }]
@@ -262,13 +262,13 @@ export class Policies extends Component {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>{i18n.t('policies.kind.applicable')}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{i18n.t('policies.kind.local')}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{i18n.t('policies.kind.all')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>{i18n.t('feedback.policy.kind.applicable')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{i18n.t('feedback.policy.kind.local')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{i18n.t('feedback.policy.kind.all')}</Dropdown.Item>
                                     <Dropdown.Divider />
-                                    <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{i18n.t('policies.kind.global')}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{i18n.t('policies.kind.user')}</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{i18n.t('policies.kind.host')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{i18n.t('feedback.policy.kind.global')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{i18n.t('feedback.policy.kind.per-user-policies')}</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{i18n.t('feedback.policy.kind.per-host-policies')}</Dropdown.Item>
                                     <Dropdown.Divider />
                                     {uniqueOwners.map(v => <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>{v}</Dropdown.Item>)}
                                 </Dropdown.Menu>
@@ -276,10 +276,10 @@ export class Policies extends Component {
                         </Col>
                         {(this.state.selectedOwner === localPolicies || this.state.selectedOwner === this.state.localSourceName || this.state.selectedOwner === applicablePolicies) ? <>
                             <Col>
-                                {OptionalDirectory(this, null, "policyPath", { autoFocus: true, placeholder: i18n.t('policies.feedback.policy.find') })}
+                                {OptionalDirectory(this, null, "policyPath", { autoFocus: true, placeholder: i18n.t('feedback.policy.find-hint') })}
                             </Col>
                             <Col xs="auto">
-                                <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>{i18n.t('event.policy.set')}</Button>
+                                <Button disabled={!this.state.policyPath} size="sm" type="submit" onClick={this.editPolicyForPath}>{i18n.t('event.policy.set-policy')}</Button>
                             </Col>
                         </> : <Col />}
                     </Row>
@@ -287,11 +287,11 @@ export class Policies extends Component {
             </div>}
 
             {policies.length > 0 ? <div>
-                <p>{i18n.t('policies.feedback.find.count', { count: policies.length })}</p>
+                <p>{i18n.t('feedback.policy.find-count', { count: policies.length })}.</p>
                 <KopiaTable data={policies} columns={columns} />
             </div> : ((this.state.selectedOwner === localPolicies && this.state.policyPath) ? <p>
-                {i18n.t('policies.feedback.find.none.create', { path: this.state.policyPath })}
-            </p> : <p>{i18n.t('policies.feedback.find.none')}</p>)}
+                {i18n.t('feedback.policy.find-none-create', { path: this.state.policyPath })}
+            </p> : <p>{i18n.t('feedback.policy.find-none')}.</p>)}
             <CLIEquivalent command="policy list" />
         </>;
     }

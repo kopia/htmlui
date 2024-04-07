@@ -22,11 +22,11 @@ export class SetupRepositoryRclone extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, i18n.t('feedback.validation.rclone.rclone-remote-path'), "remotePath", { autoFocus: true, placeholder: i18n.t('feedback.validation.rclone.rclone-remote-path-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.rclone.rclone-remote-path'), "remotePath", { autoFocus: true, placeholder: i18n.t('feedback.provider.rclone.rclone-remote-path-hint') })}
             </Row>
             <br/>
             <Row>
-                {OptionalField(this, i18n.t('feedback.validation.rclone.rclone-executable-path'), "rcloneExe", { placeholder: i18n.t('feedback.validation.rclone.rclone-executable-path-hint') })}
+                {OptionalField(this, i18n.t('feedback.provider.rclone.rclone-executable-path'), "rcloneExe", { placeholder: i18n.t('feedback.provider.rclone.rclone-executable-path-hint') })}
             </Row>
         </>;
     }

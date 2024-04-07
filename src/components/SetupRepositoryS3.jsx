@@ -25,9 +25,9 @@ export class SetupRepositoryS3 extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, i18n.t('feedback.validation.s3.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.validation.s3.bucket-name-hint') })}
-                {RequiredField(this, i18n.t('feedback.validation.s3.server-endpoint'), "endpoint", { placeholder: i18n.t('feedback.validation.s3.server-endpoint-hint') })}
-                {OptionalField(this, i18n.t('feedback.validation.s3.override-region'), "region", { placeholder: i18n.t('feedback.validation.s3.override-region-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.s3.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.provider.s3.bucket-name-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.s3.server-endpoint'), "endpoint", { placeholder: i18n.t('feedback.provider.s3.server-endpoint-hint') })}
+                {OptionalField(this, i18n.t('feedback.provider.s3.override-region'), "region", { placeholder: i18n.t('feedback.provider.s3.override-region-hint') })}
             </Row>
             <br/>
             <Row>
@@ -36,13 +36,13 @@ export class SetupRepositoryS3 extends Component {
             </Row>
             <br/>
             <Row>
-                {RequiredField(this, i18n.t('feedback.validation.s3.access-key-id'), "accessKeyID", { placeholder: i18n.t('feedback.validation.s3.access-key-id-hint') })}
-                {RequiredField(this, i18n.t('feedback.validation.s3.secret-access-key'), "secretAccessKey", { placeholder: i18n.t('feedback.validation.s3.secret-access-key-hint'), type: "password" })}
-                {OptionalField(this, i18n.t('feedback.validation.s3.session-token'), "sessionToken", { placeholder: i18n.t('feedback.validation.s3.session-token-hint'), type: "password" })}
+                {RequiredField(this, i18n.t('feedback.provider.s3.access-key-id'), "accessKeyID", { placeholder: i18n.t('feedback.provider.s3.access-key-id-hint') })}
+                {RequiredField(this, i18n.t('feedback.provider.s3.secret-access-key'), "secretAccessKey", { placeholder: i18n.t('feedback.provider.s3.secret-access-key-hint'), type: "password" })}
+                {OptionalField(this, i18n.t('feedback.provider.s3.session-token'), "sessionToken", { placeholder: i18n.t('feedback.provider.s3.session-token-hint'), type: "password" })}
             </Row>
             <br/>
             <Row>
-                {OptionalField(this, i18n.t('feedback.validation.s3.object-name-prefix'), "prefix", { placeholder: i18n.t('enter-object-name-prefix-or-leave-empty-hint') })}
+                {OptionalField(this, i18n.t('feedback.provider.s3.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.provider.s3.enter-object-name-prefix-hint') })}
             </Row>
         </>;
     }

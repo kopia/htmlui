@@ -106,7 +106,7 @@ export class Logs extends Component {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
-            return <p>{i18n.t('common.loading')}</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         if (logs) {
