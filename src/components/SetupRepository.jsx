@@ -23,18 +23,22 @@ import { SetupRepositorySFTP } from './SetupRepositorySFTP';
 import { SetupRepositoryToken } from './SetupRepositoryToken';
 import { SetupRepositoryWebDAV } from './SetupRepositoryWebDAV';
 import { toAlgorithmOption } from '../utils/uiutil';
+import i18n from '../utils/i18n';
 
+/**
+ * Descriptions will be translated when rendering the providers
+ */
 const supportedProviders = [
-    { provider: "filesystem", description: "Local Directory or NAS", component: SetupRepositoryFilesystem },
-    { provider: "gcs", description: "Google Cloud Storage", component: SetupRepositoryGCS },
-    { provider: "s3", description: "Amazon S3 or Compatible Storage", component: SetupRepositoryS3 },
-    { provider: "b2", description: "Backblaze B2", component: SetupRepositoryB2 },
-    { provider: "azureBlob", description: "Azure Blob Storage", component: SetupRepositoryAzure },
-    { provider: "sftp", description: "SFTP Server", component: SetupRepositorySFTP },
-    { provider: "rclone", description: "Rclone Remote", component: SetupRepositoryRclone },
-    { provider: "webdav", description: "WebDAV Server", component: SetupRepositoryWebDAV },
-    { provider: "_server", description: "Kopia Repository Server", component: SetupRepositoryServer },
-    { provider: "_token", description: "Use Repository Token", component: SetupRepositoryToken },
+    { provider: "filesystem", description: 'feedback.provider.local-directory-or-nas', component: SetupRepositoryFilesystem },
+    { provider: "gcs", description: 'feedback.provider.google-cloud-storage', component: SetupRepositoryGCS },
+    { provider: "s3", description: 'feedback.provider.s3-or-compatible-storage', component: SetupRepositoryS3 },
+    { provider: "b2", description: 'feedback.provider.backblaze-b2', component: SetupRepositoryB2 },
+    { provider: "azureBlob", description: 'feedback.provider.azure-blob-storage', component: SetupRepositoryAzure },
+    { provider: "sftp", description: 'feedback.provider.sftp-server', component: SetupRepositorySFTP },
+    { provider: "rclone", description: 'feedback.provider.rclone-remote', component: SetupRepositoryRclone },
+    { provider: "webdav", description: 'feedback.provider.webdav-server', component: SetupRepositoryWebDAV },
+    { provider: "_server", description: 'feedback.provider.kopia-repository-server', component: SetupRepositoryServer },
+    { provider: "_token", description: 'feedback.provider.use-repository-token', component: SetupRepositoryToken },
 ];
 
 export class SetupRepository extends Component {
@@ -47,7 +51,7 @@ export class SetupRepository extends Component {
             showAdvanced: false,
             storageVerified: false,
             providerSettings: {},
-            description: "My Repository",
+            description: i18n.t('feedback.repository.name-default'),
             formatVersion: "2",
         };
 
@@ -106,7 +110,7 @@ export class SetupRepository extends Component {
             }
 
             if (valid && this.state.password !== this.state.confirmPassword) {
-                alert("Passwords don't match");
+                alert(i18n.t('feedback.validation.passwords-dont-match'));
                 return false;
             }
         }
@@ -222,15 +226,15 @@ export class SetupRepository extends Component {
 
     renderProviderSelection() {
         return <>
-            <h3>Select Storage Type</h3>
-            <p>To connect to a repository or create one, select the preferred storage type:</p>
+            <h3>{i18n.t('feedback.repository.provider-selection')}</h3>
+            <p>{i18n.t('feedback.repository.provider-selection-hint')}</p>
             <Row>
                 {supportedProviders.map(x =>
                     <Button key={x.provider}
                         data-testid={'provider-' + x.provider}
                         onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
                         variant={x.provider.startsWith("_") ? "secondary" : "primary"}
-                        className="providerIcon" >{x.description}</Button>
+                        className="providerIcon" >{i18n.t(x.description)}</Button>
                 )}
             </Row>
         </>;
@@ -304,18 +308,18 @@ export class SetupRepository extends Component {
         }
 
         return <Form onSubmit={this.verifyStorage}>
-            {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
-            {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
-            {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
+            {!this.state.provider.startsWith("_") && <h3>{i18n.t('feedback.repository.configuration')}</h3>}
+            {this.state.provider === "_token" && <h3>{i18n.t('feedback.repository.repository-token-enter')}</h3>}
+            {this.state.provider === "_server" && <h3>{i18n.t('feedback.repository.kopia-server-parameters')}</h3>}
 
             <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
 
             {this.connectionErrorInfo()}
             <hr />
 
-            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>Back</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ provider: null, providerSettings: null, connectError: null })}>{i18n.t('common.action.back')}</Button>
             &nbsp;
-            <Button variant="primary" type="submit" data-testid="submit-button">Next</Button>
+            <Button variant="primary" type="submit" data-testid="submit-button">{i18n.t('common.action.next')}</Button>
             {this.loadingSpinner()}
         </Form>;
     }
@@ -323,14 +327,13 @@ export class SetupRepository extends Component {
     toggleAdvancedButton() {
         // Determine button icon and text based upon component state.
         const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
-        const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
+        const text = this.state.showAdvanced ? i18n.t('event.repository.hide-advanced-options') : i18n.t('event.repository.show-advanced-options');
 
         return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
             variant="primary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
-            size="sm"
-        >
+            size="sm">
             <FontAwesomeIcon icon={icon} style={{ marginRight: 4 }} />
             {text}
         </Button>;
@@ -338,11 +341,11 @@ export class SetupRepository extends Component {
 
     renderConfirmCreate() {
         return <Form onSubmit={this.createRepository}>
-            <h3>Create New Repository</h3>
-            <p>Enter a strong password to create Kopia repository in the provided storage.</p>
+            <h3>{i18n.t('feedback.repository.create-repository-new')}</h3>
+            <p>{i18n.t('feedback.repository.create-repository-new-help')}</p>
             <Row>
-                {RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
-                {RequiredField(this, "Confirm Repository Password", "confirmPassword", { type: "password", placeholder: "enter repository password again" })}
+                {RequiredField(this, i18n.t('feedback.repository.repository-password'), "password", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.repository.enter-repository-password') }, i18n.t('feedback.repository.repository-password-help'))}
+                {RequiredField(this, i18n.t('feedback.repository.repository-password-confirm'), "confirmPassword", { type: "password", placeholder: i18n.t('feedback.repository.repository-password-confirm-again') })}
             </Row>
             <div style={{ marginTop: "1rem" }}>
                 {this.toggleAdvancedButton()}
@@ -351,7 +354,7 @@ export class SetupRepository extends Component {
                 <div id="advanced-options-div" style={{ marginTop: "1rem" }}>
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Encryption</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.encryption')}</Form.Label>
                             <Form.Control as="select"
                                 name="encryption"
                                 onChange={this.handleChange}
@@ -361,46 +364,47 @@ export class SetupRepository extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Hash Algorithm</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.attribute.algorithm-hash')}</Form.Label>
                             <Form.Control as="select"
-                                          name="hash"
-                                          onChange={this.handleChange}
-                                          data-testid="control-hash"
-                                          value={this.state.hash}>
+                                name="hash"
+                                onChange={this.handleChange}
+                                data-testid="control-hash"
+                                value={this.state.hash}>
                                 {this.state.algorithms.hash.map(x => toAlgorithmOption(x, this.state.defaultHash))}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Splitter</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.attribute.algorithm-splitter')}</Form.Label>
                             <Form.Control as="select"
-                                          name="splitter"
-                                          onChange={this.handleChange}
-                                          data-testid="control-splitter"
-                                          value={this.state.splitter}>
+                                name="splitter"
+                                onChange={this.handleChange}
+                                data-testid="control-splitter"
+                                value={this.state.splitter}>
                                 {this.state.algorithms.splitter.map(x => toAlgorithmOption(x, this.state.defaultSplitter))}
                             </Form.Control>
                         </Form.Group>
                     </Row>
+                    <br/>
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Repository Format</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.attribute.repository-format')}</Form.Label>
                             <Form.Control as="select"
-                                          name="formatVersion"
-                                          onChange={this.handleChange}
-                                          data-testid="control-formatVersion"
-                                          value={this.state.formatVersion}>
-                                <option value="2">Latest format</option>
-                                <option value="1">Legacy format compatible with v0.8</option>
+                                name="formatVersion"
+                                onChange={this.handleChange}
+                                data-testid="control-formatVersion"
+                                value={this.state.formatVersion}>
+                                <option value="2">{i18n.t('value.repository.latest-format')}</option>
+                                <option value="1">{i18n.t('value.repository.legacy-format')}</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Error Correction Overhead</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.attribute.repository-eco')}</Form.Label>
                             <Form.Control as="select"
-                                          name="eccOverheadPercent"
-                                          onChange={this.handleChange}
-                                          data-testid="control-eccOverheadPercent"
-                                          value={this.state.eccOverheadPercent}>
-                                <option value="0">Disabled</option>
+                                name="eccOverheadPercent"
+                                onChange={this.handleChange}
+                                data-testid="control-eccOverheadPercent"
+                                value={this.state.eccOverheadPercent}>
+                                <option value="0">{i18n.t('value.algorithm.eco-disabled')}</option>
                                 <option value="1">1%</option>
                                 <option value="2">2%</option>
                                 <option value="5">5%</option>
@@ -408,7 +412,7 @@ export class SetupRepository extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col}>
-                            <Form.Label className="required">Error Correction Algorithm</Form.Label>
+                            <Form.Label className="required">{i18n.t('feedback.repository.attribute.algorithm-eco')}</Form.Label>
                             <Form.Control as="select"
                                 name="ecc"
                                 onChange={this.handleChange}
@@ -424,78 +428,80 @@ export class SetupRepository extends Component {
                     <Row>
                         <Col></Col>
                         <Col sm={8} className="text-muted">
-                            [EXPERIMENTAL] Error correction can help protect from certain
-                            kinds of data corruption due to spontaneous bit flips in the storage
-                            media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
-                            learn more.</a>
+                            {i18n.t('feedback.repository.eec-warning')} <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">{i18n.t('common.action.click-here-to-learn-more')}.</a>
                         </Col>
                     </Row>
+                    <br/>
                     {this.overrideUsernameHostnameRow()}
                     <Row style={{ marginTop: "1rem" }}>
                         <Form.Group as={Col}>
-                            <Form.Text>Additional parameters can be set when creating repository using command line.</Form.Text>
+                            <Form.Text>{i18n.t('feedback.repository.additional-parameters-hint')}</Form.Text>
                         </Form.Group>
                     </Row>
                 </div>
             </Collapse>
+            <br/>
             {this.connectionErrorInfo()}
             <hr />
-            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
-            &nbsp;
-            <Button variant="primary" type="submit" data-testid="submit-button">Create Repository</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>{i18n.t('common.action.back')}</Button>
+            {' '}
+            <Button variant="primary" type="submit" data-testid="submit-button">{i18n.t('event.repository.create-repository')}</Button>
             {this.loadingSpinner()}
         </Form>;
     }
 
     overrideUsernameHostnameRow() {
         return <Row>
-            {RequiredField(this, "Username", "username", {}, "Override this when restoring a snapshot taken by another user")}
-            {RequiredField(this, "Hostname", "hostname", {}, "Override this when restoring a snapshot taken on another machine")}
+            {RequiredField(this, i18n.t('feedback.repository.username'), "username", {}, i18n.t('feedback.repository.username-hint'))}
+            {RequiredField(this, i18n.t('feedback.repository.hostname'), "hostname", {}, i18n.t('feedback.repository.hostname-hint'))}
         </Row>;
     }
 
     connectionErrorInfo() {
         return this.state.connectError && <Row>
             <Form.Group as={Col}>
-                <Form.Text className="error">Connect Error: {this.state.connectError}</Form.Text>
+                <Form.Text className="error">{i18n.t('feedback.error.connection')} {this.state.connectError}</Form.Text>
             </Form.Group>
         </Row>;
     }
 
     renderConfirmConnect() {
         return <Form onSubmit={this.connectToRepository}>
-            <h3>Connect To Repository</h3>
+            <h3>{i18n.t('feedback.repository.connect-to-repository')}</h3>
             <Row>
                 <Form.Group as={Col}>
-                    <Form.Label className="required">Connect As</Form.Label>
+                    <Form.Label className="required">{i18n.t('feedback.repository.connect-as')}</Form.Label>
                     <Form.Control
                         value={this.state.username + '@' + this.state.hostname}
                         readOnly={true}
                         size="sm" />
-                    <Form.Text className="text-muted">To override, click 'Show Advanced Options'</Form.Text>
+                    <Form.Text className="text-muted">{i18n.t('feedback.repository.override-hint')}</Form.Text>
                 </Form.Group>
             </Row>
+            <br/>
             <Row>
-                {(this.state.provider !== "_token" && this.state.provider !== "_server") && RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
-                {this.state.provider === "_server" && RequiredField(this, "Server Password", "password", { autoFocus: true, type: "password", placeholder: "enter password to connect to server" })}
+                {(this.state.provider !== "_token" && this.state.provider !== "_server") && RequiredField(this, i18n.t('feedback.repository.repository-password'), "password", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.repository.enter-repository-password') }, i18n.t('feedback.repository.repository-password-help'))}
+                {this.state.provider === "_server" && RequiredField(this, i18n.t('feedback.repository.server-password'), "password", { autoFocus: true, type: "password", placeholder: i18n.t('feedback.repository.server-password-hint') })}
             </Row>
+            <br/>
             <Row>
-                {RequiredField(this, "Repository Description", "description", { autoFocus: this.state.provider === "_token", placeholder: "enter repository description" }, "Helps to distinguish between multiple connected repositories")}
+                {RequiredField(this, i18n.t('feedback.repository.repository-description'), "description", { autoFocus: this.state.provider === "_token", placeholder: i18n.t('feedback.repository.repository-description-hint') }, i18n.t('feedback.repository.repository-description-help') )}
             </Row>
+            <br/>
             {this.toggleAdvancedButton()}
             <Collapse in={this.state.showAdvanced}>
                 <div id="advanced-options-div" className="advancedOptions">
                     <Row>
-                        {RequiredBoolean(this, "Connect in read-only mode", "readonly", "Read-only mode prevents any changes to the repository.")}
+                        {RequiredBoolean(this, i18n.t('feedback.repository.connect-in-read-only-mode'), "readonly", i18n.t('feedback.repository.connect-in-read-only-mode-hint'))}
                     </Row>
                     {this.overrideUsernameHostnameRow()}
                 </div>
             </Collapse>
             {this.connectionErrorInfo()}
             <hr />
-            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>Back</Button>
-            &nbsp;
-            <Button variant="primary" type="submit" data-testid="submit-button">Connect To Repository</Button>
+            <Button data-testid='back-button' variant="warning" onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}>{i18n.t('common.action.back')}</Button>
+            {' '}
+            <Button variant="primary" type="submit" data-testid="submit-button">{i18n.t('event.repository.connect-to-repository')}</Button>
             {this.loadingSpinner()}
         </Form>;
     }
@@ -523,7 +529,6 @@ export class SetupRepository extends Component {
     render() {
         return <>
             {this.renderInternal()}
-            {/* <pre className="debug-json">{JSON.stringify(this.state, null, 2)}</pre> */}
         </>;
     }
 }

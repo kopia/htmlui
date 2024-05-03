@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryRclone extends Component {
     constructor(props) {
@@ -21,10 +22,11 @@ export class SetupRepositoryRclone extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Rclone Remote Path", "remotePath", { autoFocus: true, placeholder: "enter <name-of-rclone-remote>:<path>" })}
+                {RequiredField(this, i18n.t('feedback.provider.rclone.rclone-remote-path'), "remotePath", { autoFocus: true, placeholder: i18n.t('feedback.provider.rclone.rclone-remote-path-hint') })}
             </Row>
+            <br/>
             <Row>
-                {OptionalField(this, "Rclone Executable Path", "rcloneExe", { placeholder: "enter path to rclone executable" })}
+                {OptionalField(this, i18n.t('feedback.provider.rclone.rclone-executable-path'), "rcloneExe", { placeholder: i18n.t('feedback.provider.rclone.rclone-executable-path-hint') })}
             </Row>
         </>;
     }

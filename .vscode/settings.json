@@ -1,2 +1,50 @@
 {
+    "i18n-ally.localesPaths": [
+        "public/locales"
+    ],
+    "i18n-ally.keystyle": "flat",
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.keysInUse": [
+        "feedback.provider.s3-or-compatible-storage",
+        "feedback.provider.kopia-repository-server",
+        "feedback.provider.local-directory-or-nas",
+        "feedback.provider.google-cloud-storage",
+        "feedback.provider.use-repository-token",
+        "feedback.provider.azure-blob-storage",
+        "feedback.provider.rclone-remote",
+        "feedback.provider.webdav-server",
+        "feedback.provider.backblaze-b2",
+        "feedback.provider.sftp-server",
+        "feedback.task.estimate-results",
+        "feedback.provider.required-either-known-host-data",
+        "feedback.provider.required-either-key-file",
+        "feedback.policy.files.ignore-files-help",
+        "feedback.policy.scheduling.cron-help",
+        "feedback.policy.find-count",
+        "feedback.policy.find-count_one",
+        "feedback.policy.find-count_other",
+        "feedback.task.estimated-results",
+        "feedback.snapshot.show-individual-snapshots-count_other",
+        "feedback.snapshot.show-individual-snapshots-count_one"
+    ],
+    "i18n-ally.extract.ignoredByFiles": {
+        "src\\components\\policy-editor\\PolicyEditor.jsx": [
+            "Do not cross filesystem boundaries when creating a snapshot"
+        ],
+        "src\\components\\policy-editor\\UpcomingSnapshotTimes.jsx": [
+            "L LT"
+        ],
+        "src\\contexts\\UIPreferencesContext.tsx": [
+            "(prefers-color-scheme: dark)"
+        ],
+        "src\\pages\\Policies.jsx": [
+            "policy list"
+        ]
+    },
+    "i18n-ally.extract.ignored": [
+        " (",
+        " (",
+        ")",
+        ")"
+    ]
 }

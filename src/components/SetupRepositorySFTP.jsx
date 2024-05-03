@@ -5,6 +5,8 @@ import { OptionalField } from '../forms/OptionalField';
 import { OptionalNumberField } from '../forms/OptionalNumberField';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
+import { Trans } from 'react-i18next';
 
 function hasExactlyOneOf(component, names) {
     let count = 0;
@@ -57,41 +59,46 @@ export class SetupRepositorySFTP extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Host", "host", { autoFocus: true, placeholder: "ssh host name (e.g., example.com)" })}
-                {RequiredField(this, "User", "username", { placeholder: "user name" })}
-                {OptionalNumberField(this, "Port", "port", { placeholder: "port number (e.g., 22)" })}
+                {RequiredField(this, i18n.t('feedback.provider.sftp.host'), "host", { autoFocus: true, placeholder: i18n.t('feedback.provider.sftp.enter-ssh-host-name') })}
+                {RequiredField(this, i18n.t('feedback.provider.sftp.user'), "username", { placeholder: i18n.t('feedback.provider.sftp.user-name') })}
+                {OptionalNumberField(this, i18n.t('feedback.provider.sftp.port'), "port", { placeholder: i18n.t('feedback.provider.sftp.port-number') })}
             </Row>
+            <br />
             <Row>
-                {RequiredField(this, "Path", "path", { placeholder: "enter remote path to repository, e.g., '/mnt/data/repository'" })}
+                {RequiredField(this, i18n.t('feedback.provider.sftp.path'), "path", { placeholder: i18n.t('feedback.provider.sftp.enter-remote-path') })}
             </Row>
+            <br />
             {!this.state.externalSSH && <>
                 <Row>
-                    {OptionalField(this, "Password", "password", { type: "password", placeholder: "password" })}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.password'), "password", { type: "password", placeholder: i18n.t('feedback.provider.sftp.enter-password') })}
                 </Row>
+                <br />
                 <Row>
-                    {OptionalField(this, "Path to key file", "keyfile", { placeholder: "enter path to the key file" })}
-                    {OptionalField(this, "Path to known_hosts File", "knownHostsFile", { placeholder: "enter path to the known_hosts file" })}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.path-key-file'), "keyfile", { placeholder: i18n.t('feedback.provider.sftp.enter-path-to-key-file') })}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.path-host-file'), "knownHostsFile", { placeholder: i18n.t('feedback.provider.sftp.enter-path-host-file') })}
                 </Row>
+                <br />
                 <Row>
-                    {OptionalField(this, "Key Data", "keyData", {
-                        placeholder: "paste contents of the key file",
+                    {OptionalField(this, i18n.t('feedback.provider.sftp-key-data'), "keyData", {
+                        placeholder: i18n.t('feedback.provider.sftp-key-data-hint'),
                         as: "textarea",
                         rows: 5,
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["password", "keyfile", "keyData"]),
-                    }, null, <>One of <b>Password</b>, <b>Key File</b> or <b>Key Data</b> is required.</>)}
-                    {OptionalField(this, "Known Hosts Data", "knownHostsData", {
-                        placeholder: "paste contents of the known_hosts file",
+                    }, <Trans i18nKey={'feedback.provider.required-either-key-file'}/>)}
+                    {OptionalField(this, i18n.t('feedback.provider.sftp.known-host-data'), "knownHostsData", {
+                        placeholder: i18n.t('feedback.provider.sftp.paste-content-of-known-host'),
                         as: "textarea",
                         rows: 5,
                         isInvalid: this.state.validated && !this.state.externalSSH && !hasExactlyOneOf(this, ["knownHostsFile", "knownHostsData"]),
-                    }, null, <>Either <b>Known Hosts File</b> or <b>Known Hosts Data</b> is required, but not both.</>)}
+                    }, <Trans i18nKey={'feedback.provider.required-either-known-host-data'}/>)}
                 </Row>
-                <hr/>
+                <hr />
             </>}
-            {RequiredBoolean(this, "Launch external password-less SSH command", "externalSSH", "By default Kopia connects to the server using internal SSH client which supports limited options. Alternatively it may launch external password-less SSH command, which supports additional options, but is generally less efficient than the built-in client.")}
+            {RequiredBoolean(this, i18n.t('feedback.provider.sftp.launch-external-ssh-command'), "externalSSH", i18n.t('feedback.provider.sftp.launch-external-ssh-command-hint'))}
+            <br/>
             {this.state.externalSSH && <><Row>
-                {OptionalField(this, "SSH Command", "sshCommand", { placeholder: "provide enter passwordless SSH command to execute (typically 'ssh')" })}
-                {OptionalField(this, "SSH Arguments", "sshArguments", { placeholder: "enter SSH command arguments ('user@host -s sftp' will be appended automatically)" })}
+                {OptionalField(this, i18n.t('feedback.provider.sftp.ssh-command'), "sshCommand", { placeholder: i18n.t('feedback.provider.sftp.provide-passwordless-ssh-command') })}
+                {OptionalField(this, i18n.t('feedback.provider.sftp.ssh-arguments'), "sshArguments", { placeholder: i18n.t('feedback.provider.sftp.enter-ssh-arguments') })}
             </Row></>}
 
         </>;

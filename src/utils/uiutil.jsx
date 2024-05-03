@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link } from 'react-router-dom';
+import i18n from './i18n'
 
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
@@ -272,19 +273,19 @@ export function taskStatusSymbol(task) {
     switch (st) {
         case "RUNNING":
             return <>
-                <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}
+                <Spinner animation="border" variant="primary" size="sm" /> {i18n.t('feedback.task.status.task-running-for')} {dur}
                 <button className="btn btn-sm btn-link" type="button" onClick={() => cancelTask(task.id)}>
-                    <FontAwesomeIcon color="red" size='lg' title="Cancel task" icon={faXmark} />
+                    <FontAwesomeIcon color="red" size='lg' title={i18n.t('event.task.action.cancel')} icon={faXmark} />
                 </button>
             </>
         case "SUCCESS":
-            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> Finished in {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faCheck} color="green" /> {i18n.t('feedback.task.status.task-finished-in')} {dur}</p>;
 
         case "FAILED":
-            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faExclamationCircle} color="red" /> {i18n.t('feedback.task.status.task-failed-after')} {dur}</p>;
 
         case "CANCELED":
-            return <p title={dur}><FontAwesomeIcon icon={faBan} /> Canceled after {dur}</p>;
+            return <p title={dur}><FontAwesomeIcon icon={faBan} /> {i18n.t('feedback.task.status.task-canceled-after')} {dur}</p>;
 
         default:
             return st;
@@ -298,7 +299,7 @@ export function cancelTask(tid) {
 }
 
 export function GoBackButton(props) {
-    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
+    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> {i18n.t('common.action.return')} </Button>;
 }
 
 export function PolicyTypeName(s) {
@@ -352,7 +353,7 @@ export function isAbsolutePath(p) {
 
 export function errorAlert(err, prefix) {
     if (!prefix) {
-        prefix = "Error"
+        prefix = i18n.t('feedback.error.common')
     }
 
     prefix += ": ";
@@ -392,8 +393,8 @@ export function CLIEquivalent(props) {
 
     return <>
         <InputGroup size="sm" >
-            <Button size="sm" title="Click to show CLI equivalent" variant="submit" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
-            {visible && <Button size="sm" variant="success" title="Copy to clipboard" onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
+            <Button size="sm" title={i18n.t('event.cli.show-cli-equivalent')} variant="submit" onClick={() => setVisible(!visible)}><FontAwesomeIcon size="sm" icon={faTerminal} /></Button>
+            {visible && <Button size="sm" variant="success" title={i18n.t('event.cli.copy-to-clipboard')} onClick={copyToClibopard} ><FontAwesomeIcon size="sm" icon={faCopy} /></Button>}
             {visible && <FormControl size="sm" ref={ref} className="cli-equivalent" readOnly={true} value={`${cliInfo.executable} ${props.command}`} />}
         </InputGroup>
     </>;
@@ -403,11 +404,11 @@ export function toAlgorithmOption(x, defaultID) {
     let text = x.id;
 
     if (x.id === defaultID) {
-        text = x.id + " (RECOMMENDED)";
+        text = x.id + i18n.t('value.algorithm.suffix-recommended');
     }
 
     if (x.deprecated) {
-        text = x.id + " (NOT RECOMMENDED)";
+        text = x.id + i18n.t('value.algorithm.suffix-not-recommended');
     }
 
     return <option key={x.id} value={x.id}>{text}</option>;

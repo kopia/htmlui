@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { setupAPIMock } from '../tests/api_mocks';
 import moment from 'moment';
 import { changeControlValue, simulateClick } from '../tests/testutils';
+import i18n from '../utils/i18n';
 
 // Mockup for the server
 let serverMock;
@@ -144,7 +145,7 @@ it('e2e', async () => {
 
     // this will trigger resolve and will update effective field: "(Defined by this policy)"
     await waitFor(() => expect(getByTestId("effective-retention.keepLatest").value).toBe("44"));
-    await waitFor(() => expect(getByTestId("definition-retention.keepLatest").innerHTML).toEqual("(Defined by this policy)"));
+    await waitFor(() => expect(getByTestId("definition-retention.keepLatest").innerHTML).toEqual(i18n.t('feedback.policy.defined-by-this-policy')));
 
     simulateClick(getByTestId('button-save'));
     await waitFor(() => expect(serverMock.history.put.length).toEqual(1));

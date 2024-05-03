@@ -9,28 +9,27 @@ import Form from 'react-bootstrap/Form';
 import { Logs } from './Logs';
 import { cancelTask, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import i18n from '../utils/i18n';
+import { Trans } from 'react-i18next';
 
 export class SnapshotEstimation extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isLoading: true,
             error: null,
             showLog: false,
         };
-
         this.taskID = this.taskID.bind(this);
         this.fetchTask = this.fetchTask.bind(this);
-
-        // poll frequently, we will stop as soon as the task ends.
-        this.interval = window.setInterval(() => this.fetchTask(this.props), 500);
     }
 
     componentDidMount() {
         this.setState({
             isLoading: true,
         });
-
+        // poll frequently, we will stop as soon as the task ends.
+        this.interval = window.setInterval(() => this.fetchTask(this.props), 500);
         this.fetchTask(this.props);
     }
 
@@ -76,7 +75,7 @@ export class SnapshotEstimation extends Component {
         }
 
         if (task.status === "SUCCESS") {
-            return "Total"
+            return i18n.t('feedback.task.tasks-total')
         }
 
         if (task.status === "CANCELED") {
@@ -94,26 +93,34 @@ export class SnapshotEstimation extends Component {
         }
 
         if (isLoading) {
-            return <p>Loading ...</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         return <>
             {task.counters && <Form.Text className="estimateResults">
-                {this.taskStatusDescription(task)} Bytes: <b>{sizeDisplayName(task.counters["Bytes"]?.value, bytesStringBase2)}</b> (<b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value, bytesStringBase2)}</b> excluded)
-                Files: <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> excluded)
-                Directories: <b>{task.counters["Directories"]?.value}</b> (<b>{task.counters["Excluded Directories"]?.value}</b> excluded)
-                Errors: <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> ignored)
+                <Trans i18nKey={'feedback.task.estimated-results'} values={
+                    {
+                        "description": this.taskStatusDescription(task),
+                        "bytes": sizeDisplayName(task.counters["Bytes"]?.value, bytesStringBase2),
+                        "bytes.excluded": sizeDisplayName(task.counters["Excluded Bytes"]?.value, bytesStringBase2),
+                        "files": task.counters["Files"]?.value,
+                        "files.excluded": task.counters["Excluded Files"]?.value,
+                        "directories": task.counters["Directories"]?.value,
+                        "directories.excluded": task.counters["Excluded Directories"]?.value,
+                        "errors": task.counters["Errors"]?.value,
+                        "errors.ignored": task.counters["Ignored Errors"]?.value
+                    }
+                } />
             </Form.Text>
             }
             {task.status === "RUNNING" && <>
-                &nbsp;<Button size="sm" variant="light" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} color="red" /> Cancel </Button>
+                {' '}<Button size="sm" variant="light" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} color="red" /> {i18n.t('common.action.cancel')} </Button>
             </>}
             {this.state.showLog ? <>
-                <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> {i18n.t('event.log.hide-log')}</Button>
                 <Logs taskID={this.taskID(this.props)} />
-            </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
-        </>
-            ;
+            </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> {i18n.t('event.log.show-log')}</Button>}
+        </>;
     }
 }
 SnapshotEstimation.contextType = UIPreferencesContext

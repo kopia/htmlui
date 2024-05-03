@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import KopiaTable from '../utils/KopiaTable';
 import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import i18n from '../utils/i18n'
+import KopiaTable from '../utils/KopiaTable';
 
 function objectName(name, typeID) {
     if (typeID === "d") {
@@ -37,30 +38,30 @@ export class DirectoryItems extends Component {
         const { bytesStringBase2 } = this.context;
         const columns = [{
             id: "name",
-            Header: 'Name',
+            Header: i18n.t('feedback.directory.header.name'),
             width: "",
             accessor: x => directoryLinkOrDownload(x, this.props.historyState),
         }, {
             id: "mtime",
             accessor: "mtime",
-            Header: "Last Modification",
+            Header: i18n.t('feedback.directory.header.last-modification'),
             width: 200,
             Cell: x => rfc3339TimestampForDisplay(x.cell.value),
         }, {
             id: "size",
             accessor: x => sizeInfo(x),
-            Header: "Size",
+            Header: i18n.t('feedback.directory.header.size'),
             width: 100,
             Cell: x => sizeWithFailures(x.cell.value, x.row.original.summ, bytesStringBase2),
         }, {
             id: "files",
             accessor: "summ.files",
-            Header: "Files",
+            Header: i18n.t('feedback.directory.header.files'),
             width: 100,
         }, {
             id: "dirs",
             accessor: "summ.dirs",
-            Header: "Directories",
+            Header: i18n.t('feedback.directory.header.directories'),
             width: 100,
         }]
 

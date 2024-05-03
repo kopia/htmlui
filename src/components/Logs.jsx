@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from '../forms';
 import { redirect } from '../utils/uiutil';
+import i18n from '../utils/i18n';
 
 export class Logs extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             items: [],
             isLoading: false,
@@ -15,7 +16,6 @@ export class Logs extends Component {
 
         this.handleChange = handleChange.bind(this);
         this.fetchLog = this.fetchLog.bind(this);
-        this.interval = window.setInterval(this.fetchLog, 3000);
         this.messagesEndRef = React.createRef();
         this.scrollToBottom = this.scrollToBottom.bind(this);
     }
@@ -25,6 +25,7 @@ export class Logs extends Component {
             isLoading: true,
         });
 
+        this.interval = window.setInterval(this.fetchLog, 3000);
         this.fetchLog();
         this.scrollToBottom();
     }
@@ -105,7 +106,7 @@ export class Logs extends Component {
             return <p>{error.message}</p>;
         }
         if (isLoading) {
-            return <p>Loading ...</p>;
+            return <p>{i18n.t('common.label.loading')}</p>;
         }
 
         if (logs) {

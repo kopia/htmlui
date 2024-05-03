@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredField } from '../forms/RequiredField';
 import { OptionalField } from '../forms/OptionalField';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryB2 extends Component {
     constructor(props) {
@@ -21,14 +22,16 @@ export class SetupRepositoryB2 extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "B2 Bucket", "bucket", { autoFocus: true, placeholder: "enter bucket name" })}
+                {RequiredField(this, i18n.t('feedback.provider.b2.bucket-name'), "bucket", { autoFocus: true, placeholder: i18n.t('feedback.provider.b2.enter-bucket-name') })}
             </Row>
+            <br/>
             <Row>
-                {RequiredField(this, "Key ID", "keyId", { placeholder: "enter application or account key ID" })}
-                {RequiredField(this, "Key", "key", { placeholder: "enter secret application or account key", type: "password" })}
+                {RequiredField(this, i18n.t('feedback.provider.b2.key-id'), "keyId", { placeholder: i18n.t('feedback.provider.b2.enter-account-key-id') })}
+                {RequiredField(this, i18n.t('feedback.provider.b2.key'), "key", { placeholder: i18n.t('feedback.provider.b2.enter-account-key'), type: "password" })}
             </Row>
+            <br/>
             <Row>
-                {OptionalField(this, "Object Name Prefix", "prefix", { placeholder: "enter object name prefix or leave empty" })}
+                {OptionalField(this, i18n.t('feedback.provider.b2.object-name-prefix'), "prefix", { placeholder: i18n.t('feedback.provider.b2.enter-object-name-prefix') })}
             </Row>
         </>;
     }

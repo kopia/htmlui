@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { Logs } from '../components/Logs';
 import { AppContext } from '../contexts/AppContext';
+import i18n from '../utils/i18n'
 
 export class Repository extends Component {
     constructor() {
@@ -127,13 +128,13 @@ export class Repository extends Component {
         }
 
         if (this.state.status.initTaskID) {
-            return <><h4><Spinner animation="border" variant="primary" size="sm" />&nbsp;Initializing Repository...</h4>
+            return <><h4><Spinner animation="border" variant="primary" size="sm" />{' '}{i18n.t('feedback.repository.repository-initializing')}</h4>
                 {this.state.showLog ? <>
-                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log</Button>
+                    <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}><FontAwesomeIcon icon={faChevronCircleUp} />{i18n.t('event.log.hide-log')}</Button>
                     <Logs taskID={this.state.status.initTaskID} />
-                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} /> Show Log</Button>}
+                </> : <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}><FontAwesomeIcon icon={faChevronCircleDown} />{i18n.t('event.log.show-log')}</Button>}
                 <hr />
-                <Button size="sm" variant="danger" icon={faWindowClose} title="Cancel" onClick={() => cancelTask(this.state.status.initTaskID)}>Cancel Connection</Button>
+                <Button size="sm" variant="danger" icon={faWindowClose} title={i18n.t('common.action.cancel')} onClick={() => cancelTask(this.state.status.initTaskID)}>{i18n.t('event.repository.cancel-connection')}</Button>
             </>;
         }
 
@@ -141,7 +142,7 @@ export class Repository extends Component {
             return <>
                 <p className="text-success mb-1">
                     <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
-                    <span>Connected To Repository</span>
+                    <span>{i18n.t('feedback.repository.status-connected')}</span>
                 </p>
                 <Form>
                     <Row>
@@ -155,13 +156,13 @@ export class Repository extends Component {
                                     onChange={this.handleChange}
                                     size="sm" />
                                 &nbsp;
-                                <Button data-testid='update-description' size="sm" onClick={this.updateDescription} type="button">Update Description</Button>
+                                <Button data-testid='update-description' size="sm" onClick={this.updateDescription} type="button">{i18n.t('event.repository.update-description')}</Button>
                             </InputGroup>
-                            <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">{i18n.t('feedback.repository.repository-description-required')}</Form.Control.Feedback>
                         </Form.Group>
                     </Row>
                     {this.state.status.readonly && <Row>
-                        <Badge pill variant="warning">Repository is read-only</Badge>
+                        <Badge pill variant="warning">{i18n.t('feedback.repository.repository-is-read-only')}</Badge>
                     </Row>}
                 </Form>
                 <hr />
@@ -169,68 +170,71 @@ export class Repository extends Component {
                     {this.state.status.apiServerURL ? <>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Server URL</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.server-url')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
                             </Form.Group>
                         </Row>
                     </> : <>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Config File</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.config-file')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.configFile} />
                             </Form.Group>
                         </Row>
+                        <br />
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Provider</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.repository-provider')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.storage} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Encryption Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.algorithm-encryption')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.encryption} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Hash Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.algorithm-hash')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.hash} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Splitter Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.algorithm-splitter')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.splitter} />
                             </Form.Group>
                         </Row>
+                        <br />
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Repository Format</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.repository-format')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Error Correction Overhead</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : "Disabled"} />
+                                <Form.Label>{i18n.t('feedback.repository.attribute.repository-eco')}:</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : i18n.t('feedback.repository.eco-disabled')} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Error Correction Algorithm</Form.Label>
+                                <Form.Label>{i18n.t('feedback.repository.attribute.algorithm-eco')}:</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Internal Compression</Form.Label>
-                                <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
+                                <Form.Label>{i18n.t('feedback.repository.attribute.internal-compression')}:</Form.Label>
+                                <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? i18n.t('feedback.repository.internal-compression-supported-yes') : i18n.t('feedback.repository.internal-compression-supported-no')} />
                             </Form.Group>
                         </Row>
                     </>}
+                    <br />
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label>Connected as:</Form.Label>
+                            <Form.Label>{i18n.t('feedback.repository.attribute.connected-as')}:</Form.Label>
                             <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
                         </Form.Group>
                     </Row>
-                    <Row><Col>&nbsp;</Col></Row>
+                    <br />
                     <Row>
                         <Col>
-                            <Button data-testid='disconnect' size="sm" variant="danger" onClick={this.disconnect}>Disconnect</Button>
+                            <Button data-testid='disconnect' size="sm" variant="danger" onClick={this.disconnect}>{i18n.t('event.repository.disconnect-from-repository')}</Button>
                         </Col>
                     </Row>
                 </Form>
-                <Row><Col>&nbsp;</Col></Row>
+                <br />
                 <Row>
                     <Col xs={12}>
                         <CLIEquivalent command="repository status" />
@@ -238,7 +242,6 @@ export class Repository extends Component {
                 </Row>
             </>;
         }
-
         return <SetupRepository />;
     }
 }

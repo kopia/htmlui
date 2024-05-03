@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredField } from '../forms/RequiredField';
+import i18n from '../utils/i18n';
 
 export class SetupRepositoryServer extends Component {
     constructor(props) {
@@ -21,10 +22,11 @@ export class SetupRepositoryServer extends Component {
     render() {
         return <>
             <Row>
-                {RequiredField(this, "Server address", "url", { autoFocus: true, placeholder: "enter server URL (https://<host>:port)" })}
+                {RequiredField(this, i18n.t('feedback.provider.repositoryserver.server-address'), "url", { autoFocus: true, placeholder: i18n.t('feedback.provider.repositoryserver.enter-server-url') })}
             </Row>
+            <br/>
             <Row>
-                {OptionalField(this, "Trusted server certificate fingerprint (SHA256)", "serverCertFingerprint", { placeholder: "enter trusted server certificate fingerprint printed at server startup" })}
+                {OptionalField(this, i18n.t('feedback.provider.repositoryserver.server-certificate-fingerprint'), "serverCertFingerprint", { placeholder: i18n.t('feedback.provider.repositoryserver.enter-server-certificate-fingerprint') })}
             </Row>
         </>;
     }
