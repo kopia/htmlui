@@ -23,6 +23,7 @@ import { SetupRepositorySFTP } from './SetupRepositorySFTP';
 import { SetupRepositoryToken } from './SetupRepositoryToken';
 import { SetupRepositoryWebDAV } from './SetupRepositoryWebDAV';
 import { toAlgorithmOption } from '../utils/uiutil';
+import Badge from "react-bootstrap/Badge";
 
 const supportedProviders = [
     { provider: "filesystem", description: "Local Directory or NAS", component: SetupRepositoryFilesystem },
@@ -406,6 +407,12 @@ export class SetupRepository extends Component {
                                 <option value="5">5%</option>
                                 <option value="10">10%</option>
                             </Form.Control>
+                            <Form.Text sm={8} className="text-muted form-text">
+                                <Badge>Experimental</Badge>&nbsp;Error correction can help protect from certain
+                                kinds of data corruption due to spontaneous bit flips in the storage
+                                media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
+                                learn more.</a>
+                            </Form.Text>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Error Correction Algorithm</Form.Label>
@@ -420,15 +427,6 @@ export class SetupRepository extends Component {
                                     : this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
                             </Form.Control>
                         </Form.Group>
-                    </Row>
-                    <Row>
-                        <Col></Col>
-                        <Col sm={8} className="text-muted">
-                            [EXPERIMENTAL] Error correction can help protect from certain
-                            kinds of data corruption due to spontaneous bit flips in the storage
-                            media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
-                            learn more.</a>
-                        </Col>
                     </Row>
                     {this.overrideUsernameHostnameRow()}
                     <Row style={{ marginTop: "1rem" }}>
