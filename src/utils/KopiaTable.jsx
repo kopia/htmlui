@@ -110,8 +110,8 @@ export default function KopiaTable({ columns, data }) {
 
   return (
     <>
-      <Table size="sm" striped bordered hover {...getTableProps()}>
-        <thead className="table-dark">
+      <Table striped hover {...getTableProps()}>
+        <thead className="table">
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
@@ -120,6 +120,7 @@ export default function KopiaTable({ columns, data }) {
                     width: column.width,
                   }
                 })}>{column.render('Header')}
+                  &nbsp;
                   {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
                 </th>
               ))}

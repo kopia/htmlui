@@ -23,6 +23,7 @@ import { SetupRepositorySFTP } from './SetupRepositorySFTP';
 import { SetupRepositoryToken } from './SetupRepositoryToken';
 import { SetupRepositoryWebDAV } from './SetupRepositoryWebDAV';
 import { toAlgorithmOption } from '../utils/uiutil';
+import Badge from "react-bootstrap/Badge";
 
 const supportedProviders = [
     { provider: "filesystem", description: "Local Directory or NAS", component: SetupRepositoryFilesystem },
@@ -230,7 +231,7 @@ export class SetupRepository extends Component {
                         data-testid={'provider-' + x.provider}
                         onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
                         variant={x.provider.startsWith("_") ? "secondary" : "primary"}
-                        className="providerIcon" >{x.description}</Button>
+                        className="providerIcon" ><b>{x.description}</b></Button>
                 )}
             </Row>
         </>;
@@ -304,9 +305,9 @@ export class SetupRepository extends Component {
         }
 
         return <Form onSubmit={this.verifyStorage}>
-            {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
-            {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
-            {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
+            <h3>{supportedProviders.find(x => x.provider == this.state.provider).description}</h3>
+            <h6><b>Configuring a Storage Repository</b></h6>
+            <h6>To configure a storage repository, please fill out the following.</h6>
 
             <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
 
@@ -325,7 +326,7 @@ export class SetupRepository extends Component {
         const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
         const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
 
-        return <Button data-testid='advanced-options' onClick={this.toggleAdvanced}
+        return <Button data-testid='advanced-options' className="mt-2" onClick={this.toggleAdvanced}
             variant="primary"
             aria-controls="advanced-options-div"
             aria-expanded={this.state.showAdvanced}
@@ -406,6 +407,12 @@ export class SetupRepository extends Component {
                                 <option value="5">5%</option>
                                 <option value="10">10%</option>
                             </Form.Control>
+                            <Form.Text sm={8} className="text-muted form-text">
+                                <Badge>Experimental</Badge>&nbsp;Error correction can help protect from certain
+                                kinds of data corruption due to spontaneous bit flips in the storage
+                                media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
+                                learn more.</a>
+                            </Form.Text>
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label className="required">Error Correction Algorithm</Form.Label>
@@ -420,15 +427,6 @@ export class SetupRepository extends Component {
                                     : this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
                             </Form.Control>
                         </Form.Group>
-                    </Row>
-                    <Row>
-                        <Col></Col>
-                        <Col sm={8} className="text-muted">
-                            [EXPERIMENTAL] Error correction can help protect from certain
-                            kinds of data corruption due to spontaneous bit flips in the storage
-                            media. <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">Click here to
-                            learn more.</a>
-                        </Col>
                     </Row>
                     {this.overrideUsernameHostnameRow()}
                     <Row style={{ marginTop: "1rem" }}>
@@ -465,6 +463,7 @@ export class SetupRepository extends Component {
     renderConfirmConnect() {
         return <Form onSubmit={this.connectToRepository}>
             <h3>Connect To Repository</h3>
+            <h6>Finish connecting to this repository by configuring these options.</h6>
             <Row>
                 <Form.Group as={Col}>
                     <Form.Label className="required">Connect As</Form.Label>
@@ -477,13 +476,14 @@ export class SetupRepository extends Component {
             </Row>
             <Row>
                 {(this.state.provider !== "_token" && this.state.provider !== "_server") && RequiredField(this, "Repository Password", "password", { autoFocus: true, type: "password", placeholder: "enter repository password" }, "Used to encrypt the repository's contents")}
+                <br/>
                 {this.state.provider === "_server" && RequiredField(this, "Server Password", "password", { autoFocus: true, type: "password", placeholder: "enter password to connect to server" })}
             </Row>
             <Row>
                 {RequiredField(this, "Repository Description", "description", { autoFocus: this.state.provider === "_token", placeholder: "enter repository description" }, "Helps to distinguish between multiple connected repositories")}
             </Row>
             {this.toggleAdvancedButton()}
-            <Collapse in={this.state.showAdvanced}>
+            <Collapse className="m-2" in={this.state.showAdvanced}>
                 <div id="advanced-options-div" className="advancedOptions">
                     <Row>
                         {RequiredBoolean(this, "Connect in read-only mode", "readonly", "Read-only mode prevents any changes to the repository.")}
