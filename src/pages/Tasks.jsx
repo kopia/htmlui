@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
 import KopiaTable from '../utils/KopiaTable';
 import { redirect, taskStatusSymbol } from '../utils/uiutil';
+import {faEye} from "@fortawesome/free-regular-svg-icons/faEye";
 
 export class Tasks extends Component {
     constructor() {
@@ -103,24 +104,29 @@ export class Tasks extends Component {
             return <p>Loading ...</p>;
         }
 
-        const columns = [{
+        const columns = [
+        {
             Header: 'Start Time',
             width: 160,
-            accessor: x => <Link to={'/tasks/' + x.id} title={moment(x.startTime).toLocaleString()}>
-                {moment(x.startTime).fromNow()}
-            </Link>
+            accessor: x => <small>{moment(x.startTime).fromNow()}</small>
         }, {
             Header: 'Status',
             width: 240,
-            accessor: x => taskStatusSymbol(x),
+                accessor: x => <small>{taskStatusSymbol(x)}</small>,
         }, {
             Header: 'Kind',
             width: "",
-            accessor: x => <p>{x.kind}</p>,
+            accessor: x => <small>{x.kind}</small>,
         }, {
             Header: 'Description',
             width: "",
-            accessor: x => <p>{x.description}</p>,
+            accessor: x => <small>{x.description}</small>,
+        }, {
+            Header: "View",
+            width: 50,
+            accessor: x => <Link to={'/tasks/' + x.id} title={"Task " + x.id}>
+                <FontAwesomeIcon icon={faEye} />
+            </Link>
         }]
 
         const filteredItems = this.filterItems(items)
@@ -135,8 +141,10 @@ export class Tasks extends Component {
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => this.setState({ showStatus: "All" })}>All</Dropdown.Item>
                                     <Dropdown.Divider />
+                                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Success" })}>Success</Dropdown.Item>
                                     <Dropdown.Item onClick={() => this.setState({ showStatus: "Running" })}>Running</Dropdown.Item>
                                     <Dropdown.Item onClick={() => this.setState({ showStatus: "Failed" })}>Failed</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Canceled" })}>Cancelled</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>
@@ -145,7 +153,9 @@ export class Tasks extends Component {
                                 <Dropdown.Toggle size="sm" variant="primary">Kind: {this.state.showKind}</Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>All</Dropdown.Item>
-                                    <Dropdown.Divider />
+                                    <Dropdown.Divider style={{
+                                        display: this.state.uniqueKinds.length > 0 ? "" : "none"
+                                    }}/>
                                     {this.state.uniqueKinds.map(k => <Dropdown.Item key={k} onClick={() => this.setState({ showKind: k })}>{k}</Dropdown.Item>)}
                                 </Dropdown.Menu>
                             </Dropdown>
