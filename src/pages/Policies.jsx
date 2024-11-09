@@ -268,7 +268,9 @@ export class Policies extends Component {
                                     <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{globalPolicy}</Dropdown.Item>
                                     <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{perUserPolicies}</Dropdown.Item>
                                     <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{perHostPolicies}</Dropdown.Item>
-                                    <Dropdown.Divider />
+                                    <Dropdown.Divider style={{
+                                        display: uniqueOwners.length > 0 ? "" : "none"
+                                    }}/>
                                     {uniqueOwners.map(v => <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>{v}</Dropdown.Item>)}
                                 </Dropdown.Menu>
                             </Dropdown>

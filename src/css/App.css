@@ -124,6 +124,10 @@ body {
   filter: brightness(80%);
 }
 
+#kopia .form-label {
+  margin-top: 0.5rem;
+}
+
 #kopia .form-control {
   color: var(--color-text-body);
   background-color: var(--background-color);
@@ -240,9 +244,10 @@ body {
 }
 
 .providerIcon {
+  padding: 10px;
   min-width: 120px;
-  max-width: 240px;
-  min-height: 110px;
+  max-width: calc(20% - calc(2 * 10px));
+  min-height: 120px;
   margin: 10px;
   vertical-align: middle;
 }
