@@ -184,21 +184,6 @@ export class Task extends Component {
                     {this.summaryControl(task)}
                 </Col>
             </Row>
-            {task.counters && <Row>
-                <Col>
-                    <Table bordered hover size="sm">
-                        <thead>
-                            <tr>
-                                <th>Counter</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.sortedBadges(task.counters, bytesStringBase2)}
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>}
             <Row>
                 <Col xs={6}>
                     <Form.Group>
@@ -213,6 +198,22 @@ export class Task extends Component {
                     </Form.Group>
                 </Col>
             </Row>
+            {task.counters && <Row>
+                <Col>
+                    <p class="mt-2 mb-1">Statistics</p>
+                    <Table bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>Counter</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.sortedBadges(task.counters, bytesStringBase2)}
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>}
             <Row>
                 <Form.Group>
                     <Form.Label>Logs</Form.Label>

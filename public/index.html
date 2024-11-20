@@ -15,9 +15,18 @@
 <body id="kopia">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-  <div id="appVersion" style="display: none">
-    <hr />
-    <p class="version-info">Version %REACT_APP_FULL_VERSION_INFO%</p>
+  <div id="appVersion"
+       style="display: none;
+              padding: 5px 5px 5px 10px;
+              margin: 0;
+              width: fit-content;
+              z-index: 1;
+              position: fixed; right: 0; bottom: 0;
+              border: solid 1px var(--background-color); border-radius: 5px 0px 0px 0px;
+              box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.1);
+              color: var(--color-text);
+              background-color: var(--background-color);">
+    <small class="version-info m-0 p-0">v%REACT_APP_FULL_VERSION_INFO%</small>
   </div>
 </body>
 
