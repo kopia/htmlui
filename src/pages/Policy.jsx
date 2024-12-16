@@ -16,9 +16,13 @@ export class Policy extends Component {
         const { userName, host, path } = source;
 
         return <>
+            <GoBackButton onClick={this.props.history.goBack} />
             <h4>
-                <GoBackButton onClick={this.props.history.goBack} />
-                &nbsp;&nbsp;{PolicyTypeName(source)}</h4>
+                Editing a Policy
+            </h4>
+            <p>
+                {PolicyTypeName(source)}
+            </p>
             <PolicyEditor ref={this.editorRef} userName={userName} host={host} path={path} close={this.props.history.goBack} />
             <Row><Col>&nbsp;</Col></Row>
             <Row>

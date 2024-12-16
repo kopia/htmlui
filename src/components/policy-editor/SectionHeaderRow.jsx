@@ -7,7 +7,13 @@ import { EffectiveValueColumn } from './EffectiveValueColumn';
 export function SectionHeaderRow() {
     return <Row>
         <LabelColumn />
-        <ValueColumn><div className="policyEditorHeader">Defined</div></ValueColumn>
-        <EffectiveValueColumn><div className="policyEditorHeader">Effective</div></EffectiveValueColumn>
+        <ValueColumn>
+            <div className="policyEditorHeader">This Policy</div>
+            <hr className="mt-1" />
+        </ValueColumn>
+        <EffectiveValueColumn>
+            <div className="policyEditorHeader">Global Policy</div>
+            <hr className="mt-1"/>
+        </EffectiveValueColumn>
     </Row>;
 }

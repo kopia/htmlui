@@ -167,9 +167,10 @@ export class Snapshots extends Component {
                 }
 
                 return <>
-                    <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />&nbsp;{totals}
+                    <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />
                     &nbsp;
-                    {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
+                    {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>In progress</Link>}
+                    &nbsp;{totals}
                 </>;
 
             default:
@@ -196,20 +197,20 @@ export class Snapshots extends Component {
     nextSnapshotTimeCell(x, parent) {
         if (!x.cell.value) {
             if (x.row.original.status === "PAUSED") {
-                return "paused";
+                return <Badge bg="warning">Paused</Badge>;
             }
 
-            return "";
+            return <Badge bg="dark">Not Available</Badge>;
         }
 
         if (x.row.original.status === "UPLOADING") {
-            return "";
+            return <Badge bg="secondary">Uploading</Badge>;
         }
 
         return <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}
             {moment(x.cell.value).isBefore(moment()) && <>
                 &nbsp;
-                <Badge bg="secondary">overdue</Badge>
+                <Badge bg="danger">Overdue</Badge>
             </>}
         </p>;
     }
@@ -305,13 +306,15 @@ export class Snapshots extends Component {
                             <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => this.selectOwner(localSnapshots)}>{localSnapshots}</Dropdown.Item>
                                 <Dropdown.Item onClick={() => this.selectOwner(allSnapshots)}>{allSnapshots}</Dropdown.Item>
-                                <Dropdown.Divider />
+                                <Dropdown.Divider style={{
+                                    display: uniqueOwners.length > 0 ? "" : "none",
+                                }}/>
                                 {uniqueOwners.map(v => <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>{v}</Dropdown.Item>)}
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col></>}
                     <Col xs="auto">
-                        <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">New Snapshot</Button>
+                        <Button data-testid="new-snapshot" size="sm" variant="success" href="/snapshots/new">New Snapshot</Button>
                     </Col>
                     <Col>
                     </Col>

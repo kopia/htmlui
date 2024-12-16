@@ -174,13 +174,13 @@ export class Repository extends Component {
                             </Form.Group>
                         </Row>
                     </> : <>
-                        <Row>
+                        <Row className="mb-2">
                             <Form.Group as={Col}>
-                                <Form.Label>Config File</Form.Label>
+                                <Form.Label>Configuration File</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.configFile} />
                             </Form.Group>
                         </Row>
-                        <Row>
+                        <Row className="mb-2">
                             <Form.Group as={Col}>
                                 <Form.Label>Provider</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.storage} />
@@ -198,7 +198,7 @@ export class Repository extends Component {
                                 <Form.Control readOnly defaultValue={this.state.status.splitter} />
                             </Form.Group>
                         </Row>
-                        <Row>
+                        <Row className="mb-2">
                             <Form.Group as={Col}>
                                 <Form.Label>Repository Format</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
