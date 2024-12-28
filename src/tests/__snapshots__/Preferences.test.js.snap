@@ -5,295 +5,401 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <form>
-        <div
-          class="form-group"
+      <ul
+        class="mb-3 nav nav-tabs"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-appearance"
+            aria-selected="true"
+            class="nav-link active"
+            data-rr-ui-event-key="appearance"
+            id="preferences-tab-appearance"
+            role="tab"
+            type="button"
           >
             Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
+          </button>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-notifications"
+            aria-selected="false"
+            class="nav-link"
+            data-rr-ui-event-key="notifications"
+            id="preferences-tab-notifications"
+            role="tab"
+            tabindex="-1"
+            type="button"
           >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
+            Notifications
+          </button>
+        </li>
+      </ul>
+      <div
+        class="tab-content"
+      >
+        <div
+          aria-labelledby="preferences-tab-appearance"
+          class="fade tab-pane active show"
+          id="preferences-tabpane-appearance"
+          role="tabpanel"
+        >
+          <div
+            class="container-fluid"
           >
-            Specifies the pagination size in tables
-          </small>
+            <div
+              class="row"
+            >
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="theme"
+                >
+                  Theme
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="themeSelector"
+                  title="Select theme"
+                >
+                  <option
+                    value="light"
+                  >
+                    light
+                  </option>
+                  <option
+                    value="dark"
+                  >
+                    dark
+                  </option>
+                  <option
+                    value="pastel"
+                  >
+                    pastel
+                  </option>
+                  <option
+                    value="ocean"
+                  >
+                    ocean
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="appearance"
+                >
+                  Appearance
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="fontSizeInput"
+                  title="Select font size"
+                >
+                  <option
+                    value="fs-6"
+                  >
+                    small
+                  </option>
+                  <option
+                    value="fs-5"
+                  >
+                    medium
+                  </option>
+                  <option
+                    value="fs-4"
+                  >
+                    large
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="byteRepresentation"
+                >
+                  Byte representation
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="bytesBaseInput"
+                  title="Select byte representation"
+                >
+                  <option
+                    value="true"
+                  >
+                    Base-2 (KiB, MiB, GiB, TiB)
+                  </option>
+                  <option
+                    value="false"
+                  >
+                    Base-10 (KB, MB, GB, TB)
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
+        <div
+          aria-labelledby="preferences-tab-notifications"
+          class="fade tab-pane"
+          id="preferences-tabpane-notifications"
+          role="tabpanel"
+        >
+          <div
+            class="tab-content-fix"
+          >
+            <div
+              class="container-fluid"
+            >
+              <div
+                class="row"
+              >
+                <p>
+                  <span
+                    class="badge text-dark bg-warning"
+                  >
+                    Important
+                  </span>
+                   You don't have any notification profiles defined.
+                  <br />
+                  <br />
+                  Click the button below to add a new profile to receive notifications from Kopia.
+                </p>
+              </div>
+              <div
+                class="row"
+              >
+                <div
+                  class="dropdown"
+                >
+                  <button
+                    aria-expanded="false"
+                    class="dropdown-toggle btn btn-primary btn-sm"
+                    id="newProfileButton"
+                    type="button"
+                  >
+                    Create New Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <form>
-      <div
-        class="form-group"
+    <ul
+      class="mb-3 nav nav-tabs"
+      role="tablist"
+    >
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-appearance"
+          aria-selected="true"
+          class="nav-link active"
+          data-rr-ui-event-key="appearance"
+          id="preferences-tab-appearance"
+          role="tab"
+          type="button"
         >
           Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
+        </button>
+      </li>
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-notifications"
+          aria-selected="false"
+          class="nav-link"
+          data-rr-ui-event-key="notifications"
+          id="preferences-tab-notifications"
+          role="tab"
+          tabindex="-1"
+          type="button"
         >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
+          Notifications
+        </button>
+      </li>
+    </ul>
+    <div
+      class="tab-content"
+    >
+      <div
+        aria-labelledby="preferences-tab-appearance"
+        class="fade tab-pane active show"
+        id="preferences-tabpane-appearance"
+        role="tabpanel"
+      >
+        <div
+          class="container-fluid"
         >
-          Specifies the pagination size in tables
-        </small>
+          <div
+            class="row"
+          >
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="theme"
+              >
+                Theme
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="themeSelector"
+                title="Select theme"
+              >
+                <option
+                  value="light"
+                >
+                  light
+                </option>
+                <option
+                  value="dark"
+                >
+                  dark
+                </option>
+                <option
+                  value="pastel"
+                >
+                  pastel
+                </option>
+                <option
+                  value="ocean"
+                >
+                  ocean
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="appearance"
+              >
+                Appearance
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="fontSizeInput"
+                title="Select font size"
+              >
+                <option
+                  value="fs-6"
+                >
+                  small
+                </option>
+                <option
+                  value="fs-5"
+                >
+                  medium
+                </option>
+                <option
+                  value="fs-4"
+                >
+                  large
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="byteRepresentation"
+              >
+                Byte representation
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="bytesBaseInput"
+                title="Select byte representation"
+              >
+                <option
+                  value="true"
+                >
+                  Base-2 (KiB, MiB, GiB, TiB)
+                </option>
+                <option
+                  value="false"
+                >
+                  Base-10 (KB, MB, GB, TB)
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
+      <div
+        aria-labelledby="preferences-tab-notifications"
+        class="fade tab-pane"
+        id="preferences-tabpane-notifications"
+        role="tabpanel"
+      >
+        <div
+          class="tab-content-fix"
+        >
+          <div
+            class="container-fluid"
+          >
+            <div
+              class="row"
+            >
+              <p>
+                <span
+                  class="badge text-dark bg-warning"
+                >
+                  Important
+                </span>
+                 You don't have any notification profiles defined.
+                <br />
+                <br />
+                Click the button below to add a new profile to receive notifications from Kopia.
+              </p>
+            </div>
+            <div
+              class="row"
+            >
+              <div
+                class="dropdown"
+              >
+                <button
+                  aria-expanded="false"
+                  class="dropdown-toggle btn btn-primary btn-sm"
+                  id="newProfileButton"
+                  type="button"
+                >
+                  Create New Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -354,295 +460,401 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <form>
-        <div
-          class="form-group"
+      <ul
+        class="mb-3 nav nav-tabs"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-appearance"
+            aria-selected="true"
+            class="nav-link active"
+            data-rr-ui-event-key="appearance"
+            id="preferences-tab-appearance"
+            role="tab"
+            type="button"
           >
             Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
+          </button>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-notifications"
+            aria-selected="false"
+            class="nav-link"
+            data-rr-ui-event-key="notifications"
+            id="preferences-tab-notifications"
+            role="tab"
+            tabindex="-1"
+            type="button"
           >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
+            Notifications
+          </button>
+        </li>
+      </ul>
+      <div
+        class="tab-content"
+      >
+        <div
+          aria-labelledby="preferences-tab-appearance"
+          class="fade tab-pane active show"
+          id="preferences-tabpane-appearance"
+          role="tabpanel"
+        >
+          <div
+            class="container-fluid"
           >
-            Specifies the pagination size in tables
-          </small>
+            <div
+              class="row"
+            >
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="theme"
+                >
+                  Theme
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="themeSelector"
+                  title="Select theme"
+                >
+                  <option
+                    value="light"
+                  >
+                    light
+                  </option>
+                  <option
+                    value="dark"
+                  >
+                    dark
+                  </option>
+                  <option
+                    value="pastel"
+                  >
+                    pastel
+                  </option>
+                  <option
+                    value="ocean"
+                  >
+                    ocean
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="appearance"
+                >
+                  Appearance
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="fontSizeInput"
+                  title="Select font size"
+                >
+                  <option
+                    value="fs-6"
+                  >
+                    small
+                  </option>
+                  <option
+                    value="fs-5"
+                  >
+                    medium
+                  </option>
+                  <option
+                    value="fs-4"
+                  >
+                    large
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="byteRepresentation"
+                >
+                  Byte representation
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="bytesBaseInput"
+                  title="Select byte representation"
+                >
+                  <option
+                    value="true"
+                  >
+                    Base-2 (KiB, MiB, GiB, TiB)
+                  </option>
+                  <option
+                    value="false"
+                  >
+                    Base-10 (KB, MB, GB, TB)
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
+        <div
+          aria-labelledby="preferences-tab-notifications"
+          class="fade tab-pane"
+          id="preferences-tabpane-notifications"
+          role="tabpanel"
+        >
+          <div
+            class="tab-content-fix"
+          >
+            <div
+              class="container-fluid"
+            >
+              <div
+                class="row"
+              >
+                <p>
+                  <span
+                    class="badge text-dark bg-warning"
+                  >
+                    Important
+                  </span>
+                   You don't have any notification profiles defined.
+                  <br />
+                  <br />
+                  Click the button below to add a new profile to receive notifications from Kopia.
+                </p>
+              </div>
+              <div
+                class="row"
+              >
+                <div
+                  class="dropdown"
+                >
+                  <button
+                    aria-expanded="false"
+                    class="dropdown-toggle btn btn-primary btn-sm"
+                    id="newProfileButton"
+                    type="button"
+                  >
+                    Create New Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <form>
-      <div
-        class="form-group"
+    <ul
+      class="mb-3 nav nav-tabs"
+      role="tablist"
+    >
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-appearance"
+          aria-selected="true"
+          class="nav-link active"
+          data-rr-ui-event-key="appearance"
+          id="preferences-tab-appearance"
+          role="tab"
+          type="button"
         >
           Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
+        </button>
+      </li>
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-notifications"
+          aria-selected="false"
+          class="nav-link"
+          data-rr-ui-event-key="notifications"
+          id="preferences-tab-notifications"
+          role="tab"
+          tabindex="-1"
+          type="button"
         >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
+          Notifications
+        </button>
+      </li>
+    </ul>
+    <div
+      class="tab-content"
+    >
+      <div
+        aria-labelledby="preferences-tab-appearance"
+        class="fade tab-pane active show"
+        id="preferences-tabpane-appearance"
+        role="tabpanel"
+      >
+        <div
+          class="container-fluid"
         >
-          Specifies the pagination size in tables
-        </small>
+          <div
+            class="row"
+          >
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="theme"
+              >
+                Theme
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="themeSelector"
+                title="Select theme"
+              >
+                <option
+                  value="light"
+                >
+                  light
+                </option>
+                <option
+                  value="dark"
+                >
+                  dark
+                </option>
+                <option
+                  value="pastel"
+                >
+                  pastel
+                </option>
+                <option
+                  value="ocean"
+                >
+                  ocean
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="appearance"
+              >
+                Appearance
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="fontSizeInput"
+                title="Select font size"
+              >
+                <option
+                  value="fs-6"
+                >
+                  small
+                </option>
+                <option
+                  value="fs-5"
+                >
+                  medium
+                </option>
+                <option
+                  value="fs-4"
+                >
+                  large
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="byteRepresentation"
+              >
+                Byte representation
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="bytesBaseInput"
+                title="Select byte representation"
+              >
+                <option
+                  value="true"
+                >
+                  Base-2 (KiB, MiB, GiB, TiB)
+                </option>
+                <option
+                  value="false"
+                >
+                  Base-10 (KB, MB, GB, TB)
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
+      <div
+        aria-labelledby="preferences-tab-notifications"
+        class="fade tab-pane"
+        id="preferences-tabpane-notifications"
+        role="tabpanel"
+      >
+        <div
+          class="tab-content-fix"
+        >
+          <div
+            class="container-fluid"
+          >
+            <div
+              class="row"
+            >
+              <p>
+                <span
+                  class="badge text-dark bg-warning"
+                >
+                  Important
+                </span>
+                 You don't have any notification profiles defined.
+                <br />
+                <br />
+                Click the button below to add a new profile to receive notifications from Kopia.
+              </p>
+            </div>
+            <div
+              class="row"
+            >
+              <div
+                class="dropdown"
+              >
+                <button
+                  aria-expanded="false"
+                  class="dropdown-toggle btn btn-primary btn-sm"
+                  id="newProfileButton"
+                  type="button"
+                >
+                  Create New Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -703,295 +915,401 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <form>
-        <div
-          class="form-group"
+      <ul
+        class="mb-3 nav nav-tabs"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-appearance"
+            aria-selected="true"
+            class="nav-link active"
+            data-rr-ui-event-key="appearance"
+            id="preferences-tab-appearance"
+            role="tab"
+            type="button"
           >
             Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
+          </button>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-notifications"
+            aria-selected="false"
+            class="nav-link"
+            data-rr-ui-event-key="notifications"
+            id="preferences-tab-notifications"
+            role="tab"
+            tabindex="-1"
+            type="button"
           >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
+            Notifications
+          </button>
+        </li>
+      </ul>
+      <div
+        class="tab-content"
+      >
+        <div
+          aria-labelledby="preferences-tab-appearance"
+          class="fade tab-pane active show"
+          id="preferences-tabpane-appearance"
+          role="tabpanel"
+        >
+          <div
+            class="container-fluid"
           >
-            Specifies the pagination size in tables
-          </small>
+            <div
+              class="row"
+            >
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="theme"
+                >
+                  Theme
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="themeSelector"
+                  title="Select theme"
+                >
+                  <option
+                    value="light"
+                  >
+                    light
+                  </option>
+                  <option
+                    value="dark"
+                  >
+                    dark
+                  </option>
+                  <option
+                    value="pastel"
+                  >
+                    pastel
+                  </option>
+                  <option
+                    value="ocean"
+                  >
+                    ocean
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="appearance"
+                >
+                  Appearance
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="fontSizeInput"
+                  title="Select font size"
+                >
+                  <option
+                    value="fs-6"
+                  >
+                    small
+                  </option>
+                  <option
+                    value="fs-5"
+                  >
+                    medium
+                  </option>
+                  <option
+                    value="fs-4"
+                  >
+                    large
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="byteRepresentation"
+                >
+                  Byte representation
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="bytesBaseInput"
+                  title="Select byte representation"
+                >
+                  <option
+                    value="true"
+                  >
+                    Base-2 (KiB, MiB, GiB, TiB)
+                  </option>
+                  <option
+                    value="false"
+                  >
+                    Base-10 (KB, MB, GB, TB)
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
+        <div
+          aria-labelledby="preferences-tab-notifications"
+          class="fade tab-pane"
+          id="preferences-tabpane-notifications"
+          role="tabpanel"
+        >
+          <div
+            class="tab-content-fix"
+          >
+            <div
+              class="container-fluid"
+            >
+              <div
+                class="row"
+              >
+                <p>
+                  <span
+                    class="badge text-dark bg-warning"
+                  >
+                    Important
+                  </span>
+                   You don't have any notification profiles defined.
+                  <br />
+                  <br />
+                  Click the button below to add a new profile to receive notifications from Kopia.
+                </p>
+              </div>
+              <div
+                class="row"
+              >
+                <div
+                  class="dropdown"
+                >
+                  <button
+                    aria-expanded="false"
+                    class="dropdown-toggle btn btn-primary btn-sm"
+                    id="newProfileButton"
+                    type="button"
+                  >
+                    Create New Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <form>
-      <div
-        class="form-group"
+    <ul
+      class="mb-3 nav nav-tabs"
+      role="tablist"
+    >
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-appearance"
+          aria-selected="true"
+          class="nav-link active"
+          data-rr-ui-event-key="appearance"
+          id="preferences-tab-appearance"
+          role="tab"
+          type="button"
         >
           Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
+        </button>
+      </li>
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-notifications"
+          aria-selected="false"
+          class="nav-link"
+          data-rr-ui-event-key="notifications"
+          id="preferences-tab-notifications"
+          role="tab"
+          tabindex="-1"
+          type="button"
         >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
+          Notifications
+        </button>
+      </li>
+    </ul>
+    <div
+      class="tab-content"
+    >
+      <div
+        aria-labelledby="preferences-tab-appearance"
+        class="fade tab-pane active show"
+        id="preferences-tabpane-appearance"
+        role="tabpanel"
+      >
+        <div
+          class="container-fluid"
         >
-          Specifies the pagination size in tables
-        </small>
+          <div
+            class="row"
+          >
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="theme"
+              >
+                Theme
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="themeSelector"
+                title="Select theme"
+              >
+                <option
+                  value="light"
+                >
+                  light
+                </option>
+                <option
+                  value="dark"
+                >
+                  dark
+                </option>
+                <option
+                  value="pastel"
+                >
+                  pastel
+                </option>
+                <option
+                  value="ocean"
+                >
+                  ocean
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="appearance"
+              >
+                Appearance
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="fontSizeInput"
+                title="Select font size"
+              >
+                <option
+                  value="fs-6"
+                >
+                  small
+                </option>
+                <option
+                  value="fs-5"
+                >
+                  medium
+                </option>
+                <option
+                  value="fs-4"
+                >
+                  large
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="byteRepresentation"
+              >
+                Byte representation
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="bytesBaseInput"
+                title="Select byte representation"
+              >
+                <option
+                  value="true"
+                >
+                  Base-2 (KiB, MiB, GiB, TiB)
+                </option>
+                <option
+                  value="false"
+                >
+                  Base-10 (KB, MB, GB, TB)
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
+      <div
+        aria-labelledby="preferences-tab-notifications"
+        class="fade tab-pane"
+        id="preferences-tabpane-notifications"
+        role="tabpanel"
+      >
+        <div
+          class="tab-content-fix"
+        >
+          <div
+            class="container-fluid"
+          >
+            <div
+              class="row"
+            >
+              <p>
+                <span
+                  class="badge text-dark bg-warning"
+                >
+                  Important
+                </span>
+                 You don't have any notification profiles defined.
+                <br />
+                <br />
+                Click the button below to add a new profile to receive notifications from Kopia.
+              </p>
+            </div>
+            <div
+              class="row"
+            >
+              <div
+                class="dropdown"
+              >
+                <button
+                  aria-expanded="false"
+                  class="dropdown-toggle btn btn-primary btn-sm"
+                  id="newProfileButton"
+                  type="button"
+                >
+                  Create New Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -1052,295 +1370,401 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <form>
-        <div
-          class="form-group"
+      <ul
+        class="mb-3 nav nav-tabs"
+        role="tablist"
+      >
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
-            for="themeSelector"
-            id="themeLabel"
-          >
-            Theme
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="themeSelector"
-            title="Select theme"
-          >
-            <option
-              value="light"
-            >
-              light
-            </option>
-            <option
-              value="dark"
-            >
-              dark
-            </option>
-            <option
-              value="pastel"
-            >
-              pastel
-            </option>
-            <option
-              value="ocean"
-            >
-              ocean
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="themeLabel"
-            id="themeHelp"
-          >
-            The current active theme
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
-            for="bytesBaseInput"
-          >
-            Byte representation
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="bytesBaseInput"
-            title="Select byte representation"
-          >
-            <option
-              value="true"
-            >
-              Base-2 (KiB, MiB, GiB, TiB)
-            </option>
-            <option
-              value="false"
-            >
-              Base-10 (KB, MB, GB, TB)
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="bytesBaseInput"
-            id="bytesHelp"
-          >
-            Specifies the representation of bytes
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
-        >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-appearance"
+            aria-selected="true"
+            class="nav-link active"
+            data-rr-ui-event-key="appearance"
+            id="preferences-tab-appearance"
+            role="tab"
+            type="button"
           >
             Appearance
-          </label>
-          <select
-            class="form-select form-select-sm"
-            id="fontSizeInput"
-            title="Select font size"
-          >
-            <option
-              value="fs-6"
-            >
-              small
-            </option>
-            <option
-              value="fs-5"
-            >
-              medium
-            </option>
-            <option
-              value="fs-4"
-            >
-              large
-            </option>
-          </select>
-          <small
-            class="form-text text-muted"
-            hmtlfor="fontSizeInput"
-            id="fontSizeHelp"
-          >
-            Specifies the appearance of the user interface
-          </small>
-        </div>
-        <br />
-        <div
-          class="form-group"
+          </button>
+        </li>
+        <li
+          class="nav-item"
+          role="presentation"
         >
-          <label
-            class="label-description"
+          <button
+            aria-controls="preferences-tabpane-notifications"
+            aria-selected="false"
+            class="nav-link"
+            data-rr-ui-event-key="notifications"
+            id="preferences-tab-notifications"
+            role="tab"
+            tabindex="-1"
+            type="button"
           >
-            Page size
-          </label>
-          <input
-            class="form-control form-control-sm"
-            disabled=""
-            id="pageSizeInput"
-            placeholder="Page size"
-            type="text"
-            value=""
-          />
-          <small
-            class="form-text text-muted"
-            hmtlfor="pageSizeInput"
-            id="pageSizeHelp"
+            Notifications
+          </button>
+        </li>
+      </ul>
+      <div
+        class="tab-content"
+      >
+        <div
+          aria-labelledby="preferences-tab-appearance"
+          class="fade tab-pane active show"
+          id="preferences-tabpane-appearance"
+          role="tabpanel"
+        >
+          <div
+            class="container-fluid"
           >
-            Specifies the pagination size in tables
-          </small>
+            <div
+              class="row"
+            >
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="theme"
+                >
+                  Theme
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="themeSelector"
+                  title="Select theme"
+                >
+                  <option
+                    value="light"
+                  >
+                    light
+                  </option>
+                  <option
+                    value="dark"
+                  >
+                    dark
+                  </option>
+                  <option
+                    value="pastel"
+                  >
+                    pastel
+                  </option>
+                  <option
+                    value="ocean"
+                  >
+                    ocean
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="appearance"
+                >
+                  Appearance
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="fontSizeInput"
+                  title="Select font size"
+                >
+                  <option
+                    value="fs-6"
+                  >
+                    small
+                  </option>
+                  <option
+                    value="fs-5"
+                  >
+                    medium
+                  </option>
+                  <option
+                    value="fs-4"
+                  >
+                    large
+                  </option>
+                </select>
+              </div>
+              <div
+                class="col"
+              >
+                <label
+                  class="required form-label"
+                  for="byteRepresentation"
+                >
+                  Byte representation
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  id="bytesBaseInput"
+                  title="Select byte representation"
+                >
+                  <option
+                    value="true"
+                  >
+                    Base-2 (KiB, MiB, GiB, TiB)
+                  </option>
+                  <option
+                    value="false"
+                  >
+                    Base-10 (KB, MB, GB, TB)
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
+        <div
+          aria-labelledby="preferences-tab-notifications"
+          class="fade tab-pane"
+          id="preferences-tabpane-notifications"
+          role="tabpanel"
+        >
+          <div
+            class="tab-content-fix"
+          >
+            <div
+              class="container-fluid"
+            >
+              <div
+                class="row"
+              >
+                <p>
+                  <span
+                    class="badge text-dark bg-warning"
+                  >
+                    Important
+                  </span>
+                   You don't have any notification profiles defined.
+                  <br />
+                  <br />
+                  Click the button below to add a new profile to receive notifications from Kopia.
+                </p>
+              </div>
+              <div
+                class="row"
+              >
+                <div
+                  class="dropdown"
+                >
+                  <button
+                    aria-expanded="false"
+                    class="dropdown-toggle btn btn-primary btn-sm"
+                    id="newProfileButton"
+                    type="button"
+                  >
+                    Create New Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <form>
-      <div
-        class="form-group"
+    <ul
+      class="mb-3 nav nav-tabs"
+      role="tablist"
+    >
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
-          for="themeSelector"
-          id="themeLabel"
-        >
-          Theme
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="themeSelector"
-          title="Select theme"
-        >
-          <option
-            value="light"
-          >
-            light
-          </option>
-          <option
-            value="dark"
-          >
-            dark
-          </option>
-          <option
-            value="pastel"
-          >
-            pastel
-          </option>
-          <option
-            value="ocean"
-          >
-            ocean
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="themeLabel"
-          id="themeHelp"
-        >
-          The current active theme
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
-          for="bytesBaseInput"
-        >
-          Byte representation
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="bytesBaseInput"
-          title="Select byte representation"
-        >
-          <option
-            value="true"
-          >
-            Base-2 (KiB, MiB, GiB, TiB)
-          </option>
-          <option
-            value="false"
-          >
-            Base-10 (KB, MB, GB, TB)
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="bytesBaseInput"
-          id="bytesHelp"
-        >
-          Specifies the representation of bytes
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
-      >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-appearance"
+          aria-selected="true"
+          class="nav-link active"
+          data-rr-ui-event-key="appearance"
+          id="preferences-tab-appearance"
+          role="tab"
+          type="button"
         >
           Appearance
-        </label>
-        <select
-          class="form-select form-select-sm"
-          id="fontSizeInput"
-          title="Select font size"
-        >
-          <option
-            value="fs-6"
-          >
-            small
-          </option>
-          <option
-            value="fs-5"
-          >
-            medium
-          </option>
-          <option
-            value="fs-4"
-          >
-            large
-          </option>
-        </select>
-        <small
-          class="form-text text-muted"
-          hmtlfor="fontSizeInput"
-          id="fontSizeHelp"
-        >
-          Specifies the appearance of the user interface
-        </small>
-      </div>
-      <br />
-      <div
-        class="form-group"
+        </button>
+      </li>
+      <li
+        class="nav-item"
+        role="presentation"
       >
-        <label
-          class="label-description"
+        <button
+          aria-controls="preferences-tabpane-notifications"
+          aria-selected="false"
+          class="nav-link"
+          data-rr-ui-event-key="notifications"
+          id="preferences-tab-notifications"
+          role="tab"
+          tabindex="-1"
+          type="button"
         >
-          Page size
-        </label>
-        <input
-          class="form-control form-control-sm"
-          disabled=""
-          id="pageSizeInput"
-          placeholder="Page size"
-          type="text"
-          value=""
-        />
-        <small
-          class="form-text text-muted"
-          hmtlfor="pageSizeInput"
-          id="pageSizeHelp"
+          Notifications
+        </button>
+      </li>
+    </ul>
+    <div
+      class="tab-content"
+    >
+      <div
+        aria-labelledby="preferences-tab-appearance"
+        class="fade tab-pane active show"
+        id="preferences-tabpane-appearance"
+        role="tabpanel"
+      >
+        <div
+          class="container-fluid"
         >
-          Specifies the pagination size in tables
-        </small>
+          <div
+            class="row"
+          >
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="theme"
+              >
+                Theme
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="themeSelector"
+                title="Select theme"
+              >
+                <option
+                  value="light"
+                >
+                  light
+                </option>
+                <option
+                  value="dark"
+                >
+                  dark
+                </option>
+                <option
+                  value="pastel"
+                >
+                  pastel
+                </option>
+                <option
+                  value="ocean"
+                >
+                  ocean
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="appearance"
+              >
+                Appearance
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="fontSizeInput"
+                title="Select font size"
+              >
+                <option
+                  value="fs-6"
+                >
+                  small
+                </option>
+                <option
+                  value="fs-5"
+                >
+                  medium
+                </option>
+                <option
+                  value="fs-4"
+                >
+                  large
+                </option>
+              </select>
+            </div>
+            <div
+              class="col"
+            >
+              <label
+                class="required form-label"
+                for="byteRepresentation"
+              >
+                Byte representation
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="bytesBaseInput"
+                title="Select byte representation"
+              >
+                <option
+                  value="true"
+                >
+                  Base-2 (KiB, MiB, GiB, TiB)
+                </option>
+                <option
+                  value="false"
+                >
+                  Base-10 (KB, MB, GB, TB)
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
+      <div
+        aria-labelledby="preferences-tab-notifications"
+        class="fade tab-pane"
+        id="preferences-tabpane-notifications"
+        role="tabpanel"
+      >
+        <div
+          class="tab-content-fix"
+        >
+          <div
+            class="container-fluid"
+          >
+            <div
+              class="row"
+            >
+              <p>
+                <span
+                  class="badge text-dark bg-warning"
+                >
+                  Important
+                </span>
+                 You don't have any notification profiles defined.
+                <br />
+                <br />
+                Click the button below to add a new profile to receive notifications from Kopia.
+              </p>
+            </div>
+            <div
+              class="row"
+            >
+              <div
+                class="dropdown"
+              >
+                <button
+                  aria-expanded="false"
+                  class="dropdown-toggle btn btn-primary btn-sm"
+                  id="newProfileButton"
+                  type="button"
+                >
+                  Create New Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

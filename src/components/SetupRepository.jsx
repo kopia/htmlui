@@ -407,7 +407,7 @@ export class SetupRepository extends Component {
                                 <option value="10">10%</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} controlId='errorCorrectionAlgorithm'>
                             <Form.Label className="required">Error Correction Algorithm</Form.Label>
                             <Form.Control as="select"
                                 name="ecc"
@@ -416,7 +416,7 @@ export class SetupRepository extends Component {
                                 disabled={this.state.eccOverheadPercent === "0"}
                                 value={this.state.eccOverheadPercent === "0" ? "-" : this.state.ecc}>
                                 {this.state.eccOverheadPercent === "0" ?
-                                    [<option value="">-</option>]
+                                    [<option key="empty" value="">-</option>]
                                     : this.state.algorithms.ecc.map(x => toAlgorithmOption(x, this.state.defaultEcc))}
                             </Form.Control>
                         </Form.Group>
