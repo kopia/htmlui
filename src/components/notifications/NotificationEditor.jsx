@@ -164,7 +164,7 @@ export class NotificationEditor extends Component {
         while (true) {
             const name = this.candidateProfileName(type, i);
 
-            if (this.state.notificationProfiles.find(p => name === p.profile)) {
+            if (!this.state.notificationProfiles.find(p => name === p.profile)) {
                 return name;
             }
 
