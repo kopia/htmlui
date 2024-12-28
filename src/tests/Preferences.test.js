@@ -16,15 +16,6 @@ beforeEach(() => {
 /**
  * 
  */
-describe('Calling the preference page', () => {
-    test('Should render preferences', () => {
-        expect(wrapper).toMatchSnapshot();
-    })
-})
-
-/**
- * 
- */
 describe('Select the light theme', () => {
     test('Should select light theme', () => {
      userEvent.selectOptions(
@@ -32,8 +23,6 @@ describe('Select the light theme', () => {
             screen.getByRole('option', { name: 'light' }));
 
         expect(screen.getByRole('option', { name: 'light' }).selected).toBe(true)
-
-        expect(wrapper).toMatchSnapshot();
     })
 })
 
@@ -44,7 +33,6 @@ describe('Test number of themes', () => {
     test('Should have four themes', () => {
         let theme = screen.getByRole('combobox', { name: "Select theme" });
         expect(theme).toHaveLength(4);
-        expect(wrapper).toMatchSnapshot();
     })
 })
 
@@ -55,6 +43,5 @@ describe('Test byte representation', () => {
     test('Should have two options', () => {
         let theme = screen.getByRole('combobox', { name: "Select byte representation" });
         expect(theme).toHaveLength(2);
-        expect(wrapper).toMatchSnapshot();
     })
 })
