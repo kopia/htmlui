@@ -201,6 +201,11 @@ body {
   height: 32px;
 }
 
+.form-label {
+  padding-bottom: 0px;
+  padding-top: 15px;
+}
+
 .active {
   font-weight: bold;
 }
@@ -463,4 +468,9 @@ div.tab-body {
 
 #kopia li.page-item:disabled {
   background-color: var(--background-color)
+}
+
+#kopia .tab-content-fix {
+  font-weight: normal;
+
 }

@@ -13,9 +13,9 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 16.x
+        node-version: 23.x
     - name: Install Dependencies
-      run: npm install --no-audit
+      run: npm ci --no-audit
     - name: License Check
       run: npx license-checker --summary --onlyAllow "Apache-2.0;MIT;BSD-3-Clause;BSD-2-Clause;ISC;CC0-1.0;MPL-2.0;CC-BY-4.0;ODC-By-1.0;WTFPL;CC-BY-3.0;0BSD;Python-2.0;Unlicense"
     - name: Audit Dependencies

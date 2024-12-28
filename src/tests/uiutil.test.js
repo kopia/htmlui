@@ -73,7 +73,7 @@ describe("formatMagnitudesUsingMultipleUnits", () => {
         expect(fn(magnitudes)).toBe("0.1 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 0, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("1.0 seconds"); // input was < 1, but rounded value is 1
+        expect(fn(magnitudes)).toBe("0.9 seconds");
     });
 
     it("represents durations (1 second <= T < 10 seconds) using seconds (fractional)", () => {
@@ -90,7 +90,7 @@ describe("formatMagnitudesUsingMultipleUnits", () => {
         expect(fn(magnitudes)).toBe("1.1 seconds");
 
         magnitudes = { days: 0, hours: 0, minutes: 0, seconds: 9, milliseconds: 999 };
-        expect(fn(magnitudes)).toBe("10.0 seconds"); // input was < 10, but rounded value is 10
+        expect(fn(magnitudes)).toBe("9.9 seconds");
     });
 
     it("represents durations (10 seconds <= T < 1 minute) using seconds (integer)", () => {

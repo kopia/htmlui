@@ -169,57 +169,57 @@ export class Repository extends Component {
                     {this.state.status.apiServerURL ? <>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Server URL</Form.Label>
+                                <Form.Label className="required">Server URL</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
                             </Form.Group>
                         </Row>
                     </> : <>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Config File</Form.Label>
+                                <Form.Label className="required">Config File</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.configFile} />
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Provider</Form.Label>
+                                <Form.Label className="required">Provider</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.storage} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Encryption Algorithm</Form.Label>
+                                <Form.Label className="required">Encryption Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.encryption} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Hash Algorithm</Form.Label>
+                                <Form.Label className="required">Hash Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.hash} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Splitter Algorithm</Form.Label>
+                                <Form.Label className="required">Splitter Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.splitter} />
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group as={Col}>
-                                <Form.Label>Repository Format</Form.Label>
+                                <Form.Label className="required">Repository Format</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Error Correction Overhead</Form.Label>
+                                <Form.Label className="required">Error Correction Overhead</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.eccOverheadPercent > 0 ? this.state.status.eccOverheadPercent + "%" : "Disabled"} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Error Correction Algorithm</Form.Label>
+                                <Form.Label className="required">Error Correction Algorithm</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
                             </Form.Group>
                             <Form.Group as={Col}>
-                                <Form.Label>Internal Compression</Form.Label>
+                                <Form.Label className="required">Internal Compression</Form.Label>
                                 <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
                             </Form.Group>
                         </Row>
                     </>}
                     <Row>
                         <Form.Group as={Col}>
-                            <Form.Label>Connected as:</Form.Label>
+                            <Form.Label className="required">Connected as:</Form.Label>
                             <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
                         </Form.Group>
                     </Row>
