@@ -33,8 +33,8 @@ export class EmailNotificationMethod extends Component {
                 {RequiredNumberField(this, "SMTP Port", "smtpPort", { })}
             </Row>
             <Row>
-                {RequiredField(this, "SMTP Username", "smtpUsername", { placeholder: "SMTP server username, typically the email address" })}
-                {RequiredField(this, "SMTP Password", "smtpPassword", { placeholder: "SMTP server password", type: "password" })}
+                {OptionalField(this, "SMTP Username", "smtpUsername", { placeholder: "SMTP server username, typically the email address" })}
+                {OptionalField(this, "SMTP Password", "smtpPassword", { placeholder: "SMTP server password", type: "password" })}
                 {OptionalField(this, "SMTP Identity (Optional)", "smtpIdentity", { placeholder: "SMTP server identity (often empty)" })}
             </Row>
             <Row>
