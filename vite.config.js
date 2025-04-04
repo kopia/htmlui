@@ -8,6 +8,10 @@ export default defineConfig(() => {
       chunkSizeWarningLimit: 1000,
     },
     plugins: [react()],
+    test: {
+      globals: true,
+      environment: 'jsdom',
+    },
     server: {
         port: 3000,
         host: 'localhost',
