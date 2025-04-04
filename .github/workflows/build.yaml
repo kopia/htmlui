@@ -21,7 +21,7 @@ jobs:
     - name: Audit Dependencies
       run: npm audit --production
     - name: Build
-      run: REACT_APP_FULL_VERSION_INFO="$GITHUB_REPOSITORY $GITHUB_SHA built on $(date) $(hostname)" npm run build
+      run: VITE_FULL_VERSION_INFO="$GITHUB_REPOSITORY $GITHUB_SHA built on $(date) $(hostname)" npm run build
     - name: Test
       run: npm run test
     - name: Push Build
