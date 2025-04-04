@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { expect, test } from '@jest/globals';
 import userEvent from "@testing-library/user-event";
 import { Preferences } from '../pages/Preferences';
-const { setTheme } = jest.requireActual('../pages/Preferences');
+const { setTheme } = vi.importActual('../pages/Preferences');
 // Wrapper
 let wrapper;
 
