@@ -325,6 +325,11 @@ export class PolicyEditor extends Component {
                                 {EffectiveBooleanValue(this, "files.ignoreCacheDirs")}
                             </Row>
                             <Row>
+                                <LabelColumn name="Ignore Files larger than" help="When set, the files larger than the specified size are ignored (specified in bytes)" />
+                                <ValueColumn>{OptionalNumberField(this, "", "policy.files.maxFileSize")}</ValueColumn>
+                                {EffectiveValue(this, "files.maxFileSize")}
+                            </Row>
+                            <Row>
                                 <LabelColumn name="Scan only one filesystem" help="Do not cross filesystem boundaries when creating a snapshot" />
                                 <ValueColumn>{OptionalBoolean(this, null, "policy.files.oneFileSystem", "inherit from parent")}</ValueColumn>
                                 {EffectiveBooleanValue(this, "files.oneFileSystem")}
