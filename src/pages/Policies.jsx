@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
 import { OptionalDirectory } from '../forms/OptionalDirectory'
 import KopiaTable from '../utils/KopiaTable';
-import { CLIEquivalent, compare, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
+import { checkPolicyPath, CLIEquivalent, compare, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -103,8 +103,10 @@ export class Policies extends Component {
             return;
         }
 
-        if (!isAbsolutePath(this.state.policyPath)) {
-            alert("Policies can only be defined for absolute paths.");
+        const error = checkPolicyPath(this.state.policyPath, this.state.localHost, this.state.localUsername);
+
+        if (error) {
+            alert(error + "\nMust be either an absolute path, `user@host:/absolute/path`, `user@host` or `@host`. Use backslashes on Windows.");
             return;
         }
 
