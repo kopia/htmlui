@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
-import { usePagination, useSortBy, useTable } from 'react-table';
+import Button from 'react-bootstrap/Table';
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
 import { PAGE_SIZES, UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
 function paginationItems(count, active, gotoPage) {
@@ -48,99 +49,114 @@ function paginationItems(count, active, gotoPage) {
 
 export default function KopiaTable({ columns, data }) {
   const { pageSize, setPageSize } = useContext(UIPreferencesContext);
+  const [sorting, setSorting] = useState([]);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0, //default page index
+    pageSize: pageSize, //default page size
+  });
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize: setTablePageSize,
-    state: { pageIndex },
-  } = useTable({
-    columns,
+  const table = useReactTable({
     data,
-    initialState: { pageSize },
-    autoResetPage: false,
-    autoResetSortBy: false,
-  },
-    useSortBy,
-    usePagination,
-  )
+    columns,
+    state: {
+      sorting,
+      pagination,
+    },
+    autoResetPageIndex: false,
+    enableSortingRemoval: false,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(), //load client-side pagination code
+    getSortedRowModel: getSortedRowModel(),
+    onPaginationChange: setPagination, //update the pagination state when internal APIs mutate the pagination state
+    onSortingChange: setSorting,
+  })
 
-  useEffect(() => {
-    setTablePageSize(pageSize);
-  }, [pageSize, setTablePageSize]);
-
-  if (pageIndex >= pageCount && pageIndex !== 0 && pageCount > 0) {
-    gotoPage(pageCount - 1);
+  if (pagination.pageIndex >= table.getPageCount() && pagination.pageIndex !== 0) {
+    table.resetPageIndex();
   }
 
   const paginationUI = <>
-    <>{pageOptions.length > 1 && (
-      <Pagination size="sm" variant="dark">
-        <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
-        <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage} />
-        {paginationItems(pageOptions.length, pageIndex + 1, gotoPage)}
-        <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
-        <Pagination.Last onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} />
-      </Pagination>)}
-    </>
-    <>
-      <Dropdown style={{ marginBottom: '1em' }}>
-        <Dropdown.Toggle size="sm">
-          Page Size: {pageSize}
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {PAGE_SIZES.map(pageSize => (
-            <Dropdown.Item size="sm" key={pageSize} onClick={() => setPageSize(pageSize)}>
-              Page Size {pageSize}
-            </Dropdown.Item>))}
-        </Dropdown.Menu>
-      </Dropdown>
-    </>
-  </>;
+  <>{table.getPageCount() > 1 && (
+    <Pagination size="sm" variant="dark">
+      <Pagination.First onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} />
+      <Pagination.Prev onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} />
+      {paginationItems(table.getPageCount(), pagination.pageIndex + 1, table.setPageIndex)}
+      <Pagination.Next onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} />
+      <Pagination.Last onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()} />
+    </Pagination>)}
+  </>
+  <>
+    <Dropdown style={{ marginBottom: '1em' }}>
+      <Dropdown.Toggle size="sm">
+        Page Size: {pageSize}
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        {PAGE_SIZES.map(pageSize => (
+          <Dropdown.Item size="sm" key={pageSize} onClick={() => {
+            table.setPageSize(pageSize);
+            setPageSize(pageSize);
+          }}>
+            Page Size {pageSize}
+          </Dropdown.Item>))}
+      </Dropdown.Menu>
+    </Dropdown>
+  </>
+</>;
 
-  return (
-    <>
-      <Table size="sm" striped bordered hover {...getTableProps()}>
+  return <>
+    <div className="p-2">
+      <Table size="sm" striped bordered hover>
         <thead className="table-dark">
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps({
-                  ...column.getSortByToggleProps(), style: {
-                    width: column.width,
-                  }
-                })}>{column.render('Header')}
-                  {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <th key={header.id}>
+                  <div
+                        className={
+                          header.column.getCanSort()
+                            ? 'cursor-pointer select-none'
+                            : ''
+                        }
+                        onClick={header.column.getToggleSortingHandler()}
+                        title={
+                          header.column.getCanSort()
+                            ? header.column.getNextSortingOrder() === 'asc'
+                              ? 'Sort ascending'
+                              : header.column.getNextSortingOrder() === 'desc'
+                                ? 'Sort descending'
+                                : 'Clear sort'
+                            : undefined
+                        }
+                      >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  {{
+                      asc: ' 🔼',
+                      desc: ' 🔽',
+                    }[header.column.getIsSorted()] ?? null}
+                    </div>
                 </th>
               ))}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} key={i}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                })}
-              </tr>
-            )
-          }
-          )}
+        <tbody>
+          {table.getRowModel().rows.map(row => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map(cell => (
+                <td key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
-      </Table>
+      </Table> 
       {paginationUI}
-    </>
-  )
+    </div>
+    </>;
 }

@@ -474,3 +474,7 @@ div.tab-body {
   font-weight: normal;
 
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
