@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
@@ -11,7 +12,7 @@ import { RequiredField } from '../forms/RequiredField';
 import { RequiredNumberField } from '../forms/RequiredNumberField';
 import { errorAlert, GoBackButton } from '../utils/uiutil';
 
-export class SnapshotRestore extends Component {
+export class SnapshotRestoreInternal extends Component {
     constructor(props) {
         super();
 
@@ -47,7 +48,7 @@ export class SnapshotRestore extends Component {
         const dst = (this.state.destination + "");
 
         let req = {
-            root: this.props.match.params.oid,
+            root: this.props.params.oid,
             options: {
                 incremental: this.state.incremental,
                 ignoreErrors: this.state.continueOnErrors,
@@ -81,7 +82,6 @@ export class SnapshotRestore extends Component {
             this.setState({
                 restoreTask: result.data.id,
             })
-            this.props.history.replace("/tasks/" + result.data.id);
         }).catch(error => {
             errorAlert(error);
         });
@@ -90,13 +90,13 @@ export class SnapshotRestore extends Component {
     render() {
         if (this.state.restoreTask) {
             return <p>
-                <GoBackButton onClick={this.props.history.goBack} />
+                <GoBackButton />
                 <Link replace={true} to={"/tasks/" + this.state.restoreTask}>Go To Restore Task</Link>.
             </p>;
         }
 
         return <div className="padded-top">
-            <GoBackButton onClick={this.props.history.goBack} />&nbsp;<span className="page-title">Restore</span>
+            <GoBackButton />&nbsp;<span className="page-title">Restore</span>
             <hr/>
             <Form onSubmit={this.start}>
                 <Row>
@@ -160,4 +160,12 @@ export class SnapshotRestore extends Component {
             </Form>
         </div>;
     }
+}
+
+export function SnapshotRestore(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = useParams();
+  
+    return <SnapshotRestoreInternal navigate={navigate} location={location} params={params} {...props} />;
 }

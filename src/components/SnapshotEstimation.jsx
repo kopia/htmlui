@@ -2,15 +2,16 @@
 import { faChevronCircleDown, faChevronCircleUp, faStopCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import Form from 'react-bootstrap/Form';
 import { Logs } from './Logs';
 import { cancelTask, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
-export class SnapshotEstimation extends Component {
+export class SnapshotEstimationInternal extends Component {
     constructor() {
         super();
         this.state = {
@@ -41,7 +42,7 @@ export class SnapshotEstimation extends Component {
     }
 
     taskID(props) {
-        return props.taskID || props.match.params.tid;
+        return props.taskID || props.params.tid;
     }
 
     fetchTask(props) {
@@ -116,4 +117,12 @@ export class SnapshotEstimation extends Component {
             ;
     }
 }
-SnapshotEstimation.contextType = UIPreferencesContext
+
+export function SnapshotEstimation(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = useParams();
+    useContext(UIPreferencesContext);
+  
+    return <SnapshotEstimationInternal navigate={navigate} location={location} params={params} {...props} />;
+}

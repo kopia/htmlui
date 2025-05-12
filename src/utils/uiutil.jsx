@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
@@ -94,7 +94,7 @@ export function rfc3339TimestampForDisplay(n) {
 
 export function objectLink(n, label, prevState) {
     if (n.startsWith("k") || n.startsWith("Ik")) {
-        return { pathname: "/snapshots/dir/" + n, state: { label, oid: n, prevState } };
+        return "/snapshots/dir/" + n;
     }
     return "/api/v1/objects/" + n;
 }
@@ -298,7 +298,9 @@ export function cancelTask(tid) {
 }
 
 export function GoBackButton(props) {
-    return <Button size="sm" variant="warning" {...props}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
+    const navigate = useNavigate();
+
+    return <Button size="sm" variant="warning" onClick={() => navigate(-1)}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
 }
 
 export function PolicyTypeName(s) {

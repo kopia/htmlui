@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
@@ -11,7 +12,7 @@ import { CLIEquivalent } from '../utils/uiutil';
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
-export class SnapshotDirectory extends Component {
+class SnapshotDirectoryInternal extends Component {
     constructor() {
         super();
 
@@ -31,14 +32,14 @@ export class SnapshotDirectory extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.oid !== prevProps.match.params.oid) {
-            console.log('OID changed', prevProps.match.params.oid, '=>', this.props.match.params.oid);
+        if (this.props.params.oid !== prevProps.params.oid) {
+            console.log('OID changed', prevProps.params.oid, '=>', this.props.params.oid);
             this.fetchDirectory();
         }
     }
 
     fetchDirectory() {
-        let oid = this.props.match.params.oid;
+        let oid = this.props.params.oid;
 
         this.setState({
             isLoading: true,
@@ -135,7 +136,7 @@ export class SnapshotDirectory extends Component {
                     </>}
                     &nbsp;
                     <Button size="sm" variant="primary"
-                        href={"/snapshots/dir/" + this.props.match.params.oid + "/restore"}>Restore
+                        href={"/snapshots/dir/" + this.props.params.oid + "/restore"}>Restore
                         Files & Directories</Button>
                     &nbsp;
                 </Col>
@@ -152,4 +153,10 @@ export class SnapshotDirectory extends Component {
         </>
     }
 }
-SnapshotDirectory.contextType = UIPreferencesContext
+export function SnapshotDirectory(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = useParams();
+
+    return <SnapshotDirectoryInternal navigate={navigate} params={params} location={location} {...props} />;
+}  

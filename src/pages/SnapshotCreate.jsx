@@ -4,13 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { useNavigate, useLocation } from "react-router-dom";
 import { handleChange } from '../forms';
 import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
 import { RequiredDirectory } from '../forms/RequiredDirectory';
 import { CLIEquivalent, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
 
-export class SnapshotCreate extends Component {
+class SnapshotCreateInternal extends Component {
     constructor() {
         super();
         this.state = {
@@ -132,7 +133,7 @@ export class SnapshotCreate extends Component {
                 createSnapshot: true,
                 policy: pe.getAndValidatePolicy(),
             }).then(result => {
-                this.props.history.goBack();
+                this.props.navigate(-1);
             }).catch(error => {
                 errorAlert(error);
 
@@ -149,7 +150,7 @@ export class SnapshotCreate extends Component {
     render() {
         return <>
             <Form.Group>
-                <GoBackButton onClick={this.props.history.goBack} />
+                <GoBackButton />
             </Form.Group>
             <br />
             <h4>New Snapshot</h4>
@@ -193,4 +194,11 @@ export class SnapshotCreate extends Component {
             <CLIEquivalent command={`snapshot create ${this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}`} />
         </>;
     }
+}
+
+export function SnapshotCreate(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+  
+    return <SnapshotCreateInternal navigate={navigate} location={location} {...props} />;
 }
