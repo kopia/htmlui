@@ -108,7 +108,7 @@ export class Snapshots extends Component {
      * @returns - the header of the cell
      */
     setHeader(x) {
-        switch (x.cell.value) {
+        switch (x.cell.getValue()) {
             case "IDLE":
             case "PAUSED":
                 return x.cell.column.Header = "Actions"
@@ -127,7 +127,7 @@ export class Snapshots extends Component {
      */
     statusCell(x, parent, bytesStringBase2) {
         this.setHeader(x)
-        switch (x.cell.value) {
+        switch (x.cell.getValue()) {
             case "IDLE":
             case "PAUSED":
                 return <>
@@ -194,7 +194,7 @@ export class Snapshots extends Component {
     }
 
     nextSnapshotTimeCell(x, parent) {
-        if (!x.cell.value) {
+        if (!x.cell.getValue()) {
             if (x.row.original.status === "PAUSED") {
                 return "paused";
             }
@@ -206,8 +206,8 @@ export class Snapshots extends Component {
             return "";
         }
 
-        return <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}
-            {moment(x.cell.value).isBefore(moment()) && <>
+        return <p title={moment(x.cell.getValue()).toLocaleString()}>{moment(x.cell.getValue()).fromNow()}
+            {moment(x.cell.getValue()).isBefore(moment()) && <>
                 &nbsp;
                 <Badge bg="secondary">overdue</Badge>
             </>}
@@ -248,8 +248,8 @@ export class Snapshots extends Component {
 
         const columns = [{
             id: 'path',
-            Header: 'Path',
-            accessor: x => x.source,
+            header: 'Path',
+            accessorFn: x => x.source,
             sortType: (a, b) => {
                 const v = compare(a.original.source.path, b.original.source.path);
                 if (v !== 0) {
@@ -259,38 +259,38 @@ export class Snapshots extends Component {
                 return compare(ownerName(a.original.source), ownerName(b.original.source));
             },
             width: "",
-            Cell: x => <Link to={'/snapshots/single-source?' + sourceQueryStringParams(x.cell.value)}>{x.cell.value.path}</Link>,
+            cell: x => <Link to={'/snapshots/single-source?' + sourceQueryStringParams(x.cell.getValue())}>{x.cell.getValue().path}</Link>,
         }, {
             id: 'owner',
-            Header: 'Owner',
-            accessor: x => x.source.userName + '@' + x.source.host,
+            header: 'Owner',
+            accessorFn: x => x.source.userName + '@' + x.source.host,
             width: 250,
         }, {
             id: 'lastSnapshotSize',
-            Header: 'Size',
+            header: 'Size',
             width: 120,
-            accessor: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
-            Cell: x => sizeWithFailures(
-                x.cell.value,
+            accessorFn: x => x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
+            cell: x => sizeWithFailures(
+                x.cell.getValue(),
                 x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry ? x.row.original.lastSnapshot.rootEntry.summ : null, bytesStringBase2),
         }, {
             id: 'lastSnapshotTime',
-            Header: 'Last Snapshot',
+            header: 'Last Snapshot',
             width: 160,
-            accessor: x => x.lastSnapshot ? x.lastSnapshot.startTime : null,
-            Cell: x => x.cell.value ? <p title={moment(x.cell.value).toLocaleString()}>{moment(x.cell.value).fromNow()}</p> : '',
+            accessorFn: x => x.lastSnapshot ? x.lastSnapshot.startTime : null,
+            cell: x => x.cell.getValue() ? <p title={moment(x.cell.getValue()).toLocaleString()}>{moment(x.cell.getValue()).fromNow()}</p> : '',
         }, {
             id: 'nextSnapshotTime',
-            Header: 'Next Snapshot',
+            header: 'Next Snapshot',
             width: 160,
-            accessor: x => x.nextSnapshotTime,
-            Cell: x => this.nextSnapshotTimeCell(x, this),
+            accessorFn: x => x.nextSnapshotTime,
+            cell: x => this.nextSnapshotTimeCell(x, this),
         }, {
             id: 'status',
-            Header: '',
+            header: '',
             width: 300,
-            accessor: x => x.status,
-            Cell: x => this.statusCell(x, this, bytesStringBase2)
+            accessorFn: x => x.status,
+            cell: x => this.statusCell(x, this, bytesStringBase2)
         }]
 
         return <>

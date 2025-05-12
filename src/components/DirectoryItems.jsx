@@ -37,30 +37,30 @@ export class DirectoryItems extends Component {
         const { bytesStringBase2 } = this.context;
         const columns = [{
             id: "name",
-            Header: 'Name',
+            header: 'Name',
             width: "",
-            accessor: x => directoryLinkOrDownload(x, this.props.historyState),
+            cell: x => directoryLinkOrDownload(x.row.original, this.props.historyState),
         }, {
             id: "mtime",
-            accessor: "mtime",
-            Header: "Last Modification",
+            accessorFn: x => x.mtime,
+            header: "Last Modification",
             width: 200,
-            Cell: x => rfc3339TimestampForDisplay(x.cell.value),
+            cell: x => rfc3339TimestampForDisplay(x.cell.getValue()),
         }, {
             id: "size",
-            accessor: x => sizeInfo(x),
-            Header: "Size",
+            accessorFn: x => sizeInfo(x),
+            header: "Size",
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summ, bytesStringBase2),
+            cell: x => sizeWithFailures(x.cell.getValue(), x.row.original.summ, bytesStringBase2),
         }, {
             id: "files",
-            accessor: "summ.files",
-            Header: "Files",
+            accessorFn: x => x.summ ? x.summ.files : undefined,
+            header: "Files",
             width: 100,
         }, {
             id: "dirs",
-            accessor: "summ.dirs",
-            Header: "Directories",
+            accessorFn: x => x.summ ? x.summ.dirs : undefined,
+            header: "Directories",
             width: 100,
         }]
 

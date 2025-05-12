@@ -104,23 +104,23 @@ export class Tasks extends Component {
         }
 
         const columns = [{
-            Header: 'Start Time',
+            header: 'Start Time',
             width: 160,
-            accessor: x => <Link to={'/tasks/' + x.id} title={moment(x.startTime).toLocaleString()}>
-                {moment(x.startTime).fromNow()}
+            cell: x => <Link to={'/tasks/' + x.row.original.id} title={moment(x.row.original.startTime).toLocaleString()}>
+                {moment(x.row.original.startTime).fromNow()}
             </Link>
         }, {
-            Header: 'Status',
+            header: 'Status',
             width: 240,
-            accessor: x => taskStatusSymbol(x),
+            cell: x => taskStatusSymbol(x.row.original),
         }, {
-            Header: 'Kind',
+            header: 'Kind',
             width: "",
-            accessor: x => <p>{x.kind}</p>,
+            cell: x => <p>{x.row.original.kind}</p>,
         }, {
-            Header: 'Description',
+            header: 'Description',
             width: "",
-            accessor: x => <p>{x.description}</p>,
+            cell: x => <p>{x.row.original.description}</p>,
         }]
 
         const filteredItems = this.filterItems(items)

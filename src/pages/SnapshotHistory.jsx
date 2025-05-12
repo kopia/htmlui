@@ -331,53 +331,53 @@ export class SnapshotHistory extends Component {
 
         const columns = [{
             id: 'selected',
-            Header: 'Selected',
+            header: 'Selected',
             width: 20,
             align: "center",
-            Cell: x => <div className="form-check multiselect"><input type="checkbox" className="form-check-input" checked={this.isSelected(x.row.original)} onChange={() => this.toggleSelected(x.row.original)} /></div>,
+            cell: x => <div className="form-check multiselect"><input type="checkbox" className="form-check-input" checked={this.isSelected(x.row.original)} onChange={() => this.toggleSelected(x.row.original)} /></div>,
         }, {
             id: 'startTime',
-            Header: 'Start time',
+            header: 'Start time',
             width: 200,
-            accessor: x => {
-                let timestamp = rfc3339TimestampForDisplay(x.startTime);
-                return <Link to={objectLink(x.rootID, timestamp, { label: path })}>{timestamp}</Link>;
+            cell: x => {
+                let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
+                return <Link to={objectLink(x.row.original.rootID, timestamp, { label: path })}>{timestamp}</Link>;
             },
         }, {
             id: 'description',
-            Header: '',
+            header: '',
             width: 20,
-            Cell: x => this.descriptionFor(x.row.original),
+            cell: x => this.descriptionFor(x.row.original),
         }, {
             id: 'rootID',
-            Header: 'Root',
+            header: 'Root',
             width: "",
-            accessor: x => x.rootID,
-            Cell: x => <><span className="snapshot-hash">{x.cell.value}</span>
+            accessorFn: x => x.rootID,
+            cell: x => <><span className="snapshot-hash">{x.cell.getValue()}</span>
                 {x.row.original.description && <div className='snapshot-description'><small>{x.row.original.description}</small></div>}</>,
         }, {
-            Header: 'Retention',
+            header: 'Retention',
             accessor: 'retention',
             width: "",
-            Cell: x => <span>
-                {x.cell.value.map(l => <React.Fragment key={l}><Badge bg={"retention-badge-"+pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
+            cell: x => <span>
+                {/* {x.cell.getValue().map(l => <React.Fragment key={l}><Badge bg={"retention-badge-"+pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)} */}
                 {x.row.original.pins.map(l => <React.Fragment key={l}>
                     <Badge bg="snapshot-pin" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
                 </React.Fragment>)}
                 {this.newPinFor(x.row.original)}
             </span>
         }, {
-            Header: 'Size',
-            accessor: 'summary.size',
+            header: 'Size',
+            accessorFn: x => x.summary.size,
             width: 100,
-            Cell: x => sizeWithFailures(x.cell.value, x.row.original.summary, bytesStringBase2),
+            cell: x => sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2),
         }, {
-            Header: 'Files',
-            accessor: 'summary.files',
+            header: 'Files',
+            accessorFn: x => x.summary.files,
             width: 100,
         }, {
-            Header: 'Dirs',
-            accessor: 'summary.dirs',
+            header: 'Dirs',
+            accessorFn: x => x.summary.dirs,
             width: 100,
         }]
 

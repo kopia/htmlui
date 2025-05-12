@@ -230,24 +230,24 @@ export class Policies extends Component {
 
 
         const columns = [{
-            Header: 'Username',
+            header: 'Username',
             width: 100,
-            accessor: x => x.target.userName || "*",
+            accessorFn: x => x.target.userName || "*",
         }, {
-            Header: 'Host',
+            header: 'Host',
             width: 100,
-            accessor: x => x.target.host || "*",
+            accessorFn: x => x.target.host || "*",
         }, {
-            Header: 'Path',
-            accessor: x => x.target.path || "*",
+            header: 'Path',
+            accessorFn: x => x.target.path || "*",
         }, {
-            Header: 'Defined',
-            accessor: x => this.policySummary(x),
+            header: 'Defined',
+            cell: x => this.policySummary(x.row.original),
         }, {
             id: 'edit',
-            Header: 'Actions',
+            header: 'Actions',
             width: 50,
-            Cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
+            cell: x => <Button data-testid="edit-policy" as={Link} to={policyEditorURL(x.row.original.target)} variant="primary" size="sm">Edit</Button>
         }]
 
         return <>
