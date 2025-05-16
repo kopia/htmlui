@@ -387,14 +387,14 @@ export class PolicyEditor extends Component {
                             <Row>
                                 <LabelColumn name="Only Compress Extensions" help="Only compress files with the following file extensions (one extension per line)" />
                                 <WideValueColumn>
-                                    {StringList(this, "policy.compression.onlyCompress", { placeholder: "e.g. *.txt" })}
+                                    {StringList(this, "policy.compression.onlyCompress", { placeholder: "e.g. .txt" })}
                                 </WideValueColumn>
                                 {EffectiveTextAreaValue(this, "compression.onlyCompress")}
                             </Row>
                             <Row>
                                 <LabelColumn name="Never Compress Extensions" help="Never compress the following file extensions (one extension per line)" />
                                 <WideValueColumn>
-                                    {StringList(this, "policy.compression.neverCompress", { placeholder: "e.g. *.mp4" })}
+                                    {StringList(this, "policy.compression.neverCompress", { placeholder: "e.g. .mp4" })}
                                 </WideValueColumn>
                                 {EffectiveTextAreaValue(this, "compression.neverCompress")}
                             </Row>
