@@ -357,10 +357,10 @@ export class SnapshotHistory extends Component {
                 {x.row.original.description && <div className='snapshot-description'><small>{x.row.original.description}</small></div>}</>,
         }, {
             header: 'Retention',
-            accessor: 'retention',
+            accessorFn: x => x.retention,
             width: "",
             cell: x => <span>
-                {/* {x.cell.getValue().map(l => <React.Fragment key={l}><Badge bg={"retention-badge-"+pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)} */}
+                {x.cell.getValue().map(l => <React.Fragment key={l}><Badge bg={"retention-badge-"+pillVariant(l)}>{l}</Badge>{' '}</React.Fragment>)}
                 {x.row.original.pins.map(l => <React.Fragment key={l}>
                     <Badge bg="snapshot-pin" onClick={() => this.editPin(x.row.original, l)}><FontAwesomeIcon icon={faThumbtack} /> {l}</Badge>{' '}
                 </React.Fragment>)}
