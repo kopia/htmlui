@@ -52,7 +52,7 @@ export class Policies extends Component {
     sync() {
         this.fetchPolicies();
 
-        axios.post('/api/v1/repo/sync', {}).then(result => {
+        axios.post('/api/v1/repo/sync', {}).then(_ => {
             this.fetchSourcesWithoutSpinner();
         }).catch(error => {
             this.setState({
@@ -145,7 +145,7 @@ export class Policies extends Component {
          */
         function isEmpty(obj) {
             for (var key in obj) {
-                if (obj.hasOwnProperty(key))
+                if (Object.prototype.hasOwnProperty(key))
                     return isEmptyObject(obj[key]);
             }
             return true;

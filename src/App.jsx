@@ -62,7 +62,7 @@ export default class App extends Component {
           isRepositoryConnected: result.data.connected
         });
       }
-    }).catch(error => { /* ignore */ });
+    }).catch(_ => { /* ignore */ });
   }
 
   fetchTaskSummary() {
@@ -70,7 +70,7 @@ export default class App extends Component {
       this.setState({ isFetching: true });
       axios.get('/api/v1/tasks-summary').then(result => {
         this.setState({ isFetching: false, runningTaskCount: result.data["RUNNING"] || 0 });
-      }).catch(error => {
+      }).catch(_ => {
         this.setState({ isFetching: false, runningTaskCount: -1 });
       });
     }

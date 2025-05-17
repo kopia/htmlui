@@ -132,7 +132,7 @@ class SnapshotCreateInternal extends Component {
                 path: this.state.resolvedSource.path,
                 createSnapshot: true,
                 policy: pe.getAndValidatePolicy(),
-            }).then(result => {
+            }).then(_result => {
                 this.props.navigate(-1);
             }).catch(error => {
                 errorAlert(error);

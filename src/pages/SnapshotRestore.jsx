@@ -13,7 +13,7 @@ import { RequiredNumberField } from '../forms/RequiredNumberField';
 import { errorAlert, GoBackButton } from '../utils/uiutil';
 
 export class SnapshotRestoreInternal extends Component {
-    constructor(props) {
+    constructor() {
         super();
 
         this.state = {
