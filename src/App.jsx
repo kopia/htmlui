@@ -4,7 +4,7 @@ import './css/App.css';
 import axios from 'axios';
 import { React, Component } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { BrowserRouter as Router, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { Policy } from './pages/Policy';
 import { Preferences } from './pages/Preferences';
 import { Policies } from "./pages/Policies";
@@ -130,22 +130,20 @@ export default class App extends Component {
                 <h5 className="mb-4">{this.state.repoDescription}</h5>
               </NavLink>
 
-              <Switch>
-                <Route path="/snapshots/new" component={SnapshotCreate} />
-                <Route path="/snapshots/single-source/" component={SnapshotHistory} />
-                <Route path="/snapshots/dir/:oid/restore" component={SnapshotRestore} />
-                <Route path="/snapshots/dir/:oid" component={SnapshotDirectory} />
-                <Route path="/snapshots" component={Snapshots} />
-                <Route path="/policies/edit/" component={Policy} />
-                <Route path="/policies" component={Policies} />
-                <Route path="/tasks/:tid" component={Task} />
-                <Route path="/tasks" component={Tasks} />
-                <Route path="/repo" component={Repository} />
-                <Route path="/preferences" component={Preferences} />
-                <Route exact path="/">
-                  <Redirect to="/snapshots" />
-                </Route>
-              </Switch>
+              <Routes>
+                <Route path="snapshots" element={<Snapshots />} />
+                <Route path="snapshots/new" element={<SnapshotCreate />} />
+                <Route path="snapshots/single-source/" element={<SnapshotHistory />} />
+                <Route path="snapshots/dir/:oid/restore" element={<SnapshotRestore />} />
+                <Route path="snapshots/dir/:oid" element={<SnapshotDirectory />} />
+                <Route path="policies/edit/" element={<Policy />} />
+                <Route path="policies" element={<Policies />} />
+                <Route path="tasks/:tid" element={<Task />} />
+                <Route path="tasks" element={<Tasks />} />
+                <Route path="repo" element={<Repository />} />
+                <Route path="preferences" element={<Preferences />} />
+                <Route path="/" element={<Navigate to="/snapshots" />} />
+              </Routes>
             </Container>
           </UIPreferenceProvider>
         </AppContext.Provider>

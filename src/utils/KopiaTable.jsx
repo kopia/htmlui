@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Table';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
 import { PAGE_SIZES, UIPreferencesContext } from '../contexts/UIPreferencesContext';
 

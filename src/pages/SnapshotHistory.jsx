@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import KopiaTable from '../utils/KopiaTable';
 import { CLIEquivalent, compare, errorAlert, GoBackButton, objectLink, parseQuery, redirect, rfc3339TimestampForDisplay, sizeWithFailures, sourceQueryStringParams } from '../utils/uiutil';
 import { faSync, faThumbtack } from '@fortawesome/free-solid-svg-icons';
@@ -34,7 +34,7 @@ function pillVariant(tag) {
     return "primary";
 }
 
-export class SnapshotHistory extends Component {
+class SnapshotHistoryInternal extends Component {
     constructor() {
         super();
         this.state = {
@@ -138,7 +138,7 @@ export class SnapshotHistory extends Component {
 
         axios.post('/api/v1/snapshots/delete', req).then(result => {
             if (req.deleteSourceAndPolicy) {
-                this.props.history.goBack();
+                this.props.navigate(-1);
             } else {
                 this.fetchSnapshots();
             }
@@ -163,7 +163,7 @@ export class SnapshotHistory extends Component {
         };
 
         axios.post('/api/v1/snapshots/delete', req).then(result => {
-            this.props.history.goBack();
+            this.props.navigate(-1);
         }).catch(error => {
             redirect(error);
             errorAlert(error);
@@ -341,7 +341,7 @@ export class SnapshotHistory extends Component {
             width: 200,
             cell: x => {
                 let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
-                return <Link to={objectLink(x.row.original.rootID, timestamp, { label: path })}>{timestamp}</Link>;
+                return <Link to={objectLink(x.row.original.rootID, timestamp)} state={{ label: path }}>{timestamp}</Link>;
             },
         }, {
             id: 'description',
@@ -386,7 +386,7 @@ export class SnapshotHistory extends Component {
         return <>
             <Row>
                 <Col>
-                    <GoBackButton onClick={this.props.history.goBack} />
+                    <GoBackButton />
                     &nbsp;
                     {snapshots.length > 0 && (selectedElements.length < snapshots.length ?
                         <Button size="sm" variant="primary" onClick={this.selectAll}>Select All</Button> :
@@ -510,4 +510,11 @@ export class SnapshotHistory extends Component {
         </>;
     }
 }
-SnapshotHistory.contextType = UIPreferencesContext
+
+export function SnapshotHistory(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    useContext(UIPreferencesContext);
+  
+    return <SnapshotHistoryInternal navigate={navigate} location={location} {...props} />;
+}

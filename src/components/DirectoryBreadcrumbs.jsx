@@ -1,13 +1,13 @@
 import React from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 export function DirectoryBreadcrumbs() {
     const location = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const breadcrumbs = []
     for (let state = location.state; state; state = state.prevState) {
@@ -21,7 +21,7 @@ export function DirectoryBreadcrumbs() {
                     const index = breadcrumbs.length - i - 1 // revert index
                     return <Breadcrumb.Item key={index} size="sm" variant="outline-secondary"
                         onClick={() => {
-                            if (index) history.go(-index);
+                            if (index) navigate(-index);
                         }}
                         active={!index}>
                         {state.label}

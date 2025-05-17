@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { handleChange } from '../forms';
 import { OptionalDirectory } from '../forms/OptionalDirectory'
 import KopiaTable from '../utils/KopiaTable';
-import { checkPolicyPath, CLIEquivalent, compare, isAbsolutePath, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
+import { checkPolicyPath, CLIEquivalent, compare, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"

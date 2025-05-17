@@ -2,7 +2,7 @@
 import { faStopCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -11,10 +11,11 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
 import { Logs } from '../components/Logs';
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
 
-export class Task extends Component {
+class TaskInternal extends Component {
     constructor() {
         super();
         this.state = {
@@ -46,7 +47,7 @@ export class Task extends Component {
     }
 
     taskID(props) {
-        return props.taskID || props.match.params.tid;
+        return props.taskID || props.params.tid;
     }
 
     fetchTask() {
@@ -168,11 +169,11 @@ export class Task extends Component {
         }
 
         return <Form>
-            {this.props.history &&
+            {this.props.navigate &&
                 <Row>
                     <Form.Group>
                         <h4>
-                            <GoBackButton onClick={this.props.history.goBack} />
+                            <GoBackButton />
                             {task.status === "RUNNING" && <>
                                 &nbsp;<Button size="sm" variant="danger" onClick={() => cancelTask(task.id)} ><FontAwesomeIcon icon={faStopCircle} /> Stop </Button>
                             </>}
@@ -223,4 +224,12 @@ export class Task extends Component {
             ;
     }
 }
-Task.contextType = UIPreferencesContext
+
+export function Task(props) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = useParams();
+    useContext(UIPreferencesContext);
+  
+    return <TaskInternal navigate={navigate} location={location} params={params} {...props} />;
+}
