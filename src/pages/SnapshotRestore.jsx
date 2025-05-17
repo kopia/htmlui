@@ -11,9 +11,10 @@ import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
 import { RequiredNumberField } from '../forms/RequiredNumberField';
 import { errorAlert, GoBackButton } from '../utils/uiutil';
+import PropTypes from 'prop-types';
 
 export class SnapshotRestoreInternal extends Component {
-    constructor(props) {
+    constructor() {
         super();
 
         this.state = {
@@ -161,6 +162,12 @@ export class SnapshotRestoreInternal extends Component {
         </div>;
     }
 }
+
+SnapshotRestoreInternal.propTypes = {
+    params: PropTypes.object.isRequired,
+    navigate: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
+};
 
 export function SnapshotRestore(props) {
     const navigate = useNavigate();

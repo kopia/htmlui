@@ -26,7 +26,7 @@ export function handleChange(event, valueGetter = x => x.value) {
     setDeepStateProperty(this, event.target.name, valueGetter(event.target));
 }
 
-export function stateProperty(component, name, defaultValue = "") {
+export function stateProperty(component, name, _defaultValue = "") {
     return getDeepStateProperty(component, name);
 }
 

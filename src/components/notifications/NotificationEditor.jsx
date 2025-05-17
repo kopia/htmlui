@@ -84,7 +84,7 @@ export class NotificationEditor extends Component {
         }
 
         if (this.state.isNewProfile) {
-            axios.post('/api/v1/notificationProfiles', cfg).then(result => {
+            axios.post('/api/v1/notificationProfiles', cfg).then(_result => {
                 this.setEditedProfile(null, false);
                 this.fetchNotificationProfiles();
             }).catch(error => {
@@ -101,7 +101,7 @@ export class NotificationEditor extends Component {
             return;
         }
 
-        axios.post('/api/v1/notificationProfiles', cfg).then(result => {
+        axios.post('/api/v1/notificationProfiles', cfg).then(_result => {
             this.setEditedProfile(null, false);
             this.fetchNotificationProfiles();
         }).catch(error => {
@@ -119,7 +119,7 @@ export class NotificationEditor extends Component {
             }
         }
 
-        axios.post('/api/v1/testNotificationProfile', cfg).then(result => {
+        axios.post('/api/v1/testNotificationProfile', cfg).then(_result => {
             alert('Notification sent, please make sure you have received it.');
         }).catch(error => {
             if (error.response.data.error) {
@@ -133,7 +133,7 @@ export class NotificationEditor extends Component {
             return;
         }
 
-        axios.delete('/api/v1/notificationProfiles/' + profileName).then(result => {
+        axios.delete('/api/v1/notificationProfiles/' + profileName).then(_result => {
             this.fetchNotificationProfiles();
         }).catch(error => {
             if (error.response.data.error) {
@@ -147,7 +147,7 @@ export class NotificationEditor extends Component {
             this.setState({
                 notificationProfiles: result.data || [],
             });
-        }).catch(error => { });
+        }).catch(_error => { });
     }
 
     componentDidMount() {
@@ -235,7 +235,7 @@ export class NotificationEditor extends Component {
                     </tbody>
                 </Table>
             </Row> : <Row>
-                <p><Badge bg="warning" text="dark">Important</Badge>&nbsp;You don't have any notification profiles defined.<br/><br/>Click the button below to add a new profile to receive notifications from Kopia.</p>
+                <p><Badge bg="warning" text="dark">Important</Badge>&nbsp;You don&apos;t have any notification profiles defined.<br/><br/>Click the button below to add a new profile to receive notifications from Kopia.</p>
             </Row>}
             <Row>
                 <Dropdown>

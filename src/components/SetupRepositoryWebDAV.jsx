@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredField } from '../forms/RequiredField';
+import PropTypes from 'prop-types';
 
 export class SetupRepositoryWebDAV extends Component {
     constructor(props) {
@@ -30,3 +31,7 @@ export class SetupRepositoryWebDAV extends Component {
         </>;
     }
 }
+
+SetupRepositoryWebDAV.propTypes = {
+    initial: PropTypes.object,
+};

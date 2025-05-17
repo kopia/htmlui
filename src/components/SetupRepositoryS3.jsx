@@ -4,6 +4,7 @@ import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
+import PropTypes from 'prop-types';
 
 export class SetupRepositoryS3 extends Component {
     constructor(props) {
@@ -43,3 +44,7 @@ export class SetupRepositoryS3 extends Component {
         </>;
     }
 }
+
+SetupRepositoryS3.propTypes = {
+    initial: PropTypes.object,
+};

@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from '../utils/uiutil';
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
-import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import PropTypes from 'prop-types';
 
 class SnapshotDirectoryInternal extends Component {
     constructor() {
@@ -60,7 +60,7 @@ class SnapshotDirectoryInternal extends Component {
             this.setState({
                 mountInfo: result.data,
             });
-        }).catch(error => this.setState({
+        }).catch(_error => this.setState({
             mountInfo: {},
         }));
     }
@@ -74,13 +74,13 @@ class SnapshotDirectoryInternal extends Component {
             this.setState({
                 mountInfo: result.data,
             });
-        }).catch(error => this.setState({
+        }).catch(_error => this.setState({
             mountInfo: {},
         }));
     }
 
     unmount() {
-        axios.delete('/api/v1/mounts/' + this.state.oid).then(result => {
+        axios.delete('/api/v1/mounts/' + this.state.oid).then(_result => {
             this.setState({
                 mountInfo: {},
             });
@@ -153,6 +153,13 @@ class SnapshotDirectoryInternal extends Component {
         </>
     }
 }
+
+SnapshotDirectoryInternal.propTypes = {
+    navigate: PropTypes.func,
+    params: PropTypes.object,
+    location: PropTypes.object,
+};
+
 export function SnapshotDirectory(props) {
     const navigate = useNavigate();
     const location = useLocation();

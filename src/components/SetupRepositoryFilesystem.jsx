@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredDirectory } from '../forms/RequiredDirectory';
+import PropTypes from 'prop-types';
 
 export class SetupRepositoryFilesystem extends Component {
     constructor(props) {
@@ -22,3 +23,7 @@ export class SetupRepositoryFilesystem extends Component {
         </>;
     }
 }
+
+SetupRepositoryFilesystem.propTypes = {
+    initial: PropTypes.object,
+};

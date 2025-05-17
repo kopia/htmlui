@@ -91,7 +91,7 @@ export class Snapshots extends Component {
 
     sync() {
         this.setState({ isRefreshing: true });
-        axios.post('/api/v1/repo/sync', {}).then(result => {
+        axios.post('/api/v1/repo/sync', {}).then(_result => {
             this.fetchSourcesWithoutSpinner();
         }).catch(error => {
             errorAlert(error);
@@ -145,6 +145,7 @@ export class Snapshots extends Component {
                 </>;
 
             case "UPLOADING":
+                {
                 let u = x.row.original.upload;
                 let title = "";
                 let totals = "";
@@ -171,6 +172,7 @@ export class Snapshots extends Component {
                     &nbsp;
                     {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
                 </>;
+                }
 
             default:
                 return "";
@@ -178,7 +180,7 @@ export class Snapshots extends Component {
     }
 
     cancelSnapshot(source) {
-        axios.post('/api/v1/sources/cancel?' + sourceQueryStringParams(source), {}).then(result => {
+        axios.post('/api/v1/sources/cancel?' + sourceQueryStringParams(source), {}).then(_result => {
             this.fetchSourcesWithoutSpinner();
         }).catch(error => {
             errorAlert(error);
@@ -186,14 +188,14 @@ export class Snapshots extends Component {
     }
 
     startSnapshot(source) {
-        axios.post('/api/v1/sources/upload?' + sourceQueryStringParams(source), {}).then(result => {
+        axios.post('/api/v1/sources/upload?' + sourceQueryStringParams(source), {}).then(_result => {
             this.fetchSourcesWithoutSpinner();
         }).catch(error => {
             errorAlert(error);
         });
     }
 
-    nextSnapshotTimeCell(x, parent) {
+    nextSnapshotTimeCell(x) {
         if (!x.cell.getValue()) {
             if (x.row.original.status === "PAUSED") {
                 return "paused";
@@ -284,7 +286,7 @@ export class Snapshots extends Component {
             header: 'Next Snapshot',
             width: 160,
             accessorFn: x => x.nextSnapshotTime,
-            cell: x => this.nextSnapshotTimeCell(x, this),
+            cell: x => this.nextSnapshotTimeCell(x),
         }, {
             id: 'status',
             header: '',

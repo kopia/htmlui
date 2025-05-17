@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import { handleChange } from '../forms';
 import { redirect } from '../utils/uiutil';
+import PropTypes from 'prop-types';
 
 export class Logs extends Component {
     constructor() {
@@ -82,8 +83,10 @@ export class Logs extends Component {
 
     formatLogParams(entry) {
         // if there are any properties other than `msg, ts, level, mod` output them as JSON.
-        let { msg, ts, level, mod, ...parametersOnly } = entry;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        let { msg, ts, level, mod, ...parametersOnly } = entry;
+        
         const p = JSON.stringify(parametersOnly);
         if (p !== "{}") {
             return <code>{p}</code>;
@@ -122,3 +125,7 @@ export class Logs extends Component {
         return null;
     }
 }
+
+Logs.propTypes = {
+    taskID: PropTypes.string.isRequired,
+};

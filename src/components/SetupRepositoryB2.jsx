@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredField } from '../forms/RequiredField';
 import { OptionalField } from '../forms/OptionalField';
+import PropTypes from 'prop-types';
 
 export class SetupRepositoryB2 extends Component {
     constructor(props) {
@@ -33,3 +34,7 @@ export class SetupRepositoryB2 extends Component {
         </>;
     }
 }
+
+SetupRepositoryB2.propTypes = {
+    initial: PropTypes.object,
+};

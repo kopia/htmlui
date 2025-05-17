@@ -1,4 +1,4 @@
-import { render, waitFor, logDOM } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { MemoryRouter } from 'react-router-dom';
@@ -125,9 +125,6 @@ it('e2e', async () => {
 
     await waitFor(() => expect(getByTestId("effective-retention.keepHourly").value).toBe("45"));
     expect(getByTestId("effective-retention.keepLatest").value).toEqual("33");
-    if (false) {
-        logDOM(getByTestId("definition-retention.keepHourly"));
-    }
 
     await waitFor(() => expect(getByTestId("definition-retention.keepLatest").innerHTML).toContain(`Directory: some-user@h1:some-path`));
     await waitFor(() => expect(getByTestId("definition-retention.keepMonthly").innerHTML).toContain("Directory: u1@h1:p1"));

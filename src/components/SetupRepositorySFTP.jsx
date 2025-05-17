@@ -5,6 +5,7 @@ import { OptionalField } from '../forms/OptionalField';
 import { OptionalNumberField } from '../forms/OptionalNumberField';
 import { RequiredBoolean } from '../forms/RequiredBoolean';
 import { RequiredField } from '../forms/RequiredField';
+import PropTypes from 'prop-types';
 
 function hasExactlyOneOf(component, names) {
     let count = 0;
@@ -97,3 +98,7 @@ export class SetupRepositorySFTP extends Component {
         </>;
     }
 }
+
+SetupRepositorySFTP.propTypes = {
+    initial: PropTypes.object,
+};

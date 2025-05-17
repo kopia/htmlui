@@ -83,7 +83,7 @@ export class Repository extends Component {
 
     disconnect() {
         this.setState({ isLoading: true })
-        axios.post('/api/v1/repo/disconnect', {}).then(result => {
+        axios.post('/api/v1/repo/disconnect', {}).then(_result => {
             this.context.repositoryUpdated(false);
         }).catch(error => this.setState({
             error,
@@ -109,7 +109,7 @@ export class Repository extends Component {
             this.setState({
                 isLoading: false,
             });
-        }).catch(error => {
+        }).catch(_error => {
             this.setState({
                 isLoading: false,
             });

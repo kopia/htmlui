@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { createRef } from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 import { useNavigate, useLocation } from "react-router-dom";
