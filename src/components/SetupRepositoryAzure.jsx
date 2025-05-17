@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { OptionalField } from '../forms/OptionalField';
 import { RequiredField } from '../forms/RequiredField';
-
+import PropTypes from 'prop-types';
 export class SetupRepositoryAzure extends Component {
     constructor(props) {
         super();
@@ -35,3 +35,7 @@ export class SetupRepositoryAzure extends Component {
         </>;
     }
 }
+
+SetupRepositoryAzure.propTypes = {
+    initial: PropTypes.object,
+};

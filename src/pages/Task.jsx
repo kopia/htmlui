@@ -14,6 +14,7 @@ import { Logs } from '../components/Logs';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import PropTypes from 'prop-types';
 
 class TaskInternal extends Component {
     constructor() {
@@ -224,6 +225,14 @@ class TaskInternal extends Component {
             ;
     }
 }
+
+TaskInternal.propTypes = {
+    navigate: PropTypes.func,
+    params: PropTypes.object,
+    location: PropTypes.object,
+    taskID: PropTypes.string,
+    showZeroCounters: PropTypes.bool,
+};
 
 export function Task(props) {
     const navigate = useNavigate();

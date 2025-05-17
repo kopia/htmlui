@@ -143,7 +143,7 @@ export class SetupRepository extends Component {
 
         request.clientOptions = this.clientOptions();
 
-        axios.post('/api/v1/repo/create', request).then(result => {
+        axios.post('/api/v1/repo/create', request).then(_result => {
             this.context.repositoryUpdated(true);
         }).catch(error => {
             if (error.response.data) {
@@ -189,7 +189,7 @@ export class SetupRepository extends Component {
         request.clientOptions = this.clientOptions();
 
         this.setState({ isLoading: true });
-        axios.post('/api/v1/repo/connect', request).then(result => {
+        axios.post('/api/v1/repo/connect', request).then(_result => {
             this.setState({ isLoading: false });
             this.context.repositoryUpdated(true);
         }).catch(error => {
@@ -263,7 +263,7 @@ export class SetupRepository extends Component {
         };
 
         this.setState({ isLoading: true });
-        axios.post('/api/v1/repo/exists', request).then(result => {
+        axios.post('/api/v1/repo/exists', request).then(_result => {
             this.setState({
                 // verified and exists
                 storageVerified: true,
@@ -472,7 +472,7 @@ export class SetupRepository extends Component {
                         value={this.state.username + '@' + this.state.hostname}
                         readOnly={true}
                         size="sm" />
-                    <Form.Text className="text-muted">To override, click 'Show Advanced Options'</Form.Text>
+                    <Form.Text className="text-muted">To override, click &apos;Show Advanced Options&apos;</Form.Text>
                 </Form.Group>
             </Row>
             <Row>

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import KopiaTable from '../utils/KopiaTable';
 import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from '../utils/uiutil';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import PropTypes from 'prop-types';
 
 function objectName(name, typeID) {
     if (typeID === "d") {
@@ -26,7 +27,7 @@ function sizeInfo(item) {
 
 function directoryLinkOrDownload(x, state) {
     if (x.obj.startsWith("k")) {
-        return <Link to={objectLink(x.obj, x.name)} state={{label:x.name, oid:x.obj, prevState:state}}>{objectName(x.name, x.type)}</Link>;
+        return <Link to={objectLink(x.obj)} state={{label:x.name, oid:x.obj, prevState:state}}>{objectName(x.name, x.type)}</Link>;
     }
 
     return <a href={"/api/v1/objects/" + x.obj + "?fname=" + encodeURIComponent(x.name)}>{x.name}</a>;
@@ -67,3 +68,8 @@ export function DirectoryItems({ historyState, items }) {
 
     return <KopiaTable data={items} columns={columns} />;
 }
+
+DirectoryItems.propTypes = {
+    historyState: PropTypes.object,
+    items: PropTypes.array.isRequired,
+};

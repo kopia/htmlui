@@ -1,15 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from "@testing-library/user-event";
 import { Preferences } from '../pages/Preferences';
-const { setTheme } = vi.importActual('../pages/Preferences');
-// Wrapper
-let wrapper;
+import React from 'react';
 
 /**
  * 
  */
 beforeEach(() => {
-    wrapper = render(<Preferences />)
+    render(<Preferences />)
 });
 
 /**

@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // locale to use for number formatting (undefined would use default locale, but we stick to EN for now)
 const locale = "en-US"
@@ -62,7 +63,7 @@ export function sizeDisplayName(size, bytesStringBase2) {
     return toDecimalUnitString(size, 1000, base10UnitPrefixes, "B");
 }
 
-export function intervalDisplayName(v) {
+export function intervalDisplayName() {
     return "-";
 }
 
@@ -92,7 +93,7 @@ export function rfc3339TimestampForDisplay(n) {
     return t.toLocaleString();
 }
 
-export function objectLink(n, label, prevState) {
+export function objectLink(n) {
     if (n.startsWith("k") || n.startsWith("Ik")) {
         return "/snapshots/dir/" + n;
     }
@@ -292,12 +293,12 @@ export function taskStatusSymbol(task) {
 }
 
 export function cancelTask(tid) {
-    axios.post('/api/v1/tasks/' + tid + '/cancel', {}).then(result => {
-    }).catch(error => {
+    axios.post('/api/v1/tasks/' + tid + '/cancel', {}).then(_result => {
+    }).catch(_error => {
     });
 }
 
-export function GoBackButton(props) {
+export function GoBackButton() {
     const navigate = useNavigate();
 
     return <Button size="sm" variant="warning" onClick={() => navigate(-1)}><FontAwesomeIcon icon={faChevronLeft} /> Return </Button>;
@@ -408,7 +409,7 @@ export function CLIEquivalent(props) {
     if (visible && !cliInfo.executable) {
         axios.get('/api/v1/cli').then(result => {
             setCLIInfo(result.data);
-        }).catch(error => { });
+        }).catch(_error => { });
     }
 
     const ref = React.createRef()
@@ -433,6 +434,11 @@ export function CLIEquivalent(props) {
         </InputGroup>
     </>;
 }
+
+CLIEquivalent.propTypes = {
+    command: PropTypes.string.isRequired,
+};
+
 
 export function toAlgorithmOption(x, defaultID) {
     let text = x.id;

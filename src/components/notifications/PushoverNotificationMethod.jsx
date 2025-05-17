@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../../forms';
 import { RequiredField } from '../../forms/RequiredField';
 import { NotificationFormatSelector } from './NotificationFormatSelector';
+import PropTypes from 'prop-types';
 
 export class PushoverNotificationMethod extends Component {
     constructor(props) {
@@ -40,3 +41,7 @@ export class PushoverNotificationMethod extends Component {
         </>;
     }
 }
+
+PushoverNotificationMethod.propTypes = {
+    initial: PropTypes.object,
+};

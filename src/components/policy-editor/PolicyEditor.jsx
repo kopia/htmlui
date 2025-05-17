@@ -29,6 +29,7 @@ import { SectionHeaderRow } from './SectionHeaderRow';
 import { ActionRowScript } from './ActionRowScript';
 import { ActionRowTimeout } from './ActionRowTimeout';
 import { ActionRowMode } from './ActionRowMode';
+import PropTypes from 'prop-types';
 
 export class PolicyEditor extends Component {
     constructor() {
@@ -97,18 +98,14 @@ export class PolicyEditor extends Component {
     resolvePolicy(props) {
         const u = '/api/v1/policy/resolve?' + sourceQueryStringParams(props);
 
-        try {
-            axios.post(u, {
-                "updates": this.getAndValidatePolicy(),
-                "numUpcomingSnapshotTimes": 5,
-            }).then(result => {
-                this.setState({ resolved: result.data });
-            }).catch(error => {
-                this.setState({ resolvedError: error });
-            });
-        }
-        catch (e) {
-        }
+        axios.post(u, {
+            "updates": this.getAndValidatePolicy(),
+            "numUpcomingSnapshotTimes": 5,
+        }).then(result => {
+            this.setState({ resolved: result.data });
+        }).catch(error => {
+            this.setState({ resolvedError: error });
+        });
     }
 
     PolicyDefinitionPoint(p) {
@@ -208,7 +205,7 @@ export class PolicyEditor extends Component {
             const policy = this.getAndValidatePolicy();
 
             this.setState({ saving: true });
-            axios.put(this.policyURL(this.props), policy).then(result => {
+            axios.put(this.policyURL(this.props), policy).then(_result => {
                 this.props.close();
             }).catch(error => {
                 this.setState({ saving: false });
@@ -224,7 +221,7 @@ export class PolicyEditor extends Component {
         if (window.confirm('Are you sure you want to delete this policy?')) {
             this.setState({ saving: true });
 
-            axios.delete(this.policyURL(this.props)).then(result => {
+            axios.delete(this.policyURL(this.props)).then(_result => {
                 this.props.close();
             }).catch(error => {
                 this.setState({ saving: false });
@@ -586,3 +583,15 @@ export class PolicyEditor extends Component {
         </>;
     }
 }
+
+PolicyEditor.propTypes = {
+    path: PropTypes.string,
+    close: PropTypes.func,
+    embedded: PropTypes.bool,
+    isNew: PropTypes.bool,
+    params: PropTypes.object.isRequired,
+    navigate: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
+    userName: PropTypes.string,
+    host: PropTypes.string,
+};

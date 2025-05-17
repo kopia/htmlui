@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from 'react-bootstrap/Modal';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import PropTypes from 'prop-types';
 
 function pillVariant(tag) {
     if (tag.startsWith("latest-")) {
@@ -136,7 +137,7 @@ class SnapshotHistoryInternal extends Component {
             req.snapshotManifestIds.push(id);
         }
 
-        axios.post('/api/v1/snapshots/delete', req).then(result => {
+        axios.post('/api/v1/snapshots/delete', req).then(_result => {
             if (req.deleteSourceAndPolicy) {
                 this.props.navigate(-1);
             } else {
@@ -162,7 +163,7 @@ class SnapshotHistoryInternal extends Component {
             deleteSourceAndPolicy: true,
         };
 
-        axios.post('/api/v1/snapshots/delete', req).then(result => {
+        axios.post('/api/v1/snapshots/delete', req).then(_result => {
             this.props.navigate(-1);
         }).catch(error => {
             redirect(error);
@@ -295,7 +296,7 @@ class SnapshotHistoryInternal extends Component {
 
     editSnapshots(req) {
         this.setState({ savingSnapshot: true });
-        axios.post('/api/v1/snapshots/edit', req).then(resp => {
+        axios.post('/api/v1/snapshots/edit', req).then(_resp => {
             this.setState({
                 editPinFor: undefined,
                 editingDescriptionFor: undefined,
@@ -341,7 +342,7 @@ class SnapshotHistoryInternal extends Component {
             width: 200,
             cell: x => {
                 let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
-                return <Link to={objectLink(x.row.original.rootID, timestamp)} state={{ label: path }}>{timestamp}</Link>;
+                return <Link to={objectLink(x.row.original.rootID)} state={{ label: path }}>{timestamp}</Link>;
             },
         }, {
             id: 'description',
@@ -509,6 +510,14 @@ class SnapshotHistoryInternal extends Component {
             </Modal>
         </>;
     }
+}
+
+SnapshotHistoryInternal.propTypes = {
+    host: PropTypes.string,
+    userName: PropTypes.string,
+    history: PropTypes.object,
+    location: PropTypes.object,
+    navigate: PropTypes.func,
 }
 
 export function SnapshotHistory(props) {

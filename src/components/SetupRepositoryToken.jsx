@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import { handleChange, validateRequiredFields } from '../forms';
 import { RequiredField } from '../forms/RequiredField';
+import PropTypes from 'prop-types';
+
 
 export class SetupRepositoryToken extends Component {
     constructor(props) {
@@ -25,3 +27,7 @@ export class SetupRepositoryToken extends Component {
         </>;
     }
 }
+
+SetupRepositoryToken.propTypes = {
+    initial: PropTypes.object,
+};

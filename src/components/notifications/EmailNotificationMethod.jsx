@@ -5,6 +5,7 @@ import { RequiredField } from '../../forms/RequiredField';
 import { RequiredNumberField } from '../../forms/RequiredNumberField';
 import { OptionalField } from '../../forms/OptionalField';
 import { NotificationFormatSelector } from './NotificationFormatSelector';
+import PropTypes from 'prop-types';
 
 export class EmailNotificationMethod extends Component {
     constructor(props) {
@@ -46,3 +47,7 @@ export class EmailNotificationMethod extends Component {
         </>;
     }
 }
+
+EmailNotificationMethod.propTypes = {
+    initial: PropTypes.object,
+};

@@ -13,6 +13,7 @@ import { handleChange } from '../forms';
 import { OptionalDirectory } from '../forms/OptionalDirectory'
 import KopiaTable from '../utils/KopiaTable';
 import { checkPolicyPath, CLIEquivalent, compare, ownerName, policyEditorURL, redirect } from '../utils/uiutil';
+import PropTypes from 'prop-types';
 
 const applicablePolicies = "Applicable Policies"
 const localPolicies = "Local Path Policies"
@@ -145,7 +146,7 @@ export class Policies extends Component {
          */
         function isEmpty(obj) {
             for (var key in obj) {
-                if (Object.prototype.hasOwnProperty(key))
+                if (Object.prototype.hasOwnProperty.call(obj, key))
                     return isEmptyObject(obj[key]);
             }
             return true;
@@ -297,3 +298,9 @@ export class Policies extends Component {
         </>;
     }
 }
+
+Policies.propTypes = {
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+};

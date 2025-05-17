@@ -6,7 +6,7 @@ import { handleChange, validateRequiredFields, stateProperty } from '../../forms
 import { RequiredField } from '../../forms/RequiredField';
 import { OptionalField } from '../../forms/OptionalField';
 import { NotificationFormatSelector } from './NotificationFormatSelector';
-
+import PropTypes from 'prop-types';
 export class WebHookNotificationMethod extends Component {
     constructor(props) {
         super();
@@ -49,3 +49,7 @@ export class WebHookNotificationMethod extends Component {
         </>;
     }
 }
+
+WebHookNotificationMethod.propTypes = {
+    initial: PropTypes.object,
+};

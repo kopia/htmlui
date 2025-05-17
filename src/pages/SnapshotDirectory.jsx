@@ -9,6 +9,8 @@ import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from '../utils/uiutil';
+import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
+import PropTypes from 'prop-types';
 
 class SnapshotDirectoryInternal extends Component {
     constructor() {
@@ -151,6 +153,13 @@ class SnapshotDirectoryInternal extends Component {
         </>
     }
 }
+
+SnapshotDirectoryInternal.propTypes = {
+    navigate: PropTypes.func,
+    params: PropTypes.object,
+    location: PropTypes.object,
+};
+
 export function SnapshotDirectory(props) {
     const navigate = useNavigate();
     const location = useLocation();

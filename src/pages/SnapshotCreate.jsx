@@ -10,6 +10,7 @@ import { PolicyEditor } from '../components/policy-editor/PolicyEditor';
 import { SnapshotEstimation } from '../components/SnapshotEstimation';
 import { RequiredDirectory } from '../forms/RequiredDirectory';
 import { CLIEquivalent, errorAlert, GoBackButton, redirect } from '../utils/uiutil';
+import PropTypes from 'prop-types';
 
 class SnapshotCreateInternal extends Component {
     constructor() {
@@ -195,6 +196,11 @@ class SnapshotCreateInternal extends Component {
         </>;
     }
 }
+
+SnapshotCreateInternal.propTypes = {
+    navigate: PropTypes.func,
+    location: PropTypes.object,
+};
 
 export function SnapshotCreate(props) {
     const navigate = useNavigate();

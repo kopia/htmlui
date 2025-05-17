@@ -8,7 +8,7 @@ export function UpcomingSnapshotTimes(resolved) {
     }
 
     if (resolved.schedulingError) {
-        return <p class="error">{resolved.schedulingError}</p>;
+        return <p className="error">{resolved.schedulingError}</p>;
     }
 
     const times = resolved.upcomingSnapshotTimes;

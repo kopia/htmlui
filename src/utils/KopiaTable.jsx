@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Table from 'react-bootstrap/Table';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
 import { PAGE_SIZES, UIPreferencesContext } from '../contexts/UIPreferencesContext';
+import PropTypes from 'prop-types';
 
 function paginationItems(count, active, gotoPage) {
   let items = [];
@@ -159,3 +160,8 @@ export default function KopiaTable({ columns, data }) {
     </div>
     </>;
 }
+
+KopiaTable.propTypes = {
+  columns: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+};

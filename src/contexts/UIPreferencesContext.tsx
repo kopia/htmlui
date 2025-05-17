@@ -19,9 +19,9 @@ export interface UIPreferences {
     get fontSize(): FontSize
     setTheme: (theme: Theme) => void
     setPageSize: (pageSize: number) => void
-    setByteStringBase: (bytesStringBase2: String) => void
+    setByteStringBase: (bytesStringBase2: string) => void
     setDefaultSnapshotViewAll: (defaultSnapshotView: boolean) => void
-    setFontSize: (size: String) => void
+    setFontSize: (size: string) => void
 }
 
 interface SerializedUIPreferences {
@@ -76,8 +76,8 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         return { ...oldPreferences, pageSize };
     });
 
-    const setByteStringBase = (input: String) => setPreferences(oldPreferences => {
-        var bytesStringBase2 = input === "true";
+    const setByteStringBase = (input: string) => setPreferences(oldPreferences => {
+        const bytesStringBase2 = input === "true";
         return { ...oldPreferences, bytesStringBase2 };
     });
 
@@ -92,7 +92,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
 
     useEffect(() => {
         axios.get(PREFERENCES_URL).then(result => {
-            let storedPreferences = result.data as SerializedUIPreferences;
+            const storedPreferences = result.data as SerializedUIPreferences;
             if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
                 storedPreferences.theme = getDefaultTheme();
             }
@@ -115,7 +115,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         if (!preferences) {
             return;
         }
-        axios.put(PREFERENCES_URL, preferences).then(result => { }).catch(err => console.error(err));
+        axios.put(PREFERENCES_URL, preferences).then(_result => { }).catch(err => console.error(err));
     }, [preferences]);
 
     /**
@@ -129,7 +129,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
      * The font size to be set
      */
     const syncTheme = (theme: Theme, fontSize: FontSize) => {
-        var doc = document.querySelector("html")!;
+        const doc = document.querySelector("html")!;
         doc.classList.remove(...doc.classList);
         doc.classList.add(theme, fontSize)
     }
