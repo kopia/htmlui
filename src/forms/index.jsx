@@ -1,56 +1,56 @@
-import { getDeepStateProperty, setDeepStateProperty } from '../utils/deepstate';
+import { getDeepStateProperty, setDeepStateProperty } from "../utils/deepstate";
 
 export function validateRequiredFields(component, fields) {
-    let updateState = {};
-    let failed = false;
+  let updateState = {};
+  let failed = false;
 
-    for (let i = 0; i < fields.length; i++) {
-        const field = fields[i];
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
 
-        if (!component.state[field]) {
-            // explicitly set field to empty string, component triggers validation error UI.
-            updateState[field] = '';
-            failed = true;
-        }
+    if (!component.state[field]) {
+      // explicitly set field to empty string, component triggers validation error UI.
+      updateState[field] = "";
+      failed = true;
     }
+  }
 
-    if (failed) {
-        component.setState(updateState);
-        return false;
-    }
+  if (failed) {
+    component.setState(updateState);
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
-export function handleChange(event, valueGetter = x => x.value) {
-    setDeepStateProperty(this, event.target.name, valueGetter(event.target));
+export function handleChange(event, valueGetter = (x) => x.value) {
+  setDeepStateProperty(this, event.target.name, valueGetter(event.target));
 }
 
 export function stateProperty(component, name, _defaultValue = "") {
-    return getDeepStateProperty(component, name);
+  return getDeepStateProperty(component, name);
 }
 
 export function valueToNumber(t) {
-    if (t.value === "") {
-        return undefined;
-    }
+  if (t.value === "") {
+    return undefined;
+  }
 
-    const v = Number.parseInt(t.value);
-    if (isNaN(v)) {
-        return t.value + '';
-    }
+  const v = Number.parseInt(t.value);
+  if (isNaN(v)) {
+    return t.value + "";
+  }
 
-    return v;
+  return v;
 }
 
 export function isInvalidNumber(v) {
-    if (v === undefined || v === '') {
-        return false
-    }
-
-    if (isNaN(Number.parseInt(v))) {
-        return true;
-    }
-
+  if (v === undefined || v === "") {
     return false;
+  }
+
+  if (isNaN(Number.parseInt(v))) {
+    return true;
+  }
+
+  return false;
 }

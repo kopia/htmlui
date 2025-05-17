@@ -1,29 +1,29 @@
 /*Supported themes */
 .light {
   --background-color: #ffffff;
-  --color-primary: #2A7FFF;
+  --color-primary: #2a7fff;
   --color-secondary: #23a25a;
   --color-warning: #e1704b;
   --color-success: #5ea5cd;
-  --color-submit: #00B4D8;
+  --color-submit: #00b4d8;
   --color-select: #fefefe;
-  --color-link: #2A7FFF;
-  --color-light: #6c757d; 
+  --color-link: #2a7fff;
+  --color-light: #6c757d;
 
   --color-text: #ffffff;
   --color-text-body: #000000;
   --color-text-nav: #000000;
-  --color-text-form-help :#6c757d;
+  --color-text-form-help: #6c757d;
 
   --color-error: #d2475a;
   --color-danger: #d2475a;
 
-  --color-badge-warning: #C49508;
-  --color-badge-primary: #5B89B4;
-  --color-badge-secondary: #787A7D;
-  --color-badge-info:#159489;
-  --color-badge-danger:#F3712B;
-  --color-badge-success:#5DA745;
+  --color-badge-warning: #c49508;
+  --color-badge-primary: #5b89b4;
+  --color-badge-secondary: #787a7d;
+  --color-badge-info: #159489;
+  --color-badge-danger: #f3712b;
+  --color-badge-success: #5da745;
 }
 
 .dark {
@@ -32,25 +32,25 @@
   --color-secondary: #0d8b99;
   --color-warning: #7e0d6b;
   --color-success: #0d9aab;
-  --color-submit: #00B4D8;
+  --color-submit: #00b4d8;
   --color-select: #2c2c2c;
   --color-link: #799bd1;
-  --color-light: #6c757d; 
+  --color-light: #6c757d;
 
   --color-text: #cfcfcf;
   --color-text-body: #cfcfcf;
   --color-text-nav: #cfcfcf;
-  --color-text-form-help :#6c757d;
-  
+  --color-text-form-help: #6c757d;
+
   --color-error: #891905;
   --color-danger: #891905;
 
-  --color-badge-warning: #C49508;
-  --color-badge-primary: #47729A;
-  --color-badge-secondary: #6E7072;
-  --color-badge-info:#127D74;
-  --color-badge-danger:#C14B0B;
-  --color-badge-success:#498235;
+  --color-badge-warning: #c49508;
+  --color-badge-primary: #47729a;
+  --color-badge-secondary: #6e7072;
+  --color-badge-info: #127d74;
+  --color-badge-danger: #c14b0b;
+  --color-badge-success: #498235;
 }
 
 .pastel {
@@ -61,48 +61,48 @@
   --color-success: #bdb2ff;
   --color-submit: #a0c4ff;
   --color-select: #fefefe;
-  --color-link: #2A7FFF;
-  --color-light: #6c757d; 
-  
+  --color-link: #2a7fff;
+  --color-light: #6c757d;
+
   --color-text: #000000;
   --color-text-body: #000000;
   --color-text-nav: #c095e4;
-  --color-text-form-help :#6c757d;
+  --color-text-form-help: #6c757d;
 
   --color-error: #ffadad;
   --color-danger: #ffadad;
 
-  --color-badge-warning: #D8A509;
-  --color-badge-primary: #47729A;
-  --color-badge-secondary: #6E7072;
-  --color-badge-info:#127D74;
-  --color-badge-danger:#C14B0B;
-  --color-badge-success:#498235;
+  --color-badge-warning: #d8a509;
+  --color-badge-primary: #47729a;
+  --color-badge-secondary: #6e7072;
+  --color-badge-info: #127d74;
+  --color-badge-danger: #c14b0b;
+  --color-badge-success: #498235;
 }
 
 .ocean {
   --background-color: #ffffff;
-  --color-primary: #03045E;
-  --color-secondary: #0077B6;
+  --color-primary: #03045e;
+  --color-secondary: #0077b6;
   --color-warning: #e8cc2a;
-  --color-success: #0077B6;
-  --color-submit: #00B4D8;
+  --color-success: #0077b6;
+  --color-submit: #00b4d8;
   --color-select: #fefefe;
-  --color-link: #03045E;
-  --color-light: #6c757d; 
-  
+  --color-link: #03045e;
+  --color-light: #6c757d;
+
   --color-text: #ffffff;
-  --color-text-body: #03045E;
-  --color-text-nav: #03045E;
-  --color-text-form-help :#6c757d;
+  --color-text-body: #03045e;
+  --color-text-nav: #03045e;
+  --color-text-form-help: #6c757d;
 
   --color-error: #d2475a;
   --color-danger: #d2475a;
 
-  --color-badge-warning: #D8A509;
-  --color-badge-primary: #47729A;
-  --color-badge-secondary: #6E7072;
-  --color-badge-info:#127D74;
-  --color-badge-danger:#C14B0B;
-  --color-badge-success:#498235;
+  --color-badge-warning: #d8a509;
+  --color-badge-primary: #47729a;
+  --color-badge-secondary: #6e7072;
+  --color-badge-info: #127d74;
+  --color-badge-danger: #c14b0b;
+  --color-badge-success: #498235;
 }
