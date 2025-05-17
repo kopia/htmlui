@@ -1,17 +1,20 @@
-import { render, act } from '@testing-library/react';
-import React from 'react';
-import { SetupRepositoryS3 } from '../components/SetupRepositoryS3';
-import { changeControlValue, toggleCheckbox } from './testutils';
+import { render, act } from "@testing-library/react";
+import React from "react";
+import { SetupRepositoryS3 } from "../components/SetupRepositoryS3";
+import { changeControlValue, toggleCheckbox } from "./testutils";
 
-it('can set fields', async () => {
+it("can set fields", async () => {
   let ref = React.createRef();
-  const { getByTestId } = render(<SetupRepositoryS3 ref={ref} />)
+  const { getByTestId } = render(<SetupRepositoryS3 ref={ref} />);
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
   changeControlValue(getByTestId("control-bucket"), "some-bucket");
   changeControlValue(getByTestId("control-accessKeyID"), "some-accessKeyID");
-  changeControlValue(getByTestId("control-secretAccessKey"), "some-secretAccessKey");
+  changeControlValue(
+    getByTestId("control-secretAccessKey"),
+    "some-secretAccessKey",
+  );
   changeControlValue(getByTestId("control-endpoint"), "some-endpoint");
   act(() => expect(ref.current.validate()).toBe(true));
   // optional
@@ -23,15 +26,15 @@ it('can set fields', async () => {
   act(() => expect(ref.current.validate()).toBe(true));
 
   expect(ref.current.state).toStrictEqual({
-    "accessKeyID": "some-accessKeyID",
-    "bucket": "some-bucket",
-    "endpoint": "some-endpoint",
-    "prefix": "some-prefix",
-    "region": "some-region",
-    "doNotUseTLS": true,
-    "doNotVerifyTLS": true,
-    "secretAccessKey": "some-secretAccessKey",
-    "sessionToken": "some-sessionToken",
+    accessKeyID: "some-accessKeyID",
+    bucket: "some-bucket",
+    endpoint: "some-endpoint",
+    prefix: "some-prefix",
+    region: "some-region",
+    doNotUseTLS: true,
+    doNotVerifyTLS: true,
+    secretAccessKey: "some-secretAccessKey",
+    sessionToken: "some-sessionToken",
   });
 
   toggleCheckbox(getByTestId("control-doNotUseTLS"));

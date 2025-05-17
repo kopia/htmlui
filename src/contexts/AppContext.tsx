@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const defaultValue = {
-    repoDescription: "",
+  repoDescription: "",
 };
 
 export const AppContext = React.createContext(defaultValue);

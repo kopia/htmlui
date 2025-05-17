@@ -1,18 +1,33 @@
-import React, { useContext, useState } from 'react';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Pagination from 'react-bootstrap/Pagination';
-import Table from 'react-bootstrap/Table';
-import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
-import { PAGE_SIZES, UIPreferencesContext } from '../contexts/UIPreferencesContext';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from "react";
+import Dropdown from "react-bootstrap/Dropdown";
+import Pagination from "react-bootstrap/Pagination";
+import Table from "react-bootstrap/Table";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  flexRender,
+} from "@tanstack/react-table";
+import {
+  PAGE_SIZES,
+  UIPreferencesContext,
+} from "../contexts/UIPreferencesContext";
+import PropTypes from "prop-types";
 
 function paginationItems(count, active, gotoPage) {
   let items = [];
 
   function pageWithNumber(number) {
-    return <Pagination.Item key={number} active={number === active} onClick={() => gotoPage(number - 1)}>
-      {number}
-    </Pagination.Item>;
+    return (
+      <Pagination.Item
+        key={number}
+        active={number === active}
+        onClick={() => gotoPage(number - 1)}
+      >
+        {number}
+      </Pagination.Item>
+    );
   }
 
   function dotDotDot() {
@@ -69,96 +84,124 @@ export default function KopiaTable({ columns, data }) {
     getSortedRowModel: getSortedRowModel(),
     onPaginationChange: setPagination, //update the pagination state when internal APIs mutate the pagination state
     onSortingChange: setSorting,
-  })
+  });
 
-  if (pagination.pageIndex >= table.getPageCount() && pagination.pageIndex !== 0) {
+  if (
+    pagination.pageIndex >= table.getPageCount() &&
+    pagination.pageIndex !== 0
+  ) {
     table.resetPageIndex();
   }
 
-  const paginationUI = <>
-  <>{table.getPageCount() > 1 && (
-    <Pagination size="sm" variant="dark">
-      <Pagination.First onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} />
-      <Pagination.Prev onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} />
-      {paginationItems(table.getPageCount(), pagination.pageIndex + 1, table.setPageIndex)}
-      <Pagination.Next onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} />
-      <Pagination.Last onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()} />
-    </Pagination>)}
-  </>
-  <>
-    <Dropdown style={{ marginBottom: '1em' }}>
-      <Dropdown.Toggle size="sm">
-        Page Size: {pageSize}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {PAGE_SIZES.map(pageSize => (
-          <Dropdown.Item size="sm" key={pageSize} onClick={() => {
-            table.setPageSize(pageSize);
-            setPageSize(pageSize);
-          }}>
-            Page Size {pageSize}
-          </Dropdown.Item>))}
-      </Dropdown.Menu>
-    </Dropdown>
-  </>
-</>;
+  const paginationUI = (
+    <>
+      <>
+        {table.getPageCount() > 1 && (
+          <Pagination size="sm" variant="dark">
+            <Pagination.First
+              onClick={() => table.setPageIndex(0)}
+              disabled={!table.getCanPreviousPage()}
+            />
+            <Pagination.Prev
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            />
+            {paginationItems(
+              table.getPageCount(),
+              pagination.pageIndex + 1,
+              table.setPageIndex,
+            )}
+            <Pagination.Next
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            />
+            <Pagination.Last
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              disabled={!table.getCanNextPage()}
+            />
+          </Pagination>
+        )}
+      </>
+      <>
+        <Dropdown style={{ marginBottom: "1em" }}>
+          <Dropdown.Toggle size="sm">Page Size: {pageSize}</Dropdown.Toggle>
+          <Dropdown.Menu>
+            {PAGE_SIZES.map((pageSize) => (
+              <Dropdown.Item
+                size="sm"
+                key={pageSize}
+                onClick={() => {
+                  table.setPageSize(pageSize);
+                  setPageSize(pageSize);
+                }}
+              >
+                Page Size {pageSize}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </>
+    </>
+  );
 
-  return <>
-    <div className="p-2">
-      <Table size="sm" striped bordered hover>
-        <thead className="table-dark">
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id}>
-                  <div
-                        className={
-                          header.column.getCanSort()
-                            ? 'cursor-pointer select-none'
-                            : ''
-                        }
-                        onClick={header.column.getToggleSortingHandler()}
-                        title={
-                          header.column.getCanSort()
-                            ? header.column.getNextSortingOrder() === 'asc'
-                              ? 'Sort ascending'
-                              : header.column.getNextSortingOrder() === 'desc'
-                                ? 'Sort descending'
-                                : 'Clear sort'
-                            : undefined
-                        }
-                      >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                  {{
-                      asc: ' 🔼',
-                      desc: ' 🔽',
-                    }[header.column.getIsSorted()] ?? null}
+  return (
+    <>
+      <div className="p-2">
+        <Table size="sm" striped bordered hover>
+          <thead className="table-dark">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
+                    <div
+                      className={
+                        header.column.getCanSort()
+                          ? "cursor-pointer select-none"
+                          : ""
+                      }
+                      onClick={header.column.getToggleSortingHandler()}
+                      title={
+                        header.column.getCanSort()
+                          ? header.column.getNextSortingOrder() === "asc"
+                            ? "Sort ascending"
+                            : header.column.getNextSortingOrder() === "desc"
+                              ? "Sort descending"
+                              : "Clear sort"
+                          : undefined
+                      }
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                      {{
+                        asc: " 🔼",
+                        desc: " 🔽",
+                      }[header.column.getIsSorted()] ?? null}
                     </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </Table> 
-      {paginationUI}
-    </div>
-    </>;
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        {paginationUI}
+      </div>
+    </>
+  );
 }
 
 KopiaTable.propTypes = {

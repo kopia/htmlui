@@ -12,7 +12,7 @@ body {
 }
 
 #kopia .options-select {
-  overflow: ellipsis
+  overflow: ellipsis;
 }
 
 #kopia .btn-close {
@@ -81,18 +81,18 @@ body {
 }
 
 #kopia .table,
-#kopia .table-hover>tbody>tr:hover>* {
+#kopia .table-hover > tbody > tr:hover > * {
   color: var(--color-text-body);
   --bs-table-bg: var(--background-color);
   --bs-table-color: var(--color-text-body);
 }
 
-#kopia .table-striped>tbody>tr:nth-of-type(odd)>* {
+#kopia .table-striped > tbody > tr:nth-of-type(odd) > * {
   color: var(--color-text-body);
   background-color: var(--color-select);
 }
 
-#kopia .table-striped>tbody>tr:nth-of-type(even)>* {
+#kopia .table-striped > tbody > tr:nth-of-type(even) > * {
   color: var(--color-text-body);
   background-color: var(--background-color);
 }
@@ -105,7 +105,7 @@ body {
 
 #kopia .navbar-light .navbar-nav .nav-link,
 #kopia .navbar-light .navbar-nav .nav-link.active,
-#kopia .navbar-light .navbar-nav .show>.nav-link {
+#kopia .navbar-light .navbar-nav .show > .nav-link {
   color: var(--color-text-nav);
   text-align: center;
 }
@@ -145,7 +145,7 @@ body {
 #kopia .form-check-input:focus,
 #kopia .accordion-button:focus {
   color: var(--color-text-body);
-  box-shadow: 0 0 0 0.10rem var(--color-primary);
+  box-shadow: 0 0 0 0.1rem var(--color-primary);
 }
 
 #kopia .form-check-input {
@@ -155,7 +155,7 @@ body {
 #kopia .text-muted.form-text,
 #kopia .form-text,
 #kopia .form-control::placeholder {
-  color: var(--color-text-form-help) !important
+  color: var(--color-text-form-help) !important;
 }
 
 #kopia .accordion-body,
@@ -168,7 +168,7 @@ body {
   padding: 10px;
   font-weight: bold;
   color: var(--color-text-body);
-  background-color: var(--background-color)
+  background-color: var(--background-color);
 }
 
 #kopia .accordion-button.collapsed {
@@ -182,11 +182,11 @@ body {
 #kopia .accordion-button:focus {
   color: var(--color-text-body);
   background-color: var(--color-select);
-  filter: brightness(95%)
+  filter: brightness(95%);
 }
 
 #kopia .accordion-item {
-  border: 1px solid rgba(0,0,0,.125);
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .popover {
@@ -333,7 +333,7 @@ div.tab-body {
 }
 
 .loglevel-0 {
-  color: var(--color-text-body)
+  color: var(--color-text-body);
 }
 
 /* debug */
@@ -385,7 +385,7 @@ div.tab-body {
   background-color: var(--color-badge-primary);
 }
 
-#kopia .badge.bg-retention-badge-secondary{
+#kopia .badge.bg-retention-badge-secondary {
   background-color: var(--color-badge-secondary);
 }
 
@@ -442,7 +442,7 @@ div.tab-body {
 }
 
 #kopia .snapshot-hash {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-size: 80%;
   font-weight: bold;
 }
@@ -467,12 +467,11 @@ div.tab-body {
 }
 
 #kopia li.page-item:disabled {
-  background-color: var(--background-color)
+  background-color: var(--background-color);
 }
 
 #kopia .tab-content-fix {
   font-weight: normal;
-
 }
 
 .cursor-pointer {
