@@ -325,8 +325,8 @@ div.tab-body {
 }
 
 .logs-table {
-  font-family: monospace;
-  font-size: 70%;
+  font-famly: "Source Code Pro", source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 75%;
   overflow: auto;
   max-height: 400px;
   border: 1px solid #aaa;
