@@ -21,8 +21,8 @@
     "build": "vite build",
     "serve": "vite dev",
     "test": "vitest",
-    "prettier": "prettier --write src",
-    "prettier:check": "prettier --check src",
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
     "lint": "eslint src"
   },
   "eslintConfig": {
