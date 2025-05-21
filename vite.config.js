@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { coverageConfigDefaults } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import eslint from "vite-plugin-eslint";
 
@@ -12,6 +13,13 @@ export default defineConfig(() => {
     test: {
       globals: true,
       environment: "jsdom",
+      coverage: {
+        exclude: [
+          "**/build/**",
+          "src/setupProxy.js",
+          ...coverageConfigDefaults.exclude,
+        ],
+      },
     },
     server: {
       port: 3000,
