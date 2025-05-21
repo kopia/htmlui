@@ -17,7 +17,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci --no-audit
       - name: License Check
-        run: npx license-checker --summary --onlyAllow "Apache-2.0;MIT;BSD-3-Clause;BSD-2-Clause;ISC;CC0-1.0;MPL-2.0;CC-BY-4.0;ODC-By-1.0;WTFPL;CC-BY-3.0;0BSD;Python-2.0;Unlicense"
+        run: npx license-checker --production --summary --onlyAllow "MIT;Apache-2.0;BSD-3-Clause;0BSD"
       - name: Audit Dependencies
         run: npm audit --production
       - name: Build
