@@ -11,12 +11,12 @@ it("can set fields", async () => {
   // required
   changeControlValue(getByTestId("control-smtpServer"), "some-smtpServer");
   changeControlValue(getByTestId("control-smtpPort"), 25);
-  changeControlValue(getByTestId("control-smtpUsername"), "some-username");
-  changeControlValue(getByTestId("control-smtpPassword"), "some-password");
   changeControlValue(getByTestId("control-from"), "some-from@example.com");
   changeControlValue(getByTestId("control-to"), "some-to@example.com");
   expect(ref.current.validate()).toBe(true);
   // optional
+  changeControlValue(getByTestId("control-smtpUsername"), "some-username");
+  changeControlValue(getByTestId("control-smtpPassword"), "some-password");
   changeControlValue(getByTestId("control-smtpIdentity"), "some-identity");
   expect(ref.current.validate()).toBe(true);
 
