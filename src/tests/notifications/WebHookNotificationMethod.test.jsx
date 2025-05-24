@@ -9,16 +9,10 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(
-    getByTestId("control-endpoint"),
-    "http://some-endpoint:12345",
-  );
+  changeControlValue(getByTestId("control-endpoint"), "http://some-endpoint:12345");
   expect(ref.current.validate()).toBe(true);
   // optional
-  changeControlValue(
-    getByTestId("control-headers"),
-    "some:header\nanother:header",
-  );
+  changeControlValue(getByTestId("control-headers"), "some:header\nanother:header");
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

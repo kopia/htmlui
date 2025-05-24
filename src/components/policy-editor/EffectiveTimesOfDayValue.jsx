@@ -11,11 +11,7 @@ export function EffectiveTimesOfDayValue(component, policyField) {
         {TimesOfDayList(component, "resolved.effective." + policyField)}
         <Form.Text data-testid={"definition-" + policyField}>
           {component.PolicyDefinitionPoint(
-            getDeepStateProperty(
-              component,
-              "resolved.definition." + policyField,
-              undefined,
-            ),
+            getDeepStateProperty(component, "resolved.definition." + policyField, undefined),
           )}
         </Form.Text>
       </Form.Group>

@@ -11,10 +11,7 @@ it("can set fields", async () => {
   // required
   changeControlValue(getByTestId("control-bucket"), "some-bucket");
   changeControlValue(getByTestId("control-accessKeyID"), "some-accessKeyID");
-  changeControlValue(
-    getByTestId("control-secretAccessKey"),
-    "some-secretAccessKey",
-  );
+  changeControlValue(getByTestId("control-secretAccessKey"), "some-secretAccessKey");
   changeControlValue(getByTestId("control-endpoint"), "some-endpoint");
   act(() => expect(ref.current.validate()).toBe(true));
   // optional

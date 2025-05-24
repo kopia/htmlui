@@ -4,11 +4,7 @@ import { getDeepStateProperty } from "../../utils/deepstate";
 import { EffectiveValueColumn } from "./EffectiveValueColumn";
 
 export function EffectiveListValue(component, policyField) {
-  const dsp = getDeepStateProperty(
-    component,
-    "resolved.definition." + policyField,
-    undefined,
-  );
+  const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
 
   return (
     <EffectiveValueColumn>
@@ -18,16 +14,10 @@ export function EffectiveListValue(component, policyField) {
           size="sm"
           as="textarea"
           rows="5"
-          value={getDeepStateProperty(
-            component,
-            "resolved.effective." + policyField,
-            undefined,
-          )}
+          value={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
           readOnly={true}
         />
-        <Form.Text data-testid={"definition-" + policyField}>
-          {component.PolicyDefinitionPoint(dsp)}
-        </Form.Text>
+        <Form.Text data-testid={"definition-" + policyField}>{component.PolicyDefinitionPoint(dsp)}</Form.Text>
       </Form.Group>
     </EffectiveValueColumn>
   );

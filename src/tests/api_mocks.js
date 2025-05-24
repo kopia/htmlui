@@ -18,11 +18,7 @@ export function setupAPIMock() {
     defaultHash: "h-bar",
     hash: [{ id: "h-foo" }, { id: "h-bar" }, { id: "h-baz" }],
 
-    compression: [
-      { id: "c-foo" },
-      { id: "c-bar" },
-      { id: "c-baz", deprecated: true },
-    ],
+    compression: [{ id: "c-foo" }, { id: "c-bar" }, { id: "c-baz", deprecated: true }],
   });
 
   axiosMock.onGet("/api/v1/current-user").reply(200, {

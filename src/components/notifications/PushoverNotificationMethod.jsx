@@ -32,12 +32,7 @@ export class PushoverNotificationMethod extends Component {
           {RequiredField(this, "Pushover App Token", "appToken", {
             autoFocus: true,
           })}
-          {RequiredField(
-            this,
-            "Recipient User Key or Group Key",
-            "userKey",
-            {},
-          )}
+          {RequiredField(this, "Recipient User Key or Group Key", "userKey", {})}
           {NotificationFormatSelector(this, "format")}
         </Row>
         <Row>
@@ -45,11 +40,7 @@ export class PushoverNotificationMethod extends Component {
             <hr />
             <p>
               Go to{" "}
-              <a
-                href="https://pushover.net/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://pushover.net/" target="_blank" rel="noopener noreferrer">
                 Pushover.net
               </a>{" "}
               to setup your App Token and retrieve User or Group Keys.

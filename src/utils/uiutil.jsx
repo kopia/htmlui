@@ -54,18 +54,12 @@ export function sizeWithFailures(size, summ, bytesStringBase2) {
     prefix = "";
   }
 
-  caption += summ.errors
-    .map((x) => prefix + x.path + ": " + x.error)
-    .join("\n");
+  caption += summ.errors.map((x) => prefix + x.path + ": " + x.error).join("\n");
 
   return (
     <span>
       {sizeDisplayName(size, bytesStringBase2)}&nbsp;
-      <FontAwesomeIcon
-        color="red"
-        icon={faExclamationTriangle}
-        title={caption}
-      />
+      <FontAwesomeIcon color="red" icon={faExclamationTriangle} title={caption} />
     </span>
   );
 }
@@ -93,9 +87,7 @@ export function timesOfDayDisplayName(v) {
 
 export function parseQuery(queryString) {
   var query = {};
-  var pairs = (
-    queryString[0] === "?" ? queryString.substr(1) : queryString
-  ).split("&");
+  var pairs = (queryString[0] === "?" ? queryString.substr(1) : queryString).split("&");
   for (var i = 0; i < pairs.length; i++) {
     var pair = pairs[i].split("=");
     query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
@@ -132,12 +124,7 @@ export function compare(a, b) {
  * @param {error} The error that was returned
  */
 export function redirect(e) {
-  if (
-    e &&
-    e.response &&
-    e.response.data &&
-    e.response.data.code === "NOT_CONNECTED"
-  ) {
+  if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
     window.location.replace("/repo");
   }
 }
@@ -202,10 +189,7 @@ export function separateMillisecondsIntoMagnitudes(ms) {
  * @param {boolean} abbreviateUnits - Whether you want to use short unit names.
  * @returns {string} Formatted string representing the specified duration.
  */
-export function formatMagnitudesUsingMultipleUnits(
-  magnitudes,
-  abbreviateUnits = false,
-) {
+export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits = false) {
   // Define the label we will use for each unit, depending upon whether that
   // unit's magnitude is `1` or not (e.g. "0 minutes" vs. "1 minute").
   // Note: This object is not used in the final "else" block below.
@@ -234,11 +218,7 @@ export function formatMagnitudesUsingMultipleUnits(
   if (magnitudes.minutes) {
     parts.push(`${magnitudes.minutes.toLocaleString(locale)}${units.minutes}`);
   }
-  if (
-    !parts.length ||
-    magnitudes.seconds ||
-    (magnitudes.milliseconds && magnitudes.seconds < 10 && !parts.length)
-  ) {
+  if (!parts.length || magnitudes.seconds || (magnitudes.milliseconds && magnitudes.seconds < 10 && !parts.length)) {
     // Convert seconds and ms into seconds
     let seconds = magnitudes.seconds;
     let fractionDigits = 0;
@@ -293,8 +273,7 @@ export function formatDuration(from, to, useMultipleUnits = false) {
     return "";
   }
 
-  const ms =
-    (to ? new Date(to) : new Date()).valueOf() - new Date(from).valueOf();
+  const ms = (to ? new Date(to) : new Date()).valueOf() - new Date(from).valueOf();
   if (ms < 0) {
     return "";
   }
@@ -310,19 +289,9 @@ export function taskStatusSymbol(task) {
     case "RUNNING":
       return (
         <>
-          <Spinner animation="border" variant="primary" size="sm" /> Running for{" "}
-          {dur}
-          <button
-            className="btn btn-sm btn-link"
-            type="button"
-            onClick={() => cancelTask(task.id)}
-          >
-            <FontAwesomeIcon
-              color="red"
-              size="lg"
-              title="Cancel task"
-              icon={faXmark}
-            />
+          <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}
+          <button className="btn btn-sm btn-link" type="button" onClick={() => cancelTask(task.id)}>
+            <FontAwesomeIcon color="red" size="lg" title="Cancel task" icon={faXmark} />
           </button>
         </>
       );
@@ -336,8 +305,7 @@ export function taskStatusSymbol(task) {
     case "FAILED":
       return (
         <p title={dur}>
-          <FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed
-          after {dur}
+          <FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}
         </p>
       );
 
@@ -505,21 +473,11 @@ export function CLIEquivalent(props) {
   return (
     <>
       <InputGroup size="sm">
-        <Button
-          size="sm"
-          title="Click to show CLI equivalent"
-          variant="submit"
-          onClick={() => setVisible(!visible)}
-        >
+        <Button size="sm" title="Click to show CLI equivalent" variant="submit" onClick={() => setVisible(!visible)}>
           <FontAwesomeIcon size="sm" icon={faTerminal} />
         </Button>
         {visible && (
-          <Button
-            size="sm"
-            variant="success"
-            title="Copy to clipboard"
-            onClick={copyToClibopard}
-          >
+          <Button size="sm" variant="success" title="Copy to clipboard" onClick={copyToClibopard}>
             <FontAwesomeIcon size="sm" icon={faCopy} />
           </Button>
         )}

@@ -22,8 +22,7 @@ export class SetupRepositoryFilesystem extends Component {
       <>
         {RequiredDirectory(this, "Directory Path", "path", {
           autoFocus: true,
-          placeholder:
-            "enter directory path where you want to store repository files",
+          placeholder: "enter directory path where you want to store repository files",
         })}
       </>
     );

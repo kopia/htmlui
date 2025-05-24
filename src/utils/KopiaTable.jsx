@@ -9,10 +9,7 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import {
-  PAGE_SIZES,
-  UIPreferencesContext,
-} from "../contexts/UIPreferencesContext";
+import { PAGE_SIZES, UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
 
 function paginationItems(count, active, gotoPage) {
@@ -20,11 +17,7 @@ function paginationItems(count, active, gotoPage) {
 
   function pageWithNumber(number) {
     return (
-      <Pagination.Item
-        key={number}
-        active={number === active}
-        onClick={() => gotoPage(number - 1)}
-      >
+      <Pagination.Item key={number} active={number === active} onClick={() => gotoPage(number - 1)}>
         {number}
       </Pagination.Item>
     );
@@ -86,10 +79,7 @@ export default function KopiaTable({ columns, data }) {
     onSortingChange: setSorting,
   });
 
-  if (
-    pagination.pageIndex >= table.getPageCount() &&
-    pagination.pageIndex !== 0
-  ) {
+  if (pagination.pageIndex >= table.getPageCount() && pagination.pageIndex !== 0) {
     table.resetPageIndex();
   }
 
@@ -98,23 +88,10 @@ export default function KopiaTable({ columns, data }) {
       <>
         {table.getPageCount() > 1 && (
           <Pagination size="sm" variant="dark">
-            <Pagination.First
-              onClick={() => table.setPageIndex(0)}
-              disabled={!table.getCanPreviousPage()}
-            />
-            <Pagination.Prev
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            />
-            {paginationItems(
-              table.getPageCount(),
-              pagination.pageIndex + 1,
-              table.setPageIndex,
-            )}
-            <Pagination.Next
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            />
+            <Pagination.First onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} />
+            <Pagination.Prev onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} />
+            {paginationItems(table.getPageCount(), pagination.pageIndex + 1, table.setPageIndex)}
+            <Pagination.Next onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} />
             <Pagination.Last
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!table.getCanNextPage()}
@@ -154,11 +131,7 @@ export default function KopiaTable({ columns, data }) {
                 {headerGroup.headers.map((header) => (
                   <th key={header.id}>
                     <div
-                      className={
-                        header.column.getCanSort()
-                          ? "cursor-pointer select-none"
-                          : ""
-                      }
+                      className={header.column.getCanSort() ? "cursor-pointer select-none" : ""}
                       onClick={header.column.getToggleSortingHandler()}
                       title={
                         header.column.getCanSort()
@@ -170,12 +143,7 @@ export default function KopiaTable({ columns, data }) {
                           : undefined
                       }
                     >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       {{
                         asc: " 🔼",
                         desc: " 🔽",
@@ -190,9 +158,7 @@ export default function KopiaTable({ columns, data }) {
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+                  <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
                 ))}
               </tr>
             ))}

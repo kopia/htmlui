@@ -13,10 +13,7 @@ it("can set fields", async () => {
   expect(ref.current.validate()).toBe(true);
   // optional
   changeControlValue(getByTestId("control-prefix"), "some-prefix");
-  changeControlValue(
-    getByTestId("control-credentialsFile"),
-    "some-credentials-file",
-  );
+  changeControlValue(getByTestId("control-credentialsFile"), "some-credentials-file");
   changeControlValue(getByTestId("control-credentials"), "some-credentials");
   expect(ref.current.validate()).toBe(true);
 

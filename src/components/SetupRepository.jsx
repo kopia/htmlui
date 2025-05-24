@@ -1,7 +1,4 @@
-import {
-  faAngleDoubleDown,
-  faAngleDoubleUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleDown, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { Component } from "react";
@@ -190,8 +187,7 @@ export class SetupRepository extends Component {
       .catch((error) => {
         if (error.response.data) {
           this.setState({
-            connectError:
-              error.response.data.code + ": " + error.response.data.error,
+            connectError: error.response.data.code + ": " + error.response.data.error,
           });
         }
       });
@@ -243,8 +239,7 @@ export class SetupRepository extends Component {
         if (error.response.data) {
           this.setState({
             confirmCreate: false,
-            connectError:
-              error.response.data.code + ": " + error.response.data.error,
+            connectError: error.response.data.code + ": " + error.response.data.error,
           });
         }
       });
@@ -271,18 +266,13 @@ export class SetupRepository extends Component {
     return (
       <>
         <h3>Select Storage Type</h3>
-        <p>
-          To connect to a repository or create one, select the preferred storage
-          type:
-        </p>
+        <p>To connect to a repository or create one, select the preferred storage type:</p>
         <Row>
           {supportedProviders.map((x) => (
             <Button
               key={x.provider}
               data-testid={"provider-" + x.provider}
-              onClick={() =>
-                this.setState({ provider: x.provider, providerSettings: {} })
-              }
+              onClick={() => this.setState({ provider: x.provider, providerSettings: {} })}
               variant={x.provider.startsWith("_") ? "secondary" : "primary"}
               className="providerIcon"
             >
@@ -345,8 +335,7 @@ export class SetupRepository extends Component {
             });
           } else {
             this.setState({
-              connectError:
-                error.response.data.code + ": " + error.response.data.error,
+              connectError: error.response.data.code + ": " + error.response.data.error,
             });
           }
         } else {
@@ -370,10 +359,7 @@ export class SetupRepository extends Component {
         {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
         {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
         {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
-        <SelectedProvider
-          ref={this.optionsEditor}
-          initial={this.state.providerSettings}
-        />
+        <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
         {this.connectionErrorInfo()}
         <hr />
         <Button
@@ -401,9 +387,7 @@ export class SetupRepository extends Component {
   toggleAdvancedButton() {
     // Determine button icon and text based upon component state.
     const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
-    const text = this.state.showAdvanced
-      ? "Hide Advanced Options"
-      : "Show Advanced Options";
+    const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
 
     return (
       <Button
@@ -424,10 +408,7 @@ export class SetupRepository extends Component {
     return (
       <Form onSubmit={this.createRepository}>
         <h3>Create New Repository</h3>
-        <p>
-          Enter a strong password to create Kopia repository in the provided
-          storage.
-        </p>
+        <p>Enter a strong password to create Kopia repository in the provided storage.</p>
         <Row>
           {RequiredField(
             this,
@@ -440,15 +421,10 @@ export class SetupRepository extends Component {
             },
             "Used to encrypt the repository's contents",
           )}
-          {RequiredField(
-            this,
-            "Confirm Repository Password",
-            "confirmPassword",
-            {
-              type: "password",
-              placeholder: "enter repository password again",
-            },
-          )}
+          {RequiredField(this, "Confirm Repository Password", "confirmPassword", {
+            type: "password",
+            placeholder: "enter repository password again",
+          })}
         </Row>
         <div style={{ marginTop: "1rem" }}>{this.toggleAdvancedButton()}</div>
         <Collapse in={this.state.showAdvanced}>
@@ -463,9 +439,7 @@ export class SetupRepository extends Component {
                   data-testid="control-encryption"
                   value={this.state.encryption}
                 >
-                  {this.state.algorithms.encryption.map((x) =>
-                    toAlgorithmOption(x, this.state.defaultEncryption),
-                  )}
+                  {this.state.algorithms.encryption.map((x) => toAlgorithmOption(x, this.state.defaultEncryption))}
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
@@ -477,9 +451,7 @@ export class SetupRepository extends Component {
                   data-testid="control-hash"
                   value={this.state.hash}
                 >
-                  {this.state.algorithms.hash.map((x) =>
-                    toAlgorithmOption(x, this.state.defaultHash),
-                  )}
+                  {this.state.algorithms.hash.map((x) => toAlgorithmOption(x, this.state.defaultHash))}
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
@@ -491,9 +463,7 @@ export class SetupRepository extends Component {
                   data-testid="control-splitter"
                   value={this.state.splitter}
                 >
-                  {this.state.algorithms.splitter.map((x) =>
-                    toAlgorithmOption(x, this.state.defaultSplitter),
-                  )}
+                  {this.state.algorithms.splitter.map((x) => toAlgorithmOption(x, this.state.defaultSplitter))}
                 </Form.Control>
               </Form.Group>
             </Row>
@@ -512,9 +482,7 @@ export class SetupRepository extends Component {
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label className="required">
-                  Error Correction Overhead
-                </Form.Label>
+                <Form.Label className="required">Error Correction Overhead</Form.Label>
                 <Form.Control
                   as="select"
                   name="eccOverheadPercent"
@@ -530,18 +498,14 @@ export class SetupRepository extends Component {
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col} controlId="errorCorrectionAlgorithm">
-                <Form.Label className="required">
-                  Error Correction Algorithm
-                </Form.Label>
+                <Form.Label className="required">Error Correction Algorithm</Form.Label>
                 <Form.Control
                   as="select"
                   name="ecc"
                   onChange={this.handleChange}
                   data-testid="control-ecc"
                   disabled={this.state.eccOverheadPercent === "0"}
-                  value={
-                    this.state.eccOverheadPercent === "0" ? "-" : this.state.ecc
-                  }
+                  value={this.state.eccOverheadPercent === "0" ? "-" : this.state.ecc}
                 >
                   {this.state.eccOverheadPercent === "0"
                     ? [
@@ -549,23 +513,16 @@ export class SetupRepository extends Component {
                           -
                         </option>,
                       ]
-                    : this.state.algorithms.ecc.map((x) =>
-                        toAlgorithmOption(x, this.state.defaultEcc),
-                      )}
+                    : this.state.algorithms.ecc.map((x) => toAlgorithmOption(x, this.state.defaultEcc))}
                 </Form.Control>
               </Form.Group>
             </Row>
             <Row>
               <Col></Col>
               <Col sm={8} className="text-muted">
-                [EXPERIMENTAL] Error correction can help protect from certain
-                kinds of data corruption due to spontaneous bit flips in the
-                storage media.{" "}
-                <a
-                  href="https://kopia.io/docs/advanced/ecc/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                [EXPERIMENTAL] Error correction can help protect from certain kinds of data corruption due to
+                spontaneous bit flips in the storage media.{" "}
+                <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">
                   Click here to learn more.
                 </a>
               </Col>
@@ -573,10 +530,7 @@ export class SetupRepository extends Component {
             {this.overrideUsernameHostnameRow()}
             <Row style={{ marginTop: "1rem" }}>
               <Form.Group as={Col}>
-                <Form.Text>
-                  Additional parameters can be set when creating repository
-                  using command line.
-                </Form.Text>
+                <Form.Text>Additional parameters can be set when creating repository using command line.</Form.Text>
               </Form.Group>
             </Row>
           </div>
@@ -586,9 +540,7 @@ export class SetupRepository extends Component {
         <Button
           data-testid="back-button"
           variant="warning"
-          onClick={() =>
-            this.setState({ providerSettings: {}, storageVerified: false })
-          }
+          onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}
         >
           Back
         </Button>
@@ -627,9 +579,7 @@ export class SetupRepository extends Component {
       this.state.connectError && (
         <Row>
           <Form.Group as={Col}>
-            <Form.Text className="error">
-              Connect Error: {this.state.connectError}
-            </Form.Text>
+            <Form.Text className="error">Connect Error: {this.state.connectError}</Form.Text>
           </Form.Group>
         </Row>
       )
@@ -643,14 +593,8 @@ export class SetupRepository extends Component {
         <Row>
           <Form.Group as={Col}>
             <Form.Label className="required">Connect As</Form.Label>
-            <Form.Control
-              value={this.state.username + "@" + this.state.hostname}
-              readOnly={true}
-              size="sm"
-            />
-            <Form.Text className="text-muted">
-              To override, click &apos;Show Advanced Options&apos;
-            </Form.Text>
+            <Form.Control value={this.state.username + "@" + this.state.hostname} readOnly={true} size="sm" />
+            <Form.Text className="text-muted">To override, click &apos;Show Advanced Options&apos;</Form.Text>
           </Form.Group>
         </Row>
         <Row>
@@ -705,9 +649,7 @@ export class SetupRepository extends Component {
         <Button
           data-testid="back-button"
           variant="warning"
-          onClick={() =>
-            this.setState({ providerSettings: {}, storageVerified: false })
-          }
+          onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}
         >
           Back
         </Button>
@@ -737,9 +679,7 @@ export class SetupRepository extends Component {
   }
 
   loadingSpinner() {
-    return (
-      this.state.isLoading && <Spinner animation="border" variant="primary" />
-    );
+    return this.state.isLoading && <Spinner animation="border" variant="primary" />;
   }
 
   render() {

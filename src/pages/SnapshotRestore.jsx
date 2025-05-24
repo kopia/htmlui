@@ -122,13 +122,7 @@ export class SnapshotRestoreInternal extends Component {
               "You can also restore to a .zip or .tar file by providing the appropriate extension.",
             )}
           </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Skip previously restored files and symlinks",
-              "incremental",
-            )}
-          </Row>
+          <Row>{RequiredBoolean(this, "Skip previously restored files and symlinks", "incremental")}</Row>
           <Row>
             {RequiredBoolean(
               this,
@@ -137,70 +131,22 @@ export class SnapshotRestoreInternal extends Component {
               "When a restore error occurs, attempt to continue instead of failing fast.",
             )}
           </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Restore File Ownership",
-              "restoreOwnership",
-            )}
-          </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Restore File Permissions",
-              "restorePermissions",
-            )}
-          </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Restore File Modification Time",
-              "restoreModTimes",
-            )}
-          </Row>
-          <Row>
-            {RequiredBoolean(this, "Overwrite Files", "overwriteFiles")}
-          </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Overwrite Directories",
-              "overwriteDirectories",
-            )}
-          </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Overwrite Symbolic Links",
-              "overwriteSymlinks",
-            )}
-          </Row>
-          <Row>
-            {RequiredBoolean(
-              this,
-              "Write files atomically",
-              "writeFilesAtomically",
-            )}
-          </Row>
-          <Row>
-            {RequiredBoolean(this, "Write Sparse Files", "writeSparseFiles")}
-          </Row>
+          <Row>{RequiredBoolean(this, "Restore File Ownership", "restoreOwnership")}</Row>
+          <Row>{RequiredBoolean(this, "Restore File Permissions", "restorePermissions")}</Row>
+          <Row>{RequiredBoolean(this, "Restore File Modification Time", "restoreModTimes")}</Row>
+          <Row>{RequiredBoolean(this, "Overwrite Files", "overwriteFiles")}</Row>
+          <Row>{RequiredBoolean(this, "Overwrite Directories", "overwriteDirectories")}</Row>
+          <Row>{RequiredBoolean(this, "Overwrite Symbolic Links", "overwriteSymlinks")}</Row>
+          <Row>{RequiredBoolean(this, "Write files atomically", "writeFilesAtomically")}</Row>
+          <Row>{RequiredBoolean(this, "Write Sparse Files", "writeSparseFiles")}</Row>
           <Row>
             <Col>
               <hr />
             </Col>
           </Row>
           <Row>
-            {RequiredNumberField(
-              this,
-              "Shallow Restore At Depth",
-              "restoreDirEntryAtDepth",
-            )}
-            {RequiredNumberField(
-              this,
-              "Minimal File Size For Shallow Restore",
-              "minSizeForPlaceholder",
-            )}
+            {RequiredNumberField(this, "Shallow Restore At Depth", "restoreDirEntryAtDepth")}
+            {RequiredNumberField(this, "Minimal File Size For Shallow Restore", "minSizeForPlaceholder")}
           </Row>
           <Row>
             <Col>
@@ -222,11 +168,7 @@ export class SnapshotRestoreInternal extends Component {
           </Row>
           <Row>
             <Col>
-              <Button
-                variant="primary"
-                type="submit"
-                data-testid="submit-button"
-              >
+              <Button variant="primary" type="submit" data-testid="submit-button">
                 Begin Restore
               </Button>
             </Col>
@@ -248,12 +190,5 @@ export function SnapshotRestore(props) {
   const location = useLocation();
   const params = useParams();
 
-  return (
-    <SnapshotRestoreInternal
-      navigate={navigate}
-      location={location}
-      params={params}
-      {...props}
-    />
-  );
+  return <SnapshotRestoreInternal navigate={navigate} location={location} params={params} {...props} />;
 }

@@ -14,11 +14,7 @@ export default defineConfig(() => {
       globals: true,
       environment: "jsdom",
       coverage: {
-        exclude: [
-          "**/build/**",
-          "src/setupProxy.js",
-          ...coverageConfigDefaults.exclude,
-        ],
+        exclude: ["**/build/**", "src/setupProxy.js", ...coverageConfigDefaults.exclude],
       },
     },
     server: {
