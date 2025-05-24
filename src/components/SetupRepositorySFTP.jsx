@@ -92,7 +92,9 @@ export class SetupRepositorySFTP extends Component {
                 this,
                 "Path to known_hosts File",
                 "knownHostsFile",
-                { placeholder: "enter path to the known_hosts file" },
+                {
+                  placeholder: "enter path to the known_hosts file",
+                },
               )}
             </Row>
             <Row>
