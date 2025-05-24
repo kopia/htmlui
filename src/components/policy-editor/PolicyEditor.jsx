@@ -119,17 +119,21 @@ export class PolicyEditor extends Component {
   resolvePolicy(props) {
     const u = "/api/v1/policy/resolve?" + sourceQueryStringParams(props);
 
-    axios
-      .post(u, {
-        updates: this.getAndValidatePolicy(),
-        numUpcomingSnapshotTimes: 5,
-      })
-      .then((result) => {
-        this.setState({ resolved: result.data });
-      })
-      .catch((error) => {
-        this.setState({ resolvedError: error });
-      });
+    try {
+      axios
+        .post(u, {
+          updates: this.getAndValidatePolicy(),
+          numUpcomingSnapshotTimes: 5,
+        })
+        .then((result) => {
+          this.setState({ resolved: result.data });
+        })
+        .catch((error) => {
+          this.setState({ resolvedError: error });
+        });
+    } catch (e) {
+      console.log("Error resolving policy: ", e);
+    }
   }
 
   PolicyDefinitionPoint(p) {
