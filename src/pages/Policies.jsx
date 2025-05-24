@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
 import KopiaTable from "../utils/KopiaTable";
@@ -29,7 +29,7 @@ const globalPolicy = "Global Policy";
 const perUserPolicies = "Per-User Policies";
 const perHostPolicies = "Per-Host Policies";
 
-export class Policies extends Component {
+export class PoliciesInternal extends Component {
   constructor() {
     super();
     this.state = {
@@ -136,7 +136,7 @@ export class Policies extends Component {
       return;
     }
 
-    this.props.history.push(
+    this.props.navigate(
       policyEditorURL({
         userName: this.state.localUsername,
         host: this.state.localHost,
@@ -426,8 +426,12 @@ export class Policies extends Component {
   }
 }
 
-Policies.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+PoliciesInternal.propTypes = {
+  navigate: PropTypes.func.isRequired,
 };
+
+export function Policies(props) {
+  const navigate = useNavigate();
+
+  return <PoliciesInternal navigate={navigate} {...props} />;
+}

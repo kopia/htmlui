@@ -321,7 +321,9 @@ export class PolicyEditor extends Component {
                       this,
                       null,
                       "policy.retention.keepLatest",
-                      { placeholder: "# of latest snapshots" },
+                      {
+                        placeholder: "# of latest snapshots",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "retention.keepLatest")}
@@ -336,7 +338,9 @@ export class PolicyEditor extends Component {
                       this,
                       null,
                       "policy.retention.keepHourly",
-                      { placeholder: "# of hourly snapshots" },
+                      {
+                        placeholder: "# of hourly snapshots",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "retention.keepHourly")}
@@ -351,7 +355,9 @@ export class PolicyEditor extends Component {
                       this,
                       null,
                       "policy.retention.keepDaily",
-                      { placeholder: "# of daily snapshots" },
+                      {
+                        placeholder: "# of daily snapshots",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "retention.keepDaily")}
@@ -366,7 +372,9 @@ export class PolicyEditor extends Component {
                       this,
                       null,
                       "policy.retention.keepWeekly",
-                      { placeholder: "# of weekly snapshots" },
+                      {
+                        placeholder: "# of weekly snapshots",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "retention.keepWeekly")}
@@ -381,7 +389,9 @@ export class PolicyEditor extends Component {
                       this,
                       null,
                       "policy.retention.keepMonthly",
-                      { placeholder: "# of monthly snapshots" },
+                      {
+                        placeholder: "# of monthly snapshots",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "retention.keepMonthly")}
@@ -396,7 +406,9 @@ export class PolicyEditor extends Component {
                       this,
                       null,
                       "policy.retention.keepAnnual",
-                      { placeholder: "# of annual snapshots" },
+                      {
+                        placeholder: "# of annual snapshots",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "retention.keepAnnual")}
@@ -629,7 +641,9 @@ export class PolicyEditor extends Component {
                       this,
                       "",
                       "policy.compression.minSize",
-                      { placeholder: "minimum file size in bytes" },
+                      {
+                        placeholder: "minimum file size in bytes",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "compression.minSize")}
@@ -644,7 +658,9 @@ export class PolicyEditor extends Component {
                       this,
                       "",
                       "policy.compression.maxSize",
-                      { placeholder: "maximum file size in bytes" },
+                      {
+                        placeholder: "maximum file size in bytes",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "compression.maxSize")}
@@ -828,7 +844,9 @@ export class PolicyEditor extends Component {
                       this,
                       "",
                       "policy.upload.maxParallelFileReads",
-                      { placeholder: "max number of parallel file reads" },
+                      {
+                        placeholder: "max number of parallel file reads",
+                      },
                     )}
                   </ValueColumn>
                   {EffectiveValue(this, "upload.maxParallelFileReads")}
