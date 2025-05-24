@@ -69,9 +69,7 @@ export function TimesOfDayList(component, name, props = {}) {
         rows="5"
         {...props}
       ></Form.Control>
-      <Form.Control.Feedback type="invalid">
-        Invalid Times of Day
-      </Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid">Invalid Times of Day</Form.Control.Feedback>
     </FormGroup>
   );
 }

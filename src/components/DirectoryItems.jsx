@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import KopiaTable from "../utils/KopiaTable";
-import {
-  objectLink,
-  rfc3339TimestampForDisplay,
-  sizeWithFailures,
-} from "../utils/uiutil";
+import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from "../utils/uiutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
 
@@ -32,22 +28,13 @@ function sizeInfo(item) {
 function directoryLinkOrDownload(x, state) {
   if (x.obj.startsWith("k")) {
     return (
-      <Link
-        to={objectLink(x.obj)}
-        state={{ label: x.name, oid: x.obj, prevState: state }}
-      >
+      <Link to={objectLink(x.obj)} state={{ label: x.name, oid: x.obj, prevState: state }}>
         {objectName(x.name, x.type)}
       </Link>
     );
   }
 
-  return (
-    <a
-      href={"/api/v1/objects/" + x.obj + "?fname=" + encodeURIComponent(x.name)}
-    >
-      {x.name}
-    </a>
-  );
+  return <a href={"/api/v1/objects/" + x.obj + "?fname=" + encodeURIComponent(x.name)}>{x.name}</a>;
 }
 
 export function DirectoryItems({ historyState, items }) {
@@ -73,12 +60,7 @@ export function DirectoryItems({ historyState, items }) {
       accessorFn: (x) => sizeInfo(x),
       header: "Size",
       width: 100,
-      cell: (x) =>
-        sizeWithFailures(
-          x.cell.getValue(),
-          x.row.original.summ,
-          bytesStringBase2,
-        ),
+      cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summ, bytesStringBase2),
     },
     {
       id: "files",

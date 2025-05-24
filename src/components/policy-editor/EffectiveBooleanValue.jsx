@@ -4,11 +4,7 @@ import { getDeepStateProperty } from "../../utils/deepstate";
 import { EffectiveValueColumn } from "./EffectiveValueColumn";
 
 export function EffectiveBooleanValue(component, policyField) {
-  const dsp = getDeepStateProperty(
-    component,
-    "resolved.definition." + policyField,
-    undefined,
-  );
+  const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
 
   return (
     <EffectiveValueColumn>
@@ -16,16 +12,10 @@ export function EffectiveBooleanValue(component, policyField) {
         <Form.Check
           data-testid={"effective-" + policyField}
           size="sm"
-          checked={getDeepStateProperty(
-            component,
-            "resolved.effective." + policyField,
-            undefined,
-          )}
+          checked={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
           readOnly={true}
         />
-        <Form.Text data-testid={"definition-" + policyField}>
-          {component.PolicyDefinitionPoint(dsp)}
-        </Form.Text>
+        <Form.Text data-testid={"definition-" + policyField}>{component.PolicyDefinitionPoint(dsp)}</Form.Text>
       </Form.Group>
     </EffectiveValueColumn>
   );

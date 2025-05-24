@@ -46,16 +46,11 @@ export function RequiredDirectory(component, label, name, props = {}) {
           {...props}
         ></FormControl>
         {window.kopiaUI && (
-          <Button
-            size="sm"
-            onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}
-          >
+          <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
             <FontAwesomeIcon icon={faFolderOpen} />
           </Button>
         )}
-        <Form.Control.Feedback type="invalid">
-          Required field
-        </Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">Required field</Form.Control.Feedback>
       </InputGroup>
     </FormGroup>
   );

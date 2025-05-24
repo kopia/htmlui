@@ -10,18 +10,13 @@ export function RequiredNumberField(component, label, name, props = {}) {
       <Form.Control
         size="sm"
         name={name}
-        isInvalid={
-          stateProperty(component, name, null) === "" ||
-          isInvalidNumber(stateProperty(component, name))
-        }
+        isInvalid={stateProperty(component, name, null) === "" || isInvalidNumber(stateProperty(component, name))}
         value={stateProperty(component, name)}
         onChange={(e) => component.handleChange(e, valueToNumber)}
         data-testid={"control-" + name}
         {...props}
       />
-      <Form.Control.Feedback type="invalid">
-        Must be a valid number or empty
-      </Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid">Must be a valid number or empty</Form.Control.Feedback>
     </Form.Group>
   );
 }

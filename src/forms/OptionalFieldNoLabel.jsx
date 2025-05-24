@@ -4,14 +4,7 @@ import Col from "react-bootstrap/Col";
 
 import { stateProperty } from ".";
 
-export function OptionalFieldNoLabel(
-  component,
-  label,
-  name,
-  props = {},
-  helpText = null,
-  invalidFeedback = null,
-) {
+export function OptionalFieldNoLabel(component, label, name, props = {}, helpText = null, invalidFeedback = null) {
   return (
     <Form.Group as={Col}>
       <Form.Control
@@ -23,11 +16,7 @@ export function OptionalFieldNoLabel(
         {...props}
       />
       {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
-      {invalidFeedback && (
-        <Form.Control.Feedback type="invalid">
-          {invalidFeedback}
-        </Form.Control.Feedback>
-      )}
+      {invalidFeedback && <Form.Control.Feedback type="invalid">{invalidFeedback}</Form.Control.Feedback>}
     </Form.Group>
   );
 }

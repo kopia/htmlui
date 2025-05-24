@@ -11,12 +11,7 @@ import { handleChange } from "../forms";
 import { SetupRepository } from "../components/SetupRepository";
 import { cancelTask, CLIEquivalent } from "../utils/uiutil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faChevronCircleDown,
-  faChevronCircleUp,
-  faWindowClose,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { Logs } from "../components/Logs";
 import { AppContext } from "../contexts/AppContext";
 
@@ -151,21 +146,13 @@ export class Repository extends Component {
           </h4>
           {this.state.showLog ? (
             <>
-              <Button
-                size="sm"
-                variant="light"
-                onClick={() => this.setState({ showLog: false })}
-              >
+              <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}>
                 <FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log
               </Button>
               <Logs taskID={this.state.status.initTaskID} />
             </>
           ) : (
-            <Button
-              size="sm"
-              variant="light"
-              onClick={() => this.setState({ showLog: true })}
-            >
+            <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}>
               <FontAwesomeIcon icon={faChevronCircleDown} /> Show Log
             </Button>
           )}
@@ -203,18 +190,11 @@ export class Repository extends Component {
                     size="sm"
                   />
                   &nbsp;
-                  <Button
-                    data-testid="update-description"
-                    size="sm"
-                    onClick={this.updateDescription}
-                    type="button"
-                  >
+                  <Button data-testid="update-description" size="sm" onClick={this.updateDescription} type="button">
                     Update Description
                   </Button>
                 </InputGroup>
-                <Form.Control.Feedback type="invalid">
-                  Description Is Required
-                </Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
               </Form.Group>
             </Row>
             {this.state.status.readonly && (
@@ -232,10 +212,7 @@ export class Repository extends Component {
                 <Row>
                   <Form.Group as={Col}>
                     <Form.Label className="required">Server URL</Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.apiServerURL}
-                    />
+                    <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
                   </Form.Group>
                 </Row>
               </>
@@ -244,60 +221,34 @@ export class Repository extends Component {
                 <Row>
                   <Form.Group as={Col}>
                     <Form.Label className="required">Config File</Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.configFile}
-                    />
+                    <Form.Control readOnly defaultValue={this.state.status.configFile} />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group as={Col}>
                     <Form.Label className="required">Provider</Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.storage}
-                    />
+                    <Form.Control readOnly defaultValue={this.state.status.storage} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">
-                      Encryption Algorithm
-                    </Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.encryption}
-                    />
+                    <Form.Label className="required">Encryption Algorithm</Form.Label>
+                    <Form.Control readOnly defaultValue={this.state.status.encryption} />
                   </Form.Group>
                   <Form.Group as={Col}>
                     <Form.Label className="required">Hash Algorithm</Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.hash}
-                    />
+                    <Form.Control readOnly defaultValue={this.state.status.hash} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">
-                      Splitter Algorithm
-                    </Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.splitter}
-                    />
+                    <Form.Label className="required">Splitter Algorithm</Form.Label>
+                    <Form.Control readOnly defaultValue={this.state.status.splitter} />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">
-                      Repository Format
-                    </Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.formatVersion}
-                    />
+                    <Form.Label className="required">Repository Format</Form.Label>
+                    <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">
-                      Error Correction Overhead
-                    </Form.Label>
+                    <Form.Label className="required">Error Correction Overhead</Form.Label>
                     <Form.Control
                       readOnly
                       defaultValue={
@@ -308,26 +259,12 @@ export class Repository extends Component {
                     />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">
-                      Error Correction Algorithm
-                    </Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={this.state.status.ecc || "-"}
-                    />
+                    <Form.Label className="required">Error Correction Algorithm</Form.Label>
+                    <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">
-                      Internal Compression
-                    </Form.Label>
-                    <Form.Control
-                      readOnly
-                      defaultValue={
-                        this.state.status.supportsContentCompression
-                          ? "yes"
-                          : "no"
-                      }
-                    />
+                    <Form.Label className="required">Internal Compression</Form.Label>
+                    <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
                   </Form.Group>
                 </Row>
               </>
@@ -335,14 +272,7 @@ export class Repository extends Component {
             <Row>
               <Form.Group as={Col}>
                 <Form.Label className="required">Connected as:</Form.Label>
-                <Form.Control
-                  readOnly
-                  defaultValue={
-                    this.state.status.username +
-                    "@" +
-                    this.state.status.hostname
-                  }
-                />
+                <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
               </Form.Group>
             </Row>
             <Row>
@@ -350,12 +280,7 @@ export class Repository extends Component {
             </Row>
             <Row>
               <Col>
-                <Button
-                  data-testid="disconnect"
-                  size="sm"
-                  variant="danger"
-                  onClick={this.disconnect}
-                >
+                <Button data-testid="disconnect" size="sm" variant="danger" onClick={this.disconnect}>
                   Disconnect
                 </Button>
               </Col>

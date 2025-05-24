@@ -12,14 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
 import KopiaTable from "../utils/KopiaTable";
-import {
-  checkPolicyPath,
-  CLIEquivalent,
-  compare,
-  ownerName,
-  policyEditorURL,
-  redirect,
-} from "../utils/uiutil";
+import { checkPolicyPath, CLIEquivalent, compare, ownerName, policyEditorURL, redirect } from "../utils/uiutil";
 import PropTypes from "prop-types";
 
 const applicablePolicies = "Applicable Policies";
@@ -45,8 +38,7 @@ export class PoliciesInternal extends Component {
     this.editPolicyForPath = this.editPolicyForPath.bind(this);
     this.handleChange = handleChange.bind(this);
     this.fetchPolicies = this.fetchPolicies.bind(this);
-    this.fetchSourcesWithoutSpinner =
-      this.fetchSourcesWithoutSpinner.bind(this);
+    this.fetchSourcesWithoutSpinner = this.fetchSourcesWithoutSpinner.bind(this);
   }
 
   componentDidMount() {
@@ -97,8 +89,7 @@ export class PoliciesInternal extends Component {
       .get("/api/v1/sources")
       .then((result) => {
         this.setState({
-          localSourceName:
-            result.data.localUsername + "@" + result.data.localHost,
+          localSourceName: result.data.localUsername + "@" + result.data.localHost,
           localUsername: result.data.localUsername,
           localHost: result.data.localHost,
           multiUser: result.data.multiUser,
@@ -122,11 +113,7 @@ export class PoliciesInternal extends Component {
       return;
     }
 
-    const error = checkPolicyPath(
-      this.state.policyPath,
-      this.state.localHost,
-      this.state.localUsername,
-    );
+    const error = checkPolicyPath(this.state.policyPath, this.state.localHost, this.state.localUsername);
 
     if (error) {
       alert(
@@ -173,8 +160,7 @@ export class PoliciesInternal extends Component {
      */
     function isEmpty(obj) {
       for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key))
-          return isEmptyObject(obj[key]);
+        if (Object.prototype.hasOwnProperty.call(obj, key)) return isEmptyObject(obj[key]);
       }
       return true;
     }
@@ -195,11 +181,7 @@ export class PoliciesInternal extends Component {
   }
 
   isLocalHostPolicy(x) {
-    return (
-      !x.target.userName &&
-      x.target.host === this.state.localHost &&
-      !x.target.path
-    );
+    return !x.target.userName && x.target.host === this.state.localHost && !x.target.path;
   }
 
   isLocalUserPolicy(x) {
@@ -241,29 +223,20 @@ export class PoliciesInternal extends Component {
 
       case applicablePolicies:
         policies = policies.filter(
-          (x) =>
-            this.isLocalUserPolicy(x) ||
-            this.isLocalHostPolicy(x) ||
-            this.isGlobalPolicy(x),
+          (x) => this.isLocalUserPolicy(x) || this.isLocalHostPolicy(x) || this.isGlobalPolicy(x),
         );
         break;
 
       case perUserPolicies:
-        policies = policies.filter(
-          (x) => !!x.target.userName && !!x.target.host && !x.target.path,
-        );
+        policies = policies.filter((x) => !!x.target.userName && !!x.target.host && !x.target.path);
         break;
 
       case perHostPolicies:
-        policies = policies.filter(
-          (x) => !x.target.userName && !!x.target.host && !x.target.path,
-        );
+        policies = policies.filter((x) => !x.target.userName && !!x.target.host && !x.target.path);
         break;
 
       default:
-        policies = policies.filter(
-          (x) => ownerName(x.target) === this.state.selectedOwner,
-        );
+        policies = policies.filter((x) => ownerName(x.target) === this.state.selectedOwner);
         break;
     }
 
@@ -324,53 +297,24 @@ export class PoliciesInternal extends Component {
               <Row>
                 <Col xs="auto">
                   <Dropdown>
-                    <Dropdown.Toggle
-                      size="sm"
-                      variant="primary"
-                      id="dropdown-basic"
-                    >
+                    <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
                       <FontAwesomeIcon icon={faUserFriends} />
                       &nbsp;{this.state.selectedOwner}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(applicablePolicies)}
-                      >
+                      <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>
                         {applicablePolicies}
                       </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(localPolicies)}
-                      >
-                        {localPolicies}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(allPolicies)}
-                      >
-                        {allPolicies}
-                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{localPolicies}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{allPolicies}</Dropdown.Item>
                       <Dropdown.Divider />
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(globalPolicy)}
-                      >
-                        {globalPolicy}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(perUserPolicies)}
-                      >
-                        {perUserPolicies}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(perHostPolicies)}
-                      >
-                        {perHostPolicies}
-                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{globalPolicy}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{perUserPolicies}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{perHostPolicies}</Dropdown.Item>
                       <Dropdown.Divider />
                       {uniqueOwners.map((v) => (
-                        <Dropdown.Item
-                          key={v}
-                          onClick={() => this.selectOwner(v)}
-                        >
+                        <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>
                           {v}
                         </Dropdown.Item>
                       ))}
@@ -411,11 +355,9 @@ export class PoliciesInternal extends Component {
             <p>Found {policies.length} policies matching criteria.</p>
             <KopiaTable data={policies} columns={columns} />
           </div>
-        ) : this.state.selectedOwner === localPolicies &&
-          this.state.policyPath ? (
+        ) : this.state.selectedOwner === localPolicies && this.state.policyPath ? (
           <p>
-            No policy found for directory <code>{this.state.policyPath}</code>.
-            Click <b>Set Policy</b> to define it.
+            No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
           </p>
         ) : (
           <p>No policies found.</p>

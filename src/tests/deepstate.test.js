@@ -45,9 +45,7 @@ it("can get fields", async () => {
   });
 
   expect(getDeepStateProperty(comp, "a.b.x")).toStrictEqual("");
-  expect(getDeepStateProperty(comp, "a.b.x", "defaultValue")).toStrictEqual(
-    "defaultValue",
-  );
+  expect(getDeepStateProperty(comp, "a.b.x", "defaultValue")).toStrictEqual("defaultValue");
   expect(getDeepStateProperty(comp, "a.b.x", 3.1415)).toStrictEqual(3.1415);
 });
 

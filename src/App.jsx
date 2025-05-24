@@ -4,13 +4,7 @@ import "./css/App.css";
 import axios from "axios";
 import { React, Component } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { Policy } from "./pages/Policy";
 import { Preferences } from "./pages/Preferences";
 import { Policies } from "./pages/Policies";
@@ -38,10 +32,8 @@ export default class App extends Component {
 
     this.fetchTaskSummary = this.fetchTaskSummary.bind(this);
     this.repositoryUpdated = this.repositoryUpdated.bind(this);
-    this.repositoryDescriptionUpdated =
-      this.repositoryDescriptionUpdated.bind(this);
-    this.fetchInitialRepositoryDescription =
-      this.fetchInitialRepositoryDescription.bind(this);
+    this.repositoryDescriptionUpdated = this.repositoryDescriptionUpdated.bind(this);
+    this.fetchInitialRepositoryDescription = this.fetchInitialRepositoryDescription.bind(this);
 
     const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
     if (tok && tok.content) {
@@ -129,64 +121,41 @@ export default class App extends Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <span
-                    className="d-inline-block"
-                    data-toggle="tooltip"
-                    title="Repository is not connected"
-                  >
+                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
                     <NavLink
                       data-testid="tab-snapshots"
                       title=""
                       data-title="Snapshots"
-                      className={
-                        isRepositoryConnected ? "nav-link" : "nav-link disabled"
-                      }
+                      className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/snapshots"
                     >
                       Snapshots
                     </NavLink>
                   </span>
-                  <span
-                    className="d-inline-block"
-                    data-toggle="tooltip"
-                    title="Repository is not connected"
-                  >
+                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
                     <NavLink
                       data-testid="tab-policies"
                       title=""
                       data-title="Policies"
-                      className={
-                        isRepositoryConnected ? "nav-link" : "nav-link disabled"
-                      }
+                      className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/policies"
                     >
                       Policies
                     </NavLink>
                   </span>
-                  <span
-                    className="d-inline-block"
-                    data-toggle="tooltip"
-                    title="Repository is not connected"
-                  >
+                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
                     <NavLink
                       data-testid="tab-tasks"
                       title=""
                       data-title="Tasks"
-                      className={
-                        isRepositoryConnected ? "nav-link" : "nav-link disabled"
-                      }
+                      className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/tasks"
                     >
                       Tasks
                       <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
                     </NavLink>
                   </span>
-                  <NavLink
-                    data-testid="tab-repo"
-                    data-title="Repository"
-                    className="nav-link"
-                    to="/repo"
-                  >
+                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">
                     Repository
                   </NavLink>
                   <NavLink
@@ -202,28 +171,16 @@ export default class App extends Component {
             </Navbar>
 
             <Container fluid>
-              <NavLink
-                to="/repo"
-                style={{ color: "inherit", textDecoration: "inherit" }}
-              >
+              <NavLink to="/repo" style={{ color: "inherit", textDecoration: "inherit" }}>
                 <h5 className="mb-4">{this.state.repoDescription}</h5>
               </NavLink>
 
               <Routes>
                 <Route path="snapshots" element={<Snapshots />} />
                 <Route path="snapshots/new" element={<SnapshotCreate />} />
-                <Route
-                  path="snapshots/single-source/"
-                  element={<SnapshotHistory />}
-                />
-                <Route
-                  path="snapshots/dir/:oid/restore"
-                  element={<SnapshotRestore />}
-                />
-                <Route
-                  path="snapshots/dir/:oid"
-                  element={<SnapshotDirectory />}
-                />
+                <Route path="snapshots/single-source/" element={<SnapshotHistory />} />
+                <Route path="snapshots/dir/:oid/restore" element={<SnapshotRestore />} />
+                <Route path="snapshots/dir/:oid" element={<SnapshotDirectory />} />
                 <Route path="policies/edit/" element={<Policy />} />
                 <Route path="policies" element={<Policies />} />
                 <Route path="tasks/:tid" element={<Task />} />

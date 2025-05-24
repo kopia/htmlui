@@ -49,10 +49,7 @@ export function OptionalDirectory(component, label, name, props = {}) {
           {...props}
         ></FormControl>
         {window.kopiaUI && (
-          <Button
-            size="sm"
-            onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}
-          >
+          <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
             <FontAwesomeIcon icon={faFolderOpen} />
           </Button>
         )}

@@ -2,9 +2,7 @@ import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
-export const UIPreferencesContext = React.createContext<UIPreferences>(
-  {} as UIPreferences,
-);
+export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
 const DEFAULT_PREFERENCES = {
   pageSize: PAGE_SIZES[0],
@@ -51,10 +49,7 @@ export interface UIPreferenceProviderProps {
  * @returns Theme
  */
 function getDefaultTheme(): Theme {
-  if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
     return "dark";
   }
   return "light";
@@ -118,24 +113,16 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
       .get(PREFERENCES_URL)
       .then((result) => {
         const storedPreferences = result.data as SerializedUIPreferences;
-        if (
-          !storedPreferences.theme ||
-          (storedPreferences.theme as string) === ""
-        ) {
+        if (!storedPreferences.theme || (storedPreferences.theme as string) === "") {
           storedPreferences.theme = getDefaultTheme();
         }
-        if (
-          !storedPreferences.fontSize ||
-          (storedPreferences.fontSize as string) === ""
-        ) {
+        if (!storedPreferences.fontSize || (storedPreferences.fontSize as string) === "") {
           storedPreferences.fontSize = DEFAULT_PREFERENCES.fontSize;
         }
         if (!storedPreferences.pageSize || storedPreferences.pageSize === 0) {
           storedPreferences.pageSize = DEFAULT_PREFERENCES.pageSize;
         } else {
-          storedPreferences.pageSize = normalizePageSize(
-            storedPreferences.pageSize,
-          );
+          storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
         }
         setTheme(storedPreferences.theme);
         setFontSize(storedPreferences.fontSize);
@@ -179,9 +166,5 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     setFontSize,
   } as UIPreferences;
 
-  return (
-    <UIPreferencesContext.Provider value={providedValue}>
-      {props.children}
-    </UIPreferencesContext.Provider>
-  );
+  return <UIPreferencesContext.Provider value={providedValue}>{props.children}</UIPreferencesContext.Provider>;
 }

@@ -35,11 +35,7 @@ export function DirectoryBreadcrumbs() {
                 <OverlayTrigger
                   placement="top"
                   trigger="click"
-                  overlay={
-                    <Tooltip className={"wide-tooltip"}>
-                      OID: {state.oid}
-                    </Tooltip>
-                  }
+                  overlay={<Tooltip className={"wide-tooltip"}>OID: {state.oid}</Tooltip>}
                 >
                   <FontAwesomeIcon icon={faInfoCircle} />
                 </OverlayTrigger>

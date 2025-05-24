@@ -14,10 +14,7 @@ it("can set fields", async () => {
   changeControlValue(getByTestId("control-path"), "some-path");
   changeControlValue(getByTestId("control-username"), "some-username");
   changeControlValue(getByTestId("control-keyfile"), "some-keyfile");
-  changeControlValue(
-    getByTestId("control-knownHostsFile"),
-    "some-knownHostsFile",
-  );
+  changeControlValue(getByTestId("control-knownHostsFile"), "some-knownHostsFile");
   act(() => expect(ref.current.validate()).toBe(true));
 
   // key file + known hosts file
@@ -54,10 +51,7 @@ it("can set fields", async () => {
   changeControlValue(getByTestId("control-keyData"), "");
   act(() => expect(ref.current.validate()).toBe(true));
 
-  changeControlValue(
-    getByTestId("control-knownHostsData"),
-    "some-knownHostsData",
-  );
+  changeControlValue(getByTestId("control-knownHostsData"), "some-knownHostsData");
   act(() => expect(ref.current.validate()).toBe(false));
   changeControlValue(getByTestId("control-knownHostsFile"), "");
   act(() => expect(ref.current.validate()).toBe(true));

@@ -19,12 +19,7 @@ export class SetupRepositoryS3 extends Component {
   }
 
   validate() {
-    return validateRequiredFields(this, [
-      "bucket",
-      "endpoint",
-      "accessKeyID",
-      "secretAccessKey",
-    ]);
+    return validateRequiredFields(this, ["bucket", "endpoint", "accessKeyID", "secretAccessKey"]);
   }
 
   render() {
@@ -39,21 +34,12 @@ export class SetupRepositoryS3 extends Component {
             placeholder: "enter server address (e.g., s3.amazonaws.com)",
           })}
           {OptionalField(this, "Override Region", "region", {
-            placeholder:
-              "enter specific region (e.g., us-west-1) or leave empty",
+            placeholder: "enter specific region (e.g., us-west-1) or leave empty",
           })}
         </Row>
         <Row>
-          {RequiredBoolean(
-            this,
-            "Use HTTP connection (insecure)",
-            "doNotUseTLS",
-          )}
-          {RequiredBoolean(
-            this,
-            "Do not verify TLS certificate",
-            "doNotVerifyTLS",
-          )}
+          {RequiredBoolean(this, "Use HTTP connection (insecure)", "doNotUseTLS")}
+          {RequiredBoolean(this, "Do not verify TLS certificate", "doNotVerifyTLS")}
         </Row>
         <Row>
           {RequiredField(this, "Access Key ID", "accessKeyID", {
