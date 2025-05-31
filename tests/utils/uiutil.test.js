@@ -2,7 +2,7 @@ import {
   formatMilliseconds,
   separateMillisecondsIntoMagnitudes,
   formatMagnitudesUsingMultipleUnits,
-} from "../utils/uiutil";
+} from "../../src/utils/uiutil";
 
 describe("formatMilliseconds", () => {
   it("uses 'XXs' format by default", () => {

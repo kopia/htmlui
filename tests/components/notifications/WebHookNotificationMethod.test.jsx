@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
-import { WebHookNotificationMethod } from "../../components/notifications/WebHookNotificationMethod";
-import { changeControlValue } from "../testutils";
+import { WebHookNotificationMethod } from "../../../src/components/notifications/WebHookNotificationMethod";
+import { changeControlValue } from "../../testutils";
 
 it("can set fields", async () => {
   let ref = React.createRef();

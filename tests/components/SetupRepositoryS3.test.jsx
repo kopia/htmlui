@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
-import { SetupRepositoryS3 } from "../components/SetupRepositoryS3";
-import { changeControlValue, toggleCheckbox } from "./testutils";
+import { SetupRepositoryS3 } from "../../src/components/SetupRepositoryS3";
+import { changeControlValue, toggleCheckbox } from "../testutils";
 
 it("can set fields", async () => {
   let ref = React.createRef();

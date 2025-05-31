@@ -1,10 +1,10 @@
 import { render, waitFor } from "@testing-library/react";
 import React from "react";
-import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
+import { PolicyEditor } from "../../src/components/policy-editor/PolicyEditor";
 import { MemoryRouter } from "react-router-dom";
-import { setupAPIMock } from "../tests/api_mocks";
+import { setupAPIMock } from "../api_mocks";
 import moment from "moment";
-import { changeControlValue, simulateClick } from "../tests/testutils";
+import { changeControlValue, simulateClick } from "../testutils";
 
 // Mockup for the server
 let serverMock;

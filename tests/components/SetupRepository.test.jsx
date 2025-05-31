@@ -1,8 +1,8 @@
 import { findByTestId, render, waitFor, act } from "@testing-library/react";
 import React from "react";
-import { SetupRepository } from "../components/SetupRepository";
-import { setupAPIMock } from "./api_mocks";
-import { changeControlValue, simulateClick } from "./testutils";
+import { SetupRepository } from "../../src/components/SetupRepository";
+import { setupAPIMock } from "../api_mocks";
+import { changeControlValue, simulateClick } from "../testutils";
 
 // Mockup for the server
 let serverMock;

@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
-import { SetupRepositoryGCS } from "../components/SetupRepositoryGCS";
-import { changeControlValue } from "./testutils";
+import { SetupRepositoryGCS } from "../../src/components/SetupRepositoryGCS";
+import { changeControlValue } from "../testutils";
 
 it("can set fields", async () => {
   let ref = React.createRef();
