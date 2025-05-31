@@ -370,9 +370,9 @@ describe("parseQuery", () => {
   });
 
   it("handles URL encoded values", () => {
-    expect(parseQuery("name=John%20Doe&email=test%40example.com")).toEqual({
+    expect(parseQuery("name=John%20Doe&email=test%40examplehost")).toEqual({
       name: "John Doe",
-      email: "test@example.com",
+      email: "test@examplehost",
     });
   });
 
@@ -419,9 +419,9 @@ describe("ownerName", () => {
   it("formats owner name correctly", () => {
     const source = {
       userName: "john",
-      host: "example.com",
+      host: "examplehost",
     };
-    expect(ownerName(source)).toBe("john@example.com");
+    expect(ownerName(source)).toBe("john@examplehost");
   });
 });
 
@@ -519,12 +519,12 @@ describe("sourceQueryStringParams", () => {
   it("encodes source parameters correctly", () => {
     const source = {
       userName: "john doe",
-      host: "example.com",
+      host: "examplehost",
       path: "/home/user/documents",
     };
     const result = sourceQueryStringParams(source);
     expect(result).toContain("userName=john%20doe");
-    expect(result).toContain("host=example.com");
+    expect(result).toContain("host=examplehost");
     expect(result).toContain("path=%2Fhome%2Fuser%2Fdocuments");
   });
 
@@ -579,22 +579,22 @@ describe("PolicyTypeName", () => {
   });
 
   it("returns host name for host-only policy", () => {
-    const source = { host: "example.com" };
-    expect(PolicyTypeName(source)).toBe("Host: example.com");
+    const source = { host: "examplehost" };
+    expect(PolicyTypeName(source)).toBe("Host: examplehost");
   });
 
   it("returns user@host for user policy without path", () => {
-    const source = { userName: "john", host: "example.com" };
-    expect(PolicyTypeName(source)).toBe("User: john@example.com");
+    const source = { userName: "john", host: "examplehost" };
+    expect(PolicyTypeName(source)).toBe("User: john@examplehost");
   });
 
   it("returns directory path for full policy", () => {
     const source = {
       userName: "john",
-      host: "example.com",
+      host: "examplehost",
       path: "/home/john",
     };
-    expect(PolicyTypeName(source)).toBe("Directory: john@example.com:/home/john");
+    expect(PolicyTypeName(source)).toBe("Directory: john@examplehost:/home/john");
   });
 });
 
@@ -602,13 +602,13 @@ describe("policyEditorURL", () => {
   it("generates correct URL with query parameters", () => {
     const source = {
       userName: "john",
-      host: "example.com",
+      host: "examplehost",
       path: "/home/john",
     };
     const url = policyEditorURL(source);
     expect(url).toContain("/policies/edit?");
     expect(url).toContain("userName=john");
-    expect(url).toContain("host=example.com");
+    expect(url).toContain("host=examplehost");
     expect(url).toContain("path=%2Fhome%2Fjohn");
   });
 });
