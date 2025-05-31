@@ -44,11 +44,7 @@ const createSampleData = (count = 25) =>
   }));
 
 const renderWithContext = (ui, contextValue = createMockContext()) => {
-  return render(
-    <UIPreferencesContext.Provider value={contextValue}>
-      {ui}
-    </UIPreferencesContext.Provider>
-  );
+  return render(<UIPreferencesContext.Provider value={contextValue}>{ui}</UIPreferencesContext.Provider>);
 };
 
 describe("KopiaTable", () => {
@@ -263,7 +259,7 @@ describe("KopiaTable", () => {
       renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
 
       const nameHeader = screen.getByText("Name");
-      
+
       // Click to sort ascending
       await user.click(nameHeader);
       const headerDiv = nameHeader.closest("div");
@@ -341,7 +337,7 @@ describe("KopiaTable", () => {
       rerender(
         <UIPreferencesContext.Provider value={mockContext}>
           <KopiaTable columns={sampleColumns} data={smallerData} />
-        </UIPreferencesContext.Provider>
+        </UIPreferencesContext.Provider>,
       );
 
       // Should show the reduced data
@@ -349,4 +345,4 @@ describe("KopiaTable", () => {
       expect(screen.getByText("Item 5")).toBeInTheDocument();
     });
   });
-}); 
+});

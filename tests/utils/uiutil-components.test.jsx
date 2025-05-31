@@ -53,7 +53,7 @@ describe("CLIEquivalent", () => {
     });
 
     render(<CLIEquivalent command="test command" />);
-    
+
     const terminalButton = screen.getByTitle("Click to show CLI equivalent");
     fireEvent.click(terminalButton);
 
@@ -74,7 +74,7 @@ describe("CLIEquivalent", () => {
     });
 
     render(<CLIEquivalent command="test command" />);
-    
+
     const terminalButton = screen.getByTitle("Click to show CLI equivalent");
     fireEvent.click(terminalButton);
 
@@ -88,7 +88,7 @@ describe("CLIEquivalent", () => {
     axios.get.mockRejectedValue(new Error("API Error"));
 
     render(<CLIEquivalent command="test command" />);
-    
+
     const terminalButton = screen.getByTitle("Click to show CLI equivalent");
     fireEvent.click(terminalButton);
 
@@ -104,7 +104,7 @@ describe("GoBackButton", () => {
 
   it("renders with correct text and icon", () => {
     renderWithRouter(<GoBackButton />);
-    
+
     const button = screen.getByRole("button");
     expect(button).toBeInTheDocument();
     expect(button).toHaveTextContent("Return");
@@ -112,10 +112,10 @@ describe("GoBackButton", () => {
 
   it("calls navigate(-1) when clicked", () => {
     renderWithRouter(<GoBackButton />);
-    
+
     const button = screen.getByRole("button");
     fireEvent.click(button);
-    
+
     expect(mockNavigate).toHaveBeenCalledWith(-1);
   });
 });
@@ -129,7 +129,7 @@ describe("PolicyEditorLink", () => {
     };
 
     renderWithRouter(<PolicyEditorLink {...source} />);
-    
+
     const link = screen.getByRole("link");
     expect(link).toBeInTheDocument();
     expect(link).toHaveTextContent("Directory: john@example.com:/home/john");
@@ -141,7 +141,7 @@ describe("PolicyEditorLink", () => {
     const source = {};
 
     renderWithRouter(<PolicyEditorLink {...source} />);
-    
+
     const link = screen.getByRole("link");
     expect(link).toHaveTextContent("Global Policy");
   });
@@ -169,7 +169,7 @@ describe("sizeWithFailures", () => {
       numFailed: 1,
     };
     const result = sizeWithFailures(1024, summ, false);
-    
+
     // Should be a span containing size, nbsp, and error icon
     expect(result.type).toBe("span");
     expect(result.props.children).toHaveLength(3);
@@ -186,7 +186,7 @@ describe("sizeWithFailures", () => {
       numFailed: 2,
     };
     const result = sizeWithFailures(1024, summ, false);
-    
+
     expect(result.type).toBe("span");
     // Check that error icon has the correct title format
     const errorIcon = result.props.children[2]; // Third element is the icon
@@ -201,7 +201,7 @@ describe("sizeWithFailures", () => {
       numFailed: 1,
     };
     const result = sizeWithFailures(1024, summ, false);
-    
+
     const errorIcon = result.props.children[2]; // Third element is the icon
     expect(errorIcon.props.title).toContain("Error: ");
     expect(errorIcon.props.title).toContain("/test: Single error");
@@ -223,22 +223,20 @@ describe("taskStatusSymbol", () => {
   it("shows running status with spinner", () => {
     const task = { ...baseTask, status: "RUNNING", endTime: null };
     const result = taskStatusSymbol(task);
-    
+
     expect(result.type).toBe(React.Fragment);
     // The fragment contains multiple elements, check that it includes running text
     const children = result.props.children;
     expect(Array.isArray(children)).toBe(true);
     // Look for text content that includes "Running for"
-    const hasRunningText = children.some(child => 
-      typeof child === 'string' && child.includes('Running for')
-    );
+    const hasRunningText = children.some((child) => typeof child === "string" && child.includes("Running for"));
     expect(hasRunningText).toBe(true);
   });
 
   it("shows success status with check icon", () => {
     const task = { ...baseTask, status: "SUCCESS" };
     const result = taskStatusSymbol(task);
-    
+
     expect(result.type).toBe("p");
     expect(result.props.children[1]).toContain("Finished in");
   });
@@ -246,7 +244,7 @@ describe("taskStatusSymbol", () => {
   it("shows failed status with error icon", () => {
     const task = { ...baseTask, status: "FAILED" };
     const result = taskStatusSymbol(task);
-    
+
     expect(result.type).toBe("p");
     expect(result.props.children[1]).toContain("Failed after");
   });
@@ -254,7 +252,7 @@ describe("taskStatusSymbol", () => {
   it("shows canceled status with ban icon", () => {
     const task = { ...baseTask, status: "CANCELED" };
     const result = taskStatusSymbol(task);
-    
+
     expect(result.type).toBe("p");
     expect(result.props.children[1]).toContain("Canceled after");
   });
@@ -262,20 +260,18 @@ describe("taskStatusSymbol", () => {
   it("returns status string for unknown status", () => {
     const task = { ...baseTask, status: "UNKNOWN" };
     const result = taskStatusSymbol(task);
-    
+
     expect(result).toBe("UNKNOWN");
   });
 
   it("includes cancel button for running tasks", () => {
     const task = { ...baseTask, status: "RUNNING", endTime: null };
     const result = taskStatusSymbol(task);
-    
+
     // Should have a cancel button somewhere in the children
     const children = result.props.children;
-    const cancelButton = children.find(child => 
-      child && typeof child === 'object' && child.type === 'button'
-    );
+    const cancelButton = children.find((child) => child && typeof child === "object" && child.type === "button");
     expect(cancelButton).toBeDefined();
     expect(cancelButton.props.onClick).toBeDefined();
   });
-}); 
+});

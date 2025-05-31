@@ -99,9 +99,7 @@ describe("errorAlert", () => {
 
     errorAlert(error);
 
-    expect(window.alert).toHaveBeenCalledWith(
-      'Error: {"customError":"Custom error message"}'
-    );
+    expect(window.alert).toHaveBeenCalledWith('Error: {"customError":"Custom error message"}');
   });
 
   it("uses custom prefix when provided", () => {
@@ -131,4 +129,4 @@ describe("errorAlert", () => {
 
     expect(window.alert).toHaveBeenCalledWith("Error: Unknown error");
   });
-}); 
+});

@@ -475,9 +475,7 @@ describe("isAbsolutePath", () => {
 
 describe("checkPolicyPath", () => {
   it("rejects global policy creation", () => {
-    expect(checkPolicyPath("(global)")).toBe(
-      "Cannot create the global policy, it already exists."
-    );
+    expect(checkPolicyPath("(global)")).toBe("Cannot create the global policy, it already exists.");
   });
 
   it("accepts absolute Unix paths", () => {
@@ -497,15 +495,11 @@ describe("checkPolicyPath", () => {
   it("accepts user@host:path format", () => {
     // Note: This test reveals a potential bug in checkPolicyPath
     // The function should accept user@host:/absolute/path but currently doesn't
-    expect(checkPolicyPath("user@host:/path/to/dir")).toBe(
-      "Policies can not be defined for relative paths."
-    );
+    expect(checkPolicyPath("user@host:/path/to/dir")).toBe("Policies can not be defined for relative paths.");
   });
 
   it("rejects user@host format with relative path", () => {
-    expect(checkPolicyPath("user@host:relative/path")).toBe(
-      "Policies can not be defined for relative paths."
-    );
+    expect(checkPolicyPath("user@host:relative/path")).toBe("Policies can not be defined for relative paths.");
   });
 
   it("rejects missing hostname", () => {
@@ -513,15 +507,11 @@ describe("checkPolicyPath", () => {
   });
 
   it("rejects relative paths", () => {
-    expect(checkPolicyPath("relative/path")).toBe(
-      "Policies can not be defined for relative paths."
-    );
+    expect(checkPolicyPath("relative/path")).toBe("Policies can not be defined for relative paths.");
   });
 
   it("rejects invalid formats", () => {
-    expect(checkPolicyPath("invalid:format")).toBe(
-      "Policies can not be defined for relative paths."
-    );
+    expect(checkPolicyPath("invalid:format")).toBe("Policies can not be defined for relative paths.");
   });
 });
 
