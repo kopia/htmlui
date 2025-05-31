@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Preferences } from "../pages/Preferences";
+import { Preferences } from "../../src/pages/Preferences";
 import React from "react";
 
 /**

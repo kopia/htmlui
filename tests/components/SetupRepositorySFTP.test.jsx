@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
-import { SetupRepositorySFTP } from "../components/SetupRepositorySFTP";
-import { changeControlValue } from "./testutils";
+import { SetupRepositorySFTP } from "../../src/components/SetupRepositorySFTP";
+import { changeControlValue } from "../testutils";
 
 it("can set fields", async () => {
   let ref = React.createRef();

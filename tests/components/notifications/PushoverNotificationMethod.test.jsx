@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
-import { PushoverNotificationMethod } from "../../components/notifications/PushoverNotificationMethod";
-import { changeControlValue } from "../testutils";
+import { PushoverNotificationMethod } from "../../../src/components/notifications/PushoverNotificationMethod";
+import { changeControlValue } from "../../testutils";
 
 it("can set fields", async () => {
   let ref = React.createRef();

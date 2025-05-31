@@ -1,4 +1,4 @@
-import { getDeepStateProperty, setDeepStateProperty } from "../utils/deepstate";
+import { getDeepStateProperty, setDeepStateProperty } from "../../src/utils/deepstate";
 
 it("can get fields", async () => {
   const comp = {
