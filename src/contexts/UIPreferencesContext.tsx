@@ -27,14 +27,14 @@ export interface UIPreferences {
   setTheme: (theme: Theme) => void;
   setPageSize: (pageSize: number) => void;
   setByteStringBase: (bytesStringBase2: string) => void;
-  setDefaultSnapshotViewAll: (defaultSnapshotView: boolean) => void;
+  setDefaultSnapshotViewAll: (defaultSnapshotViewAll: boolean) => void;
   setFontSize: (size: string) => void;
 }
 
 interface SerializedUIPreferences {
   pageSize?: number;
   bytesStringBase2?: boolean;
-  defaultSnapshotView?: boolean;
+  defaultSnapshotViewAll?: boolean;
   theme: Theme;
   fontSize: FontSize;
 }
@@ -96,7 +96,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
 
   const setDefaultSnapshotViewAll = (input: boolean) =>
     setPreferences((oldPreferences) => {
-      return { ...oldPreferences, input };
+      return { ...oldPreferences, defaultSnapshotViewAll: input };
     });
 
   const setFontSize = useCallback(
