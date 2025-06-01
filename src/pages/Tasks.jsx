@@ -23,6 +23,7 @@ export class Tasks extends Component {
       showKind: "All",
       showStatus: "All",
       uniqueKinds: [],
+      searchDescription: "",
     };
 
     this.handleChange = handleChange.bind(this);
