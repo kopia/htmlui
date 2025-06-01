@@ -3,14 +3,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
-
-// Mock axios properly for vitest
-vi.mock("axios", () => ({
-  default: {
-    get: vi.fn(),
-    post: vi.fn(),
-  },
-}));
+import { setupAPIMock } from "../api_mocks";
 
 // Mock react-router-dom navigate
 const mockNavigate = vi.fn();
@@ -29,7 +22,6 @@ import {
   sizeWithFailures,
   taskStatusSymbol,
 } from "../../src/utils/uiutil";
-import axios from "axios";
 
 // Helper to render components with router
 const renderWithRouter = (component) => {
@@ -37,8 +29,15 @@ const renderWithRouter = (component) => {
 };
 
 describe("CLIEquivalent", () => {
+  let axiosMock;
+
   beforeEach(() => {
     vi.clearAllMocks();
+    axiosMock = setupAPIMock();
+  });
+
+  afterEach(() => {
+    axiosMock.reset();
   });
 
   it("renders terminal button initially", () => {
@@ -48,18 +47,10 @@ describe("CLIEquivalent", () => {
   });
 
   it("shows CLI command when clicked", async () => {
-    axios.get.mockResolvedValue({
-      data: { executable: "kopia" },
-    });
-
     render(<CLIEquivalent command="test command" />);
 
     const terminalButton = screen.getByTitle("Click to show CLI equivalent");
     fireEvent.click(terminalButton);
-
-    await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith("/api/v1/cli");
-    });
 
     await waitFor(() => {
       const input = screen.getByDisplayValue("kopia test command");
@@ -69,10 +60,6 @@ describe("CLIEquivalent", () => {
   });
 
   it("shows copy button when CLI is visible", async () => {
-    axios.get.mockResolvedValue({
-      data: { executable: "kopia" },
-    });
-
     render(<CLIEquivalent command="test command" />);
 
     const terminalButton = screen.getByTitle("Click to show CLI equivalent");
@@ -84,8 +71,9 @@ describe("CLIEquivalent", () => {
     });
   });
 
-  it("handles API error gracefully", () => {
-    axios.get.mockRejectedValue(new Error("API Error"));
+  it("handles API error gracefully", async () => {
+    // Override the default mock to simulate an error
+    axiosMock.onGet("/api/v1/cli").reply(500, { message: "API Error" });
 
     render(<CLIEquivalent command="test command" />);
 

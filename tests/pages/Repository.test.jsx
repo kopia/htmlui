@@ -19,11 +19,13 @@ vi.mock("../../src/components/Logs", () => ({
   Logs: ({ taskID }) => <div>Logs for task {taskID}</div>,
 }));
 
-vi.mock("../../src/utils/uiutil", () => ({
-  cancelTask: vi.fn(),
-  // eslint-disable-next-line react/prop-types
-  CLIEquivalent: ({ command }) => <div>kopia {command}</div>,
-}));
+vi.mock("../../src/utils/uiutil", async () => {
+  const actual = await vi.importActual("../../src/utils/uiutil");
+  return {
+    ...actual,
+    cancelTask: vi.fn(),
+  };
+});
 
 // Mock context value
 const mockContextValue = {
@@ -341,8 +343,18 @@ describe("Repository component - CLI equivalent", () => {
     renderWithContext();
 
     await waitFor(() => {
-      // Look for the CLI equivalent text pattern
-      expect(screen.getByText(/kopia repository status/)).toBeInTheDocument();
+      // Look for the terminal button that CLIEquivalent renders
+      expect(screen.getByTitle("Click to show CLI equivalent")).toBeInTheDocument();
+    });
+
+    // Click the terminal button to show the CLI command
+    const terminalButton = screen.getByTitle("Click to show CLI equivalent");
+    await userEvent.click(terminalButton);
+
+    // Should show the actual CLI command with kopia executable
+    await waitFor(() => {
+      const input = screen.getByDisplayValue("kopia repository status");
+      expect(input).toBeInTheDocument();
     });
   });
 });

@@ -26,5 +26,9 @@ export function setupAPIMock() {
     hostname: "somehost",
   });
 
+  axiosMock.onGet("/api/v1/cli").reply(200, {
+    executable: "kopia",
+  });
+
   return axiosMock;
 }
