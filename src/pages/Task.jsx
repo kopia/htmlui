@@ -125,7 +125,7 @@ class TaskInternal extends Component {
   }
 
   counterBadge(label, c) {
-    if (c.value < this.valueThreshold()) {
+    if (c.value <= this.valueThreshold()) {
       return "";
     }
 
