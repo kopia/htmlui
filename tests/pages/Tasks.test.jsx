@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { Tasks } from "../../src/pages/Tasks";
 import { setupAPIMock } from "../api_mocks";
+import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 import { changeControlValue } from "../testutils";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
@@ -15,23 +16,30 @@ vi.mock("react-router-dom", () => ({
   Link: ({ children }) => <a href="#">{children}</a>,
 }));
 
-// Mock KopiaTable to simplify testing
-vi.mock("../../src/utils/KopiaTable", () => ({
-  __esModule: true,
-  default: ({ data, columns }) => (
-    <table data-testid="kopia-table">
-      <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
-            {columns.map((col, colIndex) => (
-              <td key={colIndex}>{col.cell ? col.cell({ row: { original: item } }) : item[col.accessor]}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  ),
-}));
+// Minimal UIPreferences context value
+const mockUIPreferences = {
+  pageSize: 10,
+  theme: "light",
+  bytesStringBase2: false,
+  defaultSnapshotViewAll: false,
+  fontSize: "fs-6",
+  setTheme: vi.fn(),
+  setPageSize: vi.fn(),
+  setByteStringBase: vi.fn(),
+  setDefaultSnapshotViewAll: vi.fn(),
+  setFontSize: vi.fn(),
+};
+
+/**
+ * Helper function to render Tasks component with necessary providers
+ */
+const renderTasks = () => {
+  return render(
+    <UIPreferencesContext.Provider value={mockUIPreferences}>
+      <Tasks />
+    </UIPreferencesContext.Provider>,
+  );
+};
 
 /**
  * Setup API mocks before each test
@@ -58,14 +66,14 @@ describe("Tasks component", () => {
       });
     });
 
-    render(<Tasks />);
+    renderTasks();
     expect(screen.getByText("Loading ...")).toBeInTheDocument();
   });
 
   test("shows info message when no tasks exist", async () => {
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks: [] });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(
@@ -94,10 +102,10 @@ describe("Tasks component", () => {
 
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
-      expect(screen.getByTestId("kopia-table")).toBeInTheDocument();
+      expect(screen.getByRole("table")).toBeInTheDocument();
       expect(screen.getByText("Backing up /home/user")).toBeInTheDocument();
       expect(screen.getByText("Repository maintenance")).toBeInTheDocument();
     });
@@ -130,7 +138,7 @@ describe("Tasks component", () => {
 
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(screen.getByText("Task 1")).toBeInTheDocument();
@@ -179,7 +187,7 @@ describe("Tasks component", () => {
 
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(screen.getByText("Snapshot task")).toBeInTheDocument();
@@ -230,7 +238,7 @@ describe("Tasks component", () => {
 
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(screen.getByText("Backing up important files")).toBeInTheDocument();
@@ -275,7 +283,7 @@ describe("Tasks component", () => {
 
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(screen.getAllByText("Backing up files")).toHaveLength(3);
@@ -293,14 +301,16 @@ describe("Tasks component", () => {
 
     // Should only show task2 (Snapshot + Running)
     expect(screen.getAllByText("Backing up files")).toHaveLength(1);
-    const table = screen.getByTestId("kopia-table");
-    expect(table.querySelectorAll("tr")).toHaveLength(1);
+    const table = screen.getByRole("table");
+    // Count data rows (excluding header row)
+    const rows = table.querySelectorAll("tbody tr");
+    expect(rows).toHaveLength(1);
   });
 
   test("handles API error gracefully", async () => {
     axiosMock.onGet("/api/v1/tasks").reply(500, { message: "Server error" });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(screen.getByText("Request failed with status code 500")).toBeInTheDocument();
@@ -338,7 +348,7 @@ describe("Tasks component", () => {
     // First response
     axiosMock.onGet("/api/v1/tasks").replyOnce(200, { tasks: initialTasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
       expect(screen.getByText("Initial task")).toBeInTheDocument();
@@ -371,10 +381,10 @@ describe("Tasks component", () => {
 
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks });
 
-    render(<Tasks />);
+    renderTasks();
 
     await waitFor(() => {
-      // The mocked KopiaTable renders links inside the first td
+      // The real KopiaTable renders links in the task cells
       const links = screen.getAllByRole("link");
       // At least one link should exist
       expect(links.length).toBeGreaterThan(0);
