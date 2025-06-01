@@ -194,11 +194,16 @@ export class NotificationEditor extends Component {
           <h4>{this.state.isNewProfile ? "New Notification Profile" : "Edit Notification Profile"}</h4>
         </Row>
         <Row>
-          {RequiredField(this, "Profile Name", "editedProfile.profile", {
-            placeholder: "Enter profile name",
-            helpText: "Unique name for this notification profile",
-            readOnly: !this.state.isNewProfile,
-          })}
+          {RequiredField(
+            this,
+            "Profile Name",
+            "editedProfile.profile",
+            {
+              placeholder: "Enter profile name",
+              readOnly: !this.state.isNewProfile,
+            },
+            "Unique name for this notification profile",
+          )}
           <Form.Group as={Col}>
             <Form.Label className="required">Minimum Severity</Form.Label>
             <Form.Control

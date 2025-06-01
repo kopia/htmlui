@@ -2,12 +2,26 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Preferences } from "../../src/pages/Preferences";
 import React from "react";
+import { setupAPIMock } from "../api_mocks";
+
+let axiosMock;
 
 /**
- *
+ * Setup API mocks before each test
  */
 beforeEach(() => {
+  axiosMock = setupAPIMock();
+  // Add mock for notification profiles endpoint that NotificationEditor uses
+  axiosMock.onGet("/api/v1/notificationProfiles").reply(200, []);
+
   render(<Preferences />);
+});
+
+/**
+ * Clean up after each test
+ */
+afterEach(() => {
+  axiosMock.reset();
 });
 
 /**
