@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
 
-function listToMultilineString(v) {
+export function listToMultilineString(v) {
   if (v) {
     return v.join("\n");
   }
@@ -11,7 +11,7 @@ function listToMultilineString(v) {
   return "";
 }
 
-function multilineStringToList(target) {
+export function multilineStringToList(target) {
   const v = target.value;
   if (v === "") {
     return undefined;
