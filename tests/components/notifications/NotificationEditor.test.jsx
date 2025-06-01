@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
 import React from "react";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
@@ -8,13 +8,25 @@ import { setupAPIMock } from "../../api_mocks";
 // Mockup for the server
 let serverMock;
 
+// Store original window functions
+let originalAlert;
+let originalConfirm;
+
 // Initialize the server mock before each test
 beforeEach(() => {
   serverMock = setupAPIMock();
+  // Mock window functions
+  originalAlert = window.alert;
+  originalConfirm = window.confirm;
+  window.alert = vi.fn();
+  window.confirm = vi.fn(() => true); // Default to true, can be overridden in specific tests
 });
 
 afterEach(() => {
   serverMock.reset();
+  // Restore window functions
+  window.alert = originalAlert;
+  window.confirm = originalConfirm;
 });
 
 const mockProfiles = [
@@ -185,10 +197,6 @@ describe("NotificationEditor", () => {
       error: "Profile name already exists",
     });
 
-    // Mock window.alert
-    const originalAlert = window.alert;
-    window.alert = vi.fn();
-
     render(<NotificationEditor />);
 
     await waitFor(() => {
@@ -206,18 +214,11 @@ describe("NotificationEditor", () => {
 
     // Simulate the component being in a state where validation passes
     // This would require more complex setup with the email editor component
-
-    // Restore alert
-    window.alert = originalAlert;
   });
 
   it("deletes profile with confirmation", async () => {
     // First mock - initial load with both profiles
     serverMock.onGet("/api/v1/notificationProfiles").reply(200, mockProfiles);
-
-    // Mock window.confirm
-    const originalConfirm = window.confirm;
-    window.confirm = vi.fn(() => true);
 
     render(<NotificationEditor />);
 
@@ -243,17 +244,13 @@ describe("NotificationEditor", () => {
 
     // Verify remaining profile is still visible
     expect(screen.getByText("pushover-1")).toBeInTheDocument();
-
-    // Restore confirm
-    window.confirm = originalConfirm;
   });
 
   it("cancels profile deletion when user declines", async () => {
-    serverMock.onGet("/api/v1/notificationProfiles").reply(200, mockProfiles);
-
-    // Mock window.confirm to return false
-    const originalConfirm = window.confirm;
+    // Override default confirm behavior for this test
     window.confirm = vi.fn(() => false);
+
+    serverMock.onGet("/api/v1/notificationProfiles").reply(200, mockProfiles);
 
     render(<NotificationEditor />);
 
@@ -269,9 +266,6 @@ describe("NotificationEditor", () => {
 
     // Profile should still be visible
     expect(screen.getByText("email-1")).toBeInTheDocument();
-
-    // Restore confirm
-    window.confirm = originalConfirm;
   });
 
   it("handles delete profile error", async () => {
@@ -279,12 +273,6 @@ describe("NotificationEditor", () => {
     serverMock.onDelete("/api/v1/notificationProfiles/email-1").reply(400, {
       error: "Cannot delete profile in use",
     });
-
-    // Mock window functions
-    const originalConfirm = window.confirm;
-    const originalAlert = window.alert;
-    window.confirm = vi.fn(() => true);
-    window.alert = vi.fn();
 
     render(<NotificationEditor />);
 
@@ -299,10 +287,6 @@ describe("NotificationEditor", () => {
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith("Error deleting: Cannot delete profile in use");
     });
-
-    // Restore functions
-    window.confirm = originalConfirm;
-    window.alert = originalAlert;
   });
 
   it("duplicates profile correctly", async () => {
@@ -316,7 +300,9 @@ describe("NotificationEditor", () => {
 
     // Click Duplicate button for first profile
     const duplicateButtons = screen.getAllByText("Duplicate");
-    fireEvent.click(duplicateButtons[0]);
+    await act(async () => {
+      fireEvent.click(duplicateButtons[0]);
+    });
 
     await waitFor(() => {
       expect(screen.getByText("New Notification Profile")).toBeInTheDocument();
@@ -329,10 +315,6 @@ describe("NotificationEditor", () => {
   it("sends test notification for existing profile", async () => {
     serverMock.onGet("/api/v1/notificationProfiles").reply(200, mockProfiles);
     serverMock.onPost("/api/v1/testNotificationProfile").reply(200, {});
-
-    // Mock window.alert
-    const originalAlert = window.alert;
-    window.alert = vi.fn();
 
     render(<NotificationEditor />);
 
@@ -347,9 +329,6 @@ describe("NotificationEditor", () => {
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith("Notification sent, please make sure you have received it.");
     });
-
-    // Restore alert
-    window.alert = originalAlert;
   });
 
   it("handles test notification error", async () => {
@@ -357,10 +336,6 @@ describe("NotificationEditor", () => {
     serverMock.onPost("/api/v1/testNotificationProfile").reply(400, {
       error: "SMTP server not reachable",
     });
-
-    // Mock window.alert
-    const originalAlert = window.alert;
-    window.alert = vi.fn();
 
     render(<NotificationEditor />);
 
@@ -375,9 +350,6 @@ describe("NotificationEditor", () => {
     await waitFor(() => {
       expect(window.alert).toHaveBeenCalledWith("Error sending notification: SMTP server not reachable");
     });
-
-    // Restore alert
-    window.alert = originalAlert;
   });
 
   it("cancels editing and returns to list", async () => {
@@ -391,7 +363,9 @@ describe("NotificationEditor", () => {
 
     // Click Edit button
     const editButtons = screen.getAllByText("Edit");
-    fireEvent.click(editButtons[0]);
+    await act(async () => {
+      fireEvent.click(editButtons[0]);
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Edit Notification Profile")).toBeInTheDocument();
@@ -399,7 +373,9 @@ describe("NotificationEditor", () => {
 
     // Click Cancel button
     const cancelButton = screen.getByText("Cancel");
-    fireEvent.click(cancelButton);
+    await act(async () => {
+      fireEvent.click(cancelButton);
+    });
 
     await waitFor(() => {
       expect(screen.getByText("email-1")).toBeInTheDocument();
@@ -421,7 +397,9 @@ describe("NotificationEditor", () => {
 
     // Click Edit button
     const editButtons = screen.getAllByText("Edit");
-    fireEvent.click(editButtons[0]);
+    await act(async () => {
+      fireEvent.click(editButtons[0]);
+    });
 
     await waitFor(() => {
       expect(screen.getByText("Edit Notification Profile")).toBeInTheDocument();
@@ -429,7 +407,9 @@ describe("NotificationEditor", () => {
 
     // Click Update Profile button (this will need proper form validation)
     const updateButton = screen.getByText("Update Profile");
-    fireEvent.click(updateButton);
+    await act(async () => {
+      fireEvent.click(updateButton);
+    });
 
     // The component should attempt to validate and update
   });

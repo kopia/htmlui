@@ -23,8 +23,8 @@ function paginationItems(count, active, gotoPage) {
     );
   }
 
-  function dotDotDot() {
-    return <Pagination.Ellipsis />;
+  function dotDotDot(key) {
+    return <Pagination.Ellipsis key={key} />;
   }
 
   let minPageNumber = active - 10;
@@ -41,7 +41,7 @@ function paginationItems(count, active, gotoPage) {
   }
 
   if (minPageNumber > 1) {
-    items.push(dotDotDot());
+    items.push(dotDotDot("ellipsis-start"));
   }
 
   for (let number = minPageNumber; number <= maxPageNumber; number++) {
@@ -49,7 +49,7 @@ function paginationItems(count, active, gotoPage) {
   }
 
   if (maxPageNumber < count) {
-    items.push(dotDotDot());
+    items.push(dotDotDot("ellipsis-end"));
   }
 
   return items;
