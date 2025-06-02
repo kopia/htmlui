@@ -42,14 +42,14 @@ describe("CLIEquivalent", () => {
 
   it("renders terminal button initially", () => {
     render(<CLIEquivalent command="test command" />);
-    const button = screen.getByTitle("Click to show CLI equivalent");
+    const button = screen.getByTestId("show-cli-button");
     expect(button).toBeInTheDocument();
   });
 
   it("shows CLI command when clicked", async () => {
     render(<CLIEquivalent command="test command" />);
 
-    const terminalButton = screen.getByTitle("Click to show CLI equivalent");
+    const terminalButton = screen.getByTestId("show-cli-button");
     fireEvent.click(terminalButton);
 
     await waitFor(() => {
@@ -62,7 +62,7 @@ describe("CLIEquivalent", () => {
   it("shows copy button when CLI is visible", async () => {
     render(<CLIEquivalent command="test command" />);
 
-    const terminalButton = screen.getByTitle("Click to show CLI equivalent");
+    const terminalButton = screen.getByTestId("show-cli-button");
     fireEvent.click(terminalButton);
 
     await waitFor(() => {
@@ -77,7 +77,7 @@ describe("CLIEquivalent", () => {
 
     render(<CLIEquivalent command="test command" />);
 
-    const terminalButton = screen.getByTitle("Click to show CLI equivalent");
+    const terminalButton = screen.getByTestId("show-cli-button");
     fireEvent.click(terminalButton);
 
     // Should not crash and should still show the button

@@ -473,7 +473,13 @@ export function CLIEquivalent(props) {
   return (
     <>
       <InputGroup size="sm">
-        <Button size="sm" title="Click to show CLI equivalent" variant="submit" onClick={() => setVisible(!visible)}>
+        <Button
+          data-testid="show-cli-button"
+          size="sm"
+          title="Click to show CLI equivalent"
+          variant="submit"
+          onClick={() => setVisible(!visible)}
+        >
           <FontAwesomeIcon size="sm" icon={faTerminal} />
         </Button>
         {visible && (

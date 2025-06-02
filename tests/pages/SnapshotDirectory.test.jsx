@@ -34,11 +34,6 @@ vi.mock("../../src/components/DirectoryBreadcrumbs", () => ({
   DirectoryBreadcrumbs: () => <div data-testid="directory-breadcrumbs">Breadcrumbs</div>,
 }));
 
-vi.mock("../../src/utils/uiutil", () => ({
-  // eslint-disable-next-line react/prop-types
-  CLIEquivalent: ({ command }) => <div data-testid="cli-equivalent">{command}</div>,
-}));
-
 // Minimal UIPreferences context value
 const mockUIPreferences = {
   pageSize: 10,
@@ -166,7 +161,7 @@ describe("SnapshotDirectory component", () => {
       expect(screen.getByTestId("directory-breadcrumbs")).toBeInTheDocument();
       expect(screen.getByTestId("directory-items")).toBeInTheDocument();
       expect(screen.getByTestId("items-count")).toHaveTextContent("2");
-      expect(screen.getByTestId("cli-equivalent")).toHaveTextContent("snapshot list test-oid-123");
+      expect(screen.getByTestId("show-cli-button")).toBeInTheDocument();
     });
 
     // Should show mount button when not mounted

@@ -204,7 +204,7 @@ describe("SnapshotHistory", () => {
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
-      expect(screen.getByTitle("Click to show CLI equivalent")).toBeInTheDocument();
+      expect(screen.getByTestId("show-cli-button")).toBeInTheDocument();
     });
   });
 
