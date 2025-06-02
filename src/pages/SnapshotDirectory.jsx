@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { DirectoryItems } from "../components/DirectoryItems";
-import { CLIEquivalent } from "../utils/uiutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 import PropTypes from "prop-types";
 

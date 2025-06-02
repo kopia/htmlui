@@ -20,8 +20,8 @@ vi.mock("../../src/components/Logs", () => ({
 }));
 
 // Mock redirect function from uiutil
-vi.mock("../../src/utils/uiutil", async () => {
-  const actual = await vi.importActual("../../src/utils/uiutil");
+vi.mock("../../src/utils/uiutil", async (importOriginal) => {
+  const actual = await importOriginal();
   return {
     ...actual,
     redirect: vi.fn(),

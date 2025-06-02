@@ -9,7 +9,9 @@ import { handleChange } from "../forms";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { SnapshotEstimation } from "../components/SnapshotEstimation";
 import { RequiredDirectory } from "../forms/RequiredDirectory";
-import { CLIEquivalent, errorAlert, GoBackButton, redirect } from "../utils/uiutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
+import { errorAlert, redirect } from "../utils/uiutil";
+import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
 
 class SnapshotCreateInternal extends Component {

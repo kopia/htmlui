@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
-import KopiaTable from "../utils/KopiaTable";
+import KopiaTable from "../components/KopiaTable";
 import { redirect } from "../utils/uiutil";
 import { taskStatusSymbol } from "../utils/taskutil";
 

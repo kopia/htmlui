@@ -10,7 +10,8 @@ import { handleChange, validateRequiredFields } from "../forms";
 import { RequiredBoolean } from "../forms/RequiredBoolean";
 import { RequiredField } from "../forms/RequiredField";
 import { RequiredNumberField } from "../forms/RequiredNumberField";
-import { errorAlert, GoBackButton } from "../utils/uiutil";
+import { errorAlert } from "../utils/uiutil";
+import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
 
 export class SnapshotRestoreInternal extends Component {

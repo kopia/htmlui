@@ -11,9 +11,8 @@ import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
-import KopiaTable from "../utils/KopiaTable";
+import KopiaTable from "../components/KopiaTable";
 import {
-  CLIEquivalent,
   compare,
   errorAlert,
   ownerName,
@@ -23,6 +22,7 @@ import {
   sizeWithFailures,
   sourceQueryStringParams,
 } from "../utils/uiutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 
 const localSnapshots = "Local Snapshots";

@@ -21,15 +21,14 @@ vi.mock("react-router-dom", () => ({
 }));
 
 // Mock utility components with minimal implementations
-vi.mock("../../src/utils/uiutil", async (importOriginal) => {
-  const actual = await importOriginal();
-  return {
-    ...actual,
-    GoBackButton: () => <button data-testid="go-back-button">Go Back</button>,
-    errorAlert: vi.fn(),
-    redirect: vi.fn(),
-  };
-});
+vi.mock("../../src/utils/uiutil", () => ({
+  errorAlert: vi.fn(),
+  redirect: vi.fn(),
+}));
+
+vi.mock("../../src/components/GoBackButton", () => ({
+  GoBackButton: () => <button data-testid="go-back-button">Go Back</button>,
+}));
 
 // Mock PolicyEditor with a simple implementation that tracks ref calls
 vi.mock("../../src/components/policy-editor/PolicyEditor", () => ({
@@ -298,9 +297,8 @@ describe("SnapshotCreate component", () => {
   });
 
   test("handles API errors gracefully", async () => {
-    // Access the mocked errorAlert function through the module
-    const utils = await import("../../src/utils/uiutil");
-    const mockErrorAlert = vi.mocked(utils.errorAlert);
+    const { errorAlert } = await import("../../src/utils/uiutil");
+    const mockErrorAlert = vi.mocked(errorAlert);
 
     axiosMock.onGet("/api/v1/sources").reply(200, {
       localUsername: "testuser",
@@ -480,9 +478,8 @@ describe("SnapshotCreate component", () => {
   });
 
   test("handles sources API failure on mount", async () => {
-    // Access the mocked redirect function through the module
-    const utils = await import("../../src/utils/uiutil");
-    const mockRedirect = vi.mocked(utils.redirect);
+    const { redirect } = await import("../../src/utils/uiutil");
+    const mockRedirect = vi.mocked(redirect);
 
     axiosMock.onGet("/api/v1/sources").reply(500, {
       message: "Failed to get sources",
