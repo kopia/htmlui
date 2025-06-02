@@ -434,11 +434,11 @@ describe("Snapshots component", () => {
 
     await waitFor(() => {
       // Look for the terminal button that CLIEquivalent renders
-      expect(screen.getByTitle("Click to show CLI equivalent")).toBeInTheDocument();
+      expect(screen.getByTestId("show-cli-button")).toBeInTheDocument();
     });
 
     // Click the terminal button to show the CLI command
-    const terminalButton = screen.getByTitle("Click to show CLI equivalent");
+    const terminalButton = screen.getByTestId("show-cli-button");
     await userEvent.click(terminalButton);
 
     // Should show the actual CLI command with kopia executable
