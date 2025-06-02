@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/esm/Spinner";
 import Form from "react-bootstrap/Form";
 import { Logs } from "./Logs";
-import { cancelTask, redirect, sizeDisplayName } from "../utils/uiutil";
+import { redirect, sizeDisplayName } from "../utils/uiutil";
+import { cancelTask } from "../utils/taskutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 

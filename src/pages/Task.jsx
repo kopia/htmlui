@@ -11,7 +11,8 @@ import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 import { Logs } from "../components/Logs";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import { cancelTask, formatDuration, GoBackButton, redirect, sizeDisplayName } from "../utils/uiutil";
+import { formatDuration, GoBackButton, redirect, sizeDisplayName } from "../utils/uiutil";
+import { cancelTask } from "../utils/taskutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
 

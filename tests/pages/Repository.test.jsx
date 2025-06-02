@@ -19,8 +19,8 @@ vi.mock("../../src/components/Logs", () => ({
   Logs: ({ taskID }) => <div>Logs for task {taskID}</div>,
 }));
 
-vi.mock("../../src/utils/uiutil", async () => {
-  const actual = await vi.importActual("../../src/utils/uiutil");
+vi.mock("../../src/utils/taskutil", async () => {
+  const actual = await vi.importActual("../../src/utils/taskutil");
   return {
     ...actual,
     cancelTask: vi.fn(),
@@ -272,7 +272,7 @@ describe("Repository component - initializing state", () => {
 
   test("cancels connection during initialization", async () => {
     // Import the mocked cancelTask
-    const { cancelTask } = await import("../../src/utils/uiutil");
+    const { cancelTask } = await import("../../src/utils/taskutil");
 
     axiosMock.onGet("/api/v1/repo/status").reply(200, {
       connected: false,
