@@ -162,7 +162,7 @@ class SnapshotDirectoryInternal extends Component {
                   className="form-control form-control-sm mounted-path"
                   value={this.state.mountInfo.path}
                 />
-                <Button size="sm" variant="success" onClick={this.copyPath}>
+                <Button size="sm" variant="success" onClick={this.copyPath} data-testid="copy-path-button">
                   <FontAwesomeIcon icon={faCopy} />
                 </Button>
               </>
