@@ -1,9 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
-import { setupAPIMock } from "../api_mocks";
 
 // Mock react-router-dom navigate
 const mockNavigate = vi.fn();
@@ -15,94 +14,13 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-import { CLIEquivalent, GoBackButton, PolicyEditorLink, sizeWithFailures } from "../../src/utils/uiutil";
-
+import { PolicyEditorLink, sizeWithFailures } from "../../src/utils/uiutil";
 import { taskStatusSymbol } from "../../src/utils/taskutil";
 
 // Helper to render components with router
 const renderWithRouter = (component) => {
   return render(<BrowserRouter>{component}</BrowserRouter>);
 };
-
-describe("CLIEquivalent", () => {
-  let axiosMock;
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    axiosMock = setupAPIMock();
-  });
-
-  afterEach(() => {
-    axiosMock.reset();
-  });
-
-  it("renders terminal button initially", () => {
-    render(<CLIEquivalent command="test command" />);
-    const button = screen.getByTestId("show-cli-button");
-    expect(button).toBeInTheDocument();
-  });
-
-  it("shows CLI command when clicked", async () => {
-    render(<CLIEquivalent command="test command" />);
-
-    const terminalButton = screen.getByTestId("show-cli-button");
-    fireEvent.click(terminalButton);
-
-    await waitFor(() => {
-      const input = screen.getByDisplayValue("kopia test command");
-      expect(input).toBeInTheDocument();
-      expect(input).toHaveAttribute("readonly");
-    });
-  });
-
-  it("shows copy button when CLI is visible", async () => {
-    render(<CLIEquivalent command="test command" />);
-
-    const terminalButton = screen.getByTestId("show-cli-button");
-    fireEvent.click(terminalButton);
-
-    await waitFor(() => {
-      const copyButton = screen.getByTitle("Copy to clipboard");
-      expect(copyButton).toBeInTheDocument();
-    });
-  });
-
-  it("handles API error gracefully", async () => {
-    // Override the default mock to simulate an error
-    axiosMock.onGet("/api/v1/cli").reply(500, { message: "API Error" });
-
-    render(<CLIEquivalent command="test command" />);
-
-    const terminalButton = screen.getByTestId("show-cli-button");
-    fireEvent.click(terminalButton);
-
-    // Should not crash and should still show the button
-    expect(terminalButton).toBeInTheDocument();
-  });
-});
-
-describe("GoBackButton", () => {
-  beforeEach(() => {
-    mockNavigate.mockClear();
-  });
-
-  it("renders with correct text and icon", () => {
-    renderWithRouter(<GoBackButton />);
-
-    const button = screen.getByRole("button");
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent("Return");
-  });
-
-  it("calls navigate(-1) when clicked", () => {
-    renderWithRouter(<GoBackButton />);
-
-    const button = screen.getByRole("button");
-    fireEvent.click(button);
-
-    expect(mockNavigate).toHaveBeenCalledWith(-1);
-  });
-});
 
 describe("PolicyEditorLink", () => {
   it("renders link with correct URL and text", () => {

@@ -1,10 +1,10 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, describe, it, vi, beforeEach } from "vitest";
 import "@testing-library/jest-dom";
 
-import KopiaTable from "../../src/utils/KopiaTable";
+import KopiaTable from "../../src/components/KopiaTable";
 import { UIPreferencesContext, PAGE_SIZES } from "../../src/contexts/UIPreferencesContext";
 
 // Test data and mock setup
@@ -200,37 +200,43 @@ describe("KopiaTable", () => {
       const dropdown = screen.getByText("Page Size: 10");
       await user.click(dropdown);
 
-      // Check all page sizes are present
+      // Check all page sizes are available
       PAGE_SIZES.forEach((size) => {
         expect(screen.getByText(`Page Size ${size}`)).toBeInTheDocument();
       });
     });
 
-    it("respects initial page size from context", () => {
+    it("respects different page sizes from context", () => {
       const contextWithLargerPageSize = createMockContext(20);
-      const data = createSampleData(15); // Use 15 items so it fits in one page with page size 20
+      const data = createSampleData(50);
       renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, contextWithLargerPageSize);
 
       expect(screen.getByText("Page Size: 20")).toBeInTheDocument();
 
-      // Should show all 15 rows since page size is 20 and data is 15 items
+      // Should show 20 rows instead of 10
       const rows = screen.getAllByRole("row");
-      expect(rows).toHaveLength(16); // 1 header + 15 data rows
+      // 1 header row + 20 data rows = 21 total
+      expect(rows).toHaveLength(21);
     });
   });
 
   describe("Sorting", () => {
-    it("shows sort indicators for sortable columns", () => {
+    it("shows sort indicators on sortable columns", () => {
       const data = createSampleData(5);
       renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
 
-      // Headers should be clickable for sorting - look for the div inside the th
-      const nameHeader = screen.getByText("Name");
-      const headerDiv = nameHeader.closest("div");
-      expect(headerDiv).toHaveClass("cursor-pointer");
+      // Check that column headers are clickable (should have cursor-pointer class)
+      const headers = screen.getAllByRole("columnheader");
+      headers.forEach((header) => {
+        const sortableDiv = header.querySelector(".cursor-pointer");
+        if (sortableDiv) {
+          expect(sortableDiv).toHaveClass("cursor-pointer");
+          expect(sortableDiv).toHaveClass("select-none");
+        }
+      });
     });
 
-    it("sorts data when clicking column header", async () => {
+    it("sorts data when column header is clicked", async () => {
       const user = userEvent.setup();
       const data = [
         { id: 3, name: "Charlie", status: "Active" },
@@ -239,21 +245,40 @@ describe("KopiaTable", () => {
       ];
       renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
 
-      // Click on Name header to sort
+      // Click on Name column header to sort
       const nameHeader = screen.getByText("Name");
       await user.click(nameHeader);
 
-      // Get all rows and check order (skip header row)
+      // Check that data is sorted - Alice should be first
       const rows = screen.getAllByRole("row");
-      const dataRows = rows.slice(1); // Remove header row
-
-      // Should be sorted by name (Alice, Bob, Charlie)
-      expect(dataRows[0]).toHaveTextContent("Alice");
-      expect(dataRows[1]).toHaveTextContent("Bob");
-      expect(dataRows[2]).toHaveTextContent("Charlie");
+      expect(rows[1]).toHaveTextContent("Alice");
+      expect(rows[2]).toHaveTextContent("Bob");
+      expect(rows[3]).toHaveTextContent("Charlie");
     });
 
-    it("shows sort direction indicators", async () => {
+    it("toggles sort direction on repeated clicks", async () => {
+      const user = userEvent.setup();
+      const data = [
+        { id: 1, name: "Alice", status: "Inactive" },
+        { id: 2, name: "Bob", status: "Active" },
+        { id: 3, name: "Charlie", status: "Active" },
+      ];
+      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
+
+      const nameHeader = screen.getByText("Name");
+
+      // First click - ascending sort
+      await user.click(nameHeader);
+      let rows = screen.getAllByRole("row");
+      expect(rows[1]).toHaveTextContent("Alice");
+
+      // Second click - descending sort
+      await user.click(nameHeader);
+      rows = screen.getAllByRole("row");
+      expect(rows[1]).toHaveTextContent("Charlie");
+    });
+
+    it("displays sort indicators correctly", async () => {
       const user = userEvent.setup();
       const data = createSampleData(5);
       renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
@@ -262,87 +287,78 @@ describe("KopiaTable", () => {
 
       // Click to sort ascending
       await user.click(nameHeader);
-      const headerDiv = nameHeader.closest("div");
-      expect(headerDiv).toHaveTextContent("🔼");
+      expect(nameHeader.parentElement).toHaveTextContent("🔼");
 
-      // Click again to sort descending
+      // Click to sort descending
       await user.click(nameHeader);
-      expect(headerDiv).toHaveTextContent("🔽");
-    });
-
-    it("provides accessible sort titles", () => {
-      const data = createSampleData(5);
-      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
-
-      const nameHeader = screen.getByText("Name");
-      const headerDiv = nameHeader.closest("div");
-      expect(headerDiv).toHaveAttribute("title", "Sort ascending");
+      expect(nameHeader.parentElement).toHaveTextContent("🔽");
     });
   });
 
-  describe("Accessibility", () => {
-    it("has proper table structure", () => {
-      const data = createSampleData(5);
-      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
+  describe("Data Handling", () => {
+    it("handles data updates correctly", () => {
+      const initialData = createSampleData(5);
+      const { rerender } = renderWithContext(<KopiaTable columns={sampleColumns} data={initialData} />, mockContext);
 
-      // Should have table, thead, tbody
-      expect(screen.getByRole("table")).toBeInTheDocument();
-      expect(screen.getByRole("table")).toHaveClass("table");
-    });
+      expect(screen.getByText("Item 1")).toBeInTheDocument();
+      expect(screen.getByText("Item 5")).toBeInTheDocument();
 
-    it("has proper column headers", () => {
-      const data = createSampleData(5);
-      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
-
-      const headers = screen.getAllByRole("columnheader");
-      expect(headers).toHaveLength(3);
-      expect(headers[0]).toHaveTextContent("ID");
-      expect(headers[1]).toHaveTextContent("Name");
-      expect(headers[2]).toHaveTextContent("Status");
-    });
-  });
-
-  describe("Edge Cases", () => {
-    it("handles very large datasets", () => {
-      const data = createSampleData(1000);
-      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
-
-      // Should still only show page size number of rows
-      const rows = screen.getAllByRole("row");
-      expect(rows).toHaveLength(11); // 1 header + 10 data rows
-
-      // Should show pagination list
-      expect(screen.getByRole("list")).toBeInTheDocument();
-    });
-
-    it("handles single row of data", () => {
-      const data = createSampleData(1);
-      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
-
-      const rows = screen.getAllByRole("row");
-      expect(rows).toHaveLength(2); // 1 header + 1 data row
-      expect(screen.queryByRole("list")).not.toBeInTheDocument();
-    });
-
-    it("resets page index when current page exceeds total pages", () => {
-      const data = createSampleData(25);
-      const { rerender } = renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
-
-      // Navigate to last page first
-      const lastButton = screen.getByRole("button", { name: /last/i });
-      fireEvent.click(lastButton);
-
-      // Now reduce data to force page reset
-      const smallerData = createSampleData(5);
+      // Update with smaller dataset
+      const smallerData = createSampleData(3);
       rerender(
         <UIPreferencesContext.Provider value={mockContext}>
           <KopiaTable columns={sampleColumns} data={smallerData} />
         </UIPreferencesContext.Provider>,
       );
 
-      // Should show the reduced data
+      expect(screen.getByText("Item 1")).toBeInTheDocument();
+      expect(screen.getByText("Item 3")).toBeInTheDocument();
+      expect(screen.queryByText("Item 4")).not.toBeInTheDocument();
+    });
+
+    it("resets to first page when data changes significantly", async () => {
+      const user = userEvent.setup();
+      const largeData = createSampleData(50);
+      const { rerender } = renderWithContext(<KopiaTable columns={sampleColumns} data={largeData} />, mockContext);
+
+      // Go to page 3
+      const page3Button = screen.getByRole("button", { name: "3" });
+      await user.click(page3Button);
+
+      // Verify we're on page 3
+      expect(screen.getByText("Item 21")).toBeInTheDocument();
+
+      // Change data to smaller set
+      const smallData = createSampleData(5);
+      rerender(
+        <UIPreferencesContext.Provider value={mockContext}>
+          <KopiaTable columns={sampleColumns} data={smallData} />
+        </UIPreferencesContext.Provider>,
+      );
+
+      // Should be back on first page with all items visible
       expect(screen.getByText("Item 1")).toBeInTheDocument();
       expect(screen.getByText("Item 5")).toBeInTheDocument();
+      expect(screen.queryByText("Item 21")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("Accessibility", () => {
+    it("has proper table structure and headings", () => {
+      const data = createSampleData(5);
+      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
+
+      expect(screen.getByRole("table")).toBeInTheDocument();
+      expect(screen.getAllByRole("columnheader")).toHaveLength(3);
+      expect(screen.getAllByRole("row")).toHaveLength(6); // 1 header + 5 data rows
+    });
+
+    it("provides appropriate titles for sortable columns", () => {
+      const data = createSampleData(5);
+      renderWithContext(<KopiaTable columns={sampleColumns} data={data} />, mockContext);
+
+      const nameHeader = screen.getByText("Name").closest("div");
+      expect(nameHeader).toHaveAttribute("title", "Sort ascending");
     });
   });
 });

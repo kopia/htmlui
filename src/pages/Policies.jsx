@@ -11,8 +11,9 @@ import Row from "react-bootstrap/Row";
 import { Link, useNavigate } from "react-router-dom";
 import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
-import KopiaTable from "../utils/KopiaTable";
-import { checkPolicyPath, CLIEquivalent, compare, ownerName, policyEditorURL, redirect } from "../utils/uiutil";
+import KopiaTable from "../components/KopiaTable";
+import { CLIEquivalent } from "../components/CLIEquivalent";
+import { checkPolicyPath, compare, ownerName, policyEditorURL, redirect } from "../utils/uiutil";
 import PropTypes from "prop-types";
 
 const applicablePolicies = "Applicable Policies";

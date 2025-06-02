@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import KopiaTable from "../utils/KopiaTable";
+import KopiaTable from "./KopiaTable";
 import { objectLink, rfc3339TimestampForDisplay, sizeWithFailures } from "../utils/uiutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";

@@ -7,12 +7,11 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import KopiaTable from "../utils/KopiaTable";
+import KopiaTable from "../components/KopiaTable";
+import { CLIEquivalent } from "../components/CLIEquivalent";
 import {
-  CLIEquivalent,
   compare,
   errorAlert,
-  GoBackButton,
   objectLink,
   parseQuery,
   redirect,
@@ -20,6 +19,7 @@ import {
   sizeWithFailures,
   sourceQueryStringParams,
 } from "../utils/uiutil";
+import { GoBackButton } from "../components/GoBackButton";
 import { faSync, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-bootstrap/Modal";

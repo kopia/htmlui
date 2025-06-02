@@ -23,8 +23,11 @@ vi.mock("react-router-dom", () => ({
 }));
 
 // Mock the GoBackButton component
-vi.mock("../../src/utils/uiutil", () => ({
+vi.mock("../../src/components/GoBackButton", () => ({
   GoBackButton: () => <button data-testid="go-back-button">Go Back</button>,
+}));
+
+vi.mock("../../src/utils/uiutil", () => ({
   errorAlert: vi.fn(),
 }));
 

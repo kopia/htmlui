@@ -3,7 +3,9 @@ import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
-import { CLIEquivalent, GoBackButton, parseQuery, PolicyTypeName } from "../utils/uiutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
+import { parseQuery, PolicyTypeName } from "../utils/uiutil";
+import { GoBackButton } from "../components/GoBackButton";
 
 export function Policy() {
   const navigate = useNavigate();

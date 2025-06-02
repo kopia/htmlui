@@ -39,28 +39,16 @@ vi.mock("../../src/components/policy-editor/PolicyEditor", () => ({
   }),
 }));
 
-// Mock the utility functions
-vi.mock("../../src/utils/uiutil", async () => {
-  const actual = await vi.importActual("../../src/utils/uiutil");
+vi.mock("../../src/components/GoBackButton", () => ({
+  GoBackButton: () => (
+    <button data-testid="go-back-button" onClick={() => mockNavigate(-1)}>
+      ← Return
+    </button>
+  ),
+}));
+
+vi.mock("../../src/components/CLIEquivalent", () => {
   return {
-    ...actual,
-    GoBackButton: () => (
-      <button data-testid="go-back-button" onClick={() => mockNavigate(-1)}>
-        ← Return
-      </button>
-    ),
-    PolicyTypeName: (source) => {
-      if (!source.host && !source.userName) {
-        return "Global Policy";
-      }
-      if (!source.userName) {
-        return `Host: ${source.host}`;
-      }
-      if (!source.path) {
-        return `User: ${source.userName}@${source.host}`;
-      }
-      return `Directory: ${source.userName}@${source.host}:${source.path}`;
-    },
     CLIEquivalent: (props) => (
       <div data-testid="cli-equivalent">
         <button data-testid="show-cli-button">CLI</button>
