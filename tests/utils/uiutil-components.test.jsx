@@ -15,13 +15,9 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
-import {
-  CLIEquivalent,
-  GoBackButton,
-  PolicyEditorLink,
-  sizeWithFailures,
-  taskStatusSymbol,
-} from "../../src/utils/uiutil";
+import { CLIEquivalent, GoBackButton, PolicyEditorLink, sizeWithFailures } from "../../src/utils/uiutil";
+
+import { taskStatusSymbol } from "../../src/utils/taskutil";
 
 // Helper to render components with router
 const renderWithRouter = (component) => {

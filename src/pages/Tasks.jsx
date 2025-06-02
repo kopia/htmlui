@@ -11,7 +11,8 @@ import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
 import KopiaTable from "../utils/KopiaTable";
-import { redirect, taskStatusSymbol } from "../utils/uiutil";
+import { redirect } from "../utils/uiutil";
+import { taskStatusSymbol } from "../utils/taskutil";
 
 export class Tasks extends Component {
   constructor() {

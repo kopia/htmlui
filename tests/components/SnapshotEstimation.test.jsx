@@ -19,13 +19,21 @@ vi.mock("../../src/components/Logs", () => ({
   },
 }));
 
-// Mock uiutil functions
+// Mock redirect function from uiutil
 vi.mock("../../src/utils/uiutil", async () => {
   const actual = await vi.importActual("../../src/utils/uiutil");
   return {
     ...actual,
-    cancelTask: vi.fn(),
     redirect: vi.fn(),
+  };
+});
+
+// Mock cancelTask function from taskutil
+vi.mock("../../src/utils/taskutil", async () => {
+  const actual = await vi.importActual("../../src/utils/taskutil");
+  return {
+    ...actual,
+    cancelTask: vi.fn(),
   };
 });
 
@@ -379,7 +387,7 @@ describe("SnapshotEstimation", () => {
 
   describe("Cancel task functionality", () => {
     it("calls cancelTask when cancel button is clicked", async () => {
-      const { cancelTask } = await import("../../src/utils/uiutil");
+      const { cancelTask } = await import("../../src/utils/taskutil");
 
       const runningTask = {
         id: "test-task-id",
