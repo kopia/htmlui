@@ -30,10 +30,6 @@ vi.mock("../../src/components/DirectoryItems", () => ({
   ),
 }));
 
-vi.mock("../../src/components/DirectoryBreadcrumbs", () => ({
-  DirectoryBreadcrumbs: () => <div data-testid="directory-breadcrumbs">Breadcrumbs</div>,
-}));
-
 // Minimal UIPreferences context value
 const mockUIPreferences = {
   pageSize: 10,
@@ -158,7 +154,7 @@ describe("SnapshotDirectory component", () => {
     const { unmount } = renderSnapshotDirectory();
 
     await waitFor(() => {
-      expect(screen.getByTestId("directory-breadcrumbs")).toBeInTheDocument();
+      expect(screen.getByRole("navigation", { name: "breadcrumb" })).toBeInTheDocument();
       expect(screen.getByTestId("directory-items")).toBeInTheDocument();
       expect(screen.getByTestId("items-count")).toHaveTextContent("2");
       expect(screen.getByTestId("show-cli-button")).toBeInTheDocument();
