@@ -3,15 +3,12 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
+import { resetRouterMocks } from "../react-router-mock.jsx";
 
-// Mock react-router-dom navigate
-const mockNavigate = vi.fn();
+// Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock()();
 });
 
 import { PolicyEditorLink, sizeWithFailures } from "../../src/utils/uiutil";
@@ -119,6 +116,7 @@ describe("taskStatusSymbol", () => {
   };
 
   beforeEach(() => {
+    resetRouterMocks();
     vi.clearAllMocks();
   });
 

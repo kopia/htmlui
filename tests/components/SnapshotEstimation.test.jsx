@@ -1,23 +1,33 @@
-import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { vi } from "vitest";
-import "@testing-library/jest-dom";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { SnapshotEstimation } from "../../src/components/SnapshotEstimation";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 import { setupAPIMock } from "../api_mocks";
-import { simulateClick } from "../testutils";
+import "@testing-library/jest-dom";
+import { resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
 import PropTypes from "prop-types";
 
-// Mock the Logs component
+// Mock Logs component to avoid complex dependencies
 vi.mock("../../src/components/Logs", () => ({
   Logs: function MockLogs({ taskID }) {
     MockLogs.propTypes = {
       taskID: PropTypes.string.isRequired,
     };
-    return <div data-testid="logs-component">Mock Logs for task: {taskID}</div>;
+    return <div data-testid="mock-logs">Logs for task: {taskID}</div>;
   },
 }));
+
+// Mock react-router-dom using unified helper
+vi.mock("react-router-dom", async () => {
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock({
+    location: { pathname: "/test" },
+    params: { tid: "test-task-id" },
+  })();
+});
 
 // Mock redirect function from uiutil
 vi.mock("../../src/utils/uiutil", async (importOriginal) => {
@@ -34,21 +44,6 @@ vi.mock("../../src/utils/taskutil", async () => {
   return {
     ...actual,
     cancelTask: vi.fn(),
-  };
-});
-
-// Mock react-router-dom hooks
-const mockNavigate = vi.fn();
-const mockLocation = { pathname: "/test" };
-const mockParams = { tid: "test-task-id" };
-
-vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useLocation: () => mockLocation,
-    useParams: () => mockParams,
   };
 });
 
@@ -71,6 +66,7 @@ let serverMock;
 
 beforeEach(() => {
   serverMock = setupAPIMock();
+  resetRouterMocks();
   vi.clearAllMocks();
 });
 
@@ -361,24 +357,24 @@ describe("SnapshotEstimation", () => {
       );
 
       // Click show log button
-      simulateClick(screen.getByText("Show Log"));
+      userEvent.click(screen.getByText("Show Log"));
 
       await waitFor(
         () => {
           expect(screen.getByText("Hide Log")).toBeInTheDocument();
-          expect(screen.getByTestId("logs-component")).toBeInTheDocument();
-          expect(screen.getByText("Mock Logs for task: test-task-id")).toBeInTheDocument();
+          expect(screen.getByTestId("mock-logs")).toBeInTheDocument();
+          expect(screen.getByText("Logs for task: test-task-id")).toBeInTheDocument();
         },
         { timeout: 10000 },
       );
 
       // Click hide log button
-      simulateClick(screen.getByText("Hide Log"));
+      userEvent.click(screen.getByText("Hide Log"));
 
       await waitFor(
         () => {
           expect(screen.getByText("Show Log")).toBeInTheDocument();
-          expect(screen.queryByTestId("logs-component")).not.toBeInTheDocument();
+          expect(screen.queryByTestId("mock-logs")).not.toBeInTheDocument();
         },
         { timeout: 10000 },
       );
@@ -415,7 +411,7 @@ describe("SnapshotEstimation", () => {
         { timeout: 10000 },
       );
 
-      simulateClick(screen.getByText("Cancel"));
+      await userEvent.click(screen.getByText("Cancel"));
 
       expect(cancelTask).toHaveBeenCalledWith("test-task-id");
     });
@@ -629,8 +625,7 @@ describe("SnapshotEstimation", () => {
     });
 
     it("handles missing task ID gracefully", async () => {
-      // Mock params to return undefined
-      vi.mocked(mockParams).tid = undefined;
+      updateRouterMocks({ params: { tid: undefined } });
 
       serverMock.onGet("/api/v1/tasks/undefined").reply(404, {
         error: "Task not found",
@@ -646,7 +641,7 @@ describe("SnapshotEstimation", () => {
       );
 
       // Reset params
-      vi.mocked(mockParams).tid = "test-task-id";
+      updateRouterMocks({ params: { tid: "test-task-id" } });
     });
   });
 

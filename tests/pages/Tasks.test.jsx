@@ -1,20 +1,20 @@
+import React from "react";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
 import { Tasks } from "../../src/pages/Tasks";
-import { setupAPIMock } from "../api_mocks";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { changeControlValue } from "../testutils";
-import { vi } from "vitest";
+import { setupAPIMock } from "../api_mocks";
 import "@testing-library/jest-dom";
+import { changeControlValue } from "../testutils";
 
 let axiosMock;
 
-// Mock react-router-dom Link component
-vi.mock("react-router-dom", () => ({
-  // eslint-disable-next-line react/prop-types
-  Link: ({ children }) => <a href="#">{children}</a>,
-}));
+// Mock react-router-dom Link component using unified helper
+vi.mock("react-router-dom", async () => {
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock({ components: { only: true } })();
+});
 
 // Minimal UIPreferences context value
 const mockUIPreferences = {

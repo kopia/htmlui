@@ -4,15 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
 import { GoBackButton } from "../../src/components/GoBackButton";
+import { mockNavigate, resetRouterMocks } from "../react-router-mock.jsx";
 
-// Mock react-router-dom navigate
-const mockNavigate = vi.fn();
+// Mock react-router-dom using the unified helper
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock()();
 });
 
 // Helper to render components with router
@@ -22,7 +19,7 @@ const renderWithRouter = (component) => {
 
 describe("GoBackButton", () => {
   beforeEach(() => {
-    mockNavigate.mockClear();
+    resetRouterMocks();
   });
 
   it("renders with correct text and icon", () => {
