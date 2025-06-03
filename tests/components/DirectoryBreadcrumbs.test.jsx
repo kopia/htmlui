@@ -1,23 +1,15 @@
 import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { DirectoryBreadcrumbs } from "../../src/components/DirectoryBreadcrumbs";
+import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
 
-// Mock navigation functions
-const mockNavigate = vi.fn();
-const mockLocation = {
-  state: null,
-};
-
+// Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useLocation: () => mockLocation,
-  };
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock()();
 });
 
 // Helper function to render component with router
@@ -27,8 +19,8 @@ const renderWithRouter = (component) => {
 
 describe("DirectoryBreadcrumbs", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockLocation.state = null;
+    resetRouterMocks();
+    updateRouterMocks({ location: { state: null } });
   });
 
   it("renders empty breadcrumb when no state", () => {
@@ -41,10 +33,14 @@ describe("DirectoryBreadcrumbs", () => {
   });
 
   it("renders single breadcrumb item", () => {
-    mockLocation.state = {
-      label: "Home",
-      oid: "12345",
-    };
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Home",
+          oid: "12345",
+        },
+      },
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -57,18 +53,22 @@ describe("DirectoryBreadcrumbs", () => {
 
   it("renders multiple breadcrumb items with navigation chain", () => {
     // Setup a chain of states
-    mockLocation.state = {
-      label: "Current Directory",
-      oid: "current123",
-      prevState: {
-        label: "Parent Directory",
-        oid: "parent456",
-        prevState: {
-          label: "Root",
-          oid: "root789",
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Current Directory",
+          oid: "current123",
+          prevState: {
+            label: "Parent Directory",
+            oid: "parent456",
+            prevState: {
+              label: "Root",
+              oid: "root789",
+            },
+          },
         },
       },
-    };
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -90,15 +90,19 @@ describe("DirectoryBreadcrumbs", () => {
 
   it("handles navigation when clicking on breadcrumb items", () => {
     // Setup a chain of 3 items
-    mockLocation.state = {
-      label: "Current",
-      prevState: {
-        label: "Parent",
-        prevState: {
-          label: "Root",
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Current",
+          prevState: {
+            label: "Parent",
+            prevState: {
+              label: "Root",
+            },
+          },
         },
       },
-    };
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -117,12 +121,16 @@ describe("DirectoryBreadcrumbs", () => {
   });
 
   it("does not navigate when clicking on current (active) item", () => {
-    mockLocation.state = {
-      label: "Current",
-      prevState: {
-        label: "Parent",
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Current",
+          prevState: {
+            label: "Parent",
+          },
+        },
       },
-    };
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -135,10 +143,14 @@ describe("DirectoryBreadcrumbs", () => {
   });
 
   it("displays OID tooltip for current item when oid is present", async () => {
-    mockLocation.state = {
-      label: "Current Directory",
-      oid: "abc123def456",
-    };
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Current Directory",
+          oid: "abc123def456",
+        },
+      },
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -156,14 +168,18 @@ describe("DirectoryBreadcrumbs", () => {
   });
 
   it("does not display OID tooltip for non-current items", () => {
-    mockLocation.state = {
-      label: "Current Directory",
-      oid: "current123",
-      prevState: {
-        label: "Parent Directory",
-        oid: "parent456", // This OID should not show tooltip
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Current Directory",
+          oid: "current123",
+          prevState: {
+            label: "Parent Directory",
+            oid: "parent456", // This OID should not show tooltip
+          },
+        },
       },
-    };
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -173,10 +189,14 @@ describe("DirectoryBreadcrumbs", () => {
   });
 
   it("does not display OID tooltip when oid is not present", () => {
-    mockLocation.state = {
-      label: "Current Directory",
-      // No oid property
-    };
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Current Directory",
+          // No oid property
+        },
+      },
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -189,21 +209,25 @@ describe("DirectoryBreadcrumbs", () => {
 
   it("handles complex navigation chain correctly", () => {
     // Setup a longer chain to test index calculation
-    mockLocation.state = {
-      label: "Level4",
-      prevState: {
-        label: "Level3",
-        prevState: {
-          label: "Level2",
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Level4",
           prevState: {
-            label: "Level1",
+            label: "Level3",
             prevState: {
-              label: "Root",
+              label: "Level2",
+              prevState: {
+                label: "Level1",
+                prevState: {
+                  label: "Root",
+                },
+              },
             },
           },
         },
       },
-    };
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 
@@ -228,15 +252,19 @@ describe("DirectoryBreadcrumbs", () => {
   });
 
   it("renders breadcrumb items in correct order", () => {
-    mockLocation.state = {
-      label: "Third",
-      prevState: {
-        label: "Second",
-        prevState: {
-          label: "First",
+    updateRouterMocks({
+      location: {
+        state: {
+          label: "Third",
+          prevState: {
+            label: "Second",
+            prevState: {
+              label: "First",
+            },
+          },
         },
       },
-    };
+    });
 
     renderWithRouter(<DirectoryBreadcrumbs />);
 

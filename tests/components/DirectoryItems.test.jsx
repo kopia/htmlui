@@ -1,17 +1,19 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { DirectoryItems } from "../../src/components/DirectoryItems";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 
-// Mock react-router-dom Link component to avoid navigation
+// Mock react-router-dom Link component using unified helper
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const routerMock = await createRouterMock()();
 
+  // Override the Link component to include state data for testing
   return {
-    ...actual,
+    ...routerMock,
     // eslint-disable-next-line react/prop-types
     Link: ({ children, to, state }) => (
       <a href={to} data-testid="mock-link" data-link-state={JSON.stringify(state)}>

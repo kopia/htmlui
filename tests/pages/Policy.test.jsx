@@ -1,27 +1,18 @@
 /* eslint-disable react/prop-types */
+import React from "react";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi } from "vitest";
-import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { Policy } from "../../src/pages/Policy";
 import { setupAPIMock } from "../api_mocks";
+import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
 
-// Create mock functions at module level
-const mockNavigate = vi.fn();
-const mockLocation = {
-  search: "",
-};
-
-// Mock React Router hooks
+// Mock React Router hooks using unified helper
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useLocation: () => mockLocation,
-  };
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock()();
 });
 
 // Mock the PolicyEditor component to avoid complex dependencies
@@ -62,6 +53,7 @@ let axiosMock;
 
 beforeEach(() => {
   axiosMock = setupAPIMock();
+  resetRouterMocks();
 
   // Mock CLI API endpoint
   axiosMock.onGet("/api/v1/cli").reply(200, {
@@ -69,7 +61,7 @@ beforeEach(() => {
   });
 
   // Reset location mock
-  mockLocation.search = "";
+  updateRouterMocks({ location: { search: "" } });
 });
 
 afterEach(() => {
@@ -81,9 +73,9 @@ afterEach(() => {
 function renderPolicyWithRouter(initialEntries = ["/policy"]) {
   // Update the mock location to match the initial entry
   if (initialEntries[0].includes("?")) {
-    mockLocation.search = initialEntries[0].split("?")[1];
+    updateRouterMocks({ location: { search: initialEntries[0].split("?")[1] } });
   } else {
-    mockLocation.search = "";
+    updateRouterMocks({ location: { search: "" } });
   }
 
   const result = render(

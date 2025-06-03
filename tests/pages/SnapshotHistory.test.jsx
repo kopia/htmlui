@@ -2,25 +2,23 @@ import React from "react";
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { SnapshotHistory } from "./SnapshotHistory";
+import { SnapshotHistory } from "../../src/pages/SnapshotHistory";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
-import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
+import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
+import { mockNavigate, resetRouterMocks } from "../react-router-mock.jsx";
 
 // Mock axios
 vi.mock("axios");
 
-// Mock navigation functions
-const mockNavigate = vi.fn();
+// Mock react-router-dom using the unified helper with custom location
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useLocation: () => ({
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock({
+    location: {
       search: "?host=testhost&userName=testuser&path=/test/path",
-    }),
-  };
+    },
+  })();
 });
 
 // Helper function to render component with required providers
@@ -41,6 +39,7 @@ const renderWithProviders = (component) => {
 
 describe("SnapshotHistory", () => {
   beforeEach(() => {
+    resetRouterMocks();
     vi.clearAllMocks();
     axios.get.mockReset();
     axios.post.mockReset();

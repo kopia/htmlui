@@ -1,24 +1,23 @@
 /* eslint-disable react/prop-types, react/display-name */
-import { render, screen, waitFor, act } from "@testing-library/react";
 import React from "react";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { render, screen, waitFor, act } from "@testing-library/react";
 import { SnapshotCreate } from "../../src/pages/SnapshotCreate";
 import { setupAPIMock } from "../api_mocks";
-import { vi } from "vitest";
-import "@testing-library/jest-dom";
 import { changeControlValue, simulateClick } from "../testutils";
+import "@testing-library/jest-dom";
 
 let axiosMock;
 
-// Mock react-router-dom
-vi.mock("react-router-dom", () => ({
-  useNavigate: () => vi.fn(),
-  useLocation: () => ({ pathname: "/snapshots/create" }),
-  Link: ({ children, to }) => (
-    <a href={to} data-testid="link">
-      {children}
-    </a>
-  ),
-}));
+// Mock react-router-dom using unified helper
+vi.mock("react-router-dom", async () => {
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock({
+    simple: true,
+    location: { pathname: "/snapshots/create" },
+    navigate: vi.fn(),
+  })();
+});
 
 // Mock utility components with minimal implementations
 vi.mock("../../src/utils/uiutil", () => ({

@@ -1,21 +1,23 @@
-import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
+import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Task } from "../../src/pages/Task";
-import { setupAPIMock } from "../api_mocks";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { vi } from "vitest";
+import { setupAPIMock } from "../api_mocks";
 import "@testing-library/jest-dom";
 
 let axiosMock;
 
-// Mock react-router-dom
-vi.mock("react-router-dom", () => ({
-  useNavigate: () => vi.fn(),
-  useLocation: () => ({ pathname: "/tasks/123" }),
-  useParams: () => ({ tid: "123" }),
-  // eslint-disable-next-line react/prop-types
-  Link: ({ children }) => <a href="#">{children}</a>,
-}));
+// Mock react-router-dom using unified helper
+vi.mock("react-router-dom", async () => {
+  const { createRouterMock } = await import("../react-router-mock.jsx");
+  return createRouterMock({
+    simple: true,
+    location: { pathname: "/tasks/123" },
+    params: { tid: "123" },
+    navigate: vi.fn(),
+  })();
+});
 
 // Mock the Logs component to avoid its complex implementation
 vi.mock("../../src/components/Logs", () => ({
