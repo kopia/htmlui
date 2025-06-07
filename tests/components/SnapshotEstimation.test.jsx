@@ -9,6 +9,7 @@ import { setupAPIMock } from "../api_mocks";
 import "@testing-library/jest-dom";
 import { resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
 import PropTypes from "prop-types";
+import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../interval-mock";
 
 // Mock Logs component to avoid complex dependencies
 vi.mock("../../src/components/Logs", () => ({
@@ -63,57 +64,20 @@ const createMockUIContext = () => ({
 
 // Mock server
 let serverMock;
-let intervalSpy;
-let clearIntervalSpy;
-let intervalCallbacks = [];
-let intervalId = 0;
 
 beforeEach(() => {
   serverMock = setupAPIMock();
   resetRouterMocks();
   vi.clearAllMocks();
 
-  // Mock setInterval and clearInterval to control timing
-  intervalCallbacks = [];
-  intervalId = 0;
-
-  intervalSpy = vi.spyOn(window, "setInterval").mockImplementation((callback, delay) => {
-    const id = ++intervalId;
-    intervalCallbacks.push({ id, callback, delay });
-    return id;
-  });
-
-  clearIntervalSpy = vi.spyOn(window, "clearInterval").mockImplementation((id) => {
-    intervalCallbacks = intervalCallbacks.filter((item) => item.id !== id);
-  });
+  // Setup interval mocking
+  setupIntervalMocks();
 });
 
 afterEach(() => {
   serverMock.reset();
-  intervalSpy.mockRestore();
-  clearIntervalSpy.mockRestore();
-  intervalCallbacks = [];
+  cleanupIntervalMocks();
 });
-
-// Helper function to trigger interval callbacks
-const triggerIntervals = async () => {
-  const { act } = await import("@testing-library/react");
-  await act(async () => {
-    intervalCallbacks.forEach(({ callback }) => {
-      callback();
-    });
-  });
-};
-
-// Helper function to wait for component to load and then trigger intervals for running tasks
-const waitForLoadAndTriggerIntervals = async (expectedText) => {
-  await waitFor(() => {
-    expect(screen.getByText(expectedText)).toBeInTheDocument();
-  });
-
-  // Trigger intervals to simulate polling
-  await triggerIntervals();
-};
 
 // Helper to render with providers
 const renderWithProviders = (component, uiContext = createMockUIContext()) => {

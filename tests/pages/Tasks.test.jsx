@@ -7,12 +7,9 @@ import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 import { setupAPIMock } from "../api_mocks";
 import "@testing-library/jest-dom";
 import { changeControlValue } from "../testutils";
+import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals } from "../interval-mock";
 
 let axiosMock;
-let intervalSpy;
-let clearIntervalSpy;
-let intervalCallbacks = [];
-let intervalId = 0;
 
 // Mock react-router-dom Link component using unified helper
 vi.mock("react-router-dom", async () => {
@@ -53,19 +50,8 @@ beforeEach(() => {
   // Clear all previous mocks
   vi.clearAllMocks();
 
-  // Mock setInterval and clearInterval to control timing
-  intervalCallbacks = [];
-  intervalId = 0;
-
-  intervalSpy = vi.spyOn(window, "setInterval").mockImplementation((callback, delay) => {
-    const id = ++intervalId;
-    intervalCallbacks.push({ id, callback, delay });
-    return id;
-  });
-
-  clearIntervalSpy = vi.spyOn(window, "clearInterval").mockImplementation((id) => {
-    intervalCallbacks = intervalCallbacks.filter((item) => item.id !== id);
-  });
+  // Setup interval mocking
+  setupIntervalMocks();
 });
 
 /**
@@ -73,20 +59,8 @@ beforeEach(() => {
  */
 afterEach(() => {
   axiosMock.reset();
-  intervalSpy.mockRestore();
-  clearIntervalSpy.mockRestore();
-  intervalCallbacks = [];
+  cleanupIntervalMocks();
 });
-
-// Helper function to trigger interval callbacks
-const triggerIntervals = async () => {
-  const { act } = await import("@testing-library/react");
-  await act(async () => {
-    intervalCallbacks.forEach(({ callback }) => {
-      callback();
-    });
-  });
-};
 
 describe("Tasks component", () => {
   test("shows loading state initially", () => {

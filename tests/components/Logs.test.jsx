@@ -5,13 +5,10 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
+import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals, getIntervalMockSpies } from "../interval-mock";
 
 describe("Logs Component", () => {
   let axiosMock;
-  let intervalSpy;
-  let clearIntervalSpy;
-  let intervalCallbacks = [];
-  let intervalId = 0;
 
   beforeEach(() => {
     // Create a new mock adapter instance for each test
@@ -20,38 +17,15 @@ describe("Logs Component", () => {
     // Mock scrollIntoView since it's not available in jsdom
     Element.prototype.scrollIntoView = vi.fn();
 
-    // Mock setInterval and clearInterval to control timing
-    intervalCallbacks = [];
-    intervalId = 0;
-
-    intervalSpy = vi.spyOn(window, "setInterval").mockImplementation((callback, delay) => {
-      const id = ++intervalId;
-      intervalCallbacks.push({ id, callback, delay });
-      return id;
-    });
-
-    clearIntervalSpy = vi.spyOn(window, "clearInterval").mockImplementation((id) => {
-      intervalCallbacks = intervalCallbacks.filter((item) => item.id !== id);
-    });
+    // Setup interval mocking
+    setupIntervalMocks();
   });
 
   afterEach(() => {
     // Clean up
     axiosMock.restore();
-    intervalSpy.mockRestore();
-    clearIntervalSpy.mockRestore();
-    intervalCallbacks = [];
+    cleanupIntervalMocks();
   });
-
-  // Helper function to trigger interval callbacks
-  const triggerIntervals = async () => {
-    const { act } = await import("@testing-library/react");
-    await act(async () => {
-      intervalCallbacks.forEach(({ callback }) => {
-        callback();
-      });
-    });
-  };
 
   const mockLogsResponse = {
     logs: [
@@ -289,6 +263,7 @@ describe("Logs Component", () => {
     unmount();
 
     // Verify clearInterval was called
+    const { clearIntervalSpy } = getIntervalMockSpies();
     expect(clearIntervalSpy).toHaveBeenCalled();
   });
 
