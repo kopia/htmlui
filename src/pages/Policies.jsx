@@ -13,7 +13,8 @@ import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
 import KopiaTable from "../components/KopiaTable";
 import { CLIEquivalent } from "../components/CLIEquivalent";
-import { compare, ownerName, redirect } from "../utils/uiutil";
+import { compare, formatOwnerName } from "../utils/formatutils";
+import { redirect } from "../utils/uiutil";
 import { checkPolicyPath, policyEditorURL } from "../utils/policyutil";
 import PropTypes from "prop-types";
 
@@ -187,7 +188,7 @@ export class PoliciesInternal extends Component {
   }
 
   isLocalUserPolicy(x) {
-    return ownerName(x.target) === this.state.localSourceName;
+    return formatOwnerName(x.target) === this.state.localSourceName;
   }
 
   render() {
@@ -200,7 +201,7 @@ export class PoliciesInternal extends Component {
     }
 
     let uniqueOwners = sources.reduce((a, d) => {
-      const owner = ownerName(d.source);
+      const owner = formatOwnerName(d.source);
 
       if (!a.includes(owner)) {
         a.push(owner);
@@ -238,7 +239,7 @@ export class PoliciesInternal extends Component {
         break;
 
       default:
-        policies = policies.filter((x) => ownerName(x.target) === this.state.selectedOwner);
+        policies = policies.filter((x) => formatOwnerName(x.target) === this.state.selectedOwner);
         break;
     }
 
