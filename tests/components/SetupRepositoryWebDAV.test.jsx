@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { SetupRepositoryWebDAV } from "../../src/components/SetupRepositoryWebDAV";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -10,12 +10,12 @@ it("can set fields", async () => {
   act(() => expect(ref.current.validate()).toBe(false));
 
   // required
-  changeControlValue(getByTestId("control-url"), "some-url");
+  fireEvent.change(getByTestId("control-url"), { target: { value: "some-url" } });
   expect(ref.current.validate()).toBe(true);
 
   // optional
-  changeControlValue(getByTestId("control-username"), "some-username");
-  changeControlValue(getByTestId("control-password"), "some-password");
+  fireEvent.change(getByTestId("control-username"), { target: { value: "some-username" } });
+  fireEvent.change(getByTestId("control-password"), { target: { value: "some-password" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

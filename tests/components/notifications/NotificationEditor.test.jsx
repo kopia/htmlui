@@ -3,7 +3,7 @@ import React from "react";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
 import { NotificationEditor } from "../../../src/components/notifications/NotificationEditor";
-import { setupAPIMock } from "../../api_mocks";
+import { setupAPIMock } from "../../testutils/api-mocks";
 
 // Mockup for the server
 let serverMock;

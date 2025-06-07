@@ -10,21 +10,21 @@ import { vi } from "vitest";
  * @example
  * // Basic usage - full mock with actual implementation
  * vi.mock("react-router-dom", async () => {
- *   const { createRouterMock } = await import("../react-router-mock.jsx");
+ *   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
  *   return createRouterMock()();
  * });
  *
  * @example
  * // Simple object mock (no actual implementation)
  * vi.mock("react-router-dom", async () => {
- *   const { createRouterMock } = await import("../react-router-mock.jsx");
+ *   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
  *   return createRouterMock({ simple: true })();
  * });
  *
  * @example
  * // Custom state with components only
  * vi.mock("react-router-dom", async () => {
- *   const { createRouterMock } = await import("../react-router-mock.jsx");
+ *   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
  *   return createRouterMock({
  *     location: { pathname: "/users", search: "?id=123" },
  *     params: { id: "123" },

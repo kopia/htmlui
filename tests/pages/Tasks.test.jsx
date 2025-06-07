@@ -4,16 +4,16 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Tasks } from "../../src/pages/Tasks";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import "@testing-library/jest-dom";
-import { changeControlValue } from "../testutils";
-import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals } from "../interval-mock";
+import { fireEvent } from "@testing-library/react";
+import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals } from "../testutils/interval-mocks";
 
 let axiosMock;
 
 // Mock react-router-dom Link component using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({ components: { only: true } })();
 });
 
@@ -253,7 +253,7 @@ describe("Tasks component", () => {
 
     // Search for "documents"
     const searchInput = screen.getByPlaceholderText("case-sensitive search description");
-    changeControlValue(searchInput, "documents");
+    fireEvent.change(searchInput, { target: { value: "documents" } });
 
     // Should only show tasks with "documents" in description
     expect(screen.queryByText("Backing up important files")).not.toBeInTheDocument();

@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { SetupRepositoryGCS } from "../../src/components/SetupRepositoryGCS";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,12 +9,12 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-bucket"), "some-bucket");
+  fireEvent.change(getByTestId("control-bucket"), { target: { value: "some-bucket" } });
   expect(ref.current.validate()).toBe(true);
   // optional
-  changeControlValue(getByTestId("control-prefix"), "some-prefix");
-  changeControlValue(getByTestId("control-credentialsFile"), "some-credentials-file");
-  changeControlValue(getByTestId("control-credentials"), "some-credentials");
+  fireEvent.change(getByTestId("control-prefix"), { target: { value: "some-prefix" } });
+  fireEvent.change(getByTestId("control-credentialsFile"), { target: { value: "some-credentials-file" } });
+  fireEvent.change(getByTestId("control-credentials"), { target: { value: "some-credentials" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

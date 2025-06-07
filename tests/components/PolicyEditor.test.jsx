@@ -2,9 +2,9 @@ import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import { PolicyEditor } from "../../src/components/policy-editor/PolicyEditor";
 import { MemoryRouter } from "react-router-dom";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import moment from "moment";
-import { changeControlValue, simulateClick } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 // Mockup for the server
 let serverMock;
@@ -136,7 +136,7 @@ it("e2e", async () => {
   await waitFor(() => expect(getByTestId("upcoming-snapshot-times").innerHTML).toEqual(expectedUpcomingSnapshotTimes));
 
   // change a field
-  changeControlValue(getByTestId("control-policy.retention.keepLatest"), "44");
+  fireEvent.change(getByTestId("control-policy.retention.keepLatest"), { target: { value: "44" } });
 
   // this will trigger resolve and will update effective field: "(Defined by this policy)"
   await waitFor(() => expect(getByTestId("effective-retention.keepLatest").value).toBe("44"));
@@ -144,7 +144,7 @@ it("e2e", async () => {
     expect(getByTestId("definition-retention.keepLatest").innerHTML).toEqual("(Defined by this policy)"),
   );
 
-  simulateClick(getByTestId("button-save"));
+  fireEvent.click(getByTestId("button-save"));
   await waitFor(() => expect(serverMock.history.put.length).toEqual(1));
   await waitFor(() => expect(closeCalled).toEqual(1));
 });

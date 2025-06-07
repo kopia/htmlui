@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import React from "react";
 import App from "../src/App";
-import { setupAPIMock } from "./api_mocks";
+import { setupAPIMock } from "./testutils/api-mocks";
 import axios from "axios";
 
 // Mock high-level page components to avoid heavy component trees

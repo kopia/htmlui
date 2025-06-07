@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Preferences } from "../../src/pages/Preferences";
 import React from "react";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 
 let axiosMock;
 

@@ -6,14 +6,14 @@ import { SnapshotHistory } from "../../src/pages/SnapshotHistory";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { mockNavigate, resetRouterMocks } from "../react-router-mock.jsx";
+import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock axios
 vi.mock("axios");
 
 // Mock react-router-dom using the unified helper with custom location
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     location: {
       search: "?host=testhost&userName=testuser&path=/test/path",

@@ -16,7 +16,6 @@ import { OptionalDirectory } from "../../src/forms/OptionalDirectory";
 import { OptionalBoolean } from "../../src/forms/OptionalBoolean";
 import { LogDetailSelector } from "../../src/forms/LogDetailSelector";
 import { RequiredBoolean } from "../../src/forms/RequiredBoolean";
-import { changeControlValue, toggleCheckbox } from "../testutils";
 
 // Mock component class to simulate React component behavior
 class MockComponent extends React.Component {
@@ -436,21 +435,21 @@ describe("Integrated Form Component", () => {
     const { getByTestId, container } = render(<TestFormComponent component={component} />);
 
     // Test text fields
-    changeControlValue(getByTestId("control-requiredText"), "test value");
+    fireEvent.change(getByTestId("control-requiredText"), { target: { value: "test value" } });
     expect(component.state.requiredText).toBe("test value");
 
-    changeControlValue(getByTestId("control-optionalText"), "optional value");
+    fireEvent.change(getByTestId("control-optionalText"), { target: { value: "optional value" } });
     expect(component.state.optionalText).toBe("optional value");
 
     // Test number fields
-    changeControlValue(getByTestId("control-requiredNumber"), "123");
+    fireEvent.change(getByTestId("control-requiredNumber"), { target: { value: "123" } });
     expect(component.state.requiredNumber).toBe(123);
 
-    changeControlValue(getByTestId("control-optionalNumber"), "456");
+    fireEvent.change(getByTestId("control-optionalNumber"), { target: { value: "456" } });
     expect(component.state.optionalNumber).toBe(456);
 
     // Test boolean field
-    toggleCheckbox(getByTestId("control-requiredBool"));
+    fireEvent.click(getByTestId("control-requiredBool"));
     expect(component.state.requiredBool).toBe(true);
 
     // Test select fields

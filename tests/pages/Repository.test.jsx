@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { Repository } from "../../src/pages/Repository";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import { AppContext } from "../../src/contexts/AppContext";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";

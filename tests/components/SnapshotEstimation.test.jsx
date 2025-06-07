@@ -5,11 +5,11 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { SnapshotEstimation } from "../../src/components/SnapshotEstimation";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import "@testing-library/jest-dom";
-import { resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
+import { resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 import PropTypes from "prop-types";
-import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../interval-mock";
+import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../testutils/interval-mocks";
 
 // Mock Logs component to avoid complex dependencies
 vi.mock("../../src/components/Logs", () => ({
@@ -23,7 +23,7 @@ vi.mock("../../src/components/Logs", () => ({
 
 // Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     location: { pathname: "/test" },
     params: { tid: "test-task-id" },

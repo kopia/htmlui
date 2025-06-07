@@ -6,12 +6,12 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { Policy } from "../../src/pages/Policy";
-import { setupAPIMock } from "../api_mocks";
-import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
+import { setupAPIMock } from "../testutils/api-mocks";
+import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock React Router hooks using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });
 
