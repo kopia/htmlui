@@ -9,6 +9,10 @@ import "@testing-library/jest-dom";
 import { changeControlValue } from "../testutils";
 
 let axiosMock;
+let intervalSpy;
+let clearIntervalSpy;
+let intervalCallbacks = [];
+let intervalId = 0;
 
 // Mock react-router-dom Link component using unified helper
 vi.mock("react-router-dom", async () => {
@@ -48,6 +52,20 @@ beforeEach(() => {
   axiosMock = setupAPIMock();
   // Clear all previous mocks
   vi.clearAllMocks();
+
+  // Mock setInterval and clearInterval to control timing
+  intervalCallbacks = [];
+  intervalId = 0;
+
+  intervalSpy = vi.spyOn(window, "setInterval").mockImplementation((callback, delay) => {
+    const id = ++intervalId;
+    intervalCallbacks.push({ id, callback, delay });
+    return id;
+  });
+
+  clearIntervalSpy = vi.spyOn(window, "clearInterval").mockImplementation((id) => {
+    intervalCallbacks = intervalCallbacks.filter((item) => item.id !== id);
+  });
 });
 
 /**
@@ -55,7 +73,20 @@ beforeEach(() => {
  */
 afterEach(() => {
   axiosMock.reset();
+  intervalSpy.mockRestore();
+  clearIntervalSpy.mockRestore();
+  intervalCallbacks = [];
 });
+
+// Helper function to trigger interval callbacks
+const triggerIntervals = async () => {
+  const { act } = await import("@testing-library/react");
+  await act(async () => {
+    intervalCallbacks.forEach(({ callback }) => {
+      callback();
+    });
+  });
+};
 
 describe("Tasks component", () => {
   test("shows loading state initially", () => {
@@ -357,13 +388,13 @@ describe("Tasks component", () => {
     // Update mock for next request
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks: updatedTasks });
 
-    // Wait for the interval to trigger (interval is 3 seconds)
-    await waitFor(
-      () => {
-        expect(screen.getByText("New task")).toBeInTheDocument();
-      },
-      { timeout: 4000 },
-    );
+    // Trigger the interval callback manually
+    await triggerIntervals();
+
+    // Wait for the new task to appear
+    await waitFor(() => {
+      expect(screen.getByText("New task")).toBeInTheDocument();
+    });
   });
 
   test("task links are rendered with correct structure", async () => {

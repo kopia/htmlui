@@ -63,16 +63,57 @@ const createMockUIContext = () => ({
 
 // Mock server
 let serverMock;
+let intervalSpy;
+let clearIntervalSpy;
+let intervalCallbacks = [];
+let intervalId = 0;
 
 beforeEach(() => {
   serverMock = setupAPIMock();
   resetRouterMocks();
   vi.clearAllMocks();
+
+  // Mock setInterval and clearInterval to control timing
+  intervalCallbacks = [];
+  intervalId = 0;
+
+  intervalSpy = vi.spyOn(window, "setInterval").mockImplementation((callback, delay) => {
+    const id = ++intervalId;
+    intervalCallbacks.push({ id, callback, delay });
+    return id;
+  });
+
+  clearIntervalSpy = vi.spyOn(window, "clearInterval").mockImplementation((id) => {
+    intervalCallbacks = intervalCallbacks.filter((item) => item.id !== id);
+  });
 });
 
 afterEach(() => {
   serverMock.reset();
+  intervalSpy.mockRestore();
+  clearIntervalSpy.mockRestore();
+  intervalCallbacks = [];
 });
+
+// Helper function to trigger interval callbacks
+const triggerIntervals = async () => {
+  const { act } = await import("@testing-library/react");
+  await act(async () => {
+    intervalCallbacks.forEach(({ callback }) => {
+      callback();
+    });
+  });
+};
+
+// Helper function to wait for component to load and then trigger intervals for running tasks
+const waitForLoadAndTriggerIntervals = async (expectedText) => {
+  await waitFor(() => {
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
+  });
+
+  // Trigger intervals to simulate polling
+  await triggerIntervals();
+};
 
 // Helper to render with providers
 const renderWithProviders = (component, uiContext = createMockUIContext()) => {
@@ -103,12 +144,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText("Request failed with status code 500")).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText("Request failed with status code 500")).toBeInTheDocument();
+      });
     });
 
     it("handles network errors gracefully", async () => {
@@ -116,12 +154,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText("Network Error")).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText("Network Error")).toBeInTheDocument();
+      });
     });
   });
 
@@ -146,12 +181,7 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/Bytes:/)).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitForLoadAndTriggerIntervals(/Bytes:/);
 
       // Check that spinner is present for running task
       expect(document.querySelector(".spinner-border")).toBeInTheDocument();
@@ -187,12 +217,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/Total Bytes:/)).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText(/Total Bytes:/)).toBeInTheDocument();
+      });
 
       // Check that spinner is not present for completed task
       expect(document.querySelector(".spinner-border")).not.toBeInTheDocument();
@@ -222,13 +249,10 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/Canceled/)).toBeInTheDocument();
-          expect(screen.getByText("500 KB")).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText(/Canceled/)).toBeInTheDocument();
+        expect(screen.getByText("500 KB")).toBeInTheDocument();
+      });
     });
 
     it("displays other task statuses", async () => {
@@ -252,12 +276,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/FAILED Bytes:/)).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText(/FAILED Bytes:/)).toBeInTheDocument();
+      });
     });
   });
 
