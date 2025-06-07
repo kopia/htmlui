@@ -9,6 +9,7 @@ import { setupAPIMock } from "../api_mocks";
 import "@testing-library/jest-dom";
 import { resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
 import PropTypes from "prop-types";
+import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../interval-mock";
 
 // Mock Logs component to avoid complex dependencies
 vi.mock("../../src/components/Logs", () => ({
@@ -68,10 +69,14 @@ beforeEach(() => {
   serverMock = setupAPIMock();
   resetRouterMocks();
   vi.clearAllMocks();
+
+  // Setup interval mocking
+  setupIntervalMocks();
 });
 
 afterEach(() => {
   serverMock.reset();
+  cleanupIntervalMocks();
 });
 
 // Helper to render with providers
@@ -103,12 +108,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText("Request failed with status code 500")).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText("Request failed with status code 500")).toBeInTheDocument();
+      });
     });
 
     it("handles network errors gracefully", async () => {
@@ -116,12 +118,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText("Network Error")).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText("Network Error")).toBeInTheDocument();
+      });
     });
   });
 
@@ -146,12 +145,7 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/Bytes:/)).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitForLoadAndTriggerIntervals(/Bytes:/);
 
       // Check that spinner is present for running task
       expect(document.querySelector(".spinner-border")).toBeInTheDocument();
@@ -187,12 +181,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/Total Bytes:/)).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText(/Total Bytes:/)).toBeInTheDocument();
+      });
 
       // Check that spinner is not present for completed task
       expect(document.querySelector(".spinner-border")).not.toBeInTheDocument();
@@ -222,13 +213,10 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/Canceled/)).toBeInTheDocument();
-          expect(screen.getByText("500 KB")).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText(/Canceled/)).toBeInTheDocument();
+        expect(screen.getByText("500 KB")).toBeInTheDocument();
+      });
     });
 
     it("displays other task statuses", async () => {
@@ -252,12 +240,9 @@ describe("SnapshotEstimation", () => {
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />);
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/FAILED Bytes:/)).toBeInTheDocument();
-        },
-        { timeout: 10000 },
-      );
+      await waitFor(() => {
+        expect(screen.getByText(/FAILED Bytes:/)).toBeInTheDocument();
+      });
     });
   });
 

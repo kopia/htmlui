@@ -5,6 +5,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
+import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals, getIntervalMockSpies } from "../interval-mock";
 
 describe("Logs Component", () => {
   let axiosMock;
@@ -15,13 +16,15 @@ describe("Logs Component", () => {
 
     // Mock scrollIntoView since it's not available in jsdom
     Element.prototype.scrollIntoView = vi.fn();
+
+    // Setup interval mocking
+    setupIntervalMocks();
   });
 
   afterEach(() => {
     // Clean up
     axiosMock.restore();
-    vi.clearAllTimers();
-    vi.useRealTimers();
+    cleanupIntervalMocks();
   });
 
   const mockLogsResponse = {
@@ -160,13 +163,13 @@ describe("Logs Component", () => {
 
     expect(callCount).toBe(1);
 
+    // Trigger the interval callback manually
+    await triggerIntervals();
+
     // Wait for the component to make another request
-    await waitFor(
-      () => {
-        expect(callCount).toBeGreaterThan(1);
-      },
-      { timeout: 4000 },
-    );
+    await waitFor(() => {
+      expect(callCount).toBe(2);
+    });
 
     // The component should eventually display the new log
     await waitFor(() => {
@@ -201,13 +204,13 @@ describe("Logs Component", () => {
     // Clear the mock calls from initial render
     Element.prototype.scrollIntoView.mockClear();
 
+    // Trigger the interval callback manually
+    await triggerIntervals();
+
     // Wait for new logs to appear
-    await waitFor(
-      () => {
-        expect(screen.getByText(/Second log/)).toBeInTheDocument();
-      },
-      { timeout: 4000 },
-    );
+    await waitFor(() => {
+      expect(screen.getByText(/Second log/)).toBeInTheDocument();
+    });
 
     // Verify scrollIntoView was called
     expect(Element.prototype.scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth" });
@@ -235,21 +238,19 @@ describe("Logs Component", () => {
     // Clear the mock calls from initial render
     Element.prototype.scrollIntoView.mockClear();
 
+    // Trigger the interval callback manually
+    await triggerIntervals();
+
     // Wait for another fetch to happen
-    await waitFor(
-      () => {
-        expect(callCount).toBeGreaterThan(initialCallCount);
-      },
-      { timeout: 4000 },
-    );
+    await waitFor(() => {
+      expect(callCount).toBeGreaterThan(initialCallCount);
+    });
 
     // scrollIntoView should not be called since logs didn't change
     expect(Element.prototype.scrollIntoView).not.toHaveBeenCalled();
   });
 
   it("clears interval on unmount", async () => {
-    const clearIntervalSpy = vi.spyOn(window, "clearInterval");
-
     axiosMock.onGet("/api/v1/tasks/test-task-123/logs").reply(200, mockLogsResponse);
 
     const { unmount } = render(<Logs taskID="test-task-123" />);
@@ -262,6 +263,7 @@ describe("Logs Component", () => {
     unmount();
 
     // Verify clearInterval was called
+    const { clearIntervalSpy } = getIntervalMockSpies();
     expect(clearIntervalSpy).toHaveBeenCalled();
   });
 

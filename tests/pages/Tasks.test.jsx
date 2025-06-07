@@ -7,6 +7,7 @@ import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 import { setupAPIMock } from "../api_mocks";
 import "@testing-library/jest-dom";
 import { changeControlValue } from "../testutils";
+import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals } from "../interval-mock";
 
 let axiosMock;
 
@@ -48,6 +49,9 @@ beforeEach(() => {
   axiosMock = setupAPIMock();
   // Clear all previous mocks
   vi.clearAllMocks();
+
+  // Setup interval mocking
+  setupIntervalMocks();
 });
 
 /**
@@ -55,6 +59,7 @@ beforeEach(() => {
  */
 afterEach(() => {
   axiosMock.reset();
+  cleanupIntervalMocks();
 });
 
 describe("Tasks component", () => {
@@ -357,13 +362,13 @@ describe("Tasks component", () => {
     // Update mock for next request
     axiosMock.onGet("/api/v1/tasks").reply(200, { tasks: updatedTasks });
 
-    // Wait for the interval to trigger (interval is 3 seconds)
-    await waitFor(
-      () => {
-        expect(screen.getByText("New task")).toBeInTheDocument();
-      },
-      { timeout: 4000 },
-    );
+    // Trigger the interval callback manually
+    await triggerIntervals();
+
+    // Wait for the new task to appear
+    await waitFor(() => {
+      expect(screen.getByText("New task")).toBeInTheDocument();
+    });
   });
 
   test("task links are rendered with correct structure", async () => {
