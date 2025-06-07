@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { formatDuration } from "./uiutil";
+import { formatDuration } from "./formatutils";
 
 export function cancelTask(tid) {
   axios

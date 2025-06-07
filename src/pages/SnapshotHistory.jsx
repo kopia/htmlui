@@ -9,15 +9,8 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import KopiaTable from "../components/KopiaTable";
 import { CLIEquivalent } from "../components/CLIEquivalent";
-import {
-  compare,
-  errorAlert,
-  objectLink,
-  parseQuery,
-  redirect,
-  rfc3339TimestampForDisplay,
-  sizeWithFailures,
-} from "../utils/uiutil";
+import { compare, objectLink, parseQuery, rfc3339TimestampForDisplay } from "../utils/formatutils";
+import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
 import { sourceQueryStringParams } from "../utils/policyutil";
 import { GoBackButton } from "../components/GoBackButton";
 import { faSync, faThumbtack } from "@fortawesome/free-solid-svg-icons";

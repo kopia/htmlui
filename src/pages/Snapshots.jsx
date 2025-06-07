@@ -12,7 +12,8 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
 import KopiaTable from "../components/KopiaTable";
-import { compare, errorAlert, ownerName, redirect, sizeDisplayName, sizeWithFailures } from "../utils/uiutil";
+import { compare, formatOwnerName, sizeDisplayName } from "../utils/formatutils";
+import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
 import { policyEditorURL, sourceQueryStringParams } from "../utils/policyutil";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
@@ -284,7 +285,7 @@ export class Snapshots extends Component {
       return <Spinner animation="border" variant="primary" />;
     }
     let uniqueOwners = sources.reduce((a, d) => {
-      const owner = ownerName(d.source);
+      const owner = formatOwnerName(d.source);
 
       if (!a.includes(owner)) {
         a.push(owner);
@@ -300,11 +301,11 @@ export class Snapshots extends Component {
         break;
 
       case localSnapshots:
-        sources = sources.filter((x) => ownerName(x.source) === this.state.localSourceName);
+        sources = sources.filter((x) => formatOwnerName(x.source) === this.state.localSourceName);
         break;
 
       default:
-        sources = sources.filter((x) => ownerName(x.source) === this.state.selectedOwner);
+        sources = sources.filter((x) => formatOwnerName(x.source) === this.state.selectedOwner);
         break;
     }
 
@@ -319,7 +320,7 @@ export class Snapshots extends Component {
             return v;
           }
 
-          return compare(ownerName(a.original.source), ownerName(b.original.source));
+          return compare(formatOwnerName(a.original.source), formatOwnerName(b.original.source));
         },
         width: "",
         cell: (x) => (
