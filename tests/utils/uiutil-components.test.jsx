@@ -1,13 +1,5 @@
 import React from "react";
-import { vi } from "vitest";
 import "@testing-library/jest-dom";
-import { resetRouterMocks } from "../react-router-mock.jsx";
-
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
-  return createRouterMock()();
-});
 
 import { sizeWithFailures } from "../../src/utils/uiutil";
 import { taskStatusSymbol } from "../../src/utils/taskutil";
@@ -80,11 +72,6 @@ describe("taskStatusSymbol", () => {
     startTime: "2023-01-01T12:00:00Z",
     endTime: "2023-01-01T12:01:30Z",
   };
-
-  beforeEach(() => {
-    resetRouterMocks();
-    vi.clearAllMocks();
-  });
 
   it("shows running status with spinner", () => {
     const task = { ...baseTask, status: "RUNNING", endTime: null };
