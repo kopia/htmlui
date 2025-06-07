@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { PushoverNotificationMethod } from "../../../src/components/notifications/PushoverNotificationMethod";
-import { changeControlValue } from "../../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,8 +9,8 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-appToken"), "some-appToken");
-  changeControlValue(getByTestId("control-userKey"), "some-userKey");
+  fireEvent.change(getByTestId("control-appToken"), { target: { value: "some-appToken" } });
+  fireEvent.change(getByTestId("control-userKey"), { target: { value: "some-userKey" } });
   expect(ref.current.validate()).toBe(true);
   // optional
   expect(ref.current.validate()).toBe(true);

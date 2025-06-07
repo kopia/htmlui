@@ -3,15 +3,15 @@ import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor, act } from "@testing-library/react";
 import { SnapshotCreate } from "../../src/pages/SnapshotCreate";
-import { setupAPIMock } from "../api_mocks";
-import { changeControlValue, simulateClick } from "../testutils";
+import { setupAPIMock } from "../testutils/api-mocks";
+import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 let axiosMock;
 
 // Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     simple: true,
     location: { pathname: "/snapshots/create" },
@@ -121,7 +121,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -151,7 +151,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -183,7 +183,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -221,7 +221,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -231,7 +231,7 @@ describe("SnapshotCreate component", () => {
     const estimateButton = screen.getByTestId("estimate-now");
 
     await act(async () => {
-      simulateClick(estimateButton);
+      fireEvent.click(estimateButton);
     });
 
     await waitFor(() => {
@@ -273,7 +273,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -283,7 +283,7 @@ describe("SnapshotCreate component", () => {
     const snapshotButton = screen.getByTestId("snapshot-now");
 
     await act(async () => {
-      simulateClick(snapshotButton);
+      fireEvent.click(snapshotButton);
     });
 
     await waitFor(() => {
@@ -323,7 +323,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -333,7 +333,7 @@ describe("SnapshotCreate component", () => {
     const estimateButton = screen.getByTestId("estimate-now");
 
     await act(async () => {
-      simulateClick(estimateButton);
+      fireEvent.click(estimateButton);
     });
 
     await waitFor(() => {
@@ -354,7 +354,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "");
+      fireEvent.change(pathInput, { target: { value: "" } });
     });
 
     // Should not make any resolve calls for empty path
@@ -393,7 +393,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -403,7 +403,7 @@ describe("SnapshotCreate component", () => {
     const estimateButton = screen.getByTestId("estimate-now");
 
     await act(async () => {
-      simulateClick(estimateButton);
+      fireEvent.click(estimateButton);
     });
 
     await waitFor(() => {
@@ -420,7 +420,7 @@ describe("SnapshotCreate component", () => {
     });
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/photos");
+      fireEvent.change(pathInput, { target: { value: "/home/user/photos" } });
     });
 
     await waitFor(() => {
@@ -449,7 +449,7 @@ describe("SnapshotCreate component", () => {
     const pathInput = screen.getByTestId("control-path");
 
     await act(async () => {
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {
@@ -515,9 +515,9 @@ describe("SnapshotCreate component", () => {
 
     // Type quickly to simulate multiple changes
     await act(async () => {
-      changeControlValue(pathInput, "/home");
-      changeControlValue(pathInput, "/home/user");
-      changeControlValue(pathInput, "/home/user/documents");
+      fireEvent.change(pathInput, { target: { value: "/home" } });
+      fireEvent.change(pathInput, { target: { value: "/home/user" } });
+      fireEvent.change(pathInput, { target: { value: "/home/user/documents" } });
     });
 
     await waitFor(() => {

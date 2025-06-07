@@ -3,14 +3,14 @@ import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { Task } from "../../src/pages/Task";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import "@testing-library/jest-dom";
 
 let axiosMock;
 
 // Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     simple: true,
     location: { pathname: "/tasks/123" },

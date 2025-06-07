@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { WebHookNotificationMethod } from "../../../src/components/notifications/WebHookNotificationMethod";
-import { changeControlValue } from "../../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,10 +9,10 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-endpoint"), "http://some-endpoint:12345");
+  fireEvent.change(getByTestId("control-endpoint"), { target: { value: "http://some-endpoint:12345" } });
   expect(ref.current.validate()).toBe(true);
   // optional
-  changeControlValue(getByTestId("control-headers"), "some:header\nanother:header");
+  fireEvent.change(getByTestId("control-headers"), { target: { value: "some:header\nanother:header" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

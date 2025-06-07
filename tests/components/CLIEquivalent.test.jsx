@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import { CLIEquivalent } from "../../src/components/CLIEquivalent";
 
 describe("CLIEquivalent", () => {

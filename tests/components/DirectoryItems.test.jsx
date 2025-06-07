@@ -8,7 +8,7 @@ import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 
 // Mock react-router-dom Link component using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   const routerMock = await createRouterMock()();
 
   // Override the Link component to include state data for testing

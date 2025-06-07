@@ -6,15 +6,15 @@ import { BrowserRouter } from "react-router-dom";
 import { Policies, PoliciesInternal } from "../../src/pages/Policies";
 import { AppContext } from "../../src/contexts/AppContext";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../api_mocks";
+import { setupAPIMock } from "../testutils/api-mocks";
 import "@testing-library/jest-dom";
-import { mockNavigate, resetRouterMocks } from "../react-router-mock.jsx";
+import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
 
 let axiosMock;
 
 // Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });
 

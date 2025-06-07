@@ -4,11 +4,11 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 import { DirectoryBreadcrumbs } from "../../src/components/DirectoryBreadcrumbs";
-import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../react-router-mock.jsx";
+import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });
 

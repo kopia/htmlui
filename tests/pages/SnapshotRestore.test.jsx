@@ -3,15 +3,15 @@ import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { SnapshotRestore } from "../../src/pages/SnapshotRestore";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../api_mocks";
-import { changeControlValue, toggleCheckbox, simulateClick } from "../testutils";
+import { setupAPIMock } from "../testutils/api-mocks";
+import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 let axiosMock;
 
 // Mock react-router-dom using unified helper
 vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
+  const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     simple: true,
     location: { pathname: "/snapshots/restore" },
@@ -108,7 +108,7 @@ describe("SnapshotRestore component", () => {
     renderSnapshotRestore();
 
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     // Should not make API call without destination
     expect(axiosMock.history.post).toHaveLength(0);
@@ -122,25 +122,25 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/home/user/restore");
+    fireEvent.change(destinationField, { target: { value: "/home/user/restore" } });
 
     // Toggle some options
     const overwriteFiles = screen.getByTestId("control-overwriteFiles");
-    toggleCheckbox(overwriteFiles);
+    fireEvent.click(overwriteFiles);
 
     const restoreOwnership = screen.getByTestId("control-restoreOwnership");
-    toggleCheckbox(restoreOwnership); // This should turn it off
+    fireEvent.click(restoreOwnership); // This should turn it off
 
     // Set number fields
     const depthField = screen.getByTestId("control-restoreDirEntryAtDepth");
-    changeControlValue(depthField, "500");
+    fireEvent.change(depthField, { target: { value: "500" } });
 
     const minSizeField = screen.getByTestId("control-minSizeForPlaceholder");
-    changeControlValue(minSizeField, "1024");
+    fireEvent.change(minSizeField, { target: { value: "1024" } });
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);
@@ -163,15 +163,15 @@ describe("SnapshotRestore component", () => {
 
     // Fill in ZIP destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/backup/restore.zip");
+    fireEvent.change(destinationField, { target: { value: "/backup/restore.zip" } });
 
     // Toggle ZIP compression off
     const uncompressedZip = screen.getByTestId("control-uncompressedZip");
-    toggleCheckbox(uncompressedZip); // Toggle off (should be compressed)
+    fireEvent.click(uncompressedZip); // Toggle off (should be compressed)
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);
@@ -192,11 +192,11 @@ describe("SnapshotRestore component", () => {
 
     // Fill in TAR destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/backup/restore.tar");
+    fireEvent.change(destinationField, { target: { value: "/backup/restore.tar" } });
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);
@@ -217,11 +217,11 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination and submit
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/restore/path");
+    fireEvent.change(destinationField, { target: { value: "/restore/path" } });
 
     // Click the submit button
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     // Wait for API call to complete
     await waitFor(() => {
@@ -246,10 +246,10 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination and submit
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/restore/path");
+    fireEvent.change(destinationField, { target: { value: "/restore/path" } });
 
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(mockErrorAlert).toHaveBeenCalled();
@@ -264,15 +264,15 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/restore");
+    fireEvent.change(destinationField, { target: { value: "/restore" } });
 
     // Toggle incremental off
     const incrementalField = screen.getByTestId("control-incremental");
-    toggleCheckbox(incrementalField);
+    fireEvent.click(incrementalField);
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);
@@ -290,15 +290,15 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/restore");
+    fireEvent.change(destinationField, { target: { value: "/restore" } });
 
     // Toggle continue on errors on
     const continueOnErrorsField = screen.getByTestId("control-continueOnErrors");
-    toggleCheckbox(continueOnErrorsField);
+    fireEvent.click(continueOnErrorsField);
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);
@@ -316,19 +316,19 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/restore");
+    fireEvent.change(destinationField, { target: { value: "/restore" } });
 
     // Toggle several options
-    toggleCheckbox(screen.getByTestId("control-restorePermissions")); // Turn off
-    toggleCheckbox(screen.getByTestId("control-restoreModTimes")); // Turn off
-    toggleCheckbox(screen.getByTestId("control-overwriteDirectories")); // Turn on
-    toggleCheckbox(screen.getByTestId("control-overwriteSymlinks")); // Turn on
-    toggleCheckbox(screen.getByTestId("control-writeFilesAtomically")); // Turn on
-    toggleCheckbox(screen.getByTestId("control-writeSparseFiles")); // Turn on
+    fireEvent.click(screen.getByTestId("control-restorePermissions")); // Turn off
+    fireEvent.click(screen.getByTestId("control-restoreModTimes")); // Turn off
+    fireEvent.click(screen.getByTestId("control-overwriteDirectories")); // Turn on
+    fireEvent.click(screen.getByTestId("control-overwriteSymlinks")); // Turn on
+    fireEvent.click(screen.getByTestId("control-writeFilesAtomically")); // Turn on
+    fireEvent.click(screen.getByTestId("control-writeSparseFiles")); // Turn on
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);
@@ -352,18 +352,18 @@ describe("SnapshotRestore component", () => {
 
     // Fill in destination
     const destinationField = screen.getByTestId("control-destination");
-    changeControlValue(destinationField, "/restore");
+    fireEvent.change(destinationField, { target: { value: "/restore" } });
 
     // Clear number fields (they should have default values)
     const depthField = screen.getByTestId("control-restoreDirEntryAtDepth");
-    changeControlValue(depthField, "");
+    fireEvent.change(depthField, { target: { value: "" } });
 
     const minSizeField = screen.getByTestId("control-minSizeForPlaceholder");
-    changeControlValue(minSizeField, "");
+    fireEvent.change(minSizeField, { target: { value: "" } });
 
     // Submit form
     const submitButton = screen.getByTestId("submit-button");
-    simulateClick(submitButton);
+    fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);

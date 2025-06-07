@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { SetupRepositoryRclone } from "../../src/components/SetupRepositoryRclone";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,10 +9,10 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-remotePath"), "myremote:path/to/repo");
+  fireEvent.change(getByTestId("control-remotePath"), { target: { value: "myremote:path/to/repo" } });
   expect(ref.current.validate()).toBe(true);
   // optional
-  changeControlValue(getByTestId("control-rcloneExe"), "/usr/bin/rclone");
+  fireEvent.change(getByTestId("control-rcloneExe"), { target: { value: "/usr/bin/rclone" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

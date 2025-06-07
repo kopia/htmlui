@@ -2,7 +2,7 @@ import { render, act } from "@testing-library/react";
 import React from "react";
 import PropTypes from "prop-types";
 import { TimesOfDayList } from "../../src/forms/TimesOfDayList";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 // Mock component to simulate the form component that would use TimesOfDayList
 class MockFormComponent extends React.Component {
@@ -70,7 +70,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "9:30\n15:45\n23:00");
+      fireEvent.change(textarea, { target: { value: "9:30\n15:45\n23:00" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -87,7 +87,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "9:30\ninvalid\n15:45\n25:00\n12:5");
+      fireEvent.change(textarea, { target: { value: "9:30\ninvalid\n15:45\n25:00\n12:5" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -106,7 +106,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "0:00\n23:59\n24:00\n-1:00");
+      fireEvent.change(textarea, { target: { value: "0:00\n23:59\n24:00\n-1:00" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -124,7 +124,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "12:00\n12:59\n12:60\n12:-1");
+      fireEvent.change(textarea, { target: { value: "12:00\n12:59\n12:60\n12:-1" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -142,7 +142,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "12:05\n12:5\n12:00\n12:9");
+      fireEvent.change(textarea, { target: { value: "12:05\n12:5\n12:00\n12:9" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -160,7 +160,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "");
+      fireEvent.change(textarea, { target: { value: "" } });
     });
 
     expect(ref.current.state.testField).toBeUndefined();
@@ -173,7 +173,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "9:30\n\n15:45\n   \n23:00");
+      fireEvent.change(textarea, { target: { value: "9:30\n\n15:45\n   \n23:00" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -207,7 +207,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "23:59\n00:01\n12:30\n06:15");
+      fireEvent.change(textarea, { target: { value: "23:59\n00:01\n12:30\n06:15" } });
     });
 
     expect(ref.current.state.testField).toEqual([
@@ -225,7 +225,7 @@ describe("TimesOfDayList", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "1:2:3\n12:\n:30\n12:30:00\n12.30");
+      fireEvent.change(textarea, { target: { value: "1:2:3\n12:\n:30\n12:30:00\n12.30" } });
     });
 
     expect(ref.current.state.testField).toEqual([

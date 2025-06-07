@@ -2,7 +2,7 @@ import { render, act } from "@testing-library/react";
 import React from "react";
 import PropTypes from "prop-types";
 import { StringList } from "../../src/forms/StringList";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 import { listToMultilineString, multilineStringToList } from "../../src/forms/StringList";
 
 // Mock component to simulate the form component that would use StringList
@@ -115,7 +115,7 @@ describe("StringList component", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "new item 1\nnew item 2");
+      fireEvent.change(textarea, { target: { value: "new item 1\nnew item 2" } });
     });
 
     expect(ref.current.state.testField).toEqual(["new item 1", "new item 2"]);
@@ -132,7 +132,7 @@ describe("StringList component", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "");
+      fireEvent.change(textarea, { target: { value: "" } });
     });
 
     expect(ref.current.state.testField).toBeUndefined();
@@ -209,7 +209,7 @@ describe("StringList component", () => {
     const textarea = getByRole("textbox");
 
     act(() => {
-      changeControlValue(textarea, "  item with spaces  \n\ttabbed item\n normal item");
+      fireEvent.change(textarea, { target: { value: "  item with spaces  \n\ttabbed item\n normal item" } });
     });
 
     expect(ref.current.state.testField).toEqual(["  item with spaces  ", "\ttabbed item", " normal item"]);

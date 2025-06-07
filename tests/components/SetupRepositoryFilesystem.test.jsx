@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { SetupRepositoryFilesystem } from "../../src/components/SetupRepositoryFilesystem";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,7 +9,7 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-path"), "some-path");
+  fireEvent.change(getByTestId("control-path"), { target: { value: "some-path" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

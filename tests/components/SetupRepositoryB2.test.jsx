@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { SetupRepositoryB2 } from "../../src/components/SetupRepositoryB2";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,12 +9,12 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-bucket"), "some-bucket");
-  changeControlValue(getByTestId("control-keyId"), "some-key-id");
-  changeControlValue(getByTestId("control-key"), "some-key");
+  fireEvent.change(getByTestId("control-bucket"), { target: { value: "some-bucket" } });
+  fireEvent.change(getByTestId("control-keyId"), { target: { value: "some-key-id" } });
+  fireEvent.change(getByTestId("control-key"), { target: { value: "some-key" } });
   expect(ref.current.validate()).toBe(true);
   // optional
-  changeControlValue(getByTestId("control-prefix"), "some-prefix");
+  fireEvent.change(getByTestId("control-prefix"), { target: { value: "some-prefix" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({

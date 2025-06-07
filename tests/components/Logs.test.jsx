@@ -5,7 +5,12 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
-import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals, getIntervalMockSpies } from "../interval-mock";
+import {
+  setupIntervalMocks,
+  cleanupIntervalMocks,
+  triggerIntervals,
+  getIntervalMockSpies,
+} from "../testutils/interval-mocks";
 
 describe("Logs Component", () => {
   let axiosMock;

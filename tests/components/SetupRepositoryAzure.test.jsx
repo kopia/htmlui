@@ -1,7 +1,7 @@
 import { render, act } from "@testing-library/react";
 import React from "react";
 import { SetupRepositoryAzure } from "../../src/components/SetupRepositoryAzure";
-import { changeControlValue } from "../testutils";
+import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
   let ref = React.createRef();
@@ -9,14 +9,14 @@ it("can set fields", async () => {
 
   act(() => expect(ref.current.validate()).toBe(false));
   // required
-  changeControlValue(getByTestId("control-container"), "some-container");
-  changeControlValue(getByTestId("control-storageAccount"), "some-storageAccount");
+  fireEvent.change(getByTestId("control-container"), { target: { value: "some-container" } });
+  fireEvent.change(getByTestId("control-storageAccount"), { target: { value: "some-storageAccount" } });
   expect(ref.current.validate()).toBe(true);
   // optional
-  changeControlValue(getByTestId("control-storageKey"), "some-storageKey");
-  changeControlValue(getByTestId("control-sasToken"), "some-sas-token");
-  changeControlValue(getByTestId("control-storageDomain"), "some-storage-domain");
-  changeControlValue(getByTestId("control-prefix"), "some-prefix");
+  fireEvent.change(getByTestId("control-storageKey"), { target: { value: "some-storageKey" } });
+  fireEvent.change(getByTestId("control-sasToken"), { target: { value: "some-sas-token" } });
+  fireEvent.change(getByTestId("control-storageDomain"), { target: { value: "some-storage-domain" } });
+  fireEvent.change(getByTestId("control-prefix"), { target: { value: "some-prefix" } });
   expect(ref.current.validate()).toBe(true);
 
   expect(ref.current.state).toStrictEqual({
