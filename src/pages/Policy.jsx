@@ -4,7 +4,8 @@ import Row from "react-bootstrap/esm/Row";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { CLIEquivalent } from "../components/CLIEquivalent";
-import { parseQuery, PolicyTypeName } from "../utils/uiutil";
+import { parseQuery } from "../utils/uiutil";
+import { PolicyTypeName } from "../utils/policyutil";
 import { GoBackButton } from "../components/GoBackButton";
 
 export function Policy() {

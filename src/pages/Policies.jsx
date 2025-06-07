@@ -13,7 +13,8 @@ import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
 import KopiaTable from "../components/KopiaTable";
 import { CLIEquivalent } from "../components/CLIEquivalent";
-import { checkPolicyPath, compare, ownerName, policyEditorURL, redirect } from "../utils/uiutil";
+import { compare, ownerName, redirect } from "../utils/uiutil";
+import { checkPolicyPath, policyEditorURL } from "../utils/policyutil";
 import PropTypes from "prop-types";
 
 const applicablePolicies = "Applicable Policies";

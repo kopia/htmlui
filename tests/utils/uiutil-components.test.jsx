@@ -1,50 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import { vi } from "vitest";
 import "@testing-library/jest-dom";
-import { resetRouterMocks } from "../react-router-mock.jsx";
 
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
-  const { createRouterMock } = await import("../react-router-mock.jsx");
-  return createRouterMock()();
-});
-
-import { PolicyEditorLink, sizeWithFailures } from "../../src/utils/uiutil";
+import { sizeWithFailures } from "../../src/utils/uiutil";
 import { taskStatusSymbol } from "../../src/utils/taskutil";
-
-// Helper to render components with router
-const renderWithRouter = (component) => {
-  return render(<BrowserRouter>{component}</BrowserRouter>);
-};
-
-describe("PolicyEditorLink", () => {
-  it("renders link with correct URL and text", () => {
-    const source = {
-      userName: "john",
-      host: "example.com",
-      path: "/home/john",
-    };
-
-    renderWithRouter(<PolicyEditorLink {...source} />);
-
-    const link = screen.getByRole("link");
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveTextContent("Directory: john@example.com:/home/john");
-    expect(link).toHaveAttribute("href", expect.stringContaining("/policies/edit"));
-    expect(link).toHaveAttribute("href", expect.stringContaining("userName=john"));
-  });
-
-  it("renders global policy link", () => {
-    const source = {};
-
-    renderWithRouter(<PolicyEditorLink {...source} />);
-
-    const link = screen.getByRole("link");
-    expect(link).toHaveTextContent("Global Policy");
-  });
-});
 
 describe("sizeWithFailures", () => {
   it("returns empty string for undefined size", () => {
@@ -114,11 +72,6 @@ describe("taskStatusSymbol", () => {
     startTime: "2023-01-01T12:00:00Z",
     endTime: "2023-01-01T12:01:30Z",
   };
-
-  beforeEach(() => {
-    resetRouterMocks();
-    vi.clearAllMocks();
-  });
 
   it("shows running status with spinner", () => {
     const task = { ...baseTask, status: "RUNNING", endTime: null };
