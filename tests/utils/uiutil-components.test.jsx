@@ -1,6 +1,4 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
 import { resetRouterMocks } from "../react-router-mock.jsx";
@@ -11,40 +9,8 @@ vi.mock("react-router-dom", async () => {
   return createRouterMock()();
 });
 
-import { PolicyEditorLink, sizeWithFailures } from "../../src/utils/uiutil";
+import { sizeWithFailures } from "../../src/utils/uiutil";
 import { taskStatusSymbol } from "../../src/utils/taskutil";
-
-// Helper to render components with router
-const renderWithRouter = (component) => {
-  return render(<BrowserRouter>{component}</BrowserRouter>);
-};
-
-describe("PolicyEditorLink", () => {
-  it("renders link with correct URL and text", () => {
-    const source = {
-      userName: "john",
-      host: "example.com",
-      path: "/home/john",
-    };
-
-    renderWithRouter(<PolicyEditorLink {...source} />);
-
-    const link = screen.getByRole("link");
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveTextContent("Directory: john@example.com:/home/john");
-    expect(link).toHaveAttribute("href", expect.stringContaining("/policies/edit"));
-    expect(link).toHaveAttribute("href", expect.stringContaining("userName=john"));
-  });
-
-  it("renders global policy link", () => {
-    const source = {};
-
-    renderWithRouter(<PolicyEditorLink {...source} />);
-
-    const link = screen.getByRole("link");
-    expect(link).toHaveTextContent("Global Policy");
-  });
-});
 
 describe("sizeWithFailures", () => {
   it("returns empty string for undefined size", () => {

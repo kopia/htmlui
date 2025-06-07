@@ -12,16 +12,8 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
 import KopiaTable from "../components/KopiaTable";
-import {
-  compare,
-  errorAlert,
-  ownerName,
-  policyEditorURL,
-  redirect,
-  sizeDisplayName,
-  sizeWithFailures,
-  sourceQueryStringParams,
-} from "../utils/uiutil";
+import { compare, errorAlert, ownerName, redirect, sizeDisplayName, sizeWithFailures } from "../utils/uiutil";
+import { policyEditorURL, sourceQueryStringParams } from "../utils/policyutil";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 

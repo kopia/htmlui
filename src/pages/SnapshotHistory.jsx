@@ -17,8 +17,8 @@ import {
   redirect,
   rfc3339TimestampForDisplay,
   sizeWithFailures,
-  sourceQueryStringParams,
 } from "../utils/uiutil";
+import { sourceQueryStringParams } from "../utils/policyutil";
 import { GoBackButton } from "../components/GoBackButton";
 import { faSync, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
