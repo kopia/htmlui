@@ -11,18 +11,11 @@ import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
-import KopiaTable from "../utils/KopiaTable";
-import {
-  CLIEquivalent,
-  compare,
-  errorAlert,
-  ownerName,
-  policyEditorURL,
-  redirect,
-  sizeDisplayName,
-  sizeWithFailures,
-  sourceQueryStringParams,
-} from "../utils/uiutil";
+import KopiaTable from "../components/KopiaTable";
+import { compare, formatOwnerName, sizeDisplayName } from "../utils/formatutils";
+import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
+import { policyEditorURL, sourceQueryStringParams } from "../utils/policyutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 
 const localSnapshots = "Local Snapshots";
@@ -45,8 +38,7 @@ export class Snapshots extends Component {
     };
 
     this.sync = this.sync.bind(this);
-    this.fetchSourcesWithoutSpinner =
-      this.fetchSourcesWithoutSpinner.bind(this);
+    this.fetchSourcesWithoutSpinner = this.fetchSourcesWithoutSpinner.bind(this);
     this.handleChange = handleChange.bind(this);
 
     this.cancelSnapshot = this.cancelSnapshot.bind(this);
@@ -76,8 +68,7 @@ export class Snapshots extends Component {
         .get("/api/v1/sources")
         .then((result) => {
           this.setState({
-            localSourceName:
-              result.data.localUsername + "@" + result.data.localHost,
+            localSourceName: result.data.localUsername + "@" + result.data.localHost,
             multiUser: result.data.multiUser,
             sources: result.data.sources,
             isLoading: false,
@@ -214,8 +205,7 @@ export class Snapshots extends Component {
           if (u.estimatedBytes) {
             totals += "/" + sizeDisplayName(u.estimatedBytes, bytesStringBase2);
 
-            const percent =
-              Math.round((totalBytes * 1000.0) / u.estimatedBytes) / 10.0;
+            const percent = Math.round((totalBytes * 1000.0) / u.estimatedBytes) / 10.0;
             if (percent <= 100) {
               totals += " " + percent + "%";
             }
@@ -224,18 +214,10 @@ export class Snapshots extends Component {
 
         return (
           <>
-            <Spinner
-              data-testid="snapshot-uploading"
-              animation="border"
-              variant="primary"
-              size="sm"
-              title={title}
-            />
+            <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />
             &nbsp;{totals}
             &nbsp;
-            {x.row.original.currentTask && (
-              <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>
-            )}
+            {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
           </>
         );
       }
@@ -303,7 +285,7 @@ export class Snapshots extends Component {
       return <Spinner animation="border" variant="primary" />;
     }
     let uniqueOwners = sources.reduce((a, d) => {
-      const owner = ownerName(d.source);
+      const owner = formatOwnerName(d.source);
 
       if (!a.includes(owner)) {
         a.push(owner);
@@ -319,15 +301,11 @@ export class Snapshots extends Component {
         break;
 
       case localSnapshots:
-        sources = sources.filter(
-          (x) => ownerName(x.source) === this.state.localSourceName,
-        );
+        sources = sources.filter((x) => formatOwnerName(x.source) === this.state.localSourceName);
         break;
 
       default:
-        sources = sources.filter(
-          (x) => ownerName(x.source) === this.state.selectedOwner,
-        );
+        sources = sources.filter((x) => formatOwnerName(x.source) === this.state.selectedOwner);
         break;
     }
 
@@ -342,19 +320,11 @@ export class Snapshots extends Component {
             return v;
           }
 
-          return compare(
-            ownerName(a.original.source),
-            ownerName(b.original.source),
-          );
+          return compare(formatOwnerName(a.original.source), formatOwnerName(b.original.source));
         },
         width: "",
         cell: (x) => (
-          <Link
-            to={
-              "/snapshots/single-source?" +
-              sourceQueryStringParams(x.cell.getValue())
-            }
-          >
+          <Link to={"/snapshots/single-source?" + sourceQueryStringParams(x.cell.getValue())}>
             {x.cell.getValue().path}
           </Link>
         ),
@@ -369,8 +339,7 @@ export class Snapshots extends Component {
         id: "lastSnapshotSize",
         header: "Size",
         width: 120,
-        accessorFn: (x) =>
-          x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0,
+        accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0),
         cell: (x) =>
           sizeWithFailures(
             x.cell.getValue(),
@@ -387,9 +356,7 @@ export class Snapshots extends Component {
         accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.startTime : null),
         cell: (x) =>
           x.cell.getValue() ? (
-            <p title={moment(x.cell.getValue()).toLocaleString()}>
-              {moment(x.cell.getValue()).fromNow()}
-            </p>
+            <p title={moment(x.cell.getValue()).toLocaleString()}>{moment(x.cell.getValue()).fromNow()}</p>
           ) : (
             ""
           ),
@@ -418,32 +385,17 @@ export class Snapshots extends Component {
               <>
                 <Col xs="auto">
                   <Dropdown>
-                    <Dropdown.Toggle
-                      size="sm"
-                      variant="primary"
-                      id="dropdown-basic"
-                    >
+                    <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
                       <FontAwesomeIcon icon={faUserFriends} />
                       &nbsp;{this.state.selectedOwner}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(localSnapshots)}
-                      >
-                        {localSnapshots}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(allSnapshots)}
-                      >
-                        {allSnapshots}
-                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(localSnapshots)}>{localSnapshots}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(allSnapshots)}>{allSnapshots}</Dropdown.Item>
                       <Dropdown.Divider />
                       {uniqueOwners.map((v) => (
-                        <Dropdown.Item
-                          key={v}
-                          onClick={() => this.selectOwner(v)}
-                        >
+                        <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>
                           {v}
                         </Dropdown.Item>
                       ))}
@@ -453,12 +405,7 @@ export class Snapshots extends Component {
               </>
             )}
             <Col xs="auto">
-              <Button
-                data-testid="new-snapshot"
-                size="sm"
-                variant="primary"
-                href="/snapshots/new"
-              >
+              <Button data-testid="new-snapshot" size="sm" variant="primary" href="/snapshots/new">
                 New Snapshot
               </Button>
             </Col>

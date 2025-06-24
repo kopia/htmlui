@@ -72,8 +72,7 @@ export class SetupRepositorySFTP extends Component {
         </Row>
         <Row>
           {RequiredField(this, "Path", "path", {
-            placeholder:
-              "enter remote path to repository, e.g., '/mnt/data/repository'",
+            placeholder: "enter remote path to repository, e.g., '/mnt/data/repository'",
           })}
         </Row>
         {!this.state.externalSSH && (
@@ -88,12 +87,9 @@ export class SetupRepositorySFTP extends Component {
               {OptionalField(this, "Path to key file", "keyfile", {
                 placeholder: "enter path to the key file",
               })}
-              {OptionalField(
-                this,
-                "Path to known_hosts File",
-                "knownHostsFile",
-                { placeholder: "enter path to the known_hosts file" },
-              )}
+              {OptionalField(this, "Path to known_hosts File", "knownHostsFile", {
+                placeholder: "enter path to the known_hosts file",
+              })}
             </Row>
             <Row>
               {OptionalField(
@@ -111,8 +107,7 @@ export class SetupRepositorySFTP extends Component {
                 },
                 null,
                 <>
-                  One of <b>Password</b>, <b>Key File</b> or <b>Key Data</b> is
-                  required.
+                  One of <b>Password</b>, <b>Key File</b> or <b>Key Data</b> is required.
                 </>,
               )}
               {OptionalField(
@@ -126,15 +121,11 @@ export class SetupRepositorySFTP extends Component {
                   isInvalid:
                     this.state.validated &&
                     !this.state.externalSSH &&
-                    !hasExactlyOneOf(this, [
-                      "knownHostsFile",
-                      "knownHostsData",
-                    ]),
+                    !hasExactlyOneOf(this, ["knownHostsFile", "knownHostsData"]),
                 },
                 null,
                 <>
-                  Either <b>Known Hosts File</b> or <b>Known Hosts Data</b> is
-                  required, but not both.
+                  Either <b>Known Hosts File</b> or <b>Known Hosts Data</b> is required, but not both.
                 </>,
               )}
             </Row>
@@ -151,12 +142,10 @@ export class SetupRepositorySFTP extends Component {
           <>
             <Row>
               {OptionalField(this, "SSH Command", "sshCommand", {
-                placeholder:
-                  "provide enter passwordless SSH command to execute (typically 'ssh')",
+                placeholder: "provide enter passwordless SSH command to execute (typically 'ssh')",
               })}
               {OptionalField(this, "SSH Arguments", "sshArguments", {
-                placeholder:
-                  "enter SSH command arguments ('user@host -s sftp' will be appended automatically)",
+                placeholder: "enter SSH command arguments ('user@host -s sftp' will be appended automatically)",
               })}
             </Row>
           </>

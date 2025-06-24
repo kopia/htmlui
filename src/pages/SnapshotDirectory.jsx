@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { DirectoryItems } from "../components/DirectoryItems";
-import { CLIEquivalent } from "../utils/uiutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 import PropTypes from "prop-types";
 
@@ -33,12 +33,7 @@ class SnapshotDirectoryInternal extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.params.oid !== prevProps.params.oid) {
-      console.log(
-        "OID changed",
-        prevProps.params.oid,
-        "=>",
-        this.props.params.oid,
-      );
+      console.log("OID changed", prevProps.params.oid, "=>", this.props.params.oid);
       this.fetchDirectory();
     }
   }
@@ -117,9 +112,7 @@ class SnapshotDirectoryInternal extends Component {
 
   browseMounted() {
     if (!window.kopiaUI) {
-      alert(
-        "Directory browsing is not supported in a web browser. Use Kopia UI.",
-      );
+      alert("Directory browsing is not supported in a web browser. Use Kopia UI.");
       return;
     }
 
@@ -159,11 +152,7 @@ class SnapshotDirectoryInternal extends Component {
                 </Button>
                 {window.kopiaUI && (
                   <>
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      onClick={this.browseMounted}
-                    >
+                    <Button size="sm" variant="secondary" onClick={this.browseMounted}>
                       Browse
                     </Button>
                   </>
@@ -173,7 +162,7 @@ class SnapshotDirectoryInternal extends Component {
                   className="form-control form-control-sm mounted-path"
                   value={this.state.mountInfo.path}
                 />
-                <Button size="sm" variant="success" onClick={this.copyPath}>
+                <Button size="sm" variant="success" onClick={this.copyPath} data-testid="copy-path-button">
                   <FontAwesomeIcon icon={faCopy} />
                 </Button>
               </>
@@ -185,18 +174,13 @@ class SnapshotDirectoryInternal extends Component {
               </>
             )}
             &nbsp;
-            <Button
-              size="sm"
-              variant="primary"
-              href={"/snapshots/dir/" + this.props.params.oid + "/restore"}
-            >
+            <Button size="sm" variant="primary" href={"/snapshots/dir/" + this.props.params.oid + "/restore"}>
               Restore Files & Directories
             </Button>
             &nbsp;
           </Col>
           <Col xs={12} md={6}>
-            You can mount/restore all the files & directories that you see below
-            or restore files individually.
+            You can mount/restore all the files & directories that you see below or restore files individually.
           </Col>
         </Row>
         <Row>
@@ -204,10 +188,7 @@ class SnapshotDirectoryInternal extends Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <DirectoryItems
-              items={items}
-              historyState={this.props.location.state}
-            />
+            <DirectoryItems items={items} historyState={this.props.location.state} />
           </Col>
         </Row>
         <CLIEquivalent command={`snapshot list ${this.state.oid}`} />
@@ -227,12 +208,5 @@ export function SnapshotDirectory(props) {
   const location = useLocation();
   const params = useParams();
 
-  return (
-    <SnapshotDirectoryInternal
-      navigate={navigate}
-      params={params}
-      location={location}
-      {...props}
-    />
-  );
+  return <SnapshotDirectoryInternal navigate={navigate} params={params} location={location} {...props} />;
 }

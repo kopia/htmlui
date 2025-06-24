@@ -92,9 +92,7 @@ export class NotificationEditor extends Component {
         })
         .catch((error) => {
           if (error.response.data.error) {
-            alert(
-              "Error adding notification profile: " + error.response.data.error,
-            );
+            alert("Error adding notification profile: " + error.response.data.error);
           }
         });
     }
@@ -114,9 +112,7 @@ export class NotificationEditor extends Component {
       })
       .catch((error) => {
         if (error.response.data.error) {
-          alert(
-            "Error adding notification profile: " + error.response.data.error,
-          );
+          alert("Error adding notification profile: " + error.response.data.error);
         }
       });
   }
@@ -142,11 +138,7 @@ export class NotificationEditor extends Component {
   }
 
   deleteProfile(profileName) {
-    if (
-      !window.confirm(
-        "Are you sure you want to delete the profile: " + profileName + "?",
-      )
-    ) {
+    if (!window.confirm("Are you sure you want to delete the profile: " + profileName + "?")) {
       return;
     }
 
@@ -199,18 +191,19 @@ export class NotificationEditor extends Component {
     return (
       <>
         <Row>
-          <h4>
-            {this.state.isNewProfile
-              ? "New Notification Profile"
-              : "Edit Notification Profile"}
-          </h4>
+          <h4>{this.state.isNewProfile ? "New Notification Profile" : "Edit Notification Profile"}</h4>
         </Row>
         <Row>
-          {RequiredField(this, "Profile Name", "editedProfile.profile", {
-            placeholder: "Enter profile name",
-            helpText: "Unique name for this notification profile",
-            readOnly: !this.state.isNewProfile,
-          })}
+          {RequiredField(
+            this,
+            "Profile Name",
+            "editedProfile.profile",
+            {
+              placeholder: "Enter profile name",
+              readOnly: !this.state.isNewProfile,
+            },
+            "Unique name for this notification profile",
+          )}
           <Form.Group as={Col}>
             <Form.Label className="required">Minimum Severity</Form.Label>
             <Form.Control
@@ -226,16 +219,11 @@ export class NotificationEditor extends Component {
                 </option>
               ))}
             </Form.Control>
-            <Form.Text className="text-muted">
-              Minimum severity required to use this notification profile
-            </Form.Text>
+            <Form.Text className="text-muted">Minimum severity required to use this notification profile</Form.Text>
           </Form.Group>
         </Row>
         <Row>
-          <SelectedEditor
-            ref={this.optionsEditor}
-            initial={this.state.editedProfile.method.config}
-          />
+          <SelectedEditor ref={this.optionsEditor} initial={this.state.editedProfile.method.config} />
         </Row>
         <Row>
           <Col>
@@ -249,18 +237,10 @@ export class NotificationEditor extends Component {
                 Update Profile
               </Button>
             )}
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => this.sendTestNotification(null)}
-            >
+            <Button size="sm" variant="secondary" onClick={() => this.sendTestNotification(null)}>
               Send Test Notification
             </Button>
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={() => this.setEditedProfile(null, false)}
-            >
+            <Button size="sm" variant="danger" onClick={() => this.setEditedProfile(null, false)}>
               Cancel
             </Button>
           </Col>
@@ -272,8 +252,7 @@ export class NotificationEditor extends Component {
   renderList() {
     return (
       <>
-        {this.state.notificationProfiles &&
-        this.state.notificationProfiles.length > 0 ? (
+        {this.state.notificationProfiles && this.state.notificationProfiles.length > 0 ? (
           <Row>
             <Table striped bordered hover>
               <thead>
@@ -291,31 +270,16 @@ export class NotificationEditor extends Component {
                     <td>{notificationMethods[p.method.type].displayName}</td>
                     <td>{severityName(p.minSeverity)}</td>
                     <td>
-                      <Button
-                        size="sm"
-                        variant="success"
-                        onClick={() => this.setEditedProfile(p, false)}
-                      >
+                      <Button size="sm" variant="success" onClick={() => this.setEditedProfile(p, false)}>
                         Edit
                       </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => this.duplicateProfile(p)}
-                      >
+                      <Button size="sm" onClick={() => this.duplicateProfile(p)}>
                         Duplicate
                       </Button>
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        onClick={() => this.sendTestNotification(p)}
-                      >
+                      <Button size="sm" variant="secondary" onClick={() => this.sendTestNotification(p)}>
                         Send Test Notification
                       </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => this.deleteProfile(p.profile)}
-                        variant="danger"
-                      >
+                      <Button size="sm" onClick={() => this.deleteProfile(p.profile)} variant="danger">
                         Delete
                       </Button>
                     </td>
@@ -333,8 +297,7 @@ export class NotificationEditor extends Component {
               &nbsp;You don&apos;t have any notification profiles defined.
               <br />
               <br />
-              Click the button below to add a new profile to receive
-              notifications from Kopia.
+              Click the button below to add a new profile to receive notifications from Kopia.
             </p>
           </Row>
         )}
@@ -371,9 +334,7 @@ export class NotificationEditor extends Component {
 
   render() {
     if (this.state.editedProfile) {
-      return this.renderEditor(
-        notificationMethods[this.state.editedProfile.method.type].editor,
-      );
+      return this.renderEditor(notificationMethods[this.state.editedProfile.method.type].editor);
     }
 
     return this.renderList();

@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-import {
-  handleChange,
-  validateRequiredFields,
-  stateProperty,
-} from "../../forms";
+import { handleChange, validateRequiredFields, stateProperty } from "../../forms";
 import { RequiredField } from "../../forms/RequiredField";
 import { OptionalField } from "../../forms/OptionalField";
 import { NotificationFormatSelector } from "./NotificationFormatSelector";

@@ -10,8 +10,9 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { handleChange } from "../forms";
-import KopiaTable from "../utils/KopiaTable";
-import { redirect, taskStatusSymbol } from "../utils/uiutil";
+import KopiaTable from "../components/KopiaTable";
+import { redirect } from "../utils/uiutil";
+import { taskStatusSymbol } from "../utils/taskutil";
 
 export class Tasks extends Component {
   constructor() {
@@ -23,6 +24,7 @@ export class Tasks extends Component {
       showKind: "All",
       showStatus: "All",
       uniqueKinds: [],
+      searchDescription: "",
     };
 
     this.handleChange = handleChange.bind(this);
@@ -81,17 +83,11 @@ export class Tasks extends Component {
       return false;
     }
 
-    if (
-      this.state.showStatus !== "All" &&
-      t.status.toLowerCase() !== this.state.showStatus.toLowerCase()
-    ) {
+    if (this.state.showStatus !== "All" && t.status.toLowerCase() !== this.state.showStatus.toLowerCase()) {
       return false;
     }
 
-    if (
-      this.state.searchDescription &&
-      t.description.indexOf(this.state.searchDescription) < 0
-    ) {
+    if (this.state.searchDescription && t.description.indexOf(this.state.searchDescription) < 0) {
       return false;
     }
 
@@ -116,10 +112,7 @@ export class Tasks extends Component {
         header: "Start Time",
         width: 160,
         cell: (x) => (
-          <Link
-            to={"/tasks/" + x.row.original.id}
-            title={moment(x.row.original.startTime).toLocaleString()}
-          >
+          <Link to={"/tasks/" + x.row.original.id} title={moment(x.row.original.startTime).toLocaleString()}>
             {moment(x.row.original.startTime).fromNow()}
           </Link>
         ),
@@ -154,22 +147,10 @@ export class Tasks extends Component {
                     Status: {this.state.showStatus}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => this.setState({ showStatus: "All" })}
-                    >
-                      All
-                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showStatus: "All" })}>All</Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item
-                      onClick={() => this.setState({ showStatus: "Running" })}
-                    >
-                      Running
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => this.setState({ showStatus: "Failed" })}
-                    >
-                      Failed
-                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Running" })}>Running</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Failed" })}>Failed</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
@@ -179,17 +160,10 @@ export class Tasks extends Component {
                     Kind: {this.state.showKind}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => this.setState({ showKind: "All" })}
-                    >
-                      All
-                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>All</Dropdown.Item>
                     <Dropdown.Divider />
                     {this.state.uniqueKinds.map((k) => (
-                      <Dropdown.Item
-                        key={k}
-                        onClick={() => this.setState({ showKind: k })}
-                      >
+                      <Dropdown.Item key={k} onClick={() => this.setState({ showKind: k })}>
                         {k}
                       </Dropdown.Item>
                     ))}
@@ -213,9 +187,8 @@ export class Tasks extends Component {
             <Col>
               {!items.length ? (
                 <Alert variant="info">
-                  <FontAwesomeIcon size="sm" icon={faInfoCircle} /> A list of
-                  tasks will appear here when you create snapshots, restore, run
-                  maintenance, etc.
+                  <FontAwesomeIcon size="sm" icon={faInfoCircle} /> A list of tasks will appear here when you create
+                  snapshots, restore, run maintenance, etc.
                 </Alert>
               ) : (
                 <KopiaTable data={filteredItems} columns={columns} />

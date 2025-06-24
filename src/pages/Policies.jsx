@@ -8,18 +8,14 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
-import KopiaTable from "../utils/KopiaTable";
-import {
-  checkPolicyPath,
-  CLIEquivalent,
-  compare,
-  ownerName,
-  policyEditorURL,
-  redirect,
-} from "../utils/uiutil";
+import KopiaTable from "../components/KopiaTable";
+import { CLIEquivalent } from "../components/CLIEquivalent";
+import { compare, formatOwnerName } from "../utils/formatutils";
+import { redirect } from "../utils/uiutil";
+import { checkPolicyPath, policyEditorURL } from "../utils/policyutil";
 import PropTypes from "prop-types";
 
 const applicablePolicies = "Applicable Policies";
@@ -29,7 +25,7 @@ const globalPolicy = "Global Policy";
 const perUserPolicies = "Per-User Policies";
 const perHostPolicies = "Per-Host Policies";
 
-export class Policies extends Component {
+export class PoliciesInternal extends Component {
   constructor() {
     super();
     this.state = {
@@ -45,8 +41,7 @@ export class Policies extends Component {
     this.editPolicyForPath = this.editPolicyForPath.bind(this);
     this.handleChange = handleChange.bind(this);
     this.fetchPolicies = this.fetchPolicies.bind(this);
-    this.fetchSourcesWithoutSpinner =
-      this.fetchSourcesWithoutSpinner.bind(this);
+    this.fetchSourcesWithoutSpinner = this.fetchSourcesWithoutSpinner.bind(this);
   }
 
   componentDidMount() {
@@ -97,8 +92,7 @@ export class Policies extends Component {
       .get("/api/v1/sources")
       .then((result) => {
         this.setState({
-          localSourceName:
-            result.data.localUsername + "@" + result.data.localHost,
+          localSourceName: result.data.localUsername + "@" + result.data.localHost,
           localUsername: result.data.localUsername,
           localHost: result.data.localHost,
           multiUser: result.data.multiUser,
@@ -122,11 +116,7 @@ export class Policies extends Component {
       return;
     }
 
-    const error = checkPolicyPath(
-      this.state.policyPath,
-      this.state.localHost,
-      this.state.localUsername,
-    );
+    const error = checkPolicyPath(this.state.policyPath, this.state.localHost, this.state.localUsername);
 
     if (error) {
       alert(
@@ -136,7 +126,7 @@ export class Policies extends Component {
       return;
     }
 
-    this.props.history.push(
+    this.props.navigate(
       policyEditorURL({
         userName: this.state.localUsername,
         host: this.state.localHost,
@@ -173,8 +163,7 @@ export class Policies extends Component {
      */
     function isEmpty(obj) {
       for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key))
-          return isEmptyObject(obj[key]);
+        if (Object.prototype.hasOwnProperty.call(obj, key)) return isEmptyObject(obj[key]);
       }
       return true;
     }
@@ -195,15 +184,11 @@ export class Policies extends Component {
   }
 
   isLocalHostPolicy(x) {
-    return (
-      !x.target.userName &&
-      x.target.host === this.state.localHost &&
-      !x.target.path
-    );
+    return !x.target.userName && x.target.host === this.state.localHost && !x.target.path;
   }
 
   isLocalUserPolicy(x) {
-    return ownerName(x.target) === this.state.localSourceName;
+    return formatOwnerName(x.target) === this.state.localSourceName;
   }
 
   render() {
@@ -216,7 +201,7 @@ export class Policies extends Component {
     }
 
     let uniqueOwners = sources.reduce((a, d) => {
-      const owner = ownerName(d.source);
+      const owner = formatOwnerName(d.source);
 
       if (!a.includes(owner)) {
         a.push(owner);
@@ -241,29 +226,20 @@ export class Policies extends Component {
 
       case applicablePolicies:
         policies = policies.filter(
-          (x) =>
-            this.isLocalUserPolicy(x) ||
-            this.isLocalHostPolicy(x) ||
-            this.isGlobalPolicy(x),
+          (x) => this.isLocalUserPolicy(x) || this.isLocalHostPolicy(x) || this.isGlobalPolicy(x),
         );
         break;
 
       case perUserPolicies:
-        policies = policies.filter(
-          (x) => !!x.target.userName && !!x.target.host && !x.target.path,
-        );
+        policies = policies.filter((x) => !!x.target.userName && !!x.target.host && !x.target.path);
         break;
 
       case perHostPolicies:
-        policies = policies.filter(
-          (x) => !x.target.userName && !!x.target.host && !x.target.path,
-        );
+        policies = policies.filter((x) => !x.target.userName && !!x.target.host && !x.target.path);
         break;
 
       default:
-        policies = policies.filter(
-          (x) => ownerName(x.target) === this.state.selectedOwner,
-        );
+        policies = policies.filter((x) => formatOwnerName(x.target) === this.state.selectedOwner);
         break;
     }
 
@@ -324,53 +300,24 @@ export class Policies extends Component {
               <Row>
                 <Col xs="auto">
                   <Dropdown>
-                    <Dropdown.Toggle
-                      size="sm"
-                      variant="primary"
-                      id="dropdown-basic"
-                    >
+                    <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
                       <FontAwesomeIcon icon={faUserFriends} />
                       &nbsp;{this.state.selectedOwner}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(applicablePolicies)}
-                      >
+                      <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>
                         {applicablePolicies}
                       </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(localPolicies)}
-                      >
-                        {localPolicies}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(allPolicies)}
-                      >
-                        {allPolicies}
-                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{localPolicies}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{allPolicies}</Dropdown.Item>
                       <Dropdown.Divider />
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(globalPolicy)}
-                      >
-                        {globalPolicy}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(perUserPolicies)}
-                      >
-                        {perUserPolicies}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => this.selectOwner(perHostPolicies)}
-                      >
-                        {perHostPolicies}
-                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{globalPolicy}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{perUserPolicies}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{perHostPolicies}</Dropdown.Item>
                       <Dropdown.Divider />
                       {uniqueOwners.map((v) => (
-                        <Dropdown.Item
-                          key={v}
-                          onClick={() => this.selectOwner(v)}
-                        >
+                        <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>
                           {v}
                         </Dropdown.Item>
                       ))}
@@ -411,11 +358,9 @@ export class Policies extends Component {
             <p>Found {policies.length} policies matching criteria.</p>
             <KopiaTable data={policies} columns={columns} />
           </div>
-        ) : this.state.selectedOwner === localPolicies &&
-          this.state.policyPath ? (
+        ) : this.state.selectedOwner === localPolicies && this.state.policyPath ? (
           <p>
-            No policy found for directory <code>{this.state.policyPath}</code>.
-            Click <b>Set Policy</b> to define it.
+            No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
           </p>
         ) : (
           <p>No policies found.</p>
@@ -426,8 +371,12 @@ export class Policies extends Component {
   }
 }
 
-Policies.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+PoliciesInternal.propTypes = {
+  navigate: PropTypes.func.isRequired,
 };
+
+export function Policies(props) {
+  const navigate = useNavigate();
+
+  return <PoliciesInternal navigate={navigate} {...props} />;
+}

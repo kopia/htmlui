@@ -9,12 +9,9 @@ import { handleChange } from "../forms";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { SnapshotEstimation } from "../components/SnapshotEstimation";
 import { RequiredDirectory } from "../forms/RequiredDirectory";
-import {
-  CLIEquivalent,
-  errorAlert,
-  GoBackButton,
-  redirect,
-} from "../utils/uiutil";
+import { CLIEquivalent } from "../components/CLIEquivalent";
+import { errorAlert, redirect } from "../utils/uiutil";
+import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
 
 class SnapshotCreateInternal extends Component {
@@ -84,10 +81,7 @@ class SnapshotCreateInternal extends Component {
   componentDidUpdate() {
     this.maybeResolveCurrentPath(this.state.lastResolvedPath);
 
-    if (
-      this.state.estimateTaskVisible &&
-      this.state.lastEstimatedPath !== this.state.resolvedSource.path
-    ) {
+    if (this.state.estimateTaskVisible && this.state.lastEstimatedPath !== this.state.resolvedSource.path) {
       this.setState({
         estimateTaskVisible: false,
       });
@@ -208,21 +202,13 @@ class SnapshotCreateInternal extends Component {
           </Col>
         </Row>
         {this.state.estimateTaskID && this.state.estimateTaskVisible && (
-          <SnapshotEstimation
-            taskID={this.state.estimateTaskID}
-            hideDescription={true}
-            showZeroCounters={true}
-          />
+          <SnapshotEstimation taskID={this.state.estimateTaskID} hideDescription={true} showZeroCounters={true} />
         )}
         <br />
         {this.state.resolvedSource && (
           <Row>
             <Col xs={12}>
-              <Form.Text>
-                {this.state.resolvedSource
-                  ? this.state.resolvedSource.path
-                  : this.state.path}
-              </Form.Text>
+              <Form.Text>{this.state.resolvedSource ? this.state.resolvedSource.path : this.state.path}</Form.Text>
               <PolicyEditor
                 ref={this.policyEditorRef}
                 embedded
@@ -251,11 +237,5 @@ export function SnapshotCreate(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  return (
-    <SnapshotCreateInternal
-      navigate={navigate}
-      location={location}
-      {...props}
-    />
-  );
+  return <SnapshotCreateInternal navigate={navigate} location={location} {...props} />;
 }

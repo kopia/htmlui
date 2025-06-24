@@ -9,9 +9,7 @@ export function ActionRowScript(component, action, name, help) {
   return (
     <Row>
       <LabelColumn name={name} help={help} />
-      <WideValueColumn>
-        {OptionalFieldNoLabel(component, "", "policy." + action, {})}
-      </WideValueColumn>
+      <WideValueColumn>{OptionalFieldNoLabel(component, "", "policy." + action, {})}</WideValueColumn>
       {EffectiveValue(component, action)}
     </Row>
   );

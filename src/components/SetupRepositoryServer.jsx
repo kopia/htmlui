@@ -28,15 +28,9 @@ export class SetupRepositoryServer extends Component {
           })}
         </Row>
         <Row>
-          {OptionalField(
-            this,
-            "Trusted server certificate fingerprint (SHA256)",
-            "serverCertFingerprint",
-            {
-              placeholder:
-                "enter trusted server certificate fingerprint printed at server startup",
-            },
-          )}
+          {OptionalField(this, "Trusted server certificate fingerprint (SHA256)", "serverCertFingerprint", {
+            placeholder: "enter trusted server certificate fingerprint printed at server startup",
+          })}
         </Row>
       </>
     );

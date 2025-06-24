@@ -3,13 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
 
-export function RequiredField(
-  component,
-  label,
-  name,
-  props = {},
-  helpText = null,
-) {
+export function RequiredField(component, label, name, props = {}, helpText = null) {
   return (
     <Form.Group as={Col}>
       <Form.Label className="required">{label}</Form.Label>
@@ -23,9 +17,7 @@ export function RequiredField(
         {...props}
       />
       {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
-      <Form.Control.Feedback type="invalid">
-        Required field
-      </Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid">Required field</Form.Control.Feedback>
     </Form.Group>
   );
 }

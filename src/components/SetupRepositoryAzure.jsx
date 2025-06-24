@@ -41,8 +41,7 @@ export class SetupRepositoryAzure extends Component {
         </Row>
         <Row>
           {OptionalField(this, "Azure Storage Domain", "storageDomain", {
-            placeholder:
-              "enter storage domain or leave empty for default 'blob.core.windows.net'",
+            placeholder: "enter storage domain or leave empty for default 'blob.core.windows.net'",
           })}
           {OptionalField(this, "SAS Token", "sasToken", {
             placeholder: "enter secret SAS Token",

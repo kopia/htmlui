@@ -20,16 +20,7 @@ export class EmailNotificationMethod extends Component {
   }
 
   validate() {
-    if (
-      !validateRequiredFields(this, [
-        "smtpServer",
-        "smtpPort",
-        "smtpUsername",
-        "smtpPassword",
-        "from",
-        "to",
-      ])
-    ) {
+    if (!validateRequiredFields(this, ["smtpServer", "smtpPort", "from", "to"])) {
       return false;
     }
 

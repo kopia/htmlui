@@ -11,13 +11,10 @@ import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 import { Logs } from "../components/Logs";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import {
-  cancelTask,
-  formatDuration,
-  GoBackButton,
-  redirect,
-  sizeDisplayName,
-} from "../utils/uiutil";
+import { formatDuration, sizeDisplayName } from "../utils/formatutils";
+import { redirect } from "../utils/uiutil";
+import { GoBackButton } from "../components/GoBackButton";
+import { cancelTask } from "../utils/taskutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
 
@@ -109,16 +106,14 @@ class TaskInternal extends Component {
       case "CANCELING":
         return (
           <Alert variant="primary">
-            <Spinner animation="border" variant="warning" size="sm" /> Canceling{" "}
-            {dur}: {task.progressInfo}.
+            <Spinner animation="border" variant="warning" size="sm" /> Canceling {dur}: {task.progressInfo}.
           </Alert>
         );
 
       default:
         return (
           <Alert variant="primary">
-            <Spinner animation="border" variant="primary" size="sm" /> Running
-            for {dur}: {task.progressInfo}.
+            <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}: {task.progressInfo}.
           </Alert>
         );
     }
@@ -133,7 +128,7 @@ class TaskInternal extends Component {
   }
 
   counterBadge(label, c) {
-    if (c.value < this.valueThreshold()) {
+    if (c.value <= this.valueThreshold()) {
       return "";
     }
 
@@ -169,10 +164,7 @@ class TaskInternal extends Component {
     // sort keys by their level and the name alphabetically.
     keys.sort((a, b) => {
       if (counters[a].level !== counters[b].level) {
-        return (
-          this.counterLevelToSortOrder(counters[b].level) -
-          this.counterLevelToSortOrder(counters[a].level)
-        );
+        return this.counterLevelToSortOrder(counters[b].level) - this.counterLevelToSortOrder(counters[a].level);
       }
 
       if (a < b) {
@@ -210,11 +202,7 @@ class TaskInternal extends Component {
                 {task.status === "RUNNING" && (
                   <>
                     &nbsp;
-                    <Button
-                      size="sm"
-                      variant="danger"
-                      onClick={() => cancelTask(task.id)}
-                    >
+                    <Button size="sm" variant="danger" onClick={() => cancelTask(task.id)}>
                       <FontAwesomeIcon icon={faStopCircle} /> Stop{" "}
                     </Button>
                   </>
@@ -237,9 +225,7 @@ class TaskInternal extends Component {
                     <th>Value</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {this.sortedBadges(task.counters, bytesStringBase2)}
-                </tbody>
+                <tbody>{this.sortedBadges(task.counters, bytesStringBase2)}</tbody>
               </Table>
             </Col>
           </Row>
@@ -248,21 +234,13 @@ class TaskInternal extends Component {
           <Col xs={6}>
             <Form.Group>
               <Form.Label>Started</Form.Label>
-              <Form.Control
-                type="text"
-                readOnly={true}
-                value={new Date(task.startTime).toLocaleString()}
-              />
+              <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
             </Form.Group>
           </Col>
           <Col xs={6}>
             <Form.Group>
               <Form.Label>Finished</Form.Label>
-              <Form.Control
-                type="text"
-                readOnly={true}
-                value={new Date(task.endTime).toLocaleString()}
-              />
+              <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
             </Form.Group>
           </Col>
         </Row>
@@ -291,12 +269,5 @@ export function Task(props) {
   const params = useParams();
   useContext(UIPreferencesContext);
 
-  return (
-    <TaskInternal
-      navigate={navigate}
-      location={location}
-      params={params}
-      {...props}
-    />
-  );
+  return <TaskInternal navigate={navigate} location={location} params={params} {...props} />;
 }

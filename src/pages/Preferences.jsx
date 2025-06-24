@@ -12,14 +12,8 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
  * Class that exports preferences
  */
 export function Preferences() {
-  const {
-    theme,
-    bytesStringBase2,
-    fontSize,
-    setByteStringBase,
-    setTheme,
-    setFontSize,
-  } = useContext(UIPreferencesContext);
+  const { theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize } =
+    useContext(UIPreferencesContext);
 
   return (
     <Tabs defaultActiveKey="appearance" id="preferences" className="mb-3">
@@ -71,11 +65,7 @@ export function Preferences() {
           </Row>
         </Container>
       </Tab>
-      <Tab
-        eventKey="notifications"
-        title="Notifications"
-        id="tab-notifications"
-      >
+      <Tab eventKey="notifications" title="Notifications" id="tab-notifications">
         <div className="tab-content-fix">
           <Container fluid>
             <NotificationEditor />

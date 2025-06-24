@@ -16,9 +16,7 @@ export function OptionalNumberField(component, label, name, props = {}) {
         data-testid={"control-" + name}
         {...props}
       />
-      <Form.Control.Feedback type="invalid">
-        Must be a valid number or empty
-      </Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid">Must be a valid number or empty</Form.Control.Feedback>
     </Form.Group>
   );
 }

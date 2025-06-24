@@ -7,19 +7,12 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import KopiaTable from "../utils/KopiaTable";
-import {
-  CLIEquivalent,
-  compare,
-  errorAlert,
-  GoBackButton,
-  objectLink,
-  parseQuery,
-  redirect,
-  rfc3339TimestampForDisplay,
-  sizeWithFailures,
-  sourceQueryStringParams,
-} from "../utils/uiutil";
+import KopiaTable from "../components/KopiaTable";
+import { CLIEquivalent } from "../components/CLIEquivalent";
+import { compare, objectLink, parseQuery, rfc3339TimestampForDisplay } from "../utils/formatutils";
+import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
+import { sourceQueryStringParams } from "../utils/policyutil";
+import { GoBackButton } from "../components/GoBackButton";
 import { faSync, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "react-bootstrap/Modal";
@@ -276,9 +269,7 @@ class SnapshotHistoryInternal extends Component {
           });
         }}
         title={x.description + " - Click to update snapshot description."}
-        className={
-          x.description ? "snapshot-description-set" : "snapshot-description"
-        }
+        className={x.description ? "snapshot-description-set" : "snapshot-description"}
       >
         <b>
           <FontAwesomeIcon icon={faFileAlt} />
@@ -358,8 +349,7 @@ class SnapshotHistoryInternal extends Component {
   }
 
   render() {
-    let { snapshots, unfilteredCount, uniqueCount, isLoading, error } =
-      this.state;
+    let { snapshots, unfilteredCount, uniqueCount, isLoading, error } = this.state;
     const { bytesStringBase2 } = this.context;
     if (error) {
       return <p>{error.message}</p>;
@@ -397,10 +387,7 @@ class SnapshotHistoryInternal extends Component {
         cell: (x) => {
           let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
           return (
-            <Link
-              to={objectLink(x.row.original.rootID)}
-              state={{ label: path }}
-            >
+            <Link to={objectLink(x.row.original.rootID)} state={{ label: path }}>
               {timestamp}
             </Link>
           );
@@ -441,10 +428,7 @@ class SnapshotHistoryInternal extends Component {
             ))}
             {x.row.original.pins.map((l) => (
               <React.Fragment key={l}>
-                <Badge
-                  bg="snapshot-pin"
-                  onClick={() => this.editPin(x.row.original, l)}
-                >
+                <Badge bg="snapshot-pin" onClick={() => this.editPin(x.row.original, l)}>
                   <FontAwesomeIcon icon={faThumbtack} /> {l}
                 </Badge>{" "}
               </React.Fragment>
@@ -457,12 +441,7 @@ class SnapshotHistoryInternal extends Component {
         header: "Size",
         accessorFn: (x) => x.summary.size,
         width: 100,
-        cell: (x) =>
-          sizeWithFailures(
-            x.cell.getValue(),
-            x.row.original.summary,
-            bytesStringBase2,
-          ),
+        cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2),
       },
       {
         header: "Files",
@@ -476,9 +455,7 @@ class SnapshotHistoryInternal extends Component {
       },
     ];
 
-    const selectedElements = Object.keys(
-      this.state.selectedSnapshotManifestIDs,
-    );
+    const selectedElements = Object.keys(this.state.selectedSnapshotManifestIDs);
 
     return (
       <>
@@ -500,11 +477,7 @@ class SnapshotHistoryInternal extends Component {
             {selectedElements.length > 0 && (
               <>
                 &nbsp;
-                <Button
-                  size="sm"
-                  variant="danger"
-                  onClick={this.showDeleteConfirm}
-                >
+                <Button size="sm" variant="danger" onClick={this.showDeleteConfirm}>
                   Delete Selected ({selectedElements.length})
                 </Button>
               </>
@@ -512,11 +485,7 @@ class SnapshotHistoryInternal extends Component {
             {snapshots.length === 0 && (
               <>
                 &nbsp;
-                <Button
-                  size="sm"
-                  variant="danger"
-                  onClick={this.deleteSnapshotSource}
-                >
+                <Button size="sm" variant="danger" onClick={this.deleteSnapshotSource}>
                   Delete Snapshot Source
                 </Button>
               </>
@@ -528,11 +497,7 @@ class SnapshotHistoryInternal extends Component {
               {this.state.isRefreshing ? (
                 <Spinner animation="border" variant="light" size="sm" />
               ) : (
-                <FontAwesomeIcon
-                  icon={faSync}
-                  title="Fetch snapshots"
-                  onClick={this.fetchSnapshots}
-                />
+                <FontAwesomeIcon icon={faSync} title="Fetch snapshots" onClick={this.fetchSnapshots} />
               )}
             </Button>
           </Col>
@@ -577,10 +542,7 @@ class SnapshotHistoryInternal extends Component {
           command={`snapshot list "${this.state.userName}@${this.state.host}:${this.state.path}"${this.state.showHidden ? " --show-identical" : ""}`}
         />
 
-        <Modal
-          show={this.state.showDeleteConfirmationDialog}
-          onHide={this.cancelDelete}
-        >
+        <Modal show={this.state.showDeleteConfirmationDialog} onHide={this.cancelDelete}>
           <Modal.Header closeButton>
             <Modal.Title>Confirm Delete</Modal.Title>
           </Modal.Header>
@@ -589,8 +551,7 @@ class SnapshotHistoryInternal extends Component {
             <>
               {selectedElements.length > 1 ? (
                 <p>
-                  Do you want to delete the selected{" "}
-                  <b>{selectedElements.length} snapshots</b>?
+                  Do you want to delete the selected <b>{selectedElements.length} snapshots</b>?
                 </p>
               ) : (
                 <p>Do you want to delete the selected snapshot?</p>
@@ -616,11 +577,7 @@ class SnapshotHistoryInternal extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button
-              size="sm"
-              variant="primary"
-              onClick={this.deleteSelectedSnapshots}
-            >
+            <Button size="sm" variant="primary" onClick={this.deleteSelectedSnapshots}>
               Delete
             </Button>
             <Button size="sm" variant="warning" onClick={this.cancelDelete}>
@@ -629,10 +586,7 @@ class SnapshotHistoryInternal extends Component {
           </Modal.Footer>
         </Modal>
 
-        <Modal
-          show={!!this.state.editingDescriptionFor}
-          onHide={this.cancelSnapshotDescription}
-        >
+        <Modal show={!!this.state.editingDescriptionFor} onHide={this.cancelSnapshotDescription}>
           <Modal.Header closeButton>
             <Modal.Title>Snapshot Description</Modal.Title>
           </Modal.Header>
@@ -644,42 +598,27 @@ class SnapshotHistoryInternal extends Component {
                 as="textarea"
                 size="sm"
                 value={this.state.updatedSnapshotDescription}
-                onChange={(e) =>
-                  this.setState({ updatedSnapshotDescription: e.target.value })
-                }
+                onChange={(e) => this.setState({ updatedSnapshotDescription: e.target.value })}
               />
             </Form.Group>
           </Modal.Body>
 
           <Modal.Footer>
-            {this.state.savingSnapshot && (
-              <Spinner animation="border" size="sm" variant="primary" />
-            )}
+            {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
             <Button
               size="sm"
               variant="primary"
-              disabled={
-                this.state.originalSnapshotDescription ===
-                this.state.updatedSnapshotDescription
-              }
+              disabled={this.state.originalSnapshotDescription === this.state.updatedSnapshotDescription}
               onClick={this.saveSnapshotDescription}
             >
               Update Description
             </Button>
             {this.state.originalSnapshotDescription && (
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={this.removeSnapshotDescription}
-              >
+              <Button size="sm" variant="secondary" onClick={this.removeSnapshotDescription}>
                 Remove Description
               </Button>
             )}
-            <Button
-              size="sm"
-              variant="warning"
-              onClick={this.cancelSnapshotDescription}
-            >
+            <Button size="sm" variant="warning" onClick={this.cancelSnapshotDescription}>
               Cancel
             </Button>
           </Modal.Footer>
@@ -702,26 +641,17 @@ class SnapshotHistoryInternal extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            {this.state.savingSnapshot && (
-              <Spinner animation="border" size="sm" variant="primary" />
-            )}
+            {this.state.savingSnapshot && <Spinner animation="border" size="sm" variant="primary" />}
             <Button
               size="sm"
               variant="primary"
               onClick={this.savePin}
-              disabled={
-                this.state.newPinName === this.state.originalPinName ||
-                !this.state.newPinName
-              }
+              disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}
             >
               {this.state.originalPinName ? "Update Pin" : "Add Pin"}
             </Button>
             {this.state.originalPinName && (
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => this.removePin(this.state.originalPinName)}
-              >
+              <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>
                 Remove Pin
               </Button>
             )}
@@ -748,11 +678,5 @@ export function SnapshotHistory(props) {
   const location = useLocation();
   useContext(UIPreferencesContext);
 
-  return (
-    <SnapshotHistoryInternal
-      navigate={navigate}
-      location={location}
-      {...props}
-    />
-  );
+  return <SnapshotHistoryInternal navigate={navigate} location={location} {...props} />;
 }
