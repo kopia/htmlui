@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -675,6 +675,7 @@ class SnapshotHistoryInternal extends Component {
     );
   }
 }
+SnapshotHistoryInternal.contextType = UIPreferencesContext;
 
 SnapshotHistoryInternal.propTypes = {
   host: PropTypes.string,
@@ -687,7 +688,6 @@ SnapshotHistoryInternal.propTypes = {
 export function SnapshotHistory(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  useContext(UIPreferencesContext);
-
+  
   return <SnapshotHistoryInternal navigate={navigate} location={location} {...props} />;
 }
