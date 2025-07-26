@@ -441,17 +441,28 @@ class SnapshotHistoryInternal extends Component {
         header: "Size",
         accessorFn: (x) => x.summary.size,
         width: 100,
-        cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2),
+        cell: (x) =>
+          <div className="align-right">
+            {sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2)}
+          </div>,
       },
       {
         header: "Files",
         accessorFn: (x) => x.summary.files,
         width: 100,
+        cell: (x) =>
+          <div className="align-right">
+            {x.cell.getValue().toLocaleString()}
+          </div>,
       },
       {
         header: "Dirs",
         accessorFn: (x) => x.summary.dirs,
         width: 100,
+        cell: (x) =>
+          <div className="align-right">
+            {x.cell.getValue().toLocaleString()}
+          </div>,
       },
     ];
 
