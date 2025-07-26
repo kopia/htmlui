@@ -9,7 +9,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import KopiaTable from "../components/KopiaTable";
 import { CLIEquivalent } from "../components/CLIEquivalent";
-import { compare, objectLink, parseQuery, rfc3339TimestampForDisplay } from "../utils/formatutils";
+import { compare, objectLink, parseQuery, LocaleFormatUtils } from "../utils/formatutils";
 import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
 import { sourceQueryStringParams } from "../utils/policyutil";
 import { GoBackButton } from "../components/GoBackButton";
@@ -350,7 +350,8 @@ class SnapshotHistoryInternal extends Component {
 
   render() {
     let { snapshots, unfilteredCount, uniqueCount, isLoading, error } = this.state;
-    const { bytesStringBase2 } = this.context;
+    const { bytesStringBase2, locale } = this.context;
+    const fmt = new LocaleFormatUtils(locale);
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -385,10 +386,9 @@ class SnapshotHistoryInternal extends Component {
         header: "Start time",
         width: 200,
         cell: (x) => {
-          let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
           return (
             <Link to={objectLink(x.row.original.rootID)} state={{ label: path }}>
-              {timestamp}
+              {fmt.timestamp(x.row.original.startTime)}
             </Link>
           );
         },
@@ -452,7 +452,7 @@ class SnapshotHistoryInternal extends Component {
         width: 100,
         cell: (x) =>
           <div className="align-right">
-            {x.cell.getValue().toLocaleString()}
+            {fmt.number(x.cell.getValue())}
           </div>,
       },
       {
@@ -461,7 +461,7 @@ class SnapshotHistoryInternal extends Component {
         width: 100,
         cell: (x) =>
           <div className="align-right">
-            {x.cell.getValue().toLocaleString()}
+            {fmt.number(x.cell.getValue())}
           </div>,
       },
     ];

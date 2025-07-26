@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import KopiaTable from "./KopiaTable";
-import { objectLink, rfc3339TimestampForDisplay } from "../utils/formatutils";
+import { objectLink, LocaleFormatUtils } from "../utils/formatutils";
 import { sizeWithFailures } from "../utils/uiutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
@@ -41,7 +41,8 @@ function directoryLinkOrDownload(x, state) {
 export function DirectoryItems({ historyState, items }) {
   const context = React.useContext(UIPreferencesContext);
 
-  const { bytesStringBase2 } = context;
+  const { bytesStringBase2, locale } = context;
+  const fmt = new LocaleFormatUtils(locale);
   const columns = [
     {
       id: "name",
@@ -54,7 +55,7 @@ export function DirectoryItems({ historyState, items }) {
       accessorFn: (x) => x.mtime,
       header: "Last Modification",
       width: 200,
-      cell: (x) => rfc3339TimestampForDisplay(x.cell.getValue()),
+      cell: (x) => fmt.timestamp(x.cell.getValue()),
     },
     {
       id: "size",
@@ -71,7 +72,7 @@ export function DirectoryItems({ historyState, items }) {
       header: "Files",
       width: 100,
       cell: (x) => <div className="align-right">
-        {x.getValue().toLocaleString()}
+        {fmt.number(x.getValue())}
       </div>
     },
     {
@@ -80,7 +81,7 @@ export function DirectoryItems({ historyState, items }) {
       header: "Directories",
       width: 100,
       cell: (x) => <div className="align-right">
-        {x.getValue().toLocaleString()}
+        {fmt.number(x.getValue())}
       </div>
     },
   ];
