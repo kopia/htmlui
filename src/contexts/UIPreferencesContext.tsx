@@ -11,6 +11,7 @@ const DEFAULT_PREFERENCES = {
   theme: getDefaultTheme(),
   preferWebDav: false,
   fontSize: "fs-6",
+  locale: "en-US",
 } as SerializedUIPreferences;
 const PREFERENCES_URL = "/api/v1/ui-preferences";
 
@@ -24,11 +25,13 @@ export interface UIPreferences {
   get bytesStringBase2(): boolean;
   get defaultSnapshotViewAll(): boolean;
   get fontSize(): FontSize;
+  get locale(): string;
   setTheme: (theme: Theme) => void;
   setPageSize: (pageSize: number) => void;
   setByteStringBase: (bytesStringBase2: string) => void;
   setDefaultSnapshotViewAll: (defaultSnapshotViewAll: boolean) => void;
   setFontSize: (size: string) => void;
+  setLocale: (locale: string) => void;
 }
 
 interface SerializedUIPreferences {
@@ -37,6 +40,7 @@ interface SerializedUIPreferences {
   defaultSnapshotViewAll?: boolean;
   theme: Theme;
   fontSize: FontSize;
+  locale: string;
 }
 
 export interface UIPreferenceProviderProps {
@@ -108,6 +112,12 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     [],
   );
 
+  const setLocale = (input: string) =>
+    setPreferences((oldPreferences) => {
+      return { ...oldPreferences, locale:input };
+    }
+  );
+
   useEffect(() => {
     axios
       .get(PREFERENCES_URL)
@@ -123,6 +133,9 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
           storedPreferences.pageSize = DEFAULT_PREFERENCES.pageSize;
         } else {
           storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
+        }
+        if (!storedPreferences.locale || ( storedPreferences.locale as string ) === "") {
+          storedPreferences.locale = DEFAULT_PREFERENCES.locale;
         }
         setTheme(storedPreferences.theme);
         setFontSize(storedPreferences.fontSize);
@@ -164,6 +177,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     setByteStringBase,
     setDefaultSnapshotViewAll,
     setFontSize,
+    setLocale,
   } as UIPreferences;
 
   return <UIPreferencesContext.Provider value={providedValue}>{props.children}</UIPreferencesContext.Provider>;
