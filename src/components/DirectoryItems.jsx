@@ -46,6 +46,7 @@ export function DirectoryItems({ historyState, items }) {
   const columns = [
     {
       id: "name",
+      accessorFn: (x) => objectName(x.name, x.type),
       header: "Name",
       width: "",
       cell: (x) => directoryLinkOrDownload(x.row.original, historyState),
