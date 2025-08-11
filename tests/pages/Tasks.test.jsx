@@ -393,8 +393,10 @@ describe("Tasks component", () => {
       const links = screen.getAllByRole("link");
       // At least one link should exist
       expect(links.length).toBeGreaterThan(0);
-      // The link text should be "2 years ago" (from moment.js)
-      expect(screen.getByText("2 years ago")).toBeInTheDocument();
+      // The link text should be a relative time (from moment.js)
+      // Since the test data uses 2023-01-01, it will show something like "3 years ago"
+      const linkText = links[0].textContent;
+      expect(linkText).toMatch(/\d+ years? ago/);
     });
   });
 });
