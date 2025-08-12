@@ -12,7 +12,7 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
  * Class that exports preferences
  */
 export function Preferences() {
-  const { theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize } =
+  const { theme, bytesStringBase2, fontSize, locale, setByteStringBase, setTheme, setFontSize, setLocale } =
     useContext(UIPreferencesContext);
 
   return (
@@ -61,6 +61,17 @@ export function Preferences() {
                 <option value="true">Base-2 (KiB, MiB, GiB, TiB)</option>
                 <option value="false">Base-10 (KB, MB, GB, TB)</option>
               </select>
+            </Form.Group>
+            <Form.Group as={Col} controlId="locale">
+              <Form.Label className="required">Locale</Form.Label>
+              <input
+                className="form-control form-control-sm"
+                title="Enter a Locale code e.g. 'en_US'"
+                placeholder="Locale code e.g. en_US"
+                id="localeInput"
+                value={locale}
+                onChange={(e) => setLocale(e.target.value)}
+              />
             </Form.Group>
           </Row>
         </Container>
