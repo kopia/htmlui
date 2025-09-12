@@ -33,10 +33,10 @@ export class WebHookNotificationMethod extends Component {
       <>
         <Row>
           {RequiredField(this, "URL Endpoint", "endpoint", { autoFocus: true })}
-          <Col md="auto" className="d-flex align-items-end">
+          <Col md="auto">
+            <Form.Label className="required">Discord</Form.Label>
             <Form.Check 
               type="checkbox" 
-              label="Discord" 
               checked={this.state.discord}
               onChange={(e) => {
                 this.setState({ discord: e.target.checked });
