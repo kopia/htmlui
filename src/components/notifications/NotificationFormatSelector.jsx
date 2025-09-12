@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty } from "../../forms";
 
-export function NotificationFormatSelector(component, name, { lockPlainText = false }) {
+export function NotificationFormatSelector(component, name, { lockPlainText = false } = {}) {
   return (
     <Form.Group as={Col}>
       <Form.Label className="required">Notification Format</Form.Label>
@@ -11,6 +11,7 @@ export function NotificationFormatSelector(component, name, { lockPlainText = fa
         as="select"
         size="sm"
         name={name}
+        data-testid="notification-format"
         onChange={(e) => component.handleChange(e)}
         value={lockPlainText ? "txt" : stateProperty(component, name)}
         className={lockPlainText ? "opacity-50" : ""}

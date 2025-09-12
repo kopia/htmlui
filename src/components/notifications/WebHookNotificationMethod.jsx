@@ -38,6 +38,7 @@ export class WebHookNotificationMethod extends Component {
             <Form.Check 
               type="checkbox" 
               checked={this.state.discord}
+              data-testid="discord"
               onChange={(e) => {
                 this.setState({ discord: e.target.checked });
               }}
@@ -52,6 +53,7 @@ export class WebHookNotificationMethod extends Component {
                 as="select"
                 size="sm"
                 name="method"
+                data-testid="http-method"
                 onChange={(e) => this.handleChange(e)}
                 value={this.state.discord ? "POST" : stateProperty(this, "method")}
                 disabled={this.state.discord}
