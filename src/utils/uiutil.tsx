@@ -39,7 +39,7 @@ export function redirect(e) {
   }
 }
 
-export function errorAlert(err, prefix) {
+export function errorAlert(err, prefix?) {
   if (!prefix) {
     prefix = "Error";
   }

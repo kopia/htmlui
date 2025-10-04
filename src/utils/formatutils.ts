@@ -32,6 +32,7 @@ export function intervalDisplayName() {
   return "-";
 }
 
+// This is never used
 export function timesOfDayDisplayName(v) {
   if (!v) {
     return "(none)";

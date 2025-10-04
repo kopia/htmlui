@@ -24,6 +24,7 @@ const allSnapshots = "All Snapshots";
 
 export class Snapshots extends Component implements ComponentChangeHandling {
   handleChange: ChangeEventHandle;
+  interval?: number;
 
   constructor() {
     super();
@@ -140,7 +141,7 @@ export class Snapshots extends Component implements ComponentChangeHandling {
    * @param x - the cell which content is changed
    * @returns - the content of the cell
    */
-  statusCell(x, parent, bytesStringBase2) {
+  statusCell(x, parent, bytesStringBase2: boolean) {
     this.setHeader(x);
     switch (x.cell.getValue()) {
       case "IDLE":
@@ -184,33 +185,23 @@ export class Snapshots extends Component implements ComponentChangeHandling {
         );
 
       case "UPLOADING": {
-        let u = x.row.original.upload;
+        const u = x.row.original.upload;
         let title = "";
         let totals = "";
         if (u) {
-          title =
-            " hashed " +
-            u.hashedFiles +
-            " files (" +
-            sizeDisplayName(u.hashedBytes, bytesStringBase2) +
-            ")\n" +
-            " cached " +
-            u.cachedFiles +
-            " files (" +
-            sizeDisplayName(u.cachedBytes, bytesStringBase2) +
-            ")\n" +
-            " dir " +
-            u.directory;
-
           const totalBytes = u.hashedBytes + u.cachedBytes;
+          const totalSize = sizeDisplayName(totalBytes, bytesStringBase2);
+          const hashedSize = sizeDisplayName(u.hashedBytes, bytesStringBase2);
+          const cachedSize = sizeDisplayName(u.cachedBytes, bytesStringBase2);
 
-          totals = sizeDisplayName(totalBytes, bytesStringBase2);
+          title = ` hashed ${u.hashedFiles} files (${hashedSize})\n cached ${u.cachedFiles} files (${cachedSize})\n dir ${u.directory}`;
+          totals = totalSize;
           if (u.estimatedBytes) {
             totals += "/" + sizeDisplayName(u.estimatedBytes, bytesStringBase2);
 
             const percent = Math.round((totalBytes * 1000.0) / u.estimatedBytes) / 10.0;
             if (percent <= 100) {
-              totals += " " + percent + "%";
+              totals += ` ${percent}%`;
             }
           }
         }

@@ -15,7 +15,51 @@ import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
 import { ChangeEventHandle, ComponentChangeHandling } from "src/components/types";
 
-export class SnapshotRestoreInternal extends Component implements ComponentChangeHandling {
+interface SnapshotRestoreRequest {
+  root: any;
+  options: {
+    incremental: boolean;
+    ignoreErrors: boolean;
+    restoreDirEntryAtDepth: number;
+    minSizeForPlaceholder: number;
+  };
+  zipFile?: string;
+  uncompressedZip?: boolean;
+  tarFile?: string;
+  fsOutput?: {
+    targetPath: string;
+    skipOwners: boolean;
+    skipPermissions: boolean;
+    skipTimes: boolean;
+    ignorePermissionErrors: boolean;
+    overwriteFiles: boolean;
+    overwriteDirectories: boolean;
+    overwriteSymlinks: boolean;
+    writeFilesAtomically: boolean;
+    writeSparseFiles: boolean;
+  };
+}
+
+interface SnapshotRestoreInternalState {
+  incremental: boolean;
+  continueOnErrors: boolean;
+  restoreOwnership: boolean;
+  restorePermissions: boolean;
+  restoreModTimes: boolean;
+  uncompressedZip: boolean;
+  overwriteFiles: boolean;
+  overwriteDirectories: boolean;
+  overwriteSymlinks: boolean;
+  ignorePermissionErrors: boolean;
+  writeFilesAtomically: boolean;
+  writeSparseFiles: boolean;
+  restoreDirEntryAtDepth: number;
+  minSizeForPlaceholder: number;
+  restoreTask: string;
+  destination?: string;
+};
+
+export class SnapshotRestoreInternal extends Component<any, SnapshotRestoreInternalState> implements ComponentChangeHandling {
   handleChange: ChangeEventHandle;
 
   constructor() {
@@ -43,7 +87,7 @@ export class SnapshotRestoreInternal extends Component implements ComponentChang
     this.start = this.start.bind(this);
   }
 
-  start(e) {
+  start(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!validateRequiredFields(this, ["destination"])) {
@@ -52,7 +96,7 @@ export class SnapshotRestoreInternal extends Component implements ComponentChang
 
     const dst = this.state.destination + "";
 
-    let req = {
+    const req: SnapshotRestoreRequest = {
       root: this.props.params.oid,
       options: {
         incremental: this.state.incremental,
@@ -100,7 +144,7 @@ export class SnapshotRestoreInternal extends Component implements ComponentChang
       return (
         <p>
           <GoBackButton />
-          <Link replace={true} to={"/tasks/" + this.state.restoreTask}>
+          <Link replace={true} to={`/tasks/${this.state.restoreTask}`}>
             Go To Restore Task
           </Link>
           .
