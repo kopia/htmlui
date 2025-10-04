@@ -68,7 +68,13 @@ export function PolicyTypeName(s) {
   return "Directory: " + s.userName + "@" + s.host + ":" + s.path;
 }
 
-export function sourceQueryStringParams(src) {
+export interface PolicyQueryParams {
+  userName: string;
+  host: string;
+  path: string;
+};
+
+export function sourceQueryStringParams(src: PolicyQueryParams) {
   return (
     "userName=" +
     encodeURIComponent(src.userName) +
@@ -79,6 +85,6 @@ export function sourceQueryStringParams(src) {
   );
 }
 
-export function policyEditorURL(s) {
+export function policyEditorURL(s: PolicyQueryParams) {
   return "/policies/edit?" + sourceQueryStringParams(s);
 }

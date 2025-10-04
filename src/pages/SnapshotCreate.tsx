@@ -13,8 +13,12 @@ import { CLIEquivalent } from "../components/CLIEquivalent";
 import { errorAlert, redirect } from "../utils/uiutil";
 import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "src/components/types";
 
-class SnapshotCreateInternal extends Component {
+class SnapshotCreateInternal extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+  policyEditorRef: React.RefObject<PolicyEditor | null>;
+
   constructor() {
     super();
     this.state = {

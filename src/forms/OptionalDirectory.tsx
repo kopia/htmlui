@@ -6,6 +6,7 @@ import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { stateProperty } from ".";
 import { setDeepStateProperty } from "../utils/deepstate";
+import { ComponentChangeHandling } from "src/components/types";
 
 /**
  * This functions returns a directory selector that allows the user to select a directory.
@@ -22,7 +23,7 @@ import { setDeepStateProperty } from "../utils/deepstate";
  * Additional properties of the component
  * @returns The form group with the components
  */
-export function OptionalDirectory(component, label: string, name: string, props = {}) {
+export function OptionalDirectory(component: ComponentChangeHandling, label: string | null, name: string, props = {}) {
   /**
    * Saves the selected path as a deepstate variable within the component
    * @param {The path that has been selected} path
@@ -49,7 +50,7 @@ export function OptionalDirectory(component, label: string, name: string, props 
           {...props}
         ></FormControl>
         {window.kopiaUI && (
-          <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>
+          <Button size="sm" onClick={() => window.kopiaUI!.selectDirectory(onDirectorySelected)}>
             <FontAwesomeIcon icon={faFolderOpen} />
           </Button>
         )}

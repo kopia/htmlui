@@ -55,19 +55,19 @@ export function rfc3339TimestampForDisplay(n: number | string | Date) {
     return "";
   }
 
-  let t = new Date(n);
+  const t = new Date(n);
   return t.toLocaleString();
 }
 
 export function objectLink(n: string) {
   if (n.startsWith("k") || n.startsWith("Ik")) {
-    return "/snapshots/dir/" + n;
+    return `/snapshots/dir/${n}`;
   }
-  return "/api/v1/objects/" + n;
+  return `/api/v1/objects/${n}`;
 }
 
-export function formatOwnerName(s): string {
-  return s.userName + "@" + s.host;
+export function formatOwnerName(s: { userName: string, host: string }): string {
+  return `${s.userName}@${s.host}`;
 }
 
 export function compare(a: any, b: any): -1 | 0 | 1 {
@@ -215,7 +215,7 @@ export function formatMilliseconds(ms: number, useMultipleUnits = false): string
   );
 }
 
-export function formatDuration(from, to, useMultipleUnits = false) {
+export function formatDuration(from: number | string | Date, to: number | string | Date, useMultipleUnits = false) {
   if (!from) {
     return "";
   }

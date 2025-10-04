@@ -1,4 +1,4 @@
-import { useContext, React } from "react";
+import React, { useContext } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import { NotificationEditor } from "../components/notifications/NotificationEditor";
-import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
+import { Theme, UIPreferencesContext } from "../contexts/UIPreferencesContext";
 
 /**
  * Class that exports preferences
@@ -27,7 +27,7 @@ export function Preferences() {
                 title="Select theme"
                 id="themeSelector"
                 value={theme}
-                onChange={(e) => setTheme(e.target.value)}
+                onChange={(e) => setTheme(e.target.value as Theme)}
               >
                 <option value="light">light</option>
                 <option value="dark">dark</option>
@@ -55,7 +55,7 @@ export function Preferences() {
                 className="form-select form-select-sm"
                 title="Select byte representation"
                 id="bytesBaseInput"
-                value={bytesStringBase2}
+                value={bytesStringBase2 ? "true" : "false"}
                 onChange={(e) => setByteStringBase(e.target.value)}
               >
                 <option value="true">Base-2 (KiB, MiB, GiB, TiB)</option>

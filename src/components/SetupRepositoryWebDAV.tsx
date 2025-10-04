@@ -4,9 +4,12 @@ import { handleChange, validateRequiredFields } from "../forms";
 import { OptionalField } from "../forms/OptionalField";
 import { RequiredField } from "../forms/RequiredField";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class SetupRepositoryWebDAV extends Component {
-  constructor(props) {
+export class SetupRepositoryWebDAV extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
+  constructor(props: any) {
     super();
 
     this.state = {

@@ -7,7 +7,7 @@
 // getDeepStateProperty("a.b.c") returns true
 
 export function setDeepStateProperty(component: HasState, name: string, value: any): void {
-  let newState = { ...component.state };
+  const newState = { ...component.state };
   let st = newState;
 
   const parts = name.split(/\./);

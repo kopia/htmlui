@@ -3,8 +3,9 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 import { stateProperty } from ".";
+import { ComponentChangeHandling } from "src/components/types";
 
-export function OptionalFieldNoLabel(component, label: string, name: string, props = {}, helpText = null, invalidFeedback = null) {
+export function OptionalFieldNoLabel(component: ComponentChangeHandling, label: string, name: string, props = {}, helpText = null, invalidFeedback = null) {
   return (
     <Form.Group as={Col}>
       <Form.Control

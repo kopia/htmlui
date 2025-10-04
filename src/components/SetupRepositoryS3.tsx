@@ -5,8 +5,11 @@ import { OptionalField } from "../forms/OptionalField";
 import { RequiredBoolean } from "../forms/RequiredBoolean";
 import { RequiredField } from "../forms/RequiredField";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class SetupRepositoryS3 extends Component {
+export class SetupRepositoryS3 extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor(props) {
     super();
 

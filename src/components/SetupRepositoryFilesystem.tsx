@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import { handleChange, validateRequiredFields } from "../forms";
 import { RequiredDirectory } from "../forms/RequiredDirectory";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class SetupRepositoryFilesystem extends Component {
-  constructor(props) {
+export class SetupRepositoryFilesystem extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
+  constructor(props: any) {
     super();
 
     this.state = {

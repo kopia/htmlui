@@ -13,8 +13,12 @@ import { handleChange } from "../forms";
 import KopiaTable from "../components/KopiaTable";
 import { redirect } from "../utils/uiutil";
 import { taskStatusSymbol } from "../utils/taskutil";
+import { ChangeEventHandle, ComponentChangeHandling } from "src/components/types";
 
-export class Tasks extends Component {
+export class Tasks extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+  interval: number;
+
   constructor() {
     super();
     this.state = {
@@ -94,7 +98,7 @@ export class Tasks extends Component {
     return true;
   }
 
-  filterItems(items) {
+  filterItems(items: any[]) {
     return items.filter((c) => this.taskMatches(c));
   }
 

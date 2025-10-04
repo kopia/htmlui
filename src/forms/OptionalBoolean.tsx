@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 import { stateProperty } from ".";
+import { ComponentChangeHandling } from "src/components/types";
 
 function optionalBooleanValue(target: HTMLSelectElement): boolean | undefined {
   if (target.value === "true") {
@@ -15,7 +16,7 @@ function optionalBooleanValue(target: HTMLSelectElement): boolean | undefined {
   return undefined;
 }
 
-export function OptionalBoolean(component, label: string | null, name: string, defaultLabel?: string) {
+export function OptionalBoolean(component: ComponentChangeHandling, label: string | null, name: string, defaultLabel?: string) {
   return (
     <Form.Group as={Col}>
       {label && <Form.Label>{label}</Form.Label>}

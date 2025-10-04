@@ -11,6 +11,7 @@ import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "src/components/types";
 
 class SnapshotDirectoryInternal extends Component {
   constructor() {

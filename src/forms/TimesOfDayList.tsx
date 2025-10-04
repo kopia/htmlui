@@ -2,9 +2,10 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import { stateProperty } from ".";
+import { ComponentChangeHandling } from "src/components/types";
 
-export function TimesOfDayList(component, name: string, props = {}) {
-  function parseTimeOfDay(v: string) {
+export function TimesOfDayList(component: ComponentChangeHandling, name: string, props = {}) {
+  function parseTimeOfDay(v: string): { hour: number; min: number } | string {
     const re = /(\d+):(\d+)/;
 
     const match = re.exec(v);
@@ -25,9 +26,9 @@ export function TimesOfDayList(component, name: string, props = {}) {
     return v;
   }
 
-  function toMultilineString(v) {
+  function toMultilineString(v): string {
     if (v) {
-      let tmp = [];
+      const tmp = [];
 
       for (const tod of v) {
         if (typeof tod === "object") {
@@ -43,18 +44,16 @@ export function TimesOfDayList(component, name: string, props = {}) {
     return "";
   }
 
-  function fromMultilineString(target) {
+  function fromMultilineString(target: HTMLTextAreaElement): ({ hour: number; min: number } | string)[] | undefined {
     const v = target.value;
     if (v === "") {
       return undefined;
     }
 
-    let result = [];
-
+    const result: ({ hour: number; min: number } | string)[] = [];
     for (const line of v.split(/\n/)) {
       result.push(parseTimeOfDay(line));
     }
-
     return result;
   }
 
@@ -66,7 +65,7 @@ export function TimesOfDayList(component, name: string, props = {}) {
         value={toMultilineString(stateProperty(component, name))}
         onChange={(e) => component.handleChange(e, fromMultilineString)}
         as="textarea"
-        rows="5"
+        rows={5}
         {...props}
       ></Form.Control>
       <Form.Control.Feedback type="invalid">Invalid Times of Day</Form.Control.Feedback>

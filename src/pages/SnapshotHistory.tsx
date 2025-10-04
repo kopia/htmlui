@@ -75,7 +75,7 @@ class SnapshotHistoryInternal extends Component {
   }
 
   selectAll() {
-    let snapIds = {};
+    const snapIds = {};
     for (const sn of this.state.snapshots) {
       snapIds[sn.id] = true;
     }
@@ -127,7 +127,7 @@ class SnapshotHistoryInternal extends Component {
   }
 
   deleteSelectedSnapshots() {
-    let req = {
+    const req = {
       source: {
         host: this.state.host,
         userName: this.state.userName,
@@ -161,7 +161,7 @@ class SnapshotHistoryInternal extends Component {
   }
 
   deleteSnapshotSource() {
-    let req = {
+    const req = {
       source: {
         host: this.state.host,
         userName: this.state.userName,
@@ -673,7 +673,7 @@ SnapshotHistoryInternal.propTypes = {
   navigate: PropTypes.func,
 };
 
-export function SnapshotHistory(props) {
+export function SnapshotHistory(props: any) {
   const navigate = useNavigate();
   const location = useLocation();
   useContext(UIPreferencesContext);

@@ -13,6 +13,8 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 export class SnapshotEstimationInternal extends Component {
+  interval: number | null;
+
   constructor() {
     super();
     this.state = {

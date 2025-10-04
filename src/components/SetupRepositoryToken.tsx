@@ -3,8 +3,11 @@ import Row from "react-bootstrap/Row";
 import { handleChange, validateRequiredFields } from "../forms";
 import { RequiredField } from "../forms/RequiredField";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class SetupRepositoryToken extends Component {
+export class SetupRepositoryToken extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor(props) {
     super();
 

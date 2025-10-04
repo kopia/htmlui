@@ -17,11 +17,14 @@ import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
 import { policyEditorURL, sourceQueryStringParams } from "../utils/policyutil";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
+import { ChangeEventHandle, ComponentChangeHandling } from "src/components/types";
 
 const localSnapshots = "Local Snapshots";
 const allSnapshots = "All Snapshots";
 
-export class Snapshots extends Component {
+export class Snapshots extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor() {
     super();
     this.state = {

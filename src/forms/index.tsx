@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { getDeepStateProperty, setDeepStateProperty } from "../utils/deepstate";
+import { ComponentChangeHandling } from "src/components/types";
 
-export function validateRequiredFields(component, fields: any[]) {
-  let updateState = {};
+export function validateRequiredFields(component: ComponentChangeHandling, fields: string[]) {
+  const updateState: {[field: string]: any } = {};
   let failed = false;
 
   for (let i = 0; i < fields.length; i++) {
@@ -27,7 +28,7 @@ export function handleChange(event, valueGetter = (x) => x.value) {
   setDeepStateProperty(this, event.target.name, valueGetter(event.target));
 }
 
-export function stateProperty(component: Component, name: string, defaultValue = "") {
+export function stateProperty(component: Component, name: string, defaultValue: string | null | undefined = "") {
   const value = getDeepStateProperty(component, name);
   return value === undefined ? defaultValue : value;
 }

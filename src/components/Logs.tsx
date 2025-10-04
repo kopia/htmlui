@@ -4,8 +4,13 @@ import Table from "react-bootstrap/Table";
 import { handleChange } from "../forms";
 import { redirect } from "../utils/uiutil";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class Logs extends Component {
+export class Logs extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+  interval: number;
+  messagesEndRef: React.RefObject<HTMLDivElement | null>;
+
   constructor() {
     super();
     this.state = {
@@ -46,7 +51,7 @@ export class Logs extends Component {
     axios
       .get("/api/v1/tasks/" + this.props.taskID + "/logs")
       .then((result) => {
-        let oldLogs = this.state.logs;
+        const oldLogs = this.state.logs;
         this.setState({
           logs: result.data.logs,
           isLoading: false,
@@ -65,11 +70,11 @@ export class Logs extends Component {
       });
   }
 
-  fullLogTime(x) {
+  fullLogTime(x: number) {
     return new Date(x * 1000).toLocaleString();
   }
 
-  formatLogTime(x) {
+  formatLogTime(x: number) {
     const d = new Date(x * 1000);
     let result = "";
 
@@ -88,7 +93,7 @@ export class Logs extends Component {
     // if there are any properties other than `msg, ts, level, mod` output them as JSON.
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let { msg, ts, level, mod, ...parametersOnly } = entry;
+    const { msg, ts, level, mod, ...parametersOnly } = entry;
 
     const p = JSON.stringify(parametersOnly);
     if (p !== "{}") {

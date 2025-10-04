@@ -2,16 +2,17 @@ import moment from "moment";
 import React from "react";
 import { LabelColumn } from "./LabelColumn";
 
-export function UpcomingSnapshotTimes(resolved) {
+export function UpcomingSnapshotTimes(resolved: { schedulingError?: string; upcomingSnapshotTimes: string[] } | null) {
   if (!resolved) {
     return null;
   }
 
+  // This is only mentioned here
   if (resolved.schedulingError) {
     return <p className="error">{resolved.schedulingError}</p>;
   }
 
-  const times = resolved.upcomingSnapshotTimes;
+  const times: string[] = resolved.upcomingSnapshotTimes;
 
   if (!times) {
     return <LabelColumn name="No upcoming snapshots" />;

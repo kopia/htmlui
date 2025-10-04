@@ -19,6 +19,8 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
 
 class TaskInternal extends Component {
+  interval: number | null;
+
   constructor() {
     super();
     this.state = {
@@ -63,7 +65,7 @@ class TaskInternal extends Component {
         });
 
         if (result.data.endTime) {
-          window.clearInterval(this.interval);
+          window.clearInterval(this.interval!);
           this.interval = null;
         }
       })
@@ -127,7 +129,7 @@ class TaskInternal extends Component {
     return 0;
   }
 
-  counterBadge(label, c) {
+  counterBadge(label: string, c) {
     if (c.value <= this.valueThreshold()) {
       return "";
     }

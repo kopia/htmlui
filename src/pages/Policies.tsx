@@ -17,6 +17,7 @@ import { compare, formatOwnerName } from "../utils/formatutils";
 import { redirect } from "../utils/uiutil";
 import { checkPolicyPath, policyEditorURL } from "../utils/policyutil";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "src/components/types";
 
 const applicablePolicies = "Applicable Policies";
 const localPolicies = "Local Path Policies";
@@ -25,7 +26,23 @@ const globalPolicy = "Global Policy";
 const perUserPolicies = "Per-User Policies";
 const perHostPolicies = "Per-Host Policies";
 
-export class PoliciesInternal extends Component {
+interface PoliciesState {
+  policies: any[];
+  isLoading: boolean;
+  error: Error | null;
+  editorTarget: any;
+  selectedOwner: string;
+  policyPath: string;
+  sources: any[];
+  localHost?: string;
+  localUsername?: string;
+  localSourceName?: string;
+  multiUser?: any;
+}
+
+export class PoliciesInternal extends Component<any, PoliciesState> implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor() {
     super();
     this.state = {
@@ -116,33 +133,30 @@ export class PoliciesInternal extends Component {
       return;
     }
 
-    const error = checkPolicyPath(this.state.policyPath, this.state.localHost, this.state.localUsername);
+    const error = checkPolicyPath(this.state.policyPath/*, this.state.localHost, this.state.localUsername*/);
 
     if (error) {
-      alert(
-        error +
-          "\nMust be either an absolute path, `user@host:/absolute/path`, `user@host` or `@host`. Use backslashes on Windows.",
-      );
+      alert(error + "\nMust be either an absolute path, `user@host:/absolute/path`, `user@host` or `@host`. Use backslashes on Windows.");
       return;
     }
 
     this.props.navigate(
       policyEditorURL({
-        userName: this.state.localUsername,
-        host: this.state.localHost,
+        userName: this.state.localUsername!,
+        host: this.state.localHost!,
         path: this.state.policyPath,
       }),
     );
   }
 
-  selectOwner(h) {
+  selectOwner(h: string) {
     this.setState({
       selectedOwner: h,
     });
   }
 
   policySummary(policies) {
-    let bits = [];
+    const bits = [];
     /**
      * Check if the object is empty
      * @param {*} obj
@@ -161,13 +175,13 @@ export class PoliciesInternal extends Component {
      * @param {*} obj
      * @returns
      */
-    function isEmpty(obj) {
-      for (var key in obj) {
+    function isEmpty(obj: any) {
+      for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, key)) return isEmptyObject(obj[key]);
       }
       return true;
     }
-    for (let pol in policies.policy) {
+    for (const pol in policies.policy) {
       if (!isEmpty(policies.policy[pol])) {
         bits.push(
           <Badge bg="policy-badge" key={pol}>
@@ -200,7 +214,7 @@ export class PoliciesInternal extends Component {
       return <p>Loading ...</p>;
     }
 
-    let uniqueOwners = sources.reduce((a, d) => {
+    const uniqueOwners: any[] = sources.reduce((a, d) => {
       const owner = formatOwnerName(d.source);
 
       if (!a.includes(owner)) {
@@ -215,29 +229,23 @@ export class PoliciesInternal extends Component {
       case allPolicies:
         // do nothing;
         break;
-
       case globalPolicy:
         policies = policies.filter((x) => this.isGlobalPolicy(x));
         break;
-
       case localPolicies:
         policies = policies.filter((x) => this.isLocalUserPolicy(x));
         break;
-
       case applicablePolicies:
         policies = policies.filter(
           (x) => this.isLocalUserPolicy(x) || this.isLocalHostPolicy(x) || this.isGlobalPolicy(x),
         );
         break;
-
       case perUserPolicies:
         policies = policies.filter((x) => !!x.target.userName && !!x.target.host && !x.target.path);
         break;
-
       case perHostPolicies:
         policies = policies.filter((x) => !x.target.userName && !!x.target.host && !x.target.path);
         break;
-
       default:
         policies = policies.filter((x) => formatOwnerName(x.target) === this.state.selectedOwner);
         break;

@@ -26,7 +26,7 @@ import { OptionalNumberField } from "../../forms/OptionalNumberField";
 import { RequiredBoolean } from "../../forms/RequiredBoolean";
 import { TimesOfDayList } from "../../forms/TimesOfDayList";
 import { errorAlert, toAlgorithmOption } from "../../utils/uiutil";
-import { sourceQueryStringParams } from "../../utils/policyutil";
+import { PolicyQueryParams, sourceQueryStringParams } from "../../utils/policyutil";
 import { PolicyEditorLink } from "../PolicyEditorLink";
 import { LabelColumn } from "./LabelColumn";
 import { ValueColumn } from "./ValueColumn";
@@ -43,8 +43,11 @@ import { ActionRowScript } from "./ActionRowScript";
 import { ActionRowTimeout } from "./ActionRowTimeout";
 import { ActionRowMode } from "./ActionRowMode";
 import PropTypes from "prop-types";
+import { ChangeEventHandle, ComponentChangeHandling } from "../types";
 
-export class PolicyEditor extends Component {
+export class PolicyEditor extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor() {
     super();
     this.state = {
@@ -131,7 +134,7 @@ export class PolicyEditor extends Component {
     }
   }
 
-  PolicyDefinitionPoint(p) {
+  PolicyDefinitionPoint(p: PolicyQueryParams) {
     if (!p) {
       return "";
     }

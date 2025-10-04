@@ -4,8 +4,11 @@ import { handleChange, validateRequiredFields } from "../forms";
 import { RequiredField } from "../forms/RequiredField";
 import { OptionalField } from "../forms/OptionalField";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class SetupRepositoryB2 extends Component {
+export class SetupRepositoryB2 extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor(props) {
     super();
 

@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
 
-function checkedToBool(t) {
+function checkedToBool(t: HTMLInputElement): boolean {
   if (t.checked) {
     return true;
   }

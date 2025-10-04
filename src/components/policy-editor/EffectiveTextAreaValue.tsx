@@ -13,7 +13,7 @@ export function EffectiveTextAreaValue(component, policyField) {
           data-testid={"effective-" + policyField}
           size="sm"
           as="textarea"
-          rows="5"
+          rows={5}
           value={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
           readOnly={true}
         />

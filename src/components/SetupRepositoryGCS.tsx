@@ -4,8 +4,11 @@ import { handleChange, validateRequiredFields } from "../forms";
 import { OptionalField } from "../forms/OptionalField";
 import { RequiredField } from "../forms/RequiredField";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class SetupRepositoryGCS extends Component {
+export class SetupRepositoryGCS extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor(props) {
     super();
 

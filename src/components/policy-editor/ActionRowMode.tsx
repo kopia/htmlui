@@ -6,7 +6,7 @@ import { LabelColumn } from "./LabelColumn";
 import { WideValueColumn } from "./WideValueColumn";
 import { EffectiveValue } from "./EffectiveValue";
 
-export function ActionRowMode(component, action) {
+export function ActionRowMode(component, action: string) {
   return (
     <Row>
       <LabelColumn

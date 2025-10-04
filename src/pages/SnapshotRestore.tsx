@@ -13,8 +13,11 @@ import { RequiredNumberField } from "../forms/RequiredNumberField";
 import { errorAlert } from "../utils/uiutil";
 import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
+import { ChangeEventHandle, ComponentChangeHandling } from "src/components/types";
 
-export class SnapshotRestoreInternal extends Component {
+export class SnapshotRestoreInternal extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor() {
     super();
 

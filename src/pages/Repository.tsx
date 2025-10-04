@@ -15,8 +15,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { Logs } from "../components/Logs";
 import { AppContext } from "../contexts/AppContext";
+import { ChangeEventHandle } from "src/components/types";
 
 export class Repository extends Component {
+  handleChange: ChangeEventHandle;
+  mounted: boolean;
+
   constructor() {
     super();
 

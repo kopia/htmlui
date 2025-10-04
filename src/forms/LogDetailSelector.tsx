@@ -1,8 +1,9 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import { valueToNumber, stateProperty } from ".";
+import { ComponentChangeHandling } from "src/components/types";
 
-export function LogDetailSelector(component, name: string) {
+export function LogDetailSelector(component: ComponentChangeHandling, name: string) {
   return (
     <Form.Control
       as="select"

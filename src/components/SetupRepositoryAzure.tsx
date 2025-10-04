@@ -4,7 +4,11 @@ import { handleChange, validateRequiredFields } from "../forms";
 import { OptionalField } from "../forms/OptionalField";
 import { RequiredField } from "../forms/RequiredField";
 import PropTypes from "prop-types";
-export class SetupRepositoryAzure extends Component {
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
+
+export class SetupRepositoryAzure extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor(props) {
     super();
 

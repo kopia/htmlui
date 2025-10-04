@@ -6,6 +6,7 @@ import { OptionalNumberField } from "../forms/OptionalNumberField";
 import { RequiredBoolean } from "../forms/RequiredBoolean";
 import { RequiredField } from "../forms/RequiredField";
 import PropTypes from "prop-types";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
 function hasExactlyOneOf(component, names) {
   let count = 0;
@@ -19,7 +20,9 @@ function hasExactlyOneOf(component, names) {
   return count === 1;
 }
 
-export class SetupRepositorySFTP extends Component {
+export class SetupRepositorySFTP extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor(props) {
     super();
 

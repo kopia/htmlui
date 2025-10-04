@@ -23,6 +23,7 @@ import { SetupRepositorySFTP } from "./SetupRepositorySFTP";
 import { SetupRepositoryToken } from "./SetupRepositoryToken";
 import { SetupRepositoryWebDAV } from "./SetupRepositoryWebDAV";
 import { toAlgorithmOption } from "../utils/uiutil";
+import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
 const supportedProviders = [
   {
@@ -73,7 +74,9 @@ const supportedProviders = [
   },
 ];
 
-export class SetupRepository extends Component {
+export class SetupRepository extends Component implements ComponentChangeHandling {
+  handleChange: ChangeEventHandle;
+
   constructor() {
     super();
 
