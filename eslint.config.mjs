@@ -25,7 +25,9 @@ export default defineConfig([
   },
   {
     rules: {
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      "prefer-const": "warn",
+      "no-var": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }]
     },
   },
   pluginReact.configs.flat.recommended,
