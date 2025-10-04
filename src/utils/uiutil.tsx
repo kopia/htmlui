@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { sizeDisplayName } from "./formatutils.js";
 
-export function sizeWithFailures(size, summ, bytesStringBase2) {
+export function sizeWithFailures(size?: number, summ, bytesStringBase2: boolean) {
   if (size === undefined) {
     return "";
   }

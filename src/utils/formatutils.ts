@@ -3,12 +3,12 @@ const locale = "en-US";
 const base10UnitPrefixes = ["", "K", "M", "G", "T"];
 const base2UnitPrefixes = ["", "Ki", "Mi", "Gi", "Ti"];
 
-function formatNumber(f) {
+function formatNumber(f: number): string {
   return Math.round(f * 10) / 10.0 + "";
 }
 
-function toDecimalUnitString(f, thousand, prefixes, suffix) {
-  for (var i = 0; i < prefixes.length; i++) {
+function toDecimalUnitString(f: number, thousand: number, prefixes: string[], suffix: string): string {
+  for (let i = 0; i < prefixes.length; i++) {
     if (f < 0.9 * thousand) {
       return formatNumber(f) + " " + prefixes[i] + suffix;
     }
@@ -18,7 +18,7 @@ function toDecimalUnitString(f, thousand, prefixes, suffix) {
   return formatNumber(f) + " " + prefixes[prefixes.length - 1] + suffix;
 }
 
-export function sizeDisplayName(size, bytesStringBase2) {
+export function sizeDisplayName(size: number, bytesStringBase2: boolean): string {
   if (size === undefined) {
     return "";
   }
@@ -39,17 +39,18 @@ export function timesOfDayDisplayName(v) {
   return v.length + " times";
 }
 
-export function parseQuery(queryString) {
-  var query = {};
-  var pairs = (queryString[0] === "?" ? queryString.substr(1) : queryString).split("&");
-  for (var i = 0; i < pairs.length; i++) {
-    var pair = pairs[i].split("=");
+type QueryParams = { [param: string]: string };
+export function parseQuery(queryString: string): QueryParams {
+  const query: QueryParams = {};
+  const pairs = (queryString[0] === "?" ? queryString.substr(1) : queryString).split("&");
+  for (let i = 0; i < pairs.length; i++) {
+    const pair = pairs[i].split("=");
     query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
   }
   return query;
 }
 
-export function rfc3339TimestampForDisplay(n) {
+export function rfc3339TimestampForDisplay(n: number | string | Date) {
   if (!n) {
     return "";
   }
@@ -58,18 +59,18 @@ export function rfc3339TimestampForDisplay(n) {
   return t.toLocaleString();
 }
 
-export function objectLink(n) {
+export function objectLink(n: string) {
   if (n.startsWith("k") || n.startsWith("Ik")) {
     return "/snapshots/dir/" + n;
   }
   return "/api/v1/objects/" + n;
 }
 
-export function formatOwnerName(s) {
+export function formatOwnerName(s): string {
   return s.userName + "@" + s.host;
 }
 
-export function compare(a, b) {
+export function compare(a: any, b: any): -1 | 0 | 1 {
   return a < b ? -1 : a > b ? 1 : 0;
 }
 
@@ -81,11 +82,13 @@ export function compare(a, b) {
  * @param {number} ms - A duration (as a number of milliseconds).
  * @returns {string} A string representation of the duration.
  */
-export function formatMillisecondsUsingMultipleUnits(ms) {
+export function formatMillisecondsUsingMultipleUnits(ms: number): string {
   const magnitudes = separateMillisecondsIntoMagnitudes(ms);
   const str = formatMagnitudesUsingMultipleUnits(magnitudes, true);
   return str;
 }
+
+type Magnitudes = { days: number; hours: number; minutes: number; seconds: number; milliseconds: number };
 
 /**
  * Separate a duration into integer magnitudes of multiple units which,
@@ -100,7 +103,7 @@ export function formatMillisecondsUsingMultipleUnits(ms) {
  *                   when combined together, represent the original duration
  *                   (minus any partial milliseconds).
  */
-export function separateMillisecondsIntoMagnitudes(ms) {
+export function separateMillisecondsIntoMagnitudes(ms: number): Magnitudes {
   const magnitudes = {
     days: Math.trunc(ms / (1000 * 60 * 60 * 24)),
     hours: Math.trunc(ms / (1000 * 60 * 60)) % 24,
@@ -133,7 +136,7 @@ export function separateMillisecondsIntoMagnitudes(ms) {
  * @param {boolean} abbreviateUnits - Whether you want to use short unit names.
  * @returns {string} Formatted string representing the specified duration.
  */
-export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits = false) {
+export function formatMagnitudesUsingMultipleUnits(magnitudes: Magnitudes, abbreviateUnits = false) {
   // Define the label we will use for each unit, depending upon whether that
   // unit's magnitude is `1` or not (e.g. "0 minutes" vs. "1 minute").
   // Note: This object is not used in the final "else" block below.
@@ -196,7 +199,7 @@ export function formatMagnitudesUsingMultipleUnits(magnitudes, abbreviateUnits =
  * @param {boolean} useMultipleUnits - Whether you want to use multiple units.
  * @returns {string} The formatted string.
  */
-export function formatMilliseconds(ms, useMultipleUnits = false) {
+export function formatMilliseconds(ms: number, useMultipleUnits = false): string {
   if (useMultipleUnits) {
     return formatMillisecondsUsingMultipleUnits(ms);
   }

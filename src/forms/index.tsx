@@ -1,6 +1,7 @@
+import { Component } from "react";
 import { getDeepStateProperty, setDeepStateProperty } from "../utils/deepstate";
 
-export function validateRequiredFields(component, fields) {
+export function validateRequiredFields(component, fields: any[]) {
   let updateState = {};
   let failed = false;
 
@@ -26,7 +27,7 @@ export function handleChange(event, valueGetter = (x) => x.value) {
   setDeepStateProperty(this, event.target.name, valueGetter(event.target));
 }
 
-export function stateProperty(component, name: string, defaultValue = "") {
+export function stateProperty(component: Component, name: string, defaultValue = "") {
   const value = getDeepStateProperty(component, name);
   return value === undefined ? defaultValue : value;
 }
@@ -44,7 +45,7 @@ export function valueToNumber(t) {
   return v;
 }
 
-export function isInvalidNumber(v: any) {
+export function isInvalidNumber(v: any): boolean {
   if (v === undefined || v === "") {
     return false;
   }

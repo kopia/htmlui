@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 
 import { stateProperty } from ".";
 
-function optionalBooleanValue(target) {
+function optionalBooleanValue(target: HTMLSelectElement): boolean | undefined {
   if (target.value === "true") {
     return true;
   }

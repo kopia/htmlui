@@ -6,7 +6,7 @@
 // getDeepStateProperty("a.b") returns {"c":true}
 // getDeepStateProperty("a.b.c") returns true
 
-export function setDeepStateProperty(component: HasState, name: string, value: any) {
+export function setDeepStateProperty(component: HasState, name: string, value: any): void {
   let newState = { ...component.state };
   let st = newState;
 
@@ -37,7 +37,7 @@ type HasState = { state: any; setState: (s: any) => void };
 // getDeepStateProperty("a") returns {b":{"c":true}}
 // getDeepStateProperty("a.b") returns {"c":true}
 // getDeepStateProperty("a.b.c") returns true
-export function getDeepStateProperty(component: HasState, name: string, defaultValue = "") {
+export function getDeepStateProperty(component: HasState, name: string, defaultValue = ""): any {
   let st = component.state;
   const parts = name.split(/\./);
 

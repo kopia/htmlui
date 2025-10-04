@@ -1,4 +1,4 @@
-export function isAbsolutePath(p) {
+export function isAbsolutePath(p: string) {
   // Unix-style path.
   if (p.startsWith("/")) {
     return true;
@@ -20,7 +20,7 @@ export function isAbsolutePath(p) {
 }
 
 // Refer to kopia/snapshot/source.go:ParseSourceInfo
-export function checkPolicyPath(path) {
+export function checkPolicyPath(path: string) {
   if (path === "(global)") {
     return "Cannot create the global policy, it already exists.";
   }

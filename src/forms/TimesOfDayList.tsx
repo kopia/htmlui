@@ -3,9 +3,9 @@ import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import { stateProperty } from ".";
 
-export function TimesOfDayList(component, name, props = {}) {
-  function parseTimeOfDay(v) {
-    var re = /(\d+):(\d+)/;
+export function TimesOfDayList(component, name: string, props = {}) {
+  function parseTimeOfDay(v: string) {
+    const re = /(\d+):(\d+)/;
 
     const match = re.exec(v);
     if (match) {
