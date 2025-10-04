@@ -22,7 +22,7 @@ import { setDeepStateProperty } from "../utils/deepstate";
  * Additional properties of the component
  * @returns The form group with the components
  */
-export function OptionalDirectory(component, label, name, props = {}) {
+export function OptionalDirectory(component, label: string, name: string, props = {}) {
   /**
    * Saves the selected path as a deepstate variable within the component
    * @param {The path that has been selected} path

@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { getDeepStateProperty } from "../../utils/deepstate";
 import { EffectiveValueColumn } from "./EffectiveValueColumn";
 
-export function EffectiveBooleanValue(component, policyField) {
+export function EffectiveBooleanValue(component, policyField: string) {
   const dsp = getDeepStateProperty(component, "resolved.definition." + policyField, undefined);
 
   return (

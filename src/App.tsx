@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Theme.css";
 import "./css/App.css";
 import axios from "axios";
-import { React, Component } from "react";
+import React, { Component } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { Policy } from "./pages/Policy";
@@ -19,7 +19,17 @@ import { SnapshotRestore } from "./pages/SnapshotRestore";
 import { AppContext } from "./contexts/AppContext";
 import { UIPreferenceProvider } from "./contexts/UIPreferencesContext";
 
-export default class App extends Component {
+type AppState = {
+  runningTaskCount: number;
+  isFetching: boolean;
+  repoDescription: string;
+  isRepositoryConnected: boolean;
+  uiPrefs?: any;
+};
+
+export default class App extends Component<any, AppState> {
+  taskSummaryInterval?: number;
+
   constructor() {
     super();
 
@@ -35,7 +45,7 @@ export default class App extends Component {
     this.repositoryDescriptionUpdated = this.repositoryDescriptionUpdated.bind(this);
     this.fetchInitialRepositoryDescription = this.fetchInitialRepositoryDescription.bind(this);
 
-    const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
+    const tok = document.head.querySelector('meta[name="kopia-csrf-token"]') as HTMLMetaElement | null;
     if (tok && tok.content) {
       axios.defaults.headers.common["X-Kopia-Csrf-Token"] = tok.content;
     } else {
@@ -54,7 +64,7 @@ export default class App extends Component {
     this.taskSummaryInterval = window.setInterval(this.fetchTaskSummary, 5000);
   }
 
-  fetchInitialRepositoryDescription() {
+  fetchInitialRepositoryDescription(): void {
     axios
       .get("/api/v1/repo/status")
       .then((result) => {
@@ -70,7 +80,7 @@ export default class App extends Component {
       });
   }
 
-  fetchTaskSummary() {
+  fetchTaskSummary(): void {
     if (!this.state.isFetching) {
       this.setState({ isFetching: true });
       axios
@@ -87,12 +97,12 @@ export default class App extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.clearInterval(this.taskSummaryInterval);
   }
 
   // this is invoked via AppContext whenever repository is connected, disconnected, etc.
-  repositoryUpdated(isConnected) {
+  repositoryUpdated(isConnected: boolean): void {
     this.setState({ isRepositoryConnected: isConnected });
     if (isConnected) {
       window.location.replace("/snapshots");
@@ -101,7 +111,7 @@ export default class App extends Component {
     }
   }
 
-  repositoryDescriptionUpdated(desc) {
+  repositoryDescriptionUpdated(desc: string): void {
     this.setState({
       repoDescription: desc,
     });
@@ -112,7 +122,7 @@ export default class App extends Component {
 
     return (
       <Router>
-        <AppContext.Provider value={this}>
+        <AppContext.Provider value={this as unknown as AppState}>
           <UIPreferenceProvider initalValue={uiPrefs}>
             <Navbar expand="sm" variant="light">
               <Navbar.Brand href="/">

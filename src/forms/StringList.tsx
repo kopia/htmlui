@@ -20,7 +20,7 @@ export function multilineStringToList(target) {
   return v.split(/\n/);
 }
 
-export function StringList(component, name, props = {}) {
+export function StringList(component, name: string, props = {}) {
   return (
     <Form.Group as={Col}>
       <Form.Control

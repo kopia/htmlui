@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty, isInvalidNumber, valueToNumber } from ".";
 
-export function RequiredNumberField(component, label, name, props = {}) {
+export function RequiredNumberField(component, label: string, name: string, props = {}) {
   return (
     <Form.Group as={Col}>
       <Form.Label>{label}</Form.Label>

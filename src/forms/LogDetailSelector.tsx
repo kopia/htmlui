@@ -2,7 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import { valueToNumber, stateProperty } from ".";
 
-export function LogDetailSelector(component, name) {
+export function LogDetailSelector(component, name: string) {
   return (
     <Form.Control
       as="select"

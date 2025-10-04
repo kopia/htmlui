@@ -26,7 +26,7 @@ export function handleChange(event, valueGetter = (x) => x.value) {
   setDeepStateProperty(this, event.target.name, valueGetter(event.target));
 }
 
-export function stateProperty(component, name, defaultValue = "") {
+export function stateProperty(component, name: string, defaultValue = "") {
   const value = getDeepStateProperty(component, name);
   return value === undefined ? defaultValue : value;
 }
@@ -44,7 +44,7 @@ export function valueToNumber(t) {
   return v;
 }
 
-export function isInvalidNumber(v) {
+export function isInvalidNumber(v: any) {
   if (v === undefined || v === "") {
     return false;
   }

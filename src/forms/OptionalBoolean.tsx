@@ -15,7 +15,7 @@ function optionalBooleanValue(target) {
   return undefined;
 }
 
-export function OptionalBoolean(component, label, name, defaultLabel) {
+export function OptionalBoolean(component, label: string | null, name: string, defaultLabel?: string) {
   return (
     <Form.Group as={Col}>
       {label && <Form.Label>{label}</Form.Label>}

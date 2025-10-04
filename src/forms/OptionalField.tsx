@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
 
-export function OptionalField(component, label, name, props = {}, helpText = null) {
+export function OptionalField(component, label: string, name: string, props = {}, helpText = null) {
   return (
     <Form.Group as={Col}>
       <Form.Label>{label}</Form.Label>

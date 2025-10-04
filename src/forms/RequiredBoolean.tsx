@@ -11,7 +11,7 @@ function checkedToBool(t) {
   return false;
 }
 
-export function RequiredBoolean(component, label, name, helpText) {
+export function RequiredBoolean(component, label: string, name: string, helpText?: string) {
   return (
     <Form.Group as={Col}>
       <Form.Check
