@@ -1,9 +1,9 @@
 import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import { SnapshotRestore } from "../../src/pages/SnapshotRestore";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { SnapshotRestore } from "../../src/pages/SnapshotRestore.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
@@ -30,7 +30,7 @@ vi.mock("../../src/utils/uiutil", () => ({
 }));
 
 // Minimal UIPreferences context value
-const mockUIPreferences = {
+const mockUIPreferences: UIPreferences = {
   pageSize: 10,
   theme: "light",
   bytesStringBase2: false,
@@ -235,7 +235,7 @@ describe("SnapshotRestore component", () => {
   });
 
   test("handles API error gracefully", async () => {
-    const { errorAlert } = await import("../../src/utils/uiutil");
+    const { errorAlert } = await import("../../src/utils/uiutil.js");
     const mockErrorAlert = vi.mocked(errorAlert);
 
     axiosMock.onPost("/api/v1/restore").reply(500, {

@@ -1,9 +1,9 @@
 import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import { Task } from "../../src/pages/Task";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { Task } from "../../src/pages/Task.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
 
 let axiosMock;
@@ -26,7 +26,7 @@ vi.mock("../../src/components/Logs", () => ({
 }));
 
 // Minimal UIPreferences context value
-const mockUIPreferences = {
+const mockUIPreferences: UIPreferences = {
   pageSize: 10,
   theme: "light",
   bytesStringBase2: false,

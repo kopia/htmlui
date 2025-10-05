@@ -2,9 +2,9 @@ import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Snapshots } from "../../src/pages/Snapshots";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { Snapshots } from "../../src/pages/Snapshots.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
 
 let axiosMock;
@@ -16,7 +16,7 @@ vi.mock("react-router-dom", async () => {
 });
 
 // Minimal UIPreferences context value
-const mockUIPreferences = {
+const mockUIPreferences: UIPreferences = {
   pageSize: 10,
   theme: "light",
   bytesStringBase2: false,
@@ -174,7 +174,7 @@ describe("Snapshots component", () => {
     // The sync button contains an icon that has the onClick handler
     const syncButton = screen.getByTitle("Synchronize");
     const syncIcon = syncButton.querySelector("svg");
-    await userEvent.click(syncIcon);
+    await userEvent.click(syncIcon!);
 
     await waitFor(() => {
       expect(axiosMock.history.post).toHaveLength(1);

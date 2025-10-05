@@ -2,12 +2,12 @@ import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Tasks } from "../../src/pages/Tasks";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { Tasks } from "../../src/pages/Tasks.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
 import { fireEvent } from "@testing-library/react";
-import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals } from "../testutils/interval-mocks";
+import { setupIntervalMocks, cleanupIntervalMocks, triggerIntervals } from "../testutils/interval-mocks.js";
 
 let axiosMock;
 
@@ -18,7 +18,7 @@ vi.mock("react-router-dom", async () => {
 });
 
 // Minimal UIPreferences context value
-const mockUIPreferences = {
+const mockUIPreferences: UIPreferences = {
   pageSize: 10,
   theme: "light",
   bytesStringBase2: false,
@@ -208,7 +208,7 @@ describe("Tasks component", () => {
     const snapshotOptions = screen.getAllByText("Snapshot");
     // Click on the dropdown option (not the table content)
     const dropdownOption = snapshotOptions.find((el) => el.classList.contains("dropdown-item"));
-    await userEvent.click(dropdownOption);
+    await userEvent.click(dropdownOption!);
 
     // Should only show snapshot tasks
     expect(screen.getByText("Snapshot task")).toBeInTheDocument();

@@ -2,10 +2,10 @@ import React from "react";
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { SnapshotHistory } from "../../src/pages/SnapshotHistory";
+import { SnapshotHistory } from "../../src/pages/SnapshotHistory.js";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
 import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock axios
@@ -28,7 +28,7 @@ const renderWithProviders = (component) => {
     showIdenticalSnapshots: false,
     setShowIdenticalSnapshots: vi.fn(),
     bytesStringBase2: vi.fn((size) => `${size} bytes`), // Mock function for size formatting
-  };
+  } as unknown as UIPreferences;
 
   return render(
     <BrowserRouter>
@@ -41,12 +41,12 @@ describe("SnapshotHistory", () => {
   beforeEach(() => {
     resetRouterMocks();
     vi.clearAllMocks();
-    axios.get.mockReset();
-    axios.post.mockReset();
+    (axios.get as jest.Mock).mockReset();
+    (axios.post as jest.Mock).mockReset();
   });
 
   it("should render loading spinner initially", () => {
-    axios.get.mockImplementation(() => new Promise(() => {})); // Never resolves
+    (axios.get as jest.Mock).mockImplementation(() => new Promise(() => {})); // Never resolves
     renderWithProviders(<SnapshotHistory />);
 
     // Look for Bootstrap spinner div
@@ -80,7 +80,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -100,7 +100,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -120,7 +120,7 @@ describe("SnapshotHistory", () => {
   });
 
   it("should display error when fetch fails", async () => {
-    axios.get.mockRejectedValue(new Error("Network error"));
+    (axios.get as jest.Mock).mockRejectedValue(new Error("Network error"));
 
     // Mock console.error to avoid error output in tests
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -141,7 +141,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -156,7 +156,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -176,7 +176,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -199,7 +199,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -214,7 +214,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -272,7 +272,7 @@ describe("SnapshotHistory", () => {
       },
     };
 
-    axios.get.mockResolvedValue(mockResponse);
+    (axios.get as jest.Mock).mockResolvedValue(mockResponse);
     renderWithProviders(<SnapshotHistory />);
 
     await waitFor(() => {
@@ -341,7 +341,7 @@ describe("SnapshotHistory", () => {
         },
       };
 
-      axios.get.mockResolvedValue(emptyResponse);
+      (axios.get as jest.Mock).mockResolvedValue(emptyResponse);
       renderWithProviders(<SnapshotHistory />);
 
       await waitFor(() => {
@@ -358,8 +358,8 @@ describe("SnapshotHistory", () => {
         },
       };
 
-      axios.get.mockResolvedValue(emptyResponse);
-      axios.post.mockResolvedValue({ data: { success: true } });
+      (axios.get as jest.Mock).mockResolvedValue(emptyResponse);
+      (axios.post as jest.Mock).mockResolvedValue({ data: { success: true } });
       renderWithProviders(<SnapshotHistory />);
 
       await waitFor(() => {
@@ -382,7 +382,7 @@ describe("SnapshotHistory", () => {
     });
 
     it("should display select all button when snapshots exist", async () => {
-      axios.get.mockResolvedValue(mockSnapshotsResponse);
+      (axios.get as jest.Mock).mockResolvedValue(mockSnapshotsResponse);
       renderWithProviders(<SnapshotHistory />);
 
       await waitFor(() => {
@@ -394,7 +394,7 @@ describe("SnapshotHistory", () => {
     });
 
     it("should show correct snapshot count", async () => {
-      axios.get.mockResolvedValue(mockSnapshotsResponse);
+      (axios.get as jest.Mock).mockResolvedValue(mockSnapshotsResponse);
       renderWithProviders(<SnapshotHistory />);
 
       await waitFor(() => {
@@ -403,7 +403,7 @@ describe("SnapshotHistory", () => {
     });
 
     it("should show table headers for snapshot data", async () => {
-      axios.get.mockResolvedValue(mockSnapshotsResponse);
+      (axios.get as jest.Mock).mockResolvedValue(mockSnapshotsResponse);
       renderWithProviders(<SnapshotHistory />);
 
       await waitFor(() => {
@@ -426,8 +426,8 @@ describe("SnapshotHistory", () => {
         },
       };
 
-      axios.get.mockResolvedValue(emptyResponse);
-      axios.post.mockRejectedValue(new Error("Delete failed"));
+      (axios.get as jest.Mock).mockResolvedValue(emptyResponse);
+      (axios.post as jest.Mock).mockRejectedValue(new Error("Delete failed"));
 
       // Mock console.error to avoid test output noise
       const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -458,8 +458,8 @@ describe("SnapshotHistory", () => {
         },
       };
 
-      axios.get.mockResolvedValue(emptyResponse);
-      axios.post.mockResolvedValue({ data: { success: true } });
+      (axios.get as jest.Mock).mockResolvedValue(emptyResponse);
+      (axios.post as jest.Mock).mockResolvedValue({ data: { success: true } });
       renderWithProviders(<SnapshotHistory />);
 
       await waitFor(() => {
