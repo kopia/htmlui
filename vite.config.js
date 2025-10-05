@@ -22,10 +22,10 @@ export default defineConfig(() => {
       host: "localhost",
       https: false,
       strictPort: true,
-      open: true,
+      open: process.env.VITE_KOPIA_ENDPOINT ? false : true,
       proxy: {
         "/api": {
-          target: "http://localhost:51515",
+          target: process.env.VITE_KOPIA_ENDPOINT,
           changeOrigin: true,
           secure: false,
         },
