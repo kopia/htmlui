@@ -18,7 +18,7 @@ function toDecimalUnitString(f: number, thousand: number, prefixes: string[], su
   return formatNumber(f) + " " + prefixes[prefixes.length - 1] + suffix;
 }
 
-export function sizeDisplayName(size: number, bytesStringBase2: boolean): string {
+export function sizeDisplayName(size: number | undefined, bytesStringBase2: boolean = false): string {
   if (size === undefined) {
     return "";
   }
@@ -32,14 +32,6 @@ export function intervalDisplayName() {
   return "-";
 }
 
-// This is never used
-export function timesOfDayDisplayName(v) {
-  if (!v) {
-    return "(none)";
-  }
-  return v.length + " times";
-}
-
 type QueryParams = { [param: string]: string };
 export function parseQuery(queryString: string): QueryParams {
   const query: QueryParams = {};
@@ -51,7 +43,7 @@ export function parseQuery(queryString: string): QueryParams {
   return query;
 }
 
-export function rfc3339TimestampForDisplay(n: number | string | Date) {
+export function rfc3339TimestampForDisplay(n: null | undefined | number | string | Date) {
   if (!n) {
     return "";
   }
@@ -216,7 +208,7 @@ export function formatMilliseconds(ms: number, useMultipleUnits = false): string
   );
 }
 
-export function formatDuration(from: number | string | Date, to: number | string | Date, useMultipleUnits = false) {
+export function formatDuration(from: undefined | null | number | string | Date, to?: number | string | Date, useMultipleUnits = false) {
   if (!from) {
     return "";
   }

@@ -52,7 +52,7 @@ export function checkPolicyPath(path: string) {
   return "Policies can not be defined for relative paths.";
 }
 
-export function PolicyTypeName(s) {
+export function PolicyTypeName(s: Partial<PolicyQueryParams>) {
   if (!s.host && !s.userName) {
     return "Global Policy";
   }
@@ -75,16 +75,9 @@ export interface PolicyQueryParams {
 };
 
 export function sourceQueryStringParams(src: PolicyQueryParams) {
-  return (
-    "userName=" +
-    encodeURIComponent(src.userName) +
-    "&host=" +
-    encodeURIComponent(src.host) +
-    "&path=" +
-    encodeURIComponent(src.path)
-  );
+  return `userName=${encodeURIComponent(src.userName)}&host=${encodeURIComponent(src.host)}&path=${encodeURIComponent(src.path)}`;
 }
 
 export function policyEditorURL(s: PolicyQueryParams) {
-  return "/policies/edit?" + sourceQueryStringParams(s);
+  return `/policies/edit?${sourceQueryStringParams(s)}`;
 }

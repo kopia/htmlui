@@ -104,17 +104,18 @@ describe("sourceQueryStringParams", () => {
     expect(result).toContain("path=%2Fpath%20with%20spaces");
   });
 
-  it("handles undefined or null values", () => {
-    const source = {
-      userName: undefined,
-      host: "examplehost",
-      path: null,
-    };
-    const result = sourceQueryStringParams(source);
-    expect(result).toContain("userName=undefined");
-    expect(result).toContain("host=examplehost");
-    expect(result).toContain("path=null");
-  });
+  // This shouldn't be possible with the current type definition and the expected fallback behavior is pointless since getSnapshotSourceFromURL in the backend doesn't support it.
+  // it("handles undefined or null values", () => {
+  //   const source = {
+  //     userName: undefined,
+  //     host: "examplehost",
+  //     path: null,
+  //   };
+  //   const result = sourceQueryStringParams(source);
+  //   expect(result).toContain("userName=undefined");
+  //   expect(result).toContain("host=examplehost");
+  //   expect(result).toContain("path=null");
+  // });
 
   it("handles empty values", () => {
     const source = {
@@ -195,11 +196,12 @@ describe("policyEditorURL", () => {
     expect(url).toContain("path=%2Fpath%20with%20spaces");
   });
 
-  it("handles empty source", () => {
-    const source = {};
-    const url = policyEditorURL(source);
-    expect(url).toBe("/policies/edit?userName=undefined&host=undefined&path=undefined");
-  });
+  // This shouldn't be possible with the current type definition and the expected fallback behavior is pointless since getSnapshotSourceFromURL in the backend doesn't support it.
+  // it("handles empty source", () => {
+  //   const source = {};
+  //   const url = policyEditorURL(source);
+  //   expect(url).toBe("/policies/edit?userName=undefined&host=undefined&path=undefined");
+  // });
 
   it("generates URL for global policy", () => {
     const source = { userName: "", host: "", path: "" };

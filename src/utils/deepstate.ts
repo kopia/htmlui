@@ -6,7 +6,7 @@
 // getDeepStateProperty("a.b") returns {"c":true}
 // getDeepStateProperty("a.b.c") returns true
 
-export function setDeepStateProperty(component: HasState, name: string, value: any): void {
+export function setDeepStateProperty(component: StateReadwrite, name: string, value: any): void {
   const newState = { ...component.state };
   let st = newState;
 
@@ -30,14 +30,15 @@ export function setDeepStateProperty(component: HasState, name: string, value: a
   component.setState(newState);
 }
 
-type HasState = { state: any; setState: (s: any) => void };
+type StateReadwrite = { state: any; setState: (s: any) => void };
+type StateReadonly = { state: any };
 
 // getDeepStateProperty returns the provided deep state property or a default value
 // For example: { "a": { "b": { "c": true } } }
 // getDeepStateProperty("a") returns {b":{"c":true}}
 // getDeepStateProperty("a.b") returns {"c":true}
 // getDeepStateProperty("a.b.c") returns true
-export function getDeepStateProperty(component: HasState, name: string, defaultValue = ""): any {
+export function getDeepStateProperty(component: StateReadonly, name: string, defaultValue: any = ""): any {
   let st = component.state;
   const parts = name.split(/\./);
 
