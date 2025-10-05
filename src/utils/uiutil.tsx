@@ -55,19 +55,24 @@ export function errorAlert(err, prefix?) {
   }
 }
 
-export function toAlgorithmOption(x, defaultID) {
-  let text = x.id;
+type Algorithm = {
+  id: string;
+  deprecated?: boolean;
+};
 
-  if (x.id === defaultID) {
-    text = x.id + " (RECOMMENDED)";
+export function toAlgorithmOption(algorithm: Algorithm, defaultID?) {
+  let text = algorithm.id;
+
+  if (algorithm.id === defaultID) {
+    text = algorithm.id + " (RECOMMENDED)";
   }
 
-  if (x.deprecated) {
-    text = x.id + " (NOT RECOMMENDED)";
+  if (algorithm.deprecated) {
+    text = algorithm.id + " (NOT RECOMMENDED)";
   }
 
   return (
-    <option key={x.id} value={x.id}>
+    <option key={algorithm.id} value={algorithm.id}>
       {text}
     </option>
   );

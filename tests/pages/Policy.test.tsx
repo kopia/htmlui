@@ -5,9 +5,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
-import { Policy } from "../../src/pages/Policy";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { Policy } from "../../src/pages/Policy.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
+import { PolicyQueryParams } from "../../src/utils/policyutil.js";
 
 // Mock React Router hooks using unified helper
 vi.mock("react-router-dom", async () => {
@@ -17,7 +18,7 @@ vi.mock("react-router-dom", async () => {
 
 // Mock the PolicyEditor component to avoid complex dependencies
 vi.mock("../../src/components/policy-editor/PolicyEditor", () => ({
-  PolicyEditor: React.forwardRef(function MockPolicyEditor(props, _ref) {
+  PolicyEditor: React.forwardRef(function MockPolicyEditor(props: PolicyQueryParams & { close }, _ref) {
     return (
       <div data-testid="policy-editor">
         <div>PolicyEditor Mock</div>

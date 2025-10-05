@@ -3,10 +3,10 @@ import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
-import { Policies, PoliciesInternal } from "../../src/pages/Policies";
-import { AppContext } from "../../src/contexts/AppContext";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { Policies, PoliciesInternal } from "../../src/pages/Policies.js";
+import { AppContext } from "../../src/contexts/AppContext.js";
+import { PageSize, UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
 import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
 
@@ -25,7 +25,7 @@ const mockAppContextValue = {
   repoDescription: "Test Repository",
 };
 
-const mockUIPreferencesContext = {
+const mockUIPreferencesContext: UIPreferences = {
   pageSize: 10,
   setPageSize: vi.fn(),
   theme: "light",
