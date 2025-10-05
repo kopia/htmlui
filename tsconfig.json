@@ -18,6 +18,6 @@
     "baseUrl": "./",
     "paths": {}
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "global.d.ts", "test/global.d.ts"],
   "exclude": ["node_modules", "build", "dist"]
 }

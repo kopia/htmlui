@@ -2,8 +2,8 @@
 import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor, act } from "@testing-library/react";
-import { SnapshotCreate } from "../../src/pages/SnapshotCreate";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { SnapshotCreate } from "../../src/pages/SnapshotCreate.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
@@ -31,7 +31,7 @@ vi.mock("../../src/components/GoBackButton", () => ({
 
 // Mock PolicyEditor with a simple implementation that tracks ref calls
 vi.mock("../../src/components/policy-editor/PolicyEditor", () => ({
-  PolicyEditor: React.forwardRef((props, ref) => {
+  PolicyEditor: React.forwardRef((props: { embedded, path }, ref) => {
     React.useImperativeHandle(ref, () => ({
       getAndValidatePolicy: vi.fn(() => ({ somePolicy: "data" })),
     }));
@@ -296,7 +296,7 @@ describe("SnapshotCreate component", () => {
   });
 
   test("handles API errors gracefully", async () => {
-    const { errorAlert } = await import("../../src/utils/uiutil");
+    const { errorAlert } = await import("../../src/utils/uiutil.js");
     const mockErrorAlert = vi.mocked(errorAlert);
 
     axiosMock.onGet("/api/v1/sources").reply(200, {
@@ -477,7 +477,7 @@ describe("SnapshotCreate component", () => {
   });
 
   test("handles sources API failure on mount", async () => {
-    const { redirect } = await import("../../src/utils/uiutil");
+    const { redirect } = await import("../../src/utils/uiutil.js");
     const mockRedirect = vi.mocked(redirect);
 
     axiosMock.onGet("/api/v1/sources").reply(500, {

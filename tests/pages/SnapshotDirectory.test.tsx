@@ -2,10 +2,11 @@ import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { SnapshotDirectory } from "../../src/pages/SnapshotDirectory";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { SnapshotDirectory } from "../../src/pages/SnapshotDirectory.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
+import "../../global.d.ts";
 
 let axiosMock;
 
@@ -33,7 +34,7 @@ vi.mock("../../src/components/DirectoryItems", () => ({
 }));
 
 // Minimal UIPreferences context value
-const mockUIPreferences = {
+const mockUIPreferences: UIPreferences = {
   pageSize: 10,
   theme: "light",
   bytesStringBase2: false,

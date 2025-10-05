@@ -34,7 +34,7 @@ describe("Select the light theme", () => {
       screen.getByRole("option", { name: "light" }),
     );
 
-    expect(screen.getByRole("option", { name: "light" }).selected).toBe(true);
+    expect((screen.getByRole("option", { name: "light" }) as HTMLOptionElement).selected).toBe(true);
   });
 });
 

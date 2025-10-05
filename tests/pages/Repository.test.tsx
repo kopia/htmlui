@@ -299,7 +299,7 @@ describe("Repository component - initializing state", () => {
       if (callCount === 1) {
         return [200, { connected: false, initTaskID: "task-123" }];
       } else {
-        return [200, { connected: true, description: "Connected!", ...connectedStatus }];
+        return [200, { ...connectedStatus, connected: true, description: "Connected!" }];
       }
     });
 
