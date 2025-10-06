@@ -225,29 +225,28 @@ export function formatDuration(from, to, useMultipleUnits = false) {
   return formatMilliseconds(ms, useMultipleUnits);
 }
 
-export class LocaleFormatUtils{
-
-  constructor( locale ){
-    if ( !locale || locale === '' ){
+export class LocaleFormatUtils {
+  constructor(locale) {
+    if (!locale || locale === "") {
       this.locale = undefined;
-    }else{
+    } else {
       this.locale = locale;
     }
   }
-  
+
   number(f) {
-    if (isNaN( parseFloat(f) )){
+    if (isNaN(parseFloat(f))) {
       return "";
     }
     return f.toLocaleString(this.locale);
   }
 
-  timestamp(ts){
+  timestamp(ts) {
     if (!ts) {
       return "";
     }
 
     let dt = new Date(ts);
-    return dt.toLocaleString( this.locale );
+    return dt.toLocaleString(this.locale);
   }
 }

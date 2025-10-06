@@ -63,27 +63,23 @@ export function DirectoryItems({ historyState, items }) {
       accessorFn: (x) => sizeInfo(x),
       header: "Size",
       width: 100,
-      cell: (x) => <div className="align-right">
-        {sizeWithFailures(x.cell.getValue(), x.row.original.summ, bytesStringBase2)}
-      </div>,
+      cell: (x) => (
+        <div className="align-right">{sizeWithFailures(x.cell.getValue(), x.row.original.summ, bytesStringBase2)}</div>
+      ),
     },
     {
       id: "files",
       accessorFn: (x) => (x.summ ? x.summ.files : undefined),
       header: "Files",
       width: 100,
-      cell: (x) => <div className="align-right">
-        {fmt.number(x.getValue())}
-      </div>
+      cell: (x) => <div className="align-right">{fmt.number(x.getValue())}</div>,
     },
     {
       id: "dirs",
       accessorFn: (x) => (x.summ ? x.summ.dirs : undefined),
       header: "Directories",
       width: 100,
-      cell: (x) => <div className="align-right">
-        {fmt.number(x.getValue())}
-      </div>
+      cell: (x) => <div className="align-right">{fmt.number(x.getValue())}</div>,
     },
   ];
 

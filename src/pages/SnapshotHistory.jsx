@@ -441,28 +441,23 @@ class SnapshotHistoryInternal extends Component {
         header: "Size",
         accessorFn: (x) => x.summary.size,
         width: 100,
-        cell: (x) =>
+        cell: (x) => (
           <div className="align-right">
             {sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2)}
-          </div>,
+          </div>
+        ),
       },
       {
         header: "Files",
         accessorFn: (x) => x.summary.files,
         width: 100,
-        cell: (x) =>
-          <div className="align-right">
-            {fmt.number(x.cell.getValue())}
-          </div>,
+        cell: (x) => <div className="align-right">{fmt.number(x.cell.getValue())}</div>,
       },
       {
         header: "Dirs",
         accessorFn: (x) => x.summary.dirs,
         width: 100,
-        cell: (x) =>
-          <div className="align-right">
-            {fmt.number(x.cell.getValue())}
-          </div>,
+        cell: (x) => <div className="align-right">{fmt.number(x.cell.getValue())}</div>,
       },
     ];
 
@@ -688,6 +683,6 @@ SnapshotHistoryInternal.propTypes = {
 export function SnapshotHistory(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   return <SnapshotHistoryInternal navigate={navigate} location={location} {...props} />;
 }

@@ -340,7 +340,7 @@ export class Snapshots extends Component {
         header: "Size",
         width: 120,
         accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0),
-        cell: (x) =>
+        cell: (x) => (
           <div className="align-right">
             {sizeWithFailures(
               x.cell.getValue(),
@@ -349,7 +349,8 @@ export class Snapshots extends Component {
                 : null,
               bytesStringBase2,
             )}
-          </div>,
+          </div>
+        ),
       },
       {
         id: "lastSnapshotTime",

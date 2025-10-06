@@ -114,9 +114,8 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
 
   const setLocale = (input: string) =>
     setPreferences((oldPreferences) => {
-      return { ...oldPreferences, locale:input };
-    }
-  );
+      return { ...oldPreferences, locale: input };
+    });
 
   useEffect(() => {
     axios
@@ -134,7 +133,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         } else {
           storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
         }
-        if (!storedPreferences.locale || ( storedPreferences.locale as string ) === "") {
+        if (!storedPreferences.locale || (storedPreferences.locale as string) === "") {
           storedPreferences.locale = DEFAULT_PREFERENCES.locale;
         }
         setTheme(storedPreferences.theme);
