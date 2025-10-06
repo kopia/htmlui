@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
-import { GoBackButton } from "../../src/components/GoBackButton";
+import { GoBackButton } from "../../src/components/GoBackButton.js";
 import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock react-router-dom using the unified helper

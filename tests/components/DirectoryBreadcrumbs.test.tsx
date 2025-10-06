@@ -3,7 +3,7 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
-import { DirectoryBreadcrumbs } from "../../src/components/DirectoryBreadcrumbs";
+import { DirectoryBreadcrumbs } from "../../src/components/DirectoryBreadcrumbs.js";
 import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock react-router-dom using unified helper
@@ -29,7 +29,7 @@ describe("DirectoryBreadcrumbs", () => {
     // Should render the Breadcrumb container but no items
     const breadcrumb = document.querySelector(".breadcrumb");
     expect(breadcrumb).toBeInTheDocument();
-    expect(breadcrumb.children).toHaveLength(0);
+    expect(breadcrumb!.children).toHaveLength(0);
   });
 
   it("renders single breadcrumb item", () => {
@@ -160,7 +160,7 @@ describe("DirectoryBreadcrumbs", () => {
 
     // Click on the info icon to show tooltip
     await act(async () => {
-      fireEvent.click(infoIcon);
+      fireEvent.click(infoIcon!);
     });
 
     // Check for tooltip content

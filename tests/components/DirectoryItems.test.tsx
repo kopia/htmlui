@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
-import { DirectoryItems } from "../../src/components/DirectoryItems";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
+import { DirectoryItems } from "../../src/components/DirectoryItems.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
 
 // Mock react-router-dom Link component using unified helper
 vi.mock("react-router-dom", async () => {
@@ -25,7 +25,7 @@ vi.mock("react-router-dom", async () => {
 
 // Helper function to render component with necessary providers
 const renderDirectoryItems = (props, contextOverrides = {}) => {
-  const defaultContext = {
+  const defaultContext: UIPreferences = {
     bytesStringBase2: false,
     pageSize: 10,
     theme: "light",
@@ -256,7 +256,7 @@ describe("DirectoryItems", () => {
     const linkElement = dirLink.closest("a");
 
     // Check that the link has the correct state data
-    const linkState = JSON.parse(linkElement.getAttribute("data-link-state"));
+    const linkState = JSON.parse(linkElement!.getAttribute("data-link-state")!);
     expect(linkState).toEqual({
       label: "sub-folder",
       oid: "kdir888",
