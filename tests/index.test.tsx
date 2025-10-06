@@ -68,10 +68,11 @@ describe("index.jsx", () => {
 
   test("handles missing root element by throwing error", async () => {
     // Mock getElementById to return null
-    document.getElementById.mockReturnValue(null);
+    (document.getElementById as jest.Mock).mockReturnValue(null);
 
     // Mock createRoot to throw an error when called with null
-    mockCreateRoot.mockImplementation((element) => {
+    mockCreateRoot.mockImplementation((...args) => {
+      const [element] = args as unknown as [HTMLElement | null];
       if (!element) {
         throw new Error("Target container is not a DOM element.");
       }
@@ -117,14 +118,14 @@ describe("index.jsx", () => {
 
   test("successfully loads CSS styles", async () => {
     // The CSS import is mocked, so we just verify the module loads without error
-    await expect(import("../src/index.jsx")).resolves.not.toThrow();
+    await expect(import("../src/index.js")).resolves.not.toThrow();
   });
 
   test("calls createRoot and render in correct order", async () => {
-    const callOrder = [];
+    const callOrder: string[] = [];
 
     // Track call order
-    mockCreateRoot.mockImplementation((_element) => {
+    mockCreateRoot.mockImplementation((..._args) => {
       callOrder.push("createRoot");
       return mockRoot;
     });
