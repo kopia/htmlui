@@ -101,7 +101,7 @@ describe("Logs Component", () => {
       // The component formats time as HH:MM:SS.mmm
       // For timestamp 1672531200.123, depending on timezone
       const timeElement = screen.getByText(/Test message/).parentElement;
-      expect(timeElement.textContent).toMatch(/\d{2}:\d{2}:\d{2}\.\d{3}/);
+      expect(timeElement!.textContent).toMatch(/\d{2}:\d{2}:\d{2}\.\d{3}/);
     });
   });
 
@@ -207,7 +207,7 @@ describe("Logs Component", () => {
     });
 
     // Clear the mock calls from initial render
-    Element.prototype.scrollIntoView.mockClear();
+    (Element.prototype.scrollIntoView as jest.Mock).mockClear();
 
     // Trigger the interval callback manually
     await triggerIntervals();
@@ -241,7 +241,7 @@ describe("Logs Component", () => {
     const initialCallCount = callCount;
 
     // Clear the mock calls from initial render
-    Element.prototype.scrollIntoView.mockClear();
+    (Element.prototype.scrollIntoView as jest.Mock).mockClear();
 
     // Trigger the interval callback manually
     await triggerIntervals();
@@ -307,7 +307,7 @@ describe("Logs Component", () => {
     const cell = container.querySelector("td.elide");
     expect(cell).toBeTruthy();
 
-    const title = cell.getAttribute("title");
+    const title = cell!.getAttribute("title");
     expect(title).toBeTruthy();
     expect(title).toMatch(/\d{1,2}\/\d{1,2}\/\d{4}/);
   });

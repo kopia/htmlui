@@ -6,13 +6,17 @@ import { redirect } from "../utils/uiutil";
 import PropTypes from "prop-types";
 import { ComponentChangeHandling, ChangeEventHandle } from "./types";
 
-export class Logs extends Component implements ComponentChangeHandling {
+interface LogsProps {
+  taskID: string;
+}
+
+export class Logs extends Component<LogsProps> implements ComponentChangeHandling {
   handleChange: ChangeEventHandle;
   interval: number;
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
 
-  constructor() {
-    super();
+  constructor(props: LogsProps) {
+    super(props);
     this.state = {
       items: [],
       isLoading: false,

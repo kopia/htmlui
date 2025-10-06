@@ -42,11 +42,42 @@ import { SectionHeaderRow } from "./SectionHeaderRow";
 import { ActionRowScript } from "./ActionRowScript";
 import { ActionRowTimeout } from "./ActionRowTimeout";
 import { ActionRowMode } from "./ActionRowMode";
-import PropTypes from "prop-types";
 import { ChangeEventHandle, ComponentChangeHandling } from "../types";
 
-export class PolicyEditor extends Component implements ComponentChangeHandling {
+type PolicyEditorProps = {
+  path?: string;
+  close: () => void;
+  embedded?: boolean;
+  isNew?: boolean;
+  params?: object;
+  navigate?: () => void;
+  location?: object;
+  userName?: string;
+  host?: string;
+} & PolicyQueryParams;
+
+type PolicyEditorState = {
+  items: any[];
+  isLoading: boolean;
+  error: Error | null;
+  algorithms?: any;
+  policy?: any;
+  resolved?: any;
+  resolvedError?: Error;
+  isNew?: boolean;
+  saving?: boolean;
+}
+
+type Policy = {
+  files?: any;
+  compression?: any;
+  scheduling?: any;
+  actions?: any;
+};
+
+export class PolicyEditor extends Component<PolicyEditorProps, PolicyEditorState> implements ComponentChangeHandling {
   handleChange: ChangeEventHandle;
+  lastResolvedPolicy?: any;
 
   constructor() {
     super();
@@ -77,7 +108,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: PolicyEditorProps, _prevState: PolicyEditorState, _snapshot: unknown) {
     if (sourceQueryStringParams(this.props) !== sourceQueryStringParams(prevProps)) {
       this.fetchPolicy(this.props);
     }
@@ -89,7 +120,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     }
   }
 
-  fetchPolicy(props) {
+  fetchPolicy(props: PolicyEditorProps) {
     axios
       .get(this.policyURL(props))
       .then((result) => {
@@ -114,7 +145,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
       });
   }
 
-  resolvePolicy(props) {
+  resolvePolicy(props: PolicyQueryParams) {
     const u = "/api/v1/policy/resolve?" + sourceQueryStringParams(props);
 
     try {
@@ -152,7 +183,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
         return l;
       }
 
-      let result = [];
+      const result = [];
       for (let i = 0; i < l.length; i++) {
         const s = l[i];
         if (s === "") {
@@ -177,7 +208,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     }
 
     // clone and clean up policy before saving
-    let policy = JSON.parse(JSON.stringify(this.state.policy));
+    const policy: Policy = JSON.parse(JSON.stringify(this.state.policy));
     if (policy.files) {
       if (policy.files.ignore) {
         policy.files.ignore = removeEmpty(policy.files.ignore);
@@ -214,7 +245,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     return policy;
   }
 
-  sanitizeActions(actions, actionTypes) {
+  sanitizeActions(actions, actionTypes: string[]) {
     actionTypes.forEach((actionType) => {
       if (actions[actionType]) {
         if (actions[actionType].script === undefined || actions[actionType].script === "") {
@@ -229,7 +260,7 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     return actions;
   }
 
-  saveChanges(e) {
+  saveChanges(e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
 
     try {
@@ -267,8 +298,8 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     }
   }
 
-  policyURL(props) {
-    return "/api/v1/policy?" + sourceQueryStringParams(props);
+  policyURL(props: PolicyQueryParams) {
+    return `/api/v1/policy?${sourceQueryStringParams(props)}`;
   }
 
   isGlobal() {
@@ -855,15 +886,3 @@ export class PolicyEditor extends Component implements ComponentChangeHandling {
     );
   }
 }
-
-PolicyEditor.propTypes = {
-  path: PropTypes.string,
-  close: PropTypes.func,
-  embedded: PropTypes.bool,
-  isNew: PropTypes.bool,
-  params: PropTypes.object.isRequired,
-  navigate: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
-  userName: PropTypes.string,
-  host: PropTypes.string,
-};

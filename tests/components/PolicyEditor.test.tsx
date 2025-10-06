@@ -118,8 +118,8 @@ it("e2e", async () => {
     </MemoryRouter>,
   );
 
-  await waitFor(() => expect(getByTestId("effective-retention.keepHourly").value).toBe("45"));
-  expect(getByTestId("effective-retention.keepLatest").value).toEqual("33");
+  await waitFor(() => expect((getByTestId("effective-retention.keepHourly") as HTMLInputElement).value).toBe("45"));
+  expect((getByTestId("effective-retention.keepLatest") as HTMLInputElement).value).toEqual("33");
 
   await waitFor(() =>
     expect(getByTestId("definition-retention.keepLatest").innerHTML).toContain(`Directory: some-user@h1:some-path`),
@@ -139,7 +139,7 @@ it("e2e", async () => {
   fireEvent.change(getByTestId("control-policy.retention.keepLatest"), { target: { value: "44" } });
 
   // this will trigger resolve and will update effective field: "(Defined by this policy)"
-  await waitFor(() => expect(getByTestId("effective-retention.keepLatest").value).toBe("44"));
+  await waitFor(() => expect((getByTestId("effective-retention.keepLatest") as HTMLInputElement).value).toBe("44"));
   await waitFor(() =>
     expect(getByTestId("definition-retention.keepLatest").innerHTML).toEqual("(Defined by this policy)"),
   );

@@ -5,21 +5,24 @@ import { expect, describe, it, vi, beforeEach } from "vitest";
 import "@testing-library/jest-dom";
 
 import KopiaTable from "../../src/components/KopiaTable";
-import { UIPreferencesContext, PAGE_SIZES } from "../../src/contexts/UIPreferencesContext";
+import { UIPreferencesContext, PAGE_SIZES, UIPreferences, PageSize } from "../../src/contexts/UIPreferencesContext";
 
 // Test data and mock setup
-const createMockContext = (pageSize = 10) => ({
-  pageSize,
-  setPageSize: vi.fn(),
-  theme: "light",
-  bytesStringBase2: false,
-  defaultSnapshotViewAll: false,
-  fontSize: "fs-6",
-  setTheme: vi.fn(),
-  setByteStringBase: vi.fn(),
-  setDefaultSnapshotViewAll: vi.fn(),
-  setFontSize: vi.fn(),
-});
+function createMockContext(pageSize: PageSize = 10) {
+  const pref: UIPreferences = {
+    pageSize,
+    setPageSize: vi.fn(),
+    theme: "light",
+    bytesStringBase2: false,
+    defaultSnapshotViewAll: false,
+    fontSize: "fs-6",
+    setTheme: vi.fn(),
+    setByteStringBase: vi.fn(),
+    setDefaultSnapshotViewAll: vi.fn(),
+    setFontSize: vi.fn(),
+  };
+  return pref;
+}
 
 const sampleColumns = [
   {
