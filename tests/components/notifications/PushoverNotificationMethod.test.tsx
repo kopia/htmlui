@@ -4,18 +4,18 @@ import { PushoverNotificationMethod } from "../../../src/components/notification
 import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
-  let ref = React.createRef();
+  let ref = React.createRef<PushoverNotificationMethod>();
   const { getByTestId } = render(<PushoverNotificationMethod ref={ref} />);
 
-  act(() => expect(ref.current.validate()).toBe(false));
+  act(() => expect(ref.current!.validate()).toBe(false));
   // required
   fireEvent.change(getByTestId("control-appToken"), { target: { value: "some-appToken" } });
   fireEvent.change(getByTestId("control-userKey"), { target: { value: "some-userKey" } });
-  expect(ref.current.validate()).toBe(true);
+  expect(ref.current!.validate()).toBe(true);
   // optional
-  expect(ref.current.validate()).toBe(true);
+  expect(ref.current!.validate()).toBe(true);
 
-  expect(ref.current.state).toStrictEqual({
+  expect(ref.current!.state).toStrictEqual({
     appToken: "some-appToken",
     userKey: "some-userKey",
     format: "txt",

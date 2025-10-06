@@ -105,13 +105,13 @@ beforeEach(() => {
   axiosMock.onPut("/api/v1/ui-preferences").reply(200, {});
 
   // Mock window.location for React Router
-  delete window.location;
+  window.location = undefined as any;
   window.location = {
     origin: "http://localhost:3000",
     href: "http://localhost:3000/",
     pathname: "/",
     replace: vi.fn(),
-  };
+  } as any;
 });
 
 afterEach(() => {

@@ -1,8 +1,9 @@
 import { vi } from "vitest";
+import "@testing-library/jest-dom";
 
 let intervalSpy;
 let clearIntervalSpy;
-let intervalCallbacks = [];
+let intervalCallbacks: { id: number, callback, delay }[] = [];
 let intervalId = 0;
 
 /**
@@ -16,7 +17,7 @@ export function setupIntervalMocks() {
   intervalSpy = vi.spyOn(window, "setInterval").mockImplementation((callback, delay) => {
     const id = ++intervalId;
     intervalCallbacks.push({ id, callback, delay });
-    return id;
+    return id as unknown as ReturnType<typeof setInterval>;
   });
 
   clearIntervalSpy = vi.spyOn(window, "clearInterval").mockImplementation((id) => {
@@ -52,7 +53,7 @@ export function getIntervalMockSpies() {
 export async function triggerIntervals() {
   const { act } = await import("@testing-library/react");
   await act(async () => {
-    intervalCallbacks.forEach(({ callback }) => {
+    intervalCallbacks.forEach(({ callback }: { callback: () => void }) => {
       callback();
     });
   });
@@ -60,9 +61,9 @@ export async function triggerIntervals() {
 
 /**
  * Helper function to wait for component to load and then trigger intervals
- * @param {RegExp|string} expectedText - Text to wait for before triggering intervals
+ * @param expectedText - Text to wait for before triggering intervals
  */
-export async function waitForLoadAndTriggerIntervals(expectedText) {
+export async function waitForLoadAndTriggerIntervals(expectedText: RegExp | string) {
   const { waitFor, screen, act } = await import("@testing-library/react");
 
   // Wait for the component to load first
