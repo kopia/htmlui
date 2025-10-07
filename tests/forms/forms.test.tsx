@@ -1,25 +1,27 @@
-import { render, fireEvent } from "@testing-library/react";
-import React from "react";
-import { vi } from "vitest";
-import PropTypes from "prop-types";
-import "@testing-library/jest-dom";
-import { validateRequiredFields, handleChange, stateProperty, valueToNumber, isInvalidNumber } from "../../src/forms";
-import { StringList, listToMultilineString, multilineStringToList } from "../../src/forms/StringList";
-import { OptionalFieldNoLabel } from "../../src/forms/OptionalFieldNoLabel";
-import { RequiredField } from "../../src/forms/RequiredField";
-import { OptionalField } from "../../src/forms/OptionalField";
-import { TimesOfDayList } from "../../src/forms/TimesOfDayList";
-import { RequiredNumberField } from "../../src/forms/RequiredNumberField";
-import { RequiredDirectory } from "../../src/forms/RequiredDirectory";
-import { OptionalNumberField } from "../../src/forms/OptionalNumberField";
 import { OptionalDirectory } from "../../src/forms/OptionalDirectory";
 import { OptionalBoolean } from "../../src/forms/OptionalBoolean";
 import { LogDetailSelector } from "../../src/forms/LogDetailSelector";
 import { RequiredBoolean } from "../../src/forms/RequiredBoolean";
+import { isInvalidNumber, stateProperty, validateRequiredFields, valueToNumber } from "../../src/forms";
+import { listToMultilineString, multilineStringToList, StringList } from "../../src/forms/StringList";
+import { fireEvent, render } from "@testing-library/react";
+import React from "react";
+import { RequiredField } from "../../src/forms/RequiredField";
+import { OptionalField } from "../../src/forms/OptionalField";
+import { OptionalFieldNoLabel } from "../../src/forms/OptionalFieldNoLabel";
+import { RequiredNumberField } from "../../src/forms/RequiredNumberField";
+import { OptionalNumberField } from "../../src/forms/OptionalNumberField";
+import { TimesOfDayList } from "../../src/forms/TimesOfDayList";
+import { RequiredDirectory } from "../../src/forms/RequiredDirectory";
+import { vi } from "vitest";
+import PropTypes from "prop-types";
+import { handleChange } from "../../src/forms";
 
 // Mock component class to simulate React component behavior
-class MockComponent extends React.Component {
-  state = {}; // Define state as class property
+export class MockComponent extends React.Component {
+  state: { [key: string]: any } = {}; // Define state as class property
+  _isTestComponent: boolean;
+  handleChange: unknown;
 
   constructor(props) {
     super(props);
@@ -46,7 +48,7 @@ class MockComponent extends React.Component {
 }
 
 // Test form component that uses all field types
-function TestFormComponent({ component }) {
+export function TestFormComponent({ component }) {
   return (
     <form>
       {RequiredField(component, "Required Text", "requiredText")}
@@ -73,7 +75,7 @@ describe("Forms Utility Functions", () => {
   let component;
 
   beforeEach(() => {
-    component = new MockComponent();
+    component = new MockComponent({});
   });
 
   describe("validateRequiredFields", () => {
@@ -170,22 +172,26 @@ describe("StringList Component", () => {
 
   describe("multilineStringToList", () => {
     it("should convert multiline string to array", () => {
-      expect(multilineStringToList({ value: "line1\nline2\nline3" })).toEqual(["line1", "line2", "line3"]);
+      expect(multilineStringToList({ value: "line1\nline2\nline3" } as HTMLTextAreaElement)).toEqual([
+        "line1",
+        "line2",
+        "line3",
+      ]);
     });
 
     it("should return undefined for empty string", () => {
-      expect(multilineStringToList({ value: "" })).toBeUndefined();
+      expect(multilineStringToList({ value: "" } as HTMLTextAreaElement)).toBeUndefined();
     });
   });
 
   it("should render and handle changes", () => {
-    const component = new MockComponent();
+    const component = new MockComponent({});
     component.setTestState({ stringList: ["item1", "item2"] });
 
     const { container } = render(<div>{StringList(component, "stringList")}</div>);
 
-    const textarea = container.querySelector('textarea[name="stringList"]');
-    expect(textarea.value).toBe("item1\nitem2");
+    const textarea = container.querySelector('textarea[name="stringList"]')!;
+    expect((textarea as HTMLTextAreaElement)!.value).toBe("item1\nitem2");
 
     fireEvent.change(textarea, { target: { value: "new1\nnew2\nnew3" } });
     expect(component.state.stringList).toEqual(["new1", "new2", "new3"]);
@@ -196,7 +202,7 @@ describe("Form Field Components", () => {
   let component;
 
   beforeEach(() => {
-    component = new MockComponent();
+    component = new MockComponent({});
   });
 
   describe("RequiredField", () => {
@@ -204,10 +210,10 @@ describe("Form Field Components", () => {
       component.setTestState({ test: "" });
       const { container } = render(<div>{RequiredField(component, "Test Label", "test")}</div>);
 
-      const input = container.querySelector('input[name="test"]');
+      const input = container.querySelector('input[name="test"]')!;
       expect(input.classList.contains("is-invalid")).toBe(true);
 
-      const label = container.querySelector("label");
+      const label = container.querySelector("label")!;
       expect(label.classList.contains("required")).toBe(true);
       expect(label.textContent).toBe("Test Label");
     });
@@ -216,7 +222,7 @@ describe("Form Field Components", () => {
       component.setTestState({ test: "value" });
       const { container } = render(<div>{RequiredField(component, "Test Label", "test")}</div>);
 
-      const input = container.querySelector('input[name="test"]');
+      const input = container.querySelector('input[name="test"]')!;
       expect(input.classList.contains("is-invalid")).toBe(false);
     });
   });
@@ -225,10 +231,10 @@ describe("Form Field Components", () => {
     it("should render without validation styling", () => {
       const { container } = render(<div>{OptionalField(component, "Optional Label", "optional")}</div>);
 
-      const input = container.querySelector('input[name="optional"]');
+      const input = container.querySelector('input[name="optional"]')!;
       expect(input.classList.contains("is-invalid")).toBe(false);
 
-      const label = container.querySelector("label");
+      const label = container.querySelector("label")!;
       expect(label.classList.contains("required")).toBe(false);
     });
   });
@@ -247,7 +253,7 @@ describe("Form Field Components", () => {
       component.setTestState({ num: "abc" });
       const { container } = render(<div>{RequiredNumberField(component, "Number", "num")}</div>);
 
-      const input = container.querySelector('input[name="num"]');
+      const input = container.querySelector('input[name="num"]')!;
       expect(input.classList.contains("is-invalid")).toBe(true);
     });
 
@@ -255,7 +261,7 @@ describe("Form Field Components", () => {
       component.setTestState({ num: "123" });
       const { container } = render(<div>{RequiredNumberField(component, "Number", "num")}</div>);
 
-      const input = container.querySelector('input[name="num"]');
+      const input = container.querySelector('input[name="num"]')!;
       expect(input.classList.contains("is-invalid")).toBe(false);
     });
   });
@@ -265,7 +271,7 @@ describe("Form Field Components", () => {
       component.setTestState({ optNum: "invalid" });
       const { container } = render(<div>{OptionalNumberField(component, "Optional Number", "optNum")}</div>);
 
-      const input = container.querySelector('input[name="optNum"]');
+      const input = container.querySelector('input[name="optNum"]')!;
       expect(input.classList.contains("is-invalid")).toBe(true);
     });
 
@@ -273,7 +279,7 @@ describe("Form Field Components", () => {
       component.setTestState({ optNum: "" });
       const { container } = render(<div>{OptionalNumberField(component, "Optional Number", "optNum")}</div>);
 
-      const input = container.querySelector('input[name="optNum"]');
+      const input = container.querySelector('input[name="optNum"]')!;
       expect(input.classList.contains("is-invalid")).toBe(false);
     });
   });
@@ -283,14 +289,14 @@ describe("Form Field Components", () => {
       component.setTestState({ bool: true });
       const { container } = render(<div>{RequiredBoolean(component, "Boolean Field", "bool")}</div>);
 
-      const checkbox = container.querySelector('input[type="checkbox"]');
+      const checkbox = container.querySelector('input[type="checkbox"]')! as HTMLInputElement;
       expect(checkbox.checked).toBe(true);
     });
 
     it("should handle checkbox changes", () => {
       const { container } = render(<div>{RequiredBoolean(component, "Boolean Field", "bool")}</div>);
 
-      const checkbox = container.querySelector('input[type="checkbox"]');
+      const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       fireEvent.click(checkbox);
       expect(component.state.bool).toBe(true);
     });
@@ -300,7 +306,7 @@ describe("Form Field Components", () => {
     it("should render select with three options", () => {
       const { container } = render(<div>{OptionalBoolean(component, "Optional Bool", "optBool", "Default")}</div>);
 
-      const select = container.querySelector("select");
+      const select = container.querySelector("select") as HTMLSelectElement;
       const options = select.querySelectorAll("option");
       expect(options).toHaveLength(3);
       expect(options[0].textContent).toBe("Default");
@@ -311,7 +317,7 @@ describe("Form Field Components", () => {
     it("should handle value changes", () => {
       const { container } = render(<div>{OptionalBoolean(component, "Optional Bool", "optBool", "Default")}</div>);
 
-      const select = container.querySelector("select");
+      const select = container.querySelector("select") as HTMLSelectElement;
       fireEvent.change(select, { target: { value: "true" } });
       expect(component.state.optBool).toBe(true);
 
@@ -324,7 +330,7 @@ describe("Form Field Components", () => {
     it("should render with proper options", () => {
       const { container } = render(<div>{LogDetailSelector(component, "logLevel")}</div>);
 
-      const select = container.querySelector("select");
+      const select = container.querySelector("select") as HTMLSelectElement;
       const options = select.querySelectorAll("option");
       expect(options.length).toBeGreaterThan(10);
       expect(options[0].textContent).toBe("(inherit from parent)");
@@ -333,7 +339,7 @@ describe("Form Field Components", () => {
     it("should handle numeric values", () => {
       const { container } = render(<div>{LogDetailSelector(component, "logLevel")}</div>);
 
-      const select = container.querySelector("select");
+      const select = container.querySelector("select") as HTMLSelectElement;
       fireEvent.change(select, { target: { value: "5" } });
       expect(component.state.logLevel).toBe(5);
     });
@@ -349,14 +355,14 @@ describe("Form Field Components", () => {
       });
       const { container } = render(<div>{TimesOfDayList(component, "times")}</div>);
 
-      const textarea = container.querySelector('textarea[name="times"]');
-      expect(textarea.value).toBe("9:30\n17:00");
+      const textarea = container.querySelector('textarea[name="times"]') as HTMLTextAreaElement;
+      expect(textarea!.value).toBe("9:30\n17:00");
     });
 
     it("should parse time strings correctly", () => {
       const { container } = render(<div>{TimesOfDayList(component, "times")}</div>);
 
-      const textarea = container.querySelector('textarea[name="times"]');
+      const textarea = container.querySelector('textarea[name="times"]') as HTMLTextAreaElement;
       fireEvent.change(textarea, { target: { value: "09:30\n17:00\ninvalid" } });
 
       expect(component.state.times).toEqual([{ hour: 9, min: 30 }, { hour: 17, min: 0 }, "invalid"]);
@@ -368,17 +374,17 @@ describe("Form Field Components", () => {
       component.setTestState({ dir: "" });
       const { container } = render(<div>{RequiredDirectory(component, "Required Dir", "dir")}</div>);
 
-      const input = container.querySelector('input[name="dir"]');
+      const input = container.querySelector('input[name="dir"]')!;
       expect(input.classList.contains("is-invalid")).toBe(true);
 
-      const label = container.querySelector("label");
+      const label = container.querySelector("label")!;
       expect(label.classList.contains("required")).toBe(true);
     });
 
     it("should render OptionalDirectory without validation", () => {
       const { container } = render(<div>{OptionalDirectory(component, "Optional Dir", "dir")}</div>);
 
-      const input = container.querySelector('input[name="dir"]');
+      const input = container.querySelector('input[name="dir"]')!;
       expect(input.classList.contains("is-invalid")).toBe(false);
     });
 
@@ -392,7 +398,7 @@ describe("Form Field Components", () => {
     it("should show button when kopiaUI is available", () => {
       // Mock window.kopiaUI
       const mockSelectDirectory = vi.fn();
-      globalThis.window.kopiaUI = { selectDirectory: mockSelectDirectory };
+      (globalThis.window as unknown as { kopiaUI }).kopiaUI = { selectDirectory: mockSelectDirectory };
 
       const { container } = render(<div>{RequiredDirectory(component, "Dir", "dir")}</div>);
 
@@ -400,7 +406,7 @@ describe("Form Field Components", () => {
       expect(button).toBeTruthy();
 
       // Clean up
-      delete globalThis.window.kopiaUI;
+      delete (globalThis.window as unknown as { kopiaUI }).kopiaUI;
     });
   });
 });
@@ -409,7 +415,7 @@ describe("Integrated Form Component", () => {
   let component;
 
   beforeEach(() => {
-    component = new MockComponent();
+    component = new MockComponent({});
   });
 
   it("should render all field types together", () => {
@@ -453,20 +459,20 @@ describe("Integrated Form Component", () => {
     expect(component.state.requiredBool).toBe(true);
 
     // Test select fields
-    const optionalBoolSelect = container.querySelector('select[name="optionalBool"]');
+    const optionalBoolSelect = container.querySelector('select[name="optionalBool"]')!;
     fireEvent.change(optionalBoolSelect, { target: { value: "true" } });
     expect(component.state.optionalBool).toBe(true);
 
-    const logLevelSelect = container.querySelector('select[name="logLevel"]');
+    const logLevelSelect = container.querySelector('select[name="logLevel"]')!;
     fireEvent.change(logLevelSelect, { target: { value: "5" } });
     expect(component.state.logLevel).toBe(5);
 
     // Test textarea fields
-    const stringListTextarea = container.querySelector('textarea[name="stringList"]');
+    const stringListTextarea = container.querySelector('textarea[name="stringList"]')!;
     fireEvent.change(stringListTextarea, { target: { value: "item1\nitem2" } });
     expect(component.state.stringList).toEqual(["item1", "item2"]);
 
-    const timesTextarea = container.querySelector('textarea[name="timesOfDay"]');
+    const timesTextarea = container.querySelector('textarea[name="timesOfDay"]')!;
     fireEvent.change(timesTextarea, { target: { value: "09:30\n17:00" } });
     expect(component.state.timesOfDay).toEqual([
       { hour: 9, min: 30 },
