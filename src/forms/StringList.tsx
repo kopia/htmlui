@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
 import { ComponentChangeHandling } from "src/components/types";
 
-export function listToMultilineString(v: any): string {
+export function listToMultilineString(v: undefined | null | string[]): string {
   if (v) {
     return v.join("\n");
   }
