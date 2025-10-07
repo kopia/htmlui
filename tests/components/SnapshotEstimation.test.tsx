@@ -3,13 +3,13 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { SnapshotEstimation } from "../../src/components/SnapshotEstimation";
-import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
-import { setupAPIMock } from "../testutils/api-mocks";
+import { SnapshotEstimation } from "../../src/components/SnapshotEstimation.js";
+import { UIPreferences, UIPreferencesContext } from "../../src/contexts/UIPreferencesContext.js";
+import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
 import { resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 import PropTypes from "prop-types";
-import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../testutils/interval-mocks";
+import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../testutils/interval-mocks.js";
 
 // Mock Logs component to avoid complex dependencies
 vi.mock("../../src/components/Logs", () => ({
@@ -49,18 +49,20 @@ vi.mock("../../src/utils/taskutil", async () => {
 });
 
 // Create mock UI preferences context
-const createMockUIContext = () => ({
-  pageSize: 10,
-  bytesStringBase2: false,
-  defaultSnapshotViewAll: false,
-  theme: "light",
-  fontSize: "fs-6",
-  setTheme: vi.fn(),
-  setPageSize: vi.fn(),
-  setByteStringBase: vi.fn(),
-  setDefaultSnapshotViewAll: vi.fn(),
-  setFontSize: vi.fn(),
-});
+function createMockUIContext(): UIPreferences {
+  return {
+    pageSize: 10,
+    bytesStringBase2: false,
+    defaultSnapshotViewAll: false,
+    theme: "light",
+    fontSize: "fs-6",
+    setTheme: vi.fn(),
+    setPageSize: vi.fn(),
+    setByteStringBase: vi.fn(),
+    setDefaultSnapshotViewAll: vi.fn(),
+    setFontSize: vi.fn(),
+  };
+}
 
 // Mock server
 let serverMock;
@@ -266,8 +268,7 @@ describe("SnapshotEstimation", () => {
 
       serverMock.onGet("/api/v1/tasks/test-task-id").reply(200, task);
 
-      const uiContext = createMockUIContext();
-      uiContext.bytesStringBase2 = false;
+      const uiContext = { ...createMockUIContext(), bytesStringBase2: false };
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />, uiContext);
 
@@ -298,8 +299,7 @@ describe("SnapshotEstimation", () => {
 
       serverMock.onGet("/api/v1/tasks/test-task-id").reply(200, task);
 
-      const uiContext = createMockUIContext();
-      uiContext.bytesStringBase2 = true;
+      const uiContext = { ...createMockUIContext(), bytesStringBase2: true };
 
       renderWithProviders(<SnapshotEstimation taskID="test-task-id" />, uiContext);
 
@@ -368,7 +368,7 @@ describe("SnapshotEstimation", () => {
 
   describe("Cancel task functionality", () => {
     it("calls cancelTask when cancel button is clicked", async () => {
-      const { cancelTask } = await import("../../src/utils/taskutil");
+      const { cancelTask } = await import("../../src/utils/taskutil.js");
 
       const runningTask = {
         id: "test-task-id",
@@ -592,7 +592,7 @@ describe("SnapshotEstimation", () => {
 
   describe("Error handling edge cases", () => {
     it("handles redirect on API error", async () => {
-      const { redirect } = await import("../../src/utils/uiutil");
+      const { redirect } = await import("../../src/utils/uiutil.js");
 
       serverMock.onGet("/api/v1/tasks/test-task-id").reply(401, {
         code: "NOT_CONNECTED",
@@ -650,8 +650,7 @@ describe("SnapshotEstimation", () => {
 
       serverMock.onGet("/api/v1/tasks/test-task-id").reply(200, task);
 
-      const uiContext = createMockUIContext();
-      uiContext.bytesStringBase2 = false; // Start with base 10
+      const uiContext = { ...createMockUIContext(), bytesStringBase2: false };
 
       const { rerender } = renderWithProviders(<SnapshotEstimation taskID="test-task-id" />, uiContext);
 
