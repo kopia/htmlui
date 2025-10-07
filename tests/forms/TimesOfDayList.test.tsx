@@ -4,8 +4,19 @@ import PropTypes from "prop-types";
 import { TimesOfDayList } from "../../src/forms/TimesOfDayList";
 import { fireEvent } from "@testing-library/react";
 
+interface MockFormComponentProps {
+  fieldName: string;
+  initialState?: Record<string, unknown>;
+  props?: Record<string, unknown>;
+}
+
+interface MockFormComponentState {
+  testField: unknown;
+  [key: string]: unknown; // This is here for handleChange to work with dynamic field names
+}
+
 // Mock component to simulate the form component that would use TimesOfDayList
-class MockFormComponent extends React.Component {
+class MockFormComponent extends React.Component<MockFormComponentProps, MockFormComponentState> {
   static propTypes = {
     fieldName: PropTypes.string.isRequired,
     initialState: PropTypes.object,
@@ -33,7 +44,7 @@ describe("TimesOfDayList", () => {
   it("renders empty textarea when no times are set", () => {
     const { getByRole } = render(<MockFormComponent fieldName="testField" />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe("");
   });
 
@@ -48,7 +59,7 @@ describe("TimesOfDayList", () => {
 
     const { getByRole } = render(<MockFormComponent fieldName="testField" initialState={initialState} />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe("9:30\n15:45\n23:00");
   });
 
@@ -59,12 +70,12 @@ describe("TimesOfDayList", () => {
 
     const { getByRole } = render(<MockFormComponent fieldName="testField" initialState={initialState} />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe("9:30\ninvalid-time\n15:45");
   });
 
   it("parses valid time strings correctly", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
     const textarea = getByRole("textbox");
@@ -73,7 +84,7 @@ describe("TimesOfDayList", () => {
       fireEvent.change(textarea, { target: { value: "9:30\n15:45\n23:00" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 9, min: 30 },
       { hour: 15, min: 45 },
       { hour: 23, min: 0 },
@@ -81,7 +92,7 @@ describe("TimesOfDayList", () => {
   });
 
   it("handles mixed valid and invalid time strings", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
     const textarea = getByRole("textbox");
@@ -90,7 +101,7 @@ describe("TimesOfDayList", () => {
       fireEvent.change(textarea, { target: { value: "9:30\ninvalid\n15:45\n25:00\n12:5" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 9, min: 30 },
       "invalid",
       { hour: 15, min: 45 },
@@ -100,7 +111,7 @@ describe("TimesOfDayList", () => {
   });
 
   it("validates hour range (0-23)", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
     const textarea = getByRole("textbox");
@@ -109,7 +120,7 @@ describe("TimesOfDayList", () => {
       fireEvent.change(textarea, { target: { value: "0:00\n23:59\n24:00\n-1:00" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 0, min: 0 },
       { hour: 23, min: 59 },
       "24:00", // Invalid - hour >= 24
@@ -118,16 +129,16 @@ describe("TimesOfDayList", () => {
   });
 
   it("validates minute range (0-59)", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
 
     act(() => {
       fireEvent.change(textarea, { target: { value: "12:00\n12:59\n12:60\n12:-1" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 12, min: 0 },
       { hour: 12, min: 59 },
       "12:60", // Invalid - minute >= 60
@@ -136,16 +147,16 @@ describe("TimesOfDayList", () => {
   });
 
   it("requires two-digit minute format for single digits", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
 
     act(() => {
       fireEvent.change(textarea, { target: { value: "12:05\n12:5\n12:00\n12:9" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 12, min: 5 }, // Valid - two digits
       "12:5", // Invalid - single digit minute
       { hour: 12, min: 0 }, // Valid - 00 is two digits
@@ -154,7 +165,7 @@ describe("TimesOfDayList", () => {
   });
 
   it("handles empty string input", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
     const textarea = getByRole("textbox");
@@ -163,20 +174,20 @@ describe("TimesOfDayList", () => {
       fireEvent.change(textarea, { target: { value: "" } });
     });
 
-    expect(ref.current.state.testField).toBeUndefined();
+    expect(ref.current!.state.testField).toBeUndefined();
   });
 
   it("handles whitespace and empty lines", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
 
     act(() => {
       fireEvent.change(textarea, { target: { value: "9:30\n\n15:45\n   \n23:00" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 9, min: 30 },
       "",
       { hour: 15, min: 45 },
@@ -196,21 +207,21 @@ describe("TimesOfDayList", () => {
 
     const { getByRole } = render(<MockFormComponent fieldName="testField" initialState={initialState} />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe("9:05\n12:00\n15:30");
   });
 
   it("preserves order of times", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
 
     act(() => {
       fireEvent.change(textarea, { target: { value: "23:59\n00:01\n12:30\n06:15" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       { hour: 23, min: 59 },
       { hour: 0, min: 1 },
       { hour: 12, min: 30 },
@@ -219,7 +230,7 @@ describe("TimesOfDayList", () => {
   });
 
   it("handles complex regex edge cases", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(<MockFormComponent ref={ref} fieldName="testField" />);
 
     const textarea = getByRole("textbox");
@@ -228,7 +239,7 @@ describe("TimesOfDayList", () => {
       fireEvent.change(textarea, { target: { value: "1:2:3\n12:\n:30\n12:30:00\n12.30" } });
     });
 
-    expect(ref.current.state.testField).toEqual([
+    expect(ref.current!.state.testField).toEqual([
       "1:2:3", // Invalid - matches regex but has extra number
       "12:", // Invalid - no minutes
       ":30", // Invalid - no hours
@@ -246,7 +257,7 @@ describe("TimesOfDayList", () => {
 
     const { getByTestId } = render(<MockFormComponent fieldName="testField" props={props} />);
 
-    const textarea = getByTestId("times-input");
+    const textarea = getByTestId("times-input") as HTMLTextAreaElement;
     expect(textarea.placeholder).toBe("Enter times");
     expect(textarea.disabled).toBe(true);
   });
@@ -254,7 +265,7 @@ describe("TimesOfDayList", () => {
   it("has correct textarea attributes", () => {
     const { getByRole } = render(<MockFormComponent fieldName="testField" />);
 
-    const textarea = getByRole("textbox");
+    const textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.tagName).toBe("TEXTAREA");
     expect(textarea.rows).toBe(5);
     expect(textarea.name).toBe("testField");
@@ -263,26 +274,26 @@ describe("TimesOfDayList", () => {
   it("displays validation feedback message", () => {
     const { container } = render(<MockFormComponent fieldName="testField" />);
 
-    const feedback = container.querySelector(".invalid-feedback");
+    const feedback = container.querySelector(".invalid-feedback") as HTMLElement;
     expect(feedback).toBeTruthy();
     expect(feedback.textContent).toBe("Invalid Times of Day");
   });
 
   it("updates display when component state changes", () => {
-    let ref = React.createRef();
+    const ref = React.createRef<MockFormComponent>();
     const { getByRole } = render(
       <MockFormComponent ref={ref} fieldName="testField" initialState={{ testField: [{ hour: 9, min: 30 }] }} />,
     );
 
-    let textarea = getByRole("textbox");
+    let textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe("9:30");
 
     // Update the component state and rerender
     act(() => {
-      ref.current.setState({ testField: [{ hour: 15, min: 45 }] });
+      ref.current!.setState({ testField: [{ hour: 15, min: 45 }] });
     });
 
-    textarea = getByRole("textbox");
+    textarea = getByRole("textbox") as HTMLTextAreaElement;
     expect(textarea.value).toBe("15:45");
   });
 });
