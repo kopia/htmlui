@@ -26,7 +26,7 @@ import { OptionalNumberField } from "../../forms/OptionalNumberField";
 import { RequiredBoolean } from "../../forms/RequiredBoolean";
 import { TimesOfDayList } from "../../forms/TimesOfDayList";
 import { errorAlert, toAlgorithmOption } from "../../utils/uiutil";
-import { PolicyQueryParams, sourceQueryStringParams } from "../../utils/policyutil";
+import { PolicyKey, sourceQueryStringParams } from "../../utils/policyutil";
 import { PolicyEditorLink } from "../PolicyEditorLink";
 import { LabelColumn } from "./LabelColumn";
 import { ValueColumn } from "./ValueColumn";
@@ -54,7 +54,7 @@ type PolicyEditorProps = {
   location?: object;
   userName?: string;
   host?: string;
-} & PolicyQueryParams;
+} & PolicyKey;
 
 type PolicyEditorState = {
   items: any[];
@@ -145,7 +145,7 @@ export class PolicyEditor extends Component<PolicyEditorProps, PolicyEditorState
       });
   }
 
-  resolvePolicy(props: PolicyQueryParams) {
+  resolvePolicy(props: PolicyKey) {
     const u = "/api/v1/policy/resolve?" + sourceQueryStringParams(props);
 
     try {
@@ -165,7 +165,7 @@ export class PolicyEditor extends Component<PolicyEditorProps, PolicyEditorState
     }
   }
 
-  PolicyDefinitionPoint(p: PolicyQueryParams) {
+  PolicyDefinitionPoint(p: PolicyKey) {
     if (!p) {
       return "";
     }
@@ -298,7 +298,7 @@ export class PolicyEditor extends Component<PolicyEditorProps, PolicyEditorState
     }
   }
 
-  policyURL(props: PolicyQueryParams) {
+  policyURL(props: PolicyKey) {
     return `/api/v1/policy?${sourceQueryStringParams(props)}`;
   }
 

@@ -10,7 +10,8 @@ vi.mock("react-router-dom", async () => {
   return createRouterMock()();
 });
 
-import { PolicyEditorLink } from "../../src/components/PolicyEditorLink";
+import { PolicyEditorLink } from "../../src/components/PolicyEditorLink.js";
+import { PolicyKey } from "../../src/utils/policyutil.js";
 
 // Helper to render components with router
 const renderWithRouter = (component) => {
@@ -19,7 +20,7 @@ const renderWithRouter = (component) => {
 
 describe("PolicyEditorLink", () => {
   it("renders link with correct URL and text", () => {
-    const source = {
+    const source: PolicyKey = {
       userName: "john",
       host: "example.com",
       path: "/home/john",

@@ -52,7 +52,7 @@ export function checkPolicyPath(path: string) {
   return "Policies can not be defined for relative paths.";
 }
 
-export function PolicyTypeName(s: Partial<PolicyQueryParams>) {
+export function PolicyTypeName(s: PolicyKey) {
   if (!s.host && !s.userName) {
     return "Global Policy";
   }
@@ -68,16 +68,20 @@ export function PolicyTypeName(s: Partial<PolicyQueryParams>) {
   return "Directory: " + s.userName + "@" + s.host + ":" + s.path;
 }
 
-export interface PolicyQueryParams {
-  userName: string;
-  host: string;
-  path: string;
+export interface PolicyKey {
+  userName?: string;
+  host?: string;
+  path?: string;
 };
 
-export function sourceQueryStringParams(src: PolicyQueryParams) {
-  return `userName=${encodeURIComponent(src.userName)}&host=${encodeURIComponent(src.host)}&path=${encodeURIComponent(src.path)}`;
+export function sourceQueryStringParams(src: PolicyKey) {
+  // encodeURIComponent will in practice handle missing values too, but that is undefined behavior
+  const user = src.userName ? encodeURIComponent(src.userName) : "";
+  const host = src.host ? encodeURIComponent(src.host) : "";
+  const path = src.path ? encodeURIComponent(src.path) : "";
+  return `userName=${user}&host=${host}&path=${path}`;
 }
 
-export function policyEditorURL(s: PolicyQueryParams) {
+export function policyEditorURL(s: PolicyKey) {
   return `/policies/edit?${sourceQueryStringParams(s)}`;
 }

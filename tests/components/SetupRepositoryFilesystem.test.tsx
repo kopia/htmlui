@@ -4,15 +4,15 @@ import { SetupRepositoryFilesystem } from "../../src/components/SetupRepositoryF
 import { fireEvent } from "@testing-library/react";
 
 it("can set fields", async () => {
-  let ref = React.createRef();
+  const ref = React.createRef<SetupRepositoryFilesystem>();
   const { getByTestId } = render(<SetupRepositoryFilesystem ref={ref} />);
 
-  act(() => expect(ref.current.validate()).toBe(false));
+  act(() => expect(ref.current!.validate()).toBe(false));
   // required
   fireEvent.change(getByTestId("control-path"), { target: { value: "some-path" } });
-  expect(ref.current.validate()).toBe(true);
+  expect(ref.current!.validate()).toBe(true);
 
-  expect(ref.current.state).toStrictEqual({
+  expect(ref.current!.state).toStrictEqual({
     path: "some-path",
   });
 });
