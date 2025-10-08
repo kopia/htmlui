@@ -22,13 +22,13 @@ afterEach(() => {
 });
 
 // Helper component to access context values
-const TestComponent = ({ onMount }) => {
+function TestComponent({ onMount }) {
   const preferences = useContext(UIPreferencesContext);
   React.useEffect(() => {
     onMount(preferences);
   }, [preferences, onMount]);
   return null;
-};
+}
 
 describe("UIPreferencesContext", () => {
   describe("Default values", () => {
@@ -41,7 +41,7 @@ describe("UIPreferencesContext", () => {
 
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -74,7 +74,7 @@ describe("UIPreferencesContext", () => {
 
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -100,7 +100,7 @@ describe("UIPreferencesContext", () => {
 
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -129,7 +129,7 @@ describe("UIPreferencesContext", () => {
 
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -162,7 +162,7 @@ describe("UIPreferencesContext", () => {
 
         let capturedPreferences;
         const { unmount } = render(
-          <UIPreferenceProvider>
+          <UIPreferenceProvider initalValue={undefined}>
             <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
           </UIPreferenceProvider>,
         );
@@ -191,7 +191,7 @@ describe("UIPreferencesContext", () => {
     it("should update theme and sync with HTML classes", async () => {
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -219,7 +219,7 @@ describe("UIPreferencesContext", () => {
     it("should update font size and sync with HTML classes", async () => {
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -242,7 +242,7 @@ describe("UIPreferencesContext", () => {
     it("should update page size", async () => {
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -263,7 +263,7 @@ describe("UIPreferencesContext", () => {
     it("should update bytesStringBase2", async () => {
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -292,7 +292,7 @@ describe("UIPreferencesContext", () => {
     it("should update defaultSnapshotViewAll", async () => {
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
@@ -337,7 +337,7 @@ describe("UIPreferencesContext", () => {
       axiosMock.onPut("/api/v1/ui-preferences").reply(200);
 
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={() => {}} />
         </UIPreferenceProvider>,
       );
@@ -371,7 +371,7 @@ describe("UIPreferencesContext", () => {
 
       let capturedPreferences;
       render(
-        <UIPreferenceProvider>
+        <UIPreferenceProvider initalValue={undefined}>
           <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
         </UIPreferenceProvider>,
       );
