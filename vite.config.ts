@@ -20,7 +20,7 @@ export default defineConfig(() => {
     server: {
       port: 3000,
       host: "localhost",
-      https: false,
+      https: undefined,
       strictPort: true,
       open: process.env.VITE_KOPIA_ENDPOINT ? false : true,
       proxy: {
