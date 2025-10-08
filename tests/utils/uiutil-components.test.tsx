@@ -4,19 +4,27 @@ import "@testing-library/jest-dom";
 import { sizeWithFailures } from "../../src/utils/uiutil";
 import { taskStatusSymbol } from "../../src/utils/taskutil";
 
+const sizeWithFailuresNoElement = new Error("sizeWithFailures did not return a React element, this is not expected behavior");
+
 describe("sizeWithFailures", () => {
   it("returns empty string for undefined size", () => {
-    expect(sizeWithFailures(undefined)).toBe("");
+    expect(sizeWithFailures(undefined, undefined, false)).toBe("");
   });
 
   it("returns simple size display without errors", () => {
     const result = sizeWithFailures(1024, null, false);
+    if (typeof result === "string") {
+      throw sizeWithFailuresNoElement;
+    }
     expect(result.props.children).toBe("1 KB");
   });
 
   it("returns simple size display when no failures", () => {
     const summ = { errors: [], numFailed: 0 };
     const result = sizeWithFailures(1024, summ, false);
+    if (typeof result === "string") {
+      throw sizeWithFailuresNoElement;
+    }
     expect(result.props.children).toBe("1 KB");
   });
 
@@ -26,6 +34,9 @@ describe("sizeWithFailures", () => {
       numFailed: 1,
     };
     const result = sizeWithFailures(1024, summ, false);
+    if (typeof result === "string") {
+      throw sizeWithFailuresNoElement;
+    }
 
     // Should be a span containing size, nbsp, and error icon
     expect(result.type).toBe("span");
@@ -43,6 +54,9 @@ describe("sizeWithFailures", () => {
       numFailed: 2,
     };
     const result = sizeWithFailures(1024, summ, false);
+    if (typeof result === "string") {
+      throw sizeWithFailuresNoElement;
+    }
 
     expect(result.type).toBe("span");
     // Check that error icon has the correct title format
@@ -58,6 +72,9 @@ describe("sizeWithFailures", () => {
       numFailed: 1,
     };
     const result = sizeWithFailures(1024, summ, false);
+    if (typeof result === "string") {
+      throw sizeWithFailuresNoElement;
+    }
 
     const errorIcon = result.props.children[2]; // Third element is the icon
     expect(errorIcon.props.title).toContain("Error: ");

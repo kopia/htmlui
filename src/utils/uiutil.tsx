@@ -3,7 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { sizeDisplayName } from "./formatutils.js";
 
-export function sizeWithFailures(size?: number, summ, bytesStringBase2: boolean) {
+export function sizeWithFailures(
+  size?: number,
+  summ?: { errors: { path: string; error: string; }[]; numFailed: number } | null,
+  bytesStringBase2?: boolean,
+): "" | React.JSX.Element {
   if (size === undefined) {
     return "";
   }
@@ -31,7 +35,7 @@ export function sizeWithFailures(size?: number, summ, bytesStringBase2: boolean)
 
 /**
  * In case of an error, redirect to the repository selection
- * @param {error} The error that was returned
+ * @param {error} e The error that was returned
  */
 export function redirect(e) {
   if (e && e.response && e.response.data && e.response.data.code === "NOT_CONNECTED") {
