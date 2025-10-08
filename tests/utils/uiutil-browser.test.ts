@@ -6,16 +6,21 @@ describe("redirect", () => {
 
   beforeAll(() => {
     // Mock window.location.replace
-    delete window.location;
-    window.location = { replace: vi.fn() };
+    Object.defineProperty(window, "location", {
+      configurable: true,
+      value: { replace: vi.fn() },
+    });
   });
 
   afterAll(() => {
-    window.location = originalLocation;
+    Object.defineProperty(window, "location", {
+      configurable: true,
+      value: originalLocation,
+    });
   });
 
   beforeEach(() => {
-    window.location.replace.mockClear();
+    (window.location.replace as jest.Mock).mockClear();
   });
 
   it("redirects to /repo when error code is NOT_CONNECTED", () => {
@@ -69,7 +74,7 @@ describe("errorAlert", () => {
   });
 
   beforeEach(() => {
-    window.alert.mockClear();
+    (window.alert as jest.Mock).mockClear();
   });
 
   it("shows error message from response data", () => {
