@@ -93,6 +93,17 @@ export function createRouterMock(options = {}) {
     searchParams = DEFAULT_STATE.searchParams,
     simple = false,
     components = {},
+  }: {
+    location?: typeof DEFAULT_STATE.location;
+    params?: Record<string, string>;
+    navigate?: typeof DEFAULT_STATE.navigate;
+    searchParams?: URLSearchParams | Record<string, string> | string;
+    simple?: boolean;
+    components?: {
+      link?: boolean;
+      navLink?: boolean;
+      only?: boolean;
+    };
   } = options;
 
   const { link: mockLink = true, navLink: mockNavLink = true, only: componentsOnly = false } = components;
@@ -122,7 +133,7 @@ export function createRouterMock(options = {}) {
 // Component-only mock (minimal footprint)
 function createComponentOnlyMock({ mockLink, mockNavLink }) {
   return () => {
-    const mocks = {};
+    const mocks: { Link?: typeof MockLink; NavLink?: typeof MockNavLink } = {};
     if (mockLink) mocks.Link = MockLink;
     if (mockNavLink) mocks.NavLink = MockNavLink;
     return mocks;
@@ -132,7 +143,14 @@ function createComponentOnlyMock({ mockLink, mockNavLink }) {
 // Simple mock (no actual implementation)
 function createSimpleMock({ navigate, mockLink, mockNavLink }) {
   return () => {
-    const mocks = {
+    const mocks: {
+      useNavigate: () => typeof navigate;
+      useLocation: () => ReturnType<typeof mockUseLocation>;
+      useParams: () => ReturnType<typeof mockUseParams>;
+      useSearchParams: () => ReturnType<typeof mockUseSearchParams>;
+      Link?: typeof MockLink;
+      NavLink?: typeof MockNavLink;
+    } = {
       useNavigate: () => navigate,
       useLocation: () => mockUseLocation(),
       useParams: () => mockUseParams(),
@@ -150,7 +168,14 @@ function createSimpleMock({ navigate, mockLink, mockNavLink }) {
 function createFullMock({ navigate, mockLink, mockNavLink }) {
   return async () => {
     const actual = await vi.importActual("react-router-dom");
-    const mocks = {
+    const mocks: {
+      useNavigate: () => typeof navigate;
+      useLocation: () => ReturnType<typeof mockUseLocation>;
+      useParams: () => ReturnType<typeof mockUseParams>;
+      useSearchParams: () => ReturnType<typeof mockUseSearchParams>;
+      Link?: typeof MockLink;
+      NavLink?: typeof MockNavLink;
+    } = {
       ...actual,
       useNavigate: () => navigate,
       useLocation: () => mockUseLocation(),
@@ -185,7 +210,11 @@ export function resetRouterMocks() {
  * @param {Object} [state.params] - Params object to mock
  * @param {URLSearchParams|Object} [state.searchParams] - Search params to mock
  */
-export function updateRouterMocks(state = {}) {
+export function updateRouterMocks(state: {
+  location?: typeof DEFAULT_STATE.location;
+  params?: Record<string, string>;
+  searchParams?: URLSearchParams | Record<string, string> | string;
+} = {}) {
   if (state.location) {
     mockUseLocation.mockReturnValue({ ...DEFAULT_STATE.location, ...state.location });
   }
