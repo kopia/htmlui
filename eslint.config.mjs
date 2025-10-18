@@ -25,10 +25,10 @@ export default defineConfig([
   },
   {
     rules: {
-      "prefer-const": "warn",
+      "prefer-const": "off",
       "no-var": "warn",
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   pluginReact.configs.flat.recommended,
