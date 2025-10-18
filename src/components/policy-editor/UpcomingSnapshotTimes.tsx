@@ -7,7 +7,6 @@ export function UpcomingSnapshotTimes(resolved: { schedulingError?: string; upco
     return null;
   }
 
-  // This is only mentioned here
   if (resolved.schedulingError) {
     return <p className="error">{resolved.schedulingError}</p>;
   }
