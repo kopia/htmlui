@@ -57,9 +57,12 @@ interface SnapshotRestoreInternalState {
   minSizeForPlaceholder: number;
   restoreTask: string;
   destination?: string;
-};
+}
 
-export class SnapshotRestoreInternal extends Component<any, SnapshotRestoreInternalState> implements ComponentChangeHandling {
+export class SnapshotRestoreInternal
+  extends Component<any, SnapshotRestoreInternalState>
+  implements ComponentChangeHandling
+{
   handleChange: ChangeEventHandle;
 
   constructor() {

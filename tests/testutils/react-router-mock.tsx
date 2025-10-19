@@ -210,11 +210,13 @@ export function resetRouterMocks() {
  * @param {Object} [state.params] - Params object to mock
  * @param {URLSearchParams|Object} [state.searchParams] - Search params to mock
  */
-export function updateRouterMocks(state: {
-  location?: typeof DEFAULT_STATE.location;
-  params?: Record<string, string>;
-  searchParams?: URLSearchParams | Record<string, string> | string;
-} = {}) {
+export function updateRouterMocks(
+  state: {
+    location?: typeof DEFAULT_STATE.location;
+    params?: Record<string, string>;
+    searchParams?: URLSearchParams | Record<string, string> | string;
+  } = {},
+) {
   if (state.location) {
     mockUseLocation.mockReturnValue({ ...DEFAULT_STATE.location, ...state.location });
   }

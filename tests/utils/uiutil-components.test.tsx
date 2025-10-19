@@ -4,7 +4,9 @@ import "@testing-library/jest-dom";
 import { sizeWithFailures } from "../../src/utils/uiutil";
 import { taskStatusSymbol } from "../../src/utils/taskutil";
 
-const sizeWithFailuresNoElement = new Error("sizeWithFailures did not return a React element, this is not expected behavior");
+const sizeWithFailuresNoElement = new Error(
+  "sizeWithFailures did not return a React element, this is not expected behavior",
+);
 
 describe("sizeWithFailures", () => {
   it("returns empty string for undefined size", () => {

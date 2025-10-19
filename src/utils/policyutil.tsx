@@ -72,7 +72,7 @@ export interface PolicyKey {
   userName?: string;
   host?: string;
   path?: string;
-};
+}
 
 export function sourceQueryStringParams(src: PolicyKey) {
   // encodeURIComponent will in practice handle missing values too, but that is undefined behavior

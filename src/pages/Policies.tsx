@@ -136,7 +136,9 @@ export class PoliciesInternal extends Component<any, PoliciesState> implements C
     const error = checkPolicyPath(this.state.policyPath);
 
     if (error) {
-      alert(error + "\nMust be either an absolute path, `user@host:/absolute/path`, `user@host` or `@host`. Use backslashes on Windows.");
+      alert(
+        `${error}\nMust be either an absolute path, \`user@host:/absolute/path\`, \`user@host\` or \`@host\`. Use backslashes on Windows.`,
+      );
       return;
     }
 

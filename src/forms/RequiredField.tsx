@@ -4,7 +4,13 @@ import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
 import { ComponentChangeHandling } from "src/components/types";
 
-export function RequiredField(component: ComponentChangeHandling, label: string, name: string, props = {}, helpText: string | null = null) {
+export function RequiredField(
+  component: ComponentChangeHandling,
+  label: string,
+  name: string,
+  props = {},
+  helpText: string | null = null,
+) {
   return (
     <Form.Group as={Col}>
       <Form.Label className="required">{label}</Form.Label>

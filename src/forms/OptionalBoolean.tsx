@@ -16,7 +16,12 @@ function optionalBooleanValue(target: HTMLSelectElement): boolean | undefined {
   return undefined;
 }
 
-export function OptionalBoolean(component: ComponentChangeHandling, label: string | null, name: string, defaultLabel?: string) {
+export function OptionalBoolean(
+  component: ComponentChangeHandling,
+  label: string | null,
+  name: string,
+  defaultLabel?: string,
+) {
   return (
     <Form.Group as={Col}>
       {label && <Form.Label>{label}</Form.Label>}

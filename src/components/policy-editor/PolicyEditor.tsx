@@ -66,7 +66,7 @@ type PolicyEditorState = {
   resolvedError?: Error;
   isNew?: boolean;
   saving?: boolean;
-}
+};
 
 type Policy = {
   files?: any;

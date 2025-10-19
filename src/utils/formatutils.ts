@@ -59,7 +59,7 @@ export function objectLink(n: string) {
   return `/api/v1/objects/${n}`;
 }
 
-export function formatOwnerName(s: { userName: string, host: string }): string {
+export function formatOwnerName(s: { userName: string; host: string }): string {
   return `${s.userName}@${s.host}`;
 }
 
@@ -208,7 +208,11 @@ export function formatMilliseconds(ms: number, useMultipleUnits = false): string
   );
 }
 
-export function formatDuration(from: undefined | null | number | string | Date, to?: number | string | Date, useMultipleUnits = false) {
+export function formatDuration(
+  from: undefined | null | number | string | Date,
+  to?: number | string | Date,
+  useMultipleUnits = false,
+) {
   if (!from) {
     return "";
   }

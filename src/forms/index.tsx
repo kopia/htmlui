@@ -3,7 +3,7 @@ import { getDeepStateProperty, setDeepStateProperty } from "../utils/deepstate";
 import { ComponentChangeHandling } from "src/components/types";
 
 export function validateRequiredFields(component: ComponentChangeHandling, fields: string[]) {
-  const updateState: {[field: string]: any } = {};
+  const updateState: { [field: string]: any } = {};
   let failed = false;
 
   for (let i = 0; i < fields.length; i++) {

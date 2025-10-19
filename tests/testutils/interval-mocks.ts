@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 
 let intervalSpy;
 let clearIntervalSpy;
-let intervalCallbacks: { id: number, callback, delay }[] = [];
+let intervalCallbacks: { id: number; callback; delay }[] = [];
 let intervalId = 0;
 
 /**

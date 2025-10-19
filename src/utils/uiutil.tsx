@@ -5,7 +5,7 @@ import { sizeDisplayName } from "./formatutils.js";
 
 export function sizeWithFailures(
   size?: number,
-  summ?: { errors: { path: string; error: string; }[]; numFailed: number } | null,
+  summ?: { errors: { path: string; error: string }[]; numFailed: number } | null,
   bytesStringBase2?: boolean,
 ): "" | React.JSX.Element {
   if (size === undefined) {

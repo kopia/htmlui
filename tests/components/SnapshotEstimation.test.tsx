@@ -9,7 +9,11 @@ import { setupAPIMock } from "../testutils/api-mocks.js";
 import "@testing-library/jest-dom";
 import { resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 import PropTypes from "prop-types";
-import { setupIntervalMocks, cleanupIntervalMocks, waitForLoadAndTriggerIntervals } from "../testutils/interval-mocks.js";
+import {
+  setupIntervalMocks,
+  cleanupIntervalMocks,
+  waitForLoadAndTriggerIntervals,
+} from "../testutils/interval-mocks.js";
 
 // Mock Logs component to avoid complex dependencies
 vi.mock("../../src/components/Logs", () => ({

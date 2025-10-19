@@ -31,7 +31,7 @@ vi.mock("../../src/components/GoBackButton", () => ({
 
 // Mock PolicyEditor with a simple implementation that tracks ref calls
 vi.mock("../../src/components/policy-editor/PolicyEditor", () => ({
-  PolicyEditor: React.forwardRef((props: { embedded, path }, ref) => {
+  PolicyEditor: React.forwardRef((props: { embedded; path }, ref) => {
     React.useImperativeHandle(ref, () => ({
       getAndValidatePolicy: vi.fn(() => ({ somePolicy: "data" })),
     }));
