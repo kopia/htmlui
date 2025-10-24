@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
-export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
+export const PAGE_SIZES: PageSize[] = [10, 20, 30, 40, 50, 100];
 export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
 const DEFAULT_PREFERENCES = {
