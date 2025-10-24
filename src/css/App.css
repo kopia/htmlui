@@ -97,6 +97,10 @@ body {
   background-color: var(--background-color);
 }
 
+#kopia .table .align-right {
+  text-align: right;
+}
+
 #kopia nav.navbar {
   padding-left: 10px;
   padding-right: 10px;
