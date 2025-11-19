@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -9,7 +9,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import KopiaTable from "../components/KopiaTable";
 import { CLIEquivalent } from "../components/CLIEquivalent";
-import { compare, objectLink, parseQuery, rfc3339TimestampForDisplay } from "../utils/formatutils";
+import { compare, objectLink, parseQuery, LocaleFormatUtils } from "../utils/formatutils";
 import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
 import { sourceQueryStringParams } from "../utils/policyutil";
 import { GoBackButton } from "../components/GoBackButton";
@@ -350,7 +350,8 @@ class SnapshotHistoryInternal extends Component {
 
   render() {
     let { snapshots, unfilteredCount, uniqueCount, isLoading, error } = this.state;
-    const { bytesStringBase2 } = this.context;
+    const { bytesStringBase2, locale } = this.context;
+    const fmt = new LocaleFormatUtils(locale);
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -385,10 +386,9 @@ class SnapshotHistoryInternal extends Component {
         header: "Start time",
         width: 200,
         cell: (x) => {
-          let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
           return (
             <Link to={objectLink(x.row.original.rootID)} state={{ label: path }}>
-              {timestamp}
+              {fmt.timestamp(x.row.original.startTime)}
             </Link>
           );
         },
@@ -441,17 +441,23 @@ class SnapshotHistoryInternal extends Component {
         header: "Size",
         accessorFn: (x) => x.summary.size,
         width: 100,
-        cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2),
+        cell: (x) => (
+          <div className="align-right">
+            {sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2)}
+          </div>
+        ),
       },
       {
         header: "Files",
         accessorFn: (x) => x.summary.files,
         width: 100,
+        cell: (x) => <div className="align-right">{fmt.number(x.cell.getValue())}</div>,
       },
       {
         header: "Dirs",
         accessorFn: (x) => x.summary.dirs,
         width: 100,
+        cell: (x) => <div className="align-right">{fmt.number(x.cell.getValue())}</div>,
       },
     ];
 
@@ -664,6 +670,7 @@ class SnapshotHistoryInternal extends Component {
     );
   }
 }
+SnapshotHistoryInternal.contextType = UIPreferencesContext;
 
 SnapshotHistoryInternal.propTypes = {
   host: PropTypes.string,
@@ -676,7 +683,6 @@ SnapshotHistoryInternal.propTypes = {
 export function SnapshotHistory(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  useContext(UIPreferencesContext);
 
   return <SnapshotHistoryInternal navigate={navigate} location={location} {...props} />;
 }
