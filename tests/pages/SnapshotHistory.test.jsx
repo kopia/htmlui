@@ -485,4 +485,71 @@ describe("SnapshotHistory", () => {
       expect(axios.post).not.toHaveBeenCalledWith("/api/v1/sources/delete", expect.any(Object));
     });
   });
+
+  describe("omitzero field handling", () => {
+    it("should handle missing summary field when omitzero omits it", async () => {
+      // Simulate omitzero scenario where summary field is omitted
+      const mockResponse = {
+        data: {
+          snapshots: [
+            {
+              id: "snap1",
+              startTime: "2023-01-01T12:00:00Z",
+              rootID: "root1",
+              // summary field is omitted due to omitzero
+              retention: [],
+              pins: [],
+            },
+          ],
+          unfilteredCount: 1,
+          uniqueCount: 1,
+        },
+      };
+
+      axios.get.mockResolvedValue(mockResponse);
+      renderWithProviders(<SnapshotHistory />);
+
+      // Should not throw an error and should render the table
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+      });
+
+      // The size, files, and dirs columns should handle missing summary gracefully
+      // This test will fail until we add proper null checks
+    });
+
+    it("should handle missing pins field when omitzero omits it", async () => {
+      // Simulate omitzero scenario where pins field is omitted
+      const mockResponse = {
+        data: {
+          snapshots: [
+            {
+              id: "snap1",
+              startTime: "2023-01-01T12:00:00Z",
+              rootID: "root1",
+              summary: {
+                size: 104857600,
+                files: 100,
+                dirs: 10,
+              },
+              retention: [],
+              // pins field is omitted due to omitzero
+            },
+          ],
+          unfilteredCount: 1,
+          uniqueCount: 1,
+        },
+      };
+
+      axios.get.mockResolvedValue(mockResponse);
+      renderWithProviders(<SnapshotHistory />);
+
+      // Should not throw an error when trying to map over pins
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+      });
+
+      // This test will fail until we add proper null checks for pins
+    });
+  });
 });
