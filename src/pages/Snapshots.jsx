@@ -339,13 +339,11 @@ export class Snapshots extends Component {
         id: "lastSnapshotSize",
         header: "Size",
         width: 120,
-        accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.stats.totalSize : 0),
+        accessorFn: (x) => (x.lastSnapshot?.stats?.totalSize ?? 0),
         cell: (x) =>
           sizeWithFailures(
             x.cell.getValue(),
-            x.row.original.lastSnapshot && x.row.original.lastSnapshot.rootEntry
-              ? x.row.original.lastSnapshot.rootEntry.summ
-              : null,
+            x.row.original.lastSnapshot?.rootEntry?.summ ?? null,
             bytesStringBase2,
           ),
       },
