@@ -449,4 +449,187 @@ describe("Snapshots component", () => {
 
     unmount();
   });
+
+  describe("omitzero field handling", () => {
+    test("handles missing stats field when omitzero omits it", async () => {
+      // Simulate omitzero scenario where stats field is completely omitted from lastSnapshot
+      const responseWithoutStats = {
+        ...mockSourcesResponse,
+        sources: [
+          {
+            source: {
+              path: "/home/user/documents",
+              host: "testhost",
+              userName: "testuser",
+            },
+            status: "IDLE",
+            lastSnapshot: {
+              startTime: "2023-01-01T10:00:00Z",
+              // stats field is omitted due to omitzero - field doesn't exist at all
+              rootEntry: { summ: { files: 100, dirs: 10 } },
+            },
+            nextSnapshotTime: "2023-01-02T10:00:00Z",
+          },
+        ],
+      };
+
+      axiosMock.onGet("/api/v1/sources").reply(200, responseWithoutStats);
+
+      const { unmount } = renderSnapshots();
+
+      // Should not throw an error and should render the table
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(screen.getByText("/home/user/documents")).toBeInTheDocument();
+      });
+
+      // The size should be 0 when stats is missing (accessorFn returns 0)
+      // sizeWithFailures should handle 0 gracefully
+      unmount();
+    });
+
+    test("handles stats field set to null", async () => {
+      // Test case where stats is explicitly null
+      const responseWithNullStats = {
+        ...mockSourcesResponse,
+        sources: [
+          {
+            source: {
+              path: "/home/user/documents",
+              host: "testhost",
+              userName: "testuser",
+            },
+            status: "IDLE",
+            lastSnapshot: {
+              startTime: "2023-01-01T10:00:00Z",
+              stats: null, // explicitly null
+              rootEntry: { summ: { files: 100, dirs: 10 } },
+            },
+            nextSnapshotTime: "2023-01-02T10:00:00Z",
+          },
+        ],
+      };
+
+      axiosMock.onGet("/api/v1/sources").reply(200, responseWithNullStats);
+
+      const { unmount } = renderSnapshots();
+
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(screen.getByText("/home/user/documents")).toBeInTheDocument();
+      });
+
+      // Should handle null stats gracefully
+      unmount();
+    });
+
+    test("handles stats field set to undefined", async () => {
+      // Test case where stats is explicitly undefined
+      const responseWithUndefinedStats = {
+        ...mockSourcesResponse,
+        sources: [
+          {
+            source: {
+              path: "/home/user/documents",
+              host: "testhost",
+              userName: "testuser",
+            },
+            status: "IDLE",
+            lastSnapshot: {
+              startTime: "2023-01-01T10:00:00Z",
+              stats: undefined, // explicitly undefined
+              rootEntry: { summ: { files: 100, dirs: 10 } },
+            },
+            nextSnapshotTime: "2023-01-02T10:00:00Z",
+          },
+        ],
+      };
+
+      axiosMock.onGet("/api/v1/sources").reply(200, responseWithUndefinedStats);
+
+      const { unmount } = renderSnapshots();
+
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(screen.getByText("/home/user/documents")).toBeInTheDocument();
+      });
+
+      // Should handle undefined stats gracefully
+      unmount();
+    });
+
+    test("handles stats object with missing totalSize property", async () => {
+      // Test case where stats exists but totalSize is missing
+      const responseWithIncompleteStats = {
+        ...mockSourcesResponse,
+        sources: [
+          {
+            source: {
+              path: "/home/user/documents",
+              host: "testhost",
+              userName: "testuser",
+            },
+            status: "IDLE",
+            lastSnapshot: {
+              startTime: "2023-01-01T10:00:00Z",
+              stats: {
+                // totalSize is missing - other stats might be present
+                fileCount: 100,
+                dirCount: 10,
+              },
+              rootEntry: { summ: { files: 100, dirs: 10 } },
+            },
+            nextSnapshotTime: "2023-01-02T10:00:00Z",
+          },
+        ],
+      };
+
+      axiosMock.onGet("/api/v1/sources").reply(200, responseWithIncompleteStats);
+
+      const { unmount } = renderSnapshots();
+
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(screen.getByText("/home/user/documents")).toBeInTheDocument();
+      });
+
+      // Should handle missing totalSize property gracefully (should return 0)
+      unmount();
+    });
+
+    test("handles empty stats object", async () => {
+      // Test case where stats is an empty object
+      const responseWithEmptyStats = {
+        ...mockSourcesResponse,
+        sources: [
+          {
+            source: {
+              path: "/home/user/documents",
+              host: "testhost",
+              userName: "testuser",
+            },
+            status: "IDLE",
+            lastSnapshot: {
+              startTime: "2023-01-01T10:00:00Z",
+              stats: {}, // empty object
+              rootEntry: { summ: { files: 100, dirs: 10 } },
+            },
+            nextSnapshotTime: "2023-01-02T10:00:00Z",
+          },
+        ],
+      };
+
+      axiosMock.onGet("/api/v1/sources").reply(200, responseWithEmptyStats);
+
+      const { unmount } = renderSnapshots();
+
+      await waitFor(() => {
+        expect(screen.getByRole("table")).toBeInTheDocument();
+        expect(screen.getByText("/home/user/documents")).toBeInTheDocument();
+      });
+
+      // Should handle empty stats object gracefully
+      unmount();
+    });
+  });
 });
