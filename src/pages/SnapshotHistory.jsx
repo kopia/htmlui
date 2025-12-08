@@ -426,7 +426,7 @@ class SnapshotHistoryInternal extends Component {
                 <Badge bg={"retention-badge-" + pillVariant(l)}>{l}</Badge>{" "}
               </React.Fragment>
             ))}
-            {x.row.original.pins.map((l) => (
+            {(x.row.original.pins || []).map((l) => (
               <React.Fragment key={l}>
                 <Badge bg="snapshot-pin" onClick={() => this.editPin(x.row.original, l)}>
                   <FontAwesomeIcon icon={faThumbtack} /> {l}
@@ -439,18 +439,18 @@ class SnapshotHistoryInternal extends Component {
       },
       {
         header: "Size",
-        accessorFn: (x) => x.summary.size,
+        accessorFn: (x) => x.summary?.size ?? 0,
         width: 100,
         cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2),
       },
       {
         header: "Files",
-        accessorFn: (x) => x.summary.files,
+        accessorFn: (x) => x.summary?.files ?? 0,
         width: 100,
       },
       {
         header: "Dirs",
-        accessorFn: (x) => x.summary.dirs,
+        accessorFn: (x) => x.summary?.dirs ?? 0,
         width: 100,
       },
     ];
