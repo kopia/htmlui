@@ -351,9 +351,7 @@ export class Repository extends Component {
                       placeholder="e.g., 1M, 100K"
                       size="sm"
                     />
-                    <Form.Text className="text-muted">
-                      Examples: 1.5M, 100K, 1G, or leave empty for unlimited
-                    </Form.Text>
+                    <Form.Text className="text-muted">Examples: 1.5M, 100K, 1G, or leave empty for unlimited</Form.Text>
                   </Form.Group>
                   <Form.Group as={Col} xs={3}>
                     <Form.Label>Maximum Download Speed</Form.Label>
@@ -365,9 +363,7 @@ export class Repository extends Component {
                       placeholder="e.g., 1M, 100K"
                       size="sm"
                     />
-                    <Form.Text className="text-muted">
-                      Examples: 1.5M, 100K, 1G, or leave empty for unlimited
-                    </Form.Text>
+                    <Form.Text className="text-muted">Examples: 1.5M, 100K, 1G, or leave empty for unlimited</Form.Text>
                   </Form.Group>
                 </Row>
                 <Row className="mt-3">

@@ -56,24 +56,24 @@ export function parseQuery(queryString) {
  */
 export function parseBytes(str) {
   if (!str || str === "0" || str === 0) return 0;
-  
+
   const input = String(str).trim().toUpperCase();
   const match = input.match(/^([0-9.]+)\s*([KMG])?$/);
-  
+
   if (!match) {
     const num = parseFloat(input);
     return isNaN(num) ? 0 : num;
   }
-  
+
   const value = parseFloat(match[1]);
   const unit = match[2] || "";
-  
+
   const multipliers = {
     K: 1024,
     M: 1024 * 1024,
     G: 1024 * 1024 * 1024,
   };
-  
+
   return value * (multipliers[unit] || 1);
 }
 
@@ -84,13 +84,13 @@ export function parseBytes(str) {
  */
 export function formatBytes(bytes) {
   if (!bytes || bytes === 0) return "";
-  
+
   const units = [
     { threshold: 1024 * 1024 * 1024, suffix: "G" },
     { threshold: 1024 * 1024, suffix: "M" },
     { threshold: 1024, suffix: "K" },
   ];
-  
+
   for (const { threshold, suffix } of units) {
     if (bytes >= threshold) {
       const value = bytes / threshold;
@@ -98,7 +98,7 @@ export function formatBytes(bytes) {
       return (Number.isInteger(value) ? value.toString() : value.toFixed(2)) + suffix;
     }
   }
-  
+
   return bytes.toString();
 }
 
