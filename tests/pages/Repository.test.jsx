@@ -441,7 +441,7 @@ describe("Repository component - throttle settings", () => {
         JSON.stringify({
           maxUploadSpeedBytesPerSecond: 102400,
           maxDownloadSpeedBytesPerSecond: 2147483648,
-        })
+        }),
       );
     });
   });
@@ -472,7 +472,7 @@ describe("Repository component - throttle settings", () => {
         JSON.stringify({
           maxUploadSpeedBytesPerSecond: 0,
           maxDownloadSpeedBytesPerSecond: 2097152,
-        })
+        }),
       );
     });
   });
@@ -500,9 +500,7 @@ describe("Repository component - throttle settings", () => {
     await userEvent.click(saveButton);
 
     await waitFor(() => {
-      expect(alertMock).toHaveBeenCalledWith(
-        expect.stringContaining("Error updating throttle settings")
-      );
+      expect(alertMock).toHaveBeenCalledWith(expect.stringContaining("Error updating throttle settings"));
     });
 
     alertMock.mockRestore();
@@ -518,10 +516,7 @@ describe("Repository component - throttle settings", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Upload/Download Speed Limits")).toBeInTheDocument();
-      expect(consoleLogMock).toHaveBeenCalledWith(
-        "Unable to fetch throttle settings:",
-        expect.any(Error)
-      );
+      expect(consoleLogMock).toHaveBeenCalledWith("Unable to fetch throttle settings:", expect.any(Error));
     });
 
     consoleLogMock.mockRestore();
