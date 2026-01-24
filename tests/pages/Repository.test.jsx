@@ -362,3 +362,168 @@ describe("Repository component - CLI equivalent", () => {
     });
   });
 });
+
+describe("Repository component - throttle settings", () => {
+  test("displays throttle settings when connected directly", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, connectedStatus);
+    axiosMock.onGet("/api/v1/repo/throttle").reply(200, {
+      maxUploadSpeedBytesPerSecond: 0,
+      maxDownloadSpeedBytesPerSecond: 0,
+    });
+
+    renderWithContext();
+
+    await waitFor(() => {
+      expect(screen.getByText("Upload/Download Speed Limits")).toBeInTheDocument();
+      const uploadInput = document.querySelector('input[name="throttle.maxUploadSpeedBytesPerSecond"]');
+      const downloadInput = document.querySelector('input[name="throttle.maxDownloadSpeedBytesPerSecond"]');
+      expect(uploadInput).toBeInTheDocument();
+      expect(downloadInput).toBeInTheDocument();
+    });
+  });
+
+  test("hides throttle settings when connected via API server", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, {
+      ...connectedStatus,
+      apiServerURL: "http://localhost:51515",
+    });
+
+    renderWithContext();
+
+    await waitFor(() => {
+      expect(screen.queryByText("Upload/Download Speed Limits")).not.toBeInTheDocument();
+    });
+  });
+
+  test("loads existing throttle settings", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, connectedStatus);
+    axiosMock.onGet("/api/v1/repo/throttle").reply(200, {
+      maxUploadSpeedBytesPerSecond: 1048576, // 1M
+      maxDownloadSpeedBytesPerSecond: 2097152, // 2M
+    });
+
+    renderWithContext();
+
+    await waitFor(() => {
+      const uploadInput = document.querySelector('input[name="throttle.maxUploadSpeedBytesPerSecond"]');
+      const downloadInput = document.querySelector('input[name="throttle.maxDownloadSpeedBytesPerSecond"]');
+      expect(uploadInput).toHaveValue("1M");
+      expect(downloadInput).toHaveValue("2M");
+    });
+  });
+
+  test("updates throttle settings with various formats", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, connectedStatus);
+    axiosMock.onGet("/api/v1/repo/throttle").reply(200, {
+      maxUploadSpeedBytesPerSecond: 0,
+      maxDownloadSpeedBytesPerSecond: 0,
+    });
+    axiosMock.onPut("/api/v1/repo/throttle").reply(200, {});
+
+    renderWithContext();
+
+    await waitFor(() => {
+      expect(screen.getByText("Upload/Download Speed Limits")).toBeInTheDocument();
+    });
+
+    const uploadInput = document.querySelector('input[name="throttle.maxUploadSpeedBytesPerSecond"]');
+    const downloadInput = document.querySelector('input[name="throttle.maxDownloadSpeedBytesPerSecond"]');
+    const saveButton = screen.getByText("Save Settings");
+
+    await userEvent.clear(uploadInput);
+    await userEvent.type(uploadInput, "100K");
+    await userEvent.clear(downloadInput);
+    await userEvent.type(downloadInput, "2G");
+    await userEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(axiosMock.history.put[0].data).toBe(
+        JSON.stringify({
+          maxUploadSpeedBytesPerSecond: 102400,
+          maxDownloadSpeedBytesPerSecond: 2147483648,
+        })
+      );
+    });
+  });
+
+  test("allows empty values for unlimited speed", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, connectedStatus);
+    axiosMock.onGet("/api/v1/repo/throttle").reply(200, {
+      maxUploadSpeedBytesPerSecond: 1048576,
+      maxDownloadSpeedBytesPerSecond: 2097152,
+    });
+    axiosMock.onPut("/api/v1/repo/throttle").reply(200, {});
+
+    renderWithContext();
+
+    await waitFor(() => {
+      const uploadInput = document.querySelector('input[name="throttle.maxUploadSpeedBytesPerSecond"]');
+      expect(uploadInput).toHaveValue("1M");
+    });
+
+    const uploadInput = document.querySelector('input[name="throttle.maxUploadSpeedBytesPerSecond"]');
+    const saveButton = screen.getByText("Save Settings");
+
+    await userEvent.clear(uploadInput);
+    await userEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(axiosMock.history.put[0].data).toBe(
+        JSON.stringify({
+          maxUploadSpeedBytesPerSecond: 0,
+          maxDownloadSpeedBytesPerSecond: 2097152,
+        })
+      );
+    });
+  });
+
+  test("handles update errors", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, connectedStatus);
+    axiosMock.onGet("/api/v1/repo/throttle").reply(200, {
+      maxUploadSpeedBytesPerSecond: 0,
+      maxDownloadSpeedBytesPerSecond: 0,
+    });
+    axiosMock.onPut("/api/v1/repo/throttle").reply(500, { error: "Failed" });
+
+    const alertMock = vi.spyOn(window, "alert").mockImplementation(() => {});
+
+    renderWithContext();
+
+    await waitFor(() => {
+      expect(screen.getByText("Upload/Download Speed Limits")).toBeInTheDocument();
+    });
+
+    const uploadInput = document.querySelector('input[name="throttle.maxUploadSpeedBytesPerSecond"]');
+    const saveButton = screen.getByText("Save Settings");
+
+    await userEvent.type(uploadInput, "5M");
+    await userEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(alertMock).toHaveBeenCalledWith(
+        expect.stringContaining("Error updating throttle settings")
+      );
+    });
+
+    alertMock.mockRestore();
+  });
+
+  test("handles throttle fetch errors gracefully", async () => {
+    axiosMock.onGet("/api/v1/repo/status").reply(200, connectedStatus);
+    axiosMock.onGet("/api/v1/repo/throttle").reply(500, { error: "Failed" });
+
+    const consoleLogMock = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    renderWithContext();
+
+    await waitFor(() => {
+      expect(screen.getByText("Upload/Download Speed Limits")).toBeInTheDocument();
+      expect(consoleLogMock).toHaveBeenCalledWith(
+        "Unable to fetch throttle settings:",
+        expect.any(Error)
+      );
+    });
+
+    consoleLogMock.mockRestore();
+  });
+});
