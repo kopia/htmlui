@@ -68,6 +68,11 @@ beforeEach(() => {
   axiosMock = setupAPIMock();
   // Clear all mocks
   vi.clearAllMocks();
+  // Mock throttle API to return default empty settings
+  axiosMock.onGet("/api/v1/repo/throttle").reply(200, {
+    maxUploadSpeedBytesPerSecond: 0,
+    maxDownloadSpeedBytesPerSecond: 0,
+  });
 });
 
 /**
@@ -189,8 +194,7 @@ describe("Repository component - connected state", () => {
 
     await waitFor(() => {
       // Get the description input specifically by its name attribute
-      const descriptionInput = screen.getByDisplayValue(""); // Empty value
-      expect(descriptionInput).toHaveAttribute("name", "status.description");
+      const descriptionInput = document.querySelector('input[name="status.description"]');
       expect(descriptionInput).toHaveClass("is-invalid");
       expect(screen.getByText("Description Is Required")).toBeInTheDocument();
     });
