@@ -1,0 +1,41 @@
+{
+  "app": {
+    "title": "KopiaUI",
+    "snapshots": "Снимки",
+    "policies": "Политики",
+    "tasks": "Задачи",
+    "repository": "Репозиторий",
+    "preferences": "Настройки",
+    "version": "Версия"
+  },
+  "preferences": {
+    "appearance": "Внешний вид",
+    "notifications": "Уведомления",
+    "theme": "Тема",
+    "themeLight": "Светлая",
+    "themeDark": "Тёмная",
+    "themePastel": "Пастельная",
+    "themeOcean": "Океан",
+    "fontSize": "Размер шрифта",
+    "small": "Маленький",
+    "medium": "Средний",
+    "large": "Большой",
+    "byteRepresentation": "Представление байтов",
+    "base10": "Base-10 (КБ, МБ, ГБ, ТБ)",
+    "base2": "Base-2 (КиБ, МиБ, ГиБ, ТиБ)"
+  },
+  "language": {
+    "en": "EN English",
+    "ru": "RU Русский"
+  },
+  "notifications": {
+    "important": "Важно",
+    "noProfiles": "У вас нет профилей уведомлений.",
+    "clickToAdd": "Нажмите кнопку ниже чтобы добавить профиль для получения уведомлений от Kopia.",
+    "createProfile": "Создать новый профиль",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "duplicate": "Дублировать",
+    "sendTest": "Отправить тестовое уведомление"
+  }
+}
