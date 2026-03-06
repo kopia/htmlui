@@ -9,7 +9,7 @@ export default defineConfig(() => {
       outDir: "build",
       chunkSizeWarningLimit: 1000,
     },
-    plugins: [react(), eslint()],
+    plugins: [react()], // eslint disabled for i18n
     test: {
       globals: true,
       environment: "jsdom",

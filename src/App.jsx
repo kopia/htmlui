@@ -3,8 +3,9 @@ import "./css/Theme.css";
 import "./css/App.css";
 import axios from "axios";
 import { React, Component } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from "react-router-dom";
+import { withTranslation } from 'react-i18next';
 import { Policy } from "./pages/Policy";
 import { Preferences } from "./pages/Preferences";
 import { Policies } from "./pages/Policies";
@@ -19,7 +20,7 @@ import { SnapshotRestore } from "./pages/SnapshotRestore";
 import { AppContext } from "./contexts/AppContext";
 import { UIPreferenceProvider } from "./contexts/UIPreferencesContext";
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -34,6 +35,7 @@ export default class App extends Component {
     this.repositoryUpdated = this.repositoryUpdated.bind(this);
     this.repositoryDescriptionUpdated = this.repositoryDescriptionUpdated.bind(this);
     this.fetchInitialRepositoryDescription = this.fetchInitialRepositoryDescription.bind(this);
+    this.changeLanguage = this.changeLanguage.bind(this);
 
     const tok = document.head.querySelector('meta[name="kopia-csrf-token"]');
     if (tok && tok.content) {
@@ -46,7 +48,6 @@ export default class App extends Component {
   componentDidMount() {
     const av = document.getElementById("appVersion");
     if (av) {
-      // show app version after mounting the component to avoid flashing of unstyled content.
       av.style.display = "block";
     }
 
@@ -91,7 +92,6 @@ export default class App extends Component {
     window.clearInterval(this.taskSummaryInterval);
   }
 
-  // this is invoked via AppContext whenever repository is connected, disconnected, etc.
   repositoryUpdated(isConnected) {
     this.setState({ isRepositoryConnected: isConnected });
     if (isConnected) {
@@ -107,8 +107,14 @@ export default class App extends Component {
     });
   }
 
+  changeLanguage(lng) {
+    this.props.i18n.changeLanguage(lng);
+  }
+
   render() {
     const { uiPrefs, runningTaskCount, isRepositoryConnected } = this.state;
+    const { t } = this.props;
+    const currentLanguage = this.props.i18n.language || 'en';
 
     return (
       <Router>
@@ -121,51 +127,57 @@ export default class App extends Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                  <span className="d-inline-block" data-toggle="tooltip" title={t('repository.notConnected')}>
                     <NavLink
                       data-testid="tab-snapshots"
                       title=""
-                      data-title="Snapshots"
+                      data-title={t('app.snapshots')}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/snapshots"
                     >
-                      Snapshots
+                      {t('app.snapshots')}
                     </NavLink>
                   </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                  <span className="d-inline-block" data-toggle="tooltip" title={t('repository.notConnected')}>
                     <NavLink
                       data-testid="tab-policies"
                       title=""
-                      data-title="Policies"
+                      data-title={t('app.policies')}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/policies"
                     >
-                      Policies
+                      {t('app.policies')}
                     </NavLink>
                   </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                  <span className="d-inline-block" data-toggle="tooltip" title={t('repository.notConnected')}>
                     <NavLink
                       data-testid="tab-tasks"
                       title=""
-                      data-title="Tasks"
+                      data-title={t('app.tasks')}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/tasks"
                     >
-                      Tasks
+                      {t('app.tasks')}
                       <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
                     </NavLink>
                   </span>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">
-                    Repository
+                  <NavLink data-testid="tab-repo" data-title={t('app.repository')} className="nav-link" to="/repo">
+                    {t('app.repository')}
                   </NavLink>
                   <NavLink
                     data-testid="tab-preferences"
-                    data-title="Preferences"
+                    data-title={t('app.preferences')}
                     className="nav-link"
                     to="/preferences"
                   >
-                    Preferences
+                    {t('app.preferences')}
                   </NavLink>
+                </Nav>
+                <Nav className="ms-auto">
+                  <NavDropdown title={currentLanguage === 'ru' ? '🇷🇺 Русский' : '🇬🇧 English'} id="language-dropdown">
+                    <NavDropdown.Item onClick={() => this.changeLanguage('en')}>🇬🇧 English</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.changeLanguage('ru')}>🇷🇺 Русский</NavDropdown.Item>
+                  </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
@@ -196,3 +208,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default withTranslation()(App);

@@ -1,0 +1,100 @@
+{
+  "app": {
+    "title": "KopiaUI",
+    "version": "Версия",
+    "repository": "Репозиторий",
+    "snapshots": "Снимки",
+    "policies": "Политики",
+    "preferences": "Настройки",
+    "tasks": "Задачи",
+    "help": "Справка"
+  },
+  "repository": {
+    "title": "Репозиторий",
+    "connect": "Подключиться к репозиторию",
+    "disconnect": "Отключиться",
+    "create": "Создать новый репозиторий",
+    "status": "Статус репозитория",
+    "description": "Описание",
+    "connected": "Подключено",
+    "disconnected": "Отключено",
+    "error": "Ошибка репозитория"
+  },
+  "snapshots": {
+    "title": "Снимки",
+    "create": "Создать снимок",
+    "restore": "Восстановить",
+    "delete": "Удалить",
+    "verify": "Проверить",
+    "history": "История",
+    "source": "Источник",
+    "target": "Назначение",
+    "size": "Размер",
+    "time": "Время",
+    "files": "Файлы"
+  },
+  "policies": {
+    "title": "Политики",
+    "create": "Создать политику",
+    "edit": "Редактировать политику",
+    "delete": "Удалить политику",
+    "compression": "Сжатие",
+    "retention": "Хранение",
+    "scheduling": "Планирование",
+    "upload": "Загрузка"
+  },
+  "preferences": {
+    "title": "Настройки",
+    "language": "Язык",
+    "theme": "Тема",
+    "notifications": "Уведомления",
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  },
+  "tasks": {
+    "title": "Задачи",
+    "running": "Выполняется",
+    "completed": "Завершено",
+    "failed": "Ошибка",
+    "cancel": "Отменить задачу"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "saving": "Сохранение...",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "create": "Создать",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "ok": "OK",
+    "yes": "Да",
+    "no": "Нет",
+    "confirm": "Подтвердить",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "warning": "Предупреждение",
+    "info": "Информация",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "sort": "Сортировка",
+    "refresh": "Обновить",
+    "back": "Назад",
+    "next": "Далее",
+    "previous": "Назад",
+    "close": "Закрыть"
+  },
+  "errors": {
+    "connection": "Ошибка подключения",
+    "authentication": "Ошибка аутентификации",
+    "notFound": "Не найдено",
+    "serverError": "Ошибка сервера",
+    "networkError": "Ошибка сети"
+  },
+  "messages": {
+    "confirmDelete": "Вы уверены, что хотите удалить?",
+    "saveSuccess": "Изменения успешно сохранены",
+    "saveError": "Ошибка при сохранении изменений",
+    "connectSuccess": "Успешно подключено к репозиторию",
+    "disconnectSuccess": "Успешно отключено от репозитория"
+  }
+}
