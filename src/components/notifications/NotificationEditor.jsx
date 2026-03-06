@@ -1,3 +1,4 @@
+import { withTranslation } from 'react-i18next';
 import axios from "axios";
 import React, { Component } from "react";
 import { EmailNotificationMethod } from "./EmailNotificationMethod";
@@ -33,7 +34,7 @@ function severityName(severity) {
   return opt ? opt.label : "Unknown";
 }
 
-export class NotificationEditor extends Component {
+class NotificationEditorBase extends Component {
   constructor() {
     super();
 
@@ -292,19 +293,19 @@ export class NotificationEditor extends Component {
           <Row>
             <p>
               <Badge bg="warning" text="dark">
-                Important
+                {this.props.t('notifications.important')}
               </Badge>
-              &nbsp;You don&apos;t have any notification profiles defined.
+              &nbsp;{this.props.t('notifications.noProfiles')}
               <br />
               <br />
-              Click the button below to add a new profile to receive notifications from Kopia.
+              {this.props.t('notifications.clickToAdd')}
             </p>
           </Row>
         )}
         <Row>
           <Dropdown>
             <Dropdown.Toggle size="sm" variant="primary" id="newProfileButton">
-              Create New Profile
+              {this.props.t('notifications.createProfile')}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {Object.keys(notificationMethods).map((k) => (
@@ -340,3 +341,4 @@ export class NotificationEditor extends Component {
     return this.renderList();
   }
 }
+export const NotificationEditor = withTranslation()(NotificationEditorBase);

@@ -1,12 +1,14 @@
+import PropTypes from 'prop-types';
+import { withTranslation } from 'react-i18next';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Theme.css";
 import "./css/App.css";
 import axios from "axios";
 import { React, Component } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { Policy } from "./pages/Policy";
-import { Preferences } from "./pages/Preferences";
+import Preferences from "./pages/Preferences";
 import { Policies } from "./pages/Policies";
 import { Repository } from "./pages/Repository";
 import { Task } from "./pages/Task";
@@ -19,7 +21,7 @@ import { SnapshotRestore } from "./pages/SnapshotRestore";
 import { AppContext } from "./contexts/AppContext";
 import { UIPreferenceProvider } from "./contexts/UIPreferencesContext";
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -125,47 +127,61 @@ export default class App extends Component {
                     <NavLink
                       data-testid="tab-snapshots"
                       title=""
-                      data-title="Snapshots"
+                      data-title={this.props.t('app.snapshots')}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/snapshots"
                     >
-                      Snapshots
+                      {this.props.t('app.snapshots')}
                     </NavLink>
                   </span>
                   <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
                     <NavLink
                       data-testid="tab-policies"
                       title=""
-                      data-title="Policies"
+                      data-title={this.props.t('app.policies')}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/policies"
                     >
-                      Policies
+                      {this.props.t('app.policies')}
                     </NavLink>
                   </span>
                   <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
                     <NavLink
                       data-testid="tab-tasks"
                       title=""
-                      data-title="Tasks"
+                      data-title={this.props.t('app.tasks')}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/tasks"
                     >
-                      Tasks
+                      {this.props.t('app.tasks')}
                       <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
                     </NavLink>
                   </span>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">
-                    Repository
+                  <NavLink data-testid="tab-repo" data-title={this.props.t('app.repository')} className="nav-link" to="/repo">
+                    {this.props.t('app.repository')}
                   </NavLink>
                   <NavLink
                     data-testid="tab-preferences"
-                    data-title="Preferences"
+                    data-title={this.props.t('app.preferences')}
                     className="nav-link"
                     to="/preferences"
                   >
-                    Preferences
+                    {this.props.t('app.preferences')}
                   </NavLink>
+                </Nav>
+                <Nav className="ms-auto">
+                  <NavDropdown 
+                    id="language-dropdown"
+                    title={this.props.t('language.' + this.props.i18n.language)}
+                    align="end"
+                  >
+                    <NavDropdown.Item onClick={() => this.props.i18n.changeLanguage('en')}>
+                      {this.props.t('language.en')}
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.props.i18n.changeLanguage('ru')}>
+                      {this.props.t('language.ru')}
+                    </NavDropdown.Item>
+                  </NavDropdown>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
@@ -196,3 +212,11 @@ export default class App extends Component {
     );
   }
 }
+App.propTypes = {
+  t: PropTypes.func.isRequired,
+  i18n: PropTypes.shape({
+    language: PropTypes.string,
+    changeLanguage: PropTypes.func
+  }).isRequired
+};
+export default withTranslation()(App);
