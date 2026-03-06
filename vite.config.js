@@ -8,7 +8,7 @@ export default defineConfig(() => {
       outDir: "build",
       chunkSizeWarningLimit: 1000,
     },
-    plugins: [react(), eslint()],
+    plugins: [react()],
     test: {
       globals: true,
       environment: "jsdom",
