@@ -266,4 +266,101 @@ describe("Task component", () => {
       expect(screen.getByText("Logs for task 123")).toBeInTheDocument();
     });
   });
+
+  describe("omitzero field handling", () => {
+    test("handles missing value property in counter objects", async () => {
+      // Simulate omitzero scenario where value property is omitted from counter
+      const task = {
+        id: "123",
+        kind: "Snapshot",
+        description: "Test task",
+        status: "SUCCESS",
+        startTime: "2023-01-01T10:00:00Z",
+        endTime: "2023-01-01T10:05:00Z",
+        counters: {
+          files: {
+            // value property is omitted due to omitzero
+            units: "files",
+            level: "info",
+          },
+        },
+      };
+
+      axiosMock.onGet("/api/v1/tasks/123").reply(200, task);
+
+      // Should not throw an error when accessing c.value
+      renderTask();
+
+      await waitFor(() => {
+        expect(screen.getByText("Snapshot: Test task")).toBeInTheDocument();
+      });
+
+      // This test will fail until we add proper null checks for counter.value
+    });
+
+    test("handles missing units property in counter objects", async () => {
+      // Simulate omitzero scenario where units property is omitted from counter
+      const task = {
+        id: "123",
+        kind: "Snapshot",
+        description: "Test task",
+        status: "SUCCESS",
+        startTime: "2023-01-01T10:00:00Z",
+        endTime: "2023-01-01T10:05:00Z",
+        counters: {
+          files: {
+            value: 100,
+            // units property is omitted due to omitzero
+            level: "info",
+          },
+        },
+      };
+
+      axiosMock.onGet("/api/v1/tasks/123").reply(200, task);
+
+      // Should not throw an error when accessing c.units
+      renderTask();
+
+      await waitFor(() => {
+        expect(screen.getByText("Snapshot: Test task")).toBeInTheDocument();
+      });
+
+      // This test will fail until we add proper null checks for counter.units
+    });
+
+    test("handles missing level property in counter objects", async () => {
+      // Simulate omitzero scenario where level property is omitted from counter
+      const task = {
+        id: "123",
+        kind: "Snapshot",
+        description: "Test task",
+        status: "SUCCESS",
+        startTime: "2023-01-01T10:00:00Z",
+        endTime: "2023-01-01T10:05:00Z",
+        counters: {
+          files: {
+            value: 100,
+            units: "files",
+            // level property is omitted due to omitzero
+          },
+          errors: {
+            value: 0,
+            units: "errors",
+            // level property is omitted due to omitzero
+          },
+        },
+      };
+
+      axiosMock.onGet("/api/v1/tasks/123").reply(200, task);
+
+      // Should not throw an error when accessing counters[a].level in sortedBadges
+      renderTask();
+
+      await waitFor(() => {
+        expect(screen.getByText("Snapshot: Test task")).toBeInTheDocument();
+      });
+
+      // This test will fail until we add proper null checks for counter.level
+    });
+  });
 });

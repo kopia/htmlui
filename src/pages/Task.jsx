@@ -128,13 +128,14 @@ class TaskInternal extends Component {
   }
 
   counterBadge(label, c) {
-    if (c.value <= this.valueThreshold()) {
+    const value = c?.value ?? 0;
+    if (value <= this.valueThreshold()) {
       return "";
     }
 
-    let formatted = c.value.toLocaleString();
-    if (c.units === "bytes") {
-      formatted = sizeDisplayName(c.value);
+    let formatted = value.toLocaleString();
+    if (c?.units === "bytes") {
+      formatted = sizeDisplayName(value);
     }
 
     return (
@@ -163,8 +164,10 @@ class TaskInternal extends Component {
 
     // sort keys by their level and the name alphabetically.
     keys.sort((a, b) => {
-      if (counters[a].level !== counters[b].level) {
-        return this.counterLevelToSortOrder(counters[b].level) - this.counterLevelToSortOrder(counters[a].level);
+      const levelA = counters[a]?.level ?? "";
+      const levelB = counters[b]?.level ?? "";
+      if (levelA !== levelB) {
+        return this.counterLevelToSortOrder(levelB) - this.counterLevelToSortOrder(levelA);
       }
 
       if (a < b) {
