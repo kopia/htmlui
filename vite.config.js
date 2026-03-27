@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import { coverageConfigDefaults } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import eslint from "vite-plugin-eslint";
 
 export default defineConfig(() => {
   return {
@@ -9,7 +8,7 @@ export default defineConfig(() => {
       outDir: "build",
       chunkSizeWarningLimit: 1000,
     },
-    plugins: [react(), eslint()],
+    plugins: [react()],
     test: {
       globals: true,
       environment: "jsdom",

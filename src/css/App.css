@@ -477,3 +477,301 @@ div.tab-body {
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* Default navbar styles for initial load */
+#kopia .navbar .nav-link,
+#kopia .navbar .dropdown-toggle,
+#kopia .navbar .dropdown-item {
+  color: #000000 !important;
+}
+
+#kopia .navbar .dropdown-menu {
+  background-color: #ffffff !important;
+  border-color: #cccccc;
+}
+
+#kopia .navbar .dropdown-item:hover,
+#kopia .navbar .dropdown-item:focus {
+  background-color: #2a7fff !important;
+  color: #ffffff !important;
+}
+
+/* Dark theme navbar */
+html.dark #kopia .navbar .nav-link,
+html.dark #kopia .navbar .dropdown-toggle,
+html.dark #kopia .navbar .dropdown-item,
+html.dark #kopia .navbar .dropdown-menu {
+  color: #cfcfcf !important;
+}
+
+html.dark #kopia .navbar .dropdown-menu {
+  background-color: #222222 !important;
+  border-color: #444444;
+}
+
+html.dark #kopia .navbar .dropdown-item:hover {
+  background-color: #1162b1 !important;
+  color: #ffffff !important;
+}
+
+/* Pastel theme navbar */
+html.pastel #kopia .navbar .nav-link {
+  color: #c095e4 !important;
+}
+
+/* Ocean theme navbar */
+html.ocean #kopia .navbar .nav-link {
+  color: #03045e !important;
+}
+
+/* Force navbar text colors for initial load */
+#kopia .navbar .nav-link,
+#kopia .navbar .dropdown-toggle,
+#kopia .navbar .dropdown-item {
+  color: #000000 !important;
+}
+
+#kopia .navbar .dropdown-menu {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+}
+
+#kopia .navbar .dropdown-item:hover,
+#kopia .navbar .dropdown-item:focus {
+  background-color: #2a7fff !important;
+  color: #ffffff !important;
+}
+
+/* Dark theme - override everything */
+html.dark #kopia .navbar {
+  background-color: #222222 !important;
+}
+
+html.dark #kopia .navbar .nav-link,
+html.dark #kopia .navbar .dropdown-toggle,
+html.dark #kopia .navbar .dropdown-item,
+html.dark #kopia .navbar .dropdown-menu {
+  color: #cfcfcf !important;
+}
+
+html.dark #kopia .navbar .dropdown-menu {
+  background-color: #222222 !important;
+  border-color: #444444 !important;
+}
+
+html.dark #kopia .navbar .dropdown-item:hover {
+  background-color: #1162b1 !important;
+  color: #ffffff !important;
+}
+
+/* Pastel theme */
+html.pastel #kopia .navbar .nav-link {
+  color: #c095e4 !important;
+}
+
+/* Ocean theme */
+html.ocean #kopia .navbar .nav-link {
+  color: #03045e !important;
+}
+
+/* Override ALL navbar styles with highest specificity */
+#kopia nav.navbar .navbar-nav .nav-link,
+#kopia nav.navbar .navbar-nav .dropdown-toggle,
+#kopia nav.navbar .dropdown-menu .dropdown-item {
+  color: #000000 !important;
+}
+
+#kopia nav.navbar .dropdown-menu {
+  background-color: #ffffff !important;
+}
+
+/* Dark theme with highest specificity */
+html.dark #kopia nav.navbar .navbar-nav .nav-link,
+html.dark #kopia nav.navbar .navbar-nav .dropdown-toggle,
+html.dark #kopia nav.navbar .dropdown-menu .dropdown-item,
+html.dark #kopia nav.navbar .dropdown-menu {
+  color: #cfcfcf !important;
+}
+
+html.dark #kopia nav.navbar .dropdown-menu {
+  background-color: #222222 !important;
+}
+
+/* DARK THEME - FORCE ALL TEXT TO BE LIGHT */
+html.dark #kopia .navbar,
+html.dark #kopia .navbar-nav,
+html.dark #kopia .navbar-nav .nav-link,
+html.dark #kopia .navbar-nav .dropdown,
+html.dark #kopia .navbar-nav .dropdown-toggle,
+html.dark #kopia .dropdown-menu,
+html.dark #kopia .dropdown-item {
+  color: #cfcfcf !important;
+  background-color: #222222 !important;
+}
+
+html.dark #kopia .dropdown-item:hover,
+html.dark #kopia .dropdown-item:focus {
+  background-color: #1162b1 !important;
+  color: #ffffff !important;
+}
+
+/* Default styles - work on initial load */
+#kopia .navbar .nav-link,
+#kopia .navbar .dropdown-toggle,
+#kopia .navbar .dropdown-item,
+#kopia .navbar .dropdown-menu {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+/* Dark theme override - applied when React adds class */
+html.dark #kopia .navbar .nav-link,
+html.dark #kopia .navbar .dropdown-toggle,
+html.dark #kopia .navbar .dropdown-item,
+html.dark #kopia .navbar .dropdown-menu {
+  color: #cfcfcf !important;
+  background-color: #222222 !important;
+}
+
+/* Light theme override */
+html.light #kopia .navbar .nav-link,
+html.light #kopia .navbar .dropdown-toggle,
+html.light #kopia .navbar .dropdown-item,
+html.light #kopia .navbar .dropdown-menu {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+/* Pastel theme - distinctive background and navbar */
+html.pastel body {
+  background-color: #f8f4ff !important;
+}
+
+html.pastel #kopia .navbar {
+  background-color: #c095e4 !important;
+}
+
+html.pastel #kopia .navbar .nav-link,
+html.pastel #kopia .navbar .dropdown-toggle,
+html.pastel #kopia .navbar .dropdown-item {
+  color: #ffffff !important;
+}
+
+html.pastel #kopia .navbar .dropdown-menu {
+  background-color: #c095e4 !important;
+  border-color: #b080d4;
+}
+
+html.pastel #kopia .navbar .dropdown-item:hover,
+html.pastel #kopia .navbar .dropdown-item:focus {
+  background-color: #b080d4 !important;
+  color: #ffffff !important;
+}
+
+/* Light theme - better hover color */
+html.light #kopia .navbar .dropdown-item:hover,
+html.light #kopia .navbar .dropdown-item:focus {
+  background-color: #e0e0e0 !important;
+  color: #000000 !important;
+}
+
+/* Pastel theme - better hover color */
+html.pastel #kopia .navbar .dropdown-item:hover,
+html.pastel #kopia .navbar .dropdown-item:focus {
+  background-color: #b080d4 !important;
+  color: #ffffff !important;
+}
+
+/* Ocean theme - better hover color */
+html.ocean #kopia .navbar .dropdown-item:hover,
+html.ocean #kopia .navbar .dropdown-item:focus {
+  background-color: #0077b6 !important;
+  color: #ffffff !important;
+}
+
+/* ===== Ocean theme - complete styles ===== */
+html.ocean body {
+  background-color: #e8f4f8 !important;
+}
+
+html.ocean #kopia .navbar,
+html.ocean #kopia .navbar-nav,
+html.ocean #kopia .navbar-nav .nav-link,
+html.ocean #kopia .navbar-nav .dropdown,
+html.ocean #kopia .navbar-nav .dropdown-toggle,
+html.ocean #kopia .dropdown-menu,
+html.ocean #kopia .dropdown-item,
+html.ocean #kopia .navbar .dropdown-toggle,
+html.ocean #kopia #language-dropdown,
+html.ocean #kopia nav.navbar .navbar-nav > .dropdown > .dropdown-toggle,
+html.ocean #kopia .navbar .nav-link.dropdown-toggle,
+html.ocean #kopia .dropdown-menu .dropdown-item {
+  background-color: #03045e !important;
+  color: #ffffff !important;
+}
+
+html.ocean #kopia .dropdown-item:hover,
+html.ocean #kopia .dropdown-item:focus,
+html.ocean #kopia .dropdown-menu .dropdown-item:hover,
+html.ocean #kopia .dropdown-menu .dropdown-item:focus {
+  background-color: #0077b6 !important;
+  color: #ffffff !important;
+}
+
+/* ===== Pastel theme - complete styles ===== */
+html.pastel body {
+  background-color: #f8f4ff !important;
+}
+
+html.pastel #kopia .navbar,
+html.pastel #kopia .navbar-nav,
+html.pastel #kopia .navbar-nav .nav-link,
+html.pastel #kopia .navbar-nav .dropdown,
+html.pastel #kopia .navbar-nav .dropdown-toggle,
+html.pastel #kopia .dropdown-menu,
+html.pastel #kopia .dropdown-item,
+html.pastel #kopia .navbar .dropdown-toggle,
+html.pastel #kopia .navbar .nav-link.dropdown-toggle,
+html.pastel #kopia .dropdown-menu .dropdown-item {
+  background-color: #c095e4 !important;
+  color: #ffffff !important;
+}
+
+html.pastel #kopia .dropdown-item:hover,
+html.pastel #kopia .dropdown-item:focus,
+html.pastel #kopia .dropdown-menu .dropdown-item:hover,
+html.pastel #kopia .dropdown-menu .dropdown-item:focus {
+  background-color: #b080d4 !important;
+  color: #ffffff !important;
+}
+
+/* ===== Dark theme - complete styles ===== */
+html.dark body {
+  background-color: #1a1a1a !important;
+}
+
+html.dark #kopia .navbar,
+html.dark #kopia .navbar-nav,
+html.dark #kopia .navbar-nav .nav-link,
+html.dark #kopia .navbar-nav .dropdown,
+html.dark #kopia .navbar-nav .dropdown-toggle,
+html.dark #kopia .dropdown-menu,
+html.dark #kopia .dropdown-item,
+html.dark #kopia .navbar .dropdown-toggle,
+html.dark #kopia .navbar .nav-link.dropdown-toggle,
+html.dark #kopia .dropdown-menu .dropdown-item {
+  background-color: #222222 !important;
+  color: #cfcfcf !important;
+}
+
+html.dark #kopia .navbar .dropdown-menu {
+  border-color: #444444 !important;
+}
+
+html.dark #kopia .dropdown-item:hover,
+html.dark #kopia .dropdown-item:focus,
+html.dark #kopia .dropdown-menu .dropdown-item:hover,
+html.dark #kopia .dropdown-menu .dropdown-item:focus {
+  background-color: #1162b1 !important;
+  color: #ffffff !important;
+}

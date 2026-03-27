@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "KopiaUI",
+    "snapshots": "Snapshots",
+    "policies": "Policies",
+    "tasks": "Tasks",
+    "repository": "Repository",
+    "preferences": "Preferences"
+  },
+  "preferences": {
+    "appearance": "Appearance",
+    "notifications": "Notifications",
+    "theme": "Theme",
+    "themeLight": "light",
+    "themeDark": "dark",
+    "themePastel": "pastel",
+    "themeOcean": "ocean",
+    "fontSize": "Appearance",
+    "small": "small",
+    "medium": "medium",
+    "large": "large",
+    "byteRepresentation": "Byte representation",
+    "base10": "Base-10 (KB, MB, GB, TB)",
+    "base2": "Base-2 (KiB, MiB, GiB, TiB)"
+  },
+  "language": {
+    "en": "EN English",
+    "ru": "RU \u0420\u0443\u0441\u0441\u043a\u0438\u0439"
+  }
+}

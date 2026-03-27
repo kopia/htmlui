@@ -78,6 +78,8 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     (theme: Theme) =>
       setPreferences((oldPreferences) => {
         syncTheme(theme, oldPreferences.fontSize);
+        // Save theme to localStorage
+        localStorage.setItem('ui-theme', theme);
         return { ...oldPreferences, theme };
       }),
     [],
@@ -153,7 +155,8 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
    */
   const syncTheme = (theme: Theme, fontSize: FontSize) => {
     const doc = document.querySelector("html")!;
-    doc.classList.remove(...doc.classList);
+    // Remove only theme and font-size classes, preserve others
+    doc.classList.remove('light', 'dark', 'pastel', 'ocean', 'fs-6', 'fs-5', 'fs-4');
     doc.classList.add(theme, fontSize);
   };
 
