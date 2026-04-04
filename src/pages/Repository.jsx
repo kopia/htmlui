@@ -11,6 +11,7 @@ import { handleChange } from "../forms";
 import { SetupRepository } from "../components/SetupRepository";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { cancelTask } from "../utils/taskutil";
+import { parseBytes, formatBytes } from "../utils/formatutils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { Logs } from "../components/Logs";
@@ -26,6 +27,10 @@ export class Repository extends Component {
       error: null,
       provider: "",
       description: "",
+      throttle: {
+        maxUploadSpeedBytesPerSecond: "",
+        maxDownloadSpeedBytesPerSecond: "",
+      },
     };
 
     this.mounted = false;
@@ -34,6 +39,8 @@ export class Repository extends Component {
     this.handleChange = handleChange.bind(this);
     this.fetchStatus = this.fetchStatus.bind(this);
     this.fetchStatusWithoutSpinner = this.fetchStatusWithoutSpinner.bind(this);
+    this.fetchThrottle = this.fetchThrottle.bind(this);
+    this.updateThrottle = this.updateThrottle.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +79,9 @@ export class Repository extends Component {
             window.setTimeout(() => {
               this.fetchStatusWithoutSpinner();
             }, 1000);
+          } else if (result.data.connected && !result.data.apiServerURL) {
+            // Only fetch throttle for direct repository connections (not API server connections)
+            this.fetchThrottle();
           }
         }
       })
@@ -82,6 +92,44 @@ export class Repository extends Component {
             isLoading: false,
           });
         }
+      });
+  }
+
+  fetchThrottle() {
+    axios
+      .get("/api/v1/repo/throttle")
+      .then((result) => {
+        if (this.mounted) {
+          this.setState({
+            throttle: {
+              maxUploadSpeedBytesPerSecond: formatBytes(result.data.maxUploadSpeedBytesPerSecond),
+              maxDownloadSpeedBytesPerSecond: formatBytes(result.data.maxDownloadSpeedBytesPerSecond),
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("Unable to fetch throttle settings:", error);
+      });
+  }
+
+  updateThrottle() {
+    this.setState({ isLoading: true });
+
+    const throttleData = {
+      maxUploadSpeedBytesPerSecond: parseBytes(this.state.throttle.maxUploadSpeedBytesPerSecond),
+      maxDownloadSpeedBytesPerSecond: parseBytes(this.state.throttle.maxDownloadSpeedBytesPerSecond),
+    };
+
+    axios
+      .put("/api/v1/repo/throttle", throttleData)
+      .then((_result) => {
+        this.setState({ isLoading: false });
+        this.fetchThrottle();
+      })
+      .catch((error) => {
+        this.setState({ isLoading: false });
+        alert("Error updating throttle settings: " + (error.response?.data?.error || error.message));
       });
   }
 
@@ -287,6 +335,47 @@ export class Repository extends Component {
               </Col>
             </Row>
           </Form>
+          {!this.state.status.apiServerURL && (
+            <>
+              <hr />
+              <h5>Upload/Download Speed Limits</h5>
+              <Form>
+                <Row>
+                  <Form.Group as={Col} xs={3}>
+                    <Form.Label>Maximum Upload Speed</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="throttle.maxUploadSpeedBytesPerSecond"
+                      value={this.state.throttle.maxUploadSpeedBytesPerSecond || ""}
+                      onChange={this.handleChange}
+                      placeholder="e.g., 1M, 100K"
+                      size="sm"
+                    />
+                    <Form.Text className="text-muted">Examples: 1.5M, 100K, 1G, or leave empty for unlimited</Form.Text>
+                  </Form.Group>
+                  <Form.Group as={Col} xs={3}>
+                    <Form.Label>Maximum Download Speed</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="throttle.maxDownloadSpeedBytesPerSecond"
+                      value={this.state.throttle.maxDownloadSpeedBytesPerSecond || ""}
+                      onChange={this.handleChange}
+                      placeholder="e.g., 1M, 100K"
+                      size="sm"
+                    />
+                    <Form.Text className="text-muted">Examples: 1.5M, 100K, 1G, or leave empty for unlimited</Form.Text>
+                  </Form.Group>
+                </Row>
+                <Row className="mt-3">
+                  <Col>
+                    <Button size="sm" variant="success" onClick={this.updateThrottle}>
+                      Save Settings
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </>
+          )}
           <Row>
             <Col>&nbsp;</Col>
           </Row>
