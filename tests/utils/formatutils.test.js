@@ -9,6 +9,8 @@ import {
   formatOwnerName,
   compare,
   formatDuration,
+  parseBytes,
+  formatBytes,
 } from "../../src/utils/formatutils";
 
 describe("formatMilliseconds", () => {
@@ -479,5 +481,71 @@ describe("formatDuration", () => {
     const from = new Date("2023-01-01T12:00:00Z").toISOString();
     const to = new Date("2023-01-01T12:01:30Z").toISOString();
     expect(formatDuration(from, to, true)).toBe("1m 30s");
+  });
+});
+
+describe("parseBytes", () => {
+  describe("edge cases", () => {
+    it.each([
+      ["", 0],
+      ["0", 0],
+      [0, 0],
+      [null, 0],
+      [undefined, 0],
+      ["invalid", 0],
+      ["X", 0],
+      ["abc", 0],
+    ])("returns 0 for %p", (input, expected) => {
+      expect(parseBytes(input)).toBe(expected);
+    });
+  });
+
+  describe("unit parsing", () => {
+    it.each([
+      ["1K", 1024],
+      ["1k", 1024],
+      ["100K", 102400],
+      ["1.5K", 1536],
+      ["1M", 1048576],
+      ["1m", 1048576],
+      ["100M", 104857600],
+      ["2.5M", 2621440],
+      ["1G", 1073741824],
+      ["1g", 1073741824],
+      ["2G", 2147483648],
+      ["0.5G", 536870912],
+      [" 1M ", 1048576],
+      ["1 M", 1048576],
+      ["1024", 1024],
+      ["1048576", 1048576],
+    ])("parses '%s' as %i bytes", (input, expected) => {
+      expect(parseBytes(input)).toBe(expected);
+    });
+  });
+});
+
+describe("formatBytes", () => {
+  it.each([
+    [0, ""],
+    [null, ""],
+    [undefined, ""],
+  ])("returns empty string for %p", (input, expected) => {
+    expect(formatBytes(input)).toBe(expected);
+  });
+
+  it.each([
+    [512, "512"],
+    [1024, "1K"],
+    [102400, "100K"],
+    [1536, "1.50K"],
+    [1048576, "1M"],
+    [104857600, "100M"],
+    [2621440, "2.50M"],
+    [1572864, "1.50M"],
+    [1073741824, "1G"],
+    [2147483648, "2G"],
+    [1610612736, "1.50G"],
+  ])("formats %i bytes as '%s'", (input, expected) => {
+    expect(formatBytes(input)).toBe(expected);
   });
 });
