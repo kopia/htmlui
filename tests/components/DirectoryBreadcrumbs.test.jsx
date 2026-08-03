@@ -2,12 +2,12 @@ import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { DirectoryBreadcrumbs } from "../../src/components/DirectoryBreadcrumbs";
 import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });

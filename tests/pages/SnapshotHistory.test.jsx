@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor, act } from "@testing-library/react"
 import "@testing-library/jest-dom";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SnapshotHistory } from "../../src/pages/SnapshotHistory";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import axios from "axios";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
@@ -11,8 +11,8 @@ import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.j
 // Mock axios
 vi.mock("axios");
 
-// Mock react-router-dom using the unified helper with custom location
-vi.mock("react-router-dom", async () => {
+// Mock react-router using the unified helper with custom location
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     location: {

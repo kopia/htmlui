@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { handleChange } from "../forms";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { SnapshotEstimation } from "../components/SnapshotEstimation";

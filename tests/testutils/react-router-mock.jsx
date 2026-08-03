@@ -2,28 +2,28 @@ import React from "react";
 import { vi } from "vitest";
 
 /**
- * Unified react-router-dom mocking utilities for consistent testing across the codebase.
+ * Unified react-router mocking utilities for consistent testing across the codebase.
  *
  * This module provides a single, flexible mock system that can handle all testing scenarios
  * from simple component mocks to full router state management.
  *
  * @example
  * // Basic usage - full mock with actual implementation
- * vi.mock("react-router-dom", async () => {
+ * vi.mock("react-router", async () => {
  *   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
  *   return createRouterMock()();
  * });
  *
  * @example
  * // Simple object mock (no actual implementation)
- * vi.mock("react-router-dom", async () => {
+ * vi.mock("react-router", async () => {
  *   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
  *   return createRouterMock({ simple: true })();
  * });
  *
  * @example
  * // Custom state with components only
- * vi.mock("react-router-dom", async () => {
+ * vi.mock("react-router", async () => {
  *   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
  *   return createRouterMock({
  *     location: { pathname: "/users", search: "?id=123" },
@@ -71,7 +71,7 @@ const MockNavLink = ({ children, to, className, ...props }) => (
 MockNavLink.displayName = "MockNavLink";
 
 /**
- * Unified react-router-dom mock creator that handles all testing scenarios.
+ * Unified react-router mock creator that handles all testing scenarios.
  *
  * @param {Object} options - Configuration options
  * @param {Object} [options.location] - Mock location object
@@ -149,7 +149,7 @@ function createSimpleMock({ navigate, mockLink, mockNavLink }) {
 // Full mock (preserves actual implementation)
 function createFullMock({ navigate, mockLink, mockNavLink }) {
   return async () => {
-    const actual = await vi.importActual("react-router-dom");
+    const actual = await vi.importActual("react-router");
     const mocks = {
       ...actual,
       useNavigate: () => navigate,

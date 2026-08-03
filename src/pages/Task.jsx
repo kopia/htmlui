@@ -10,7 +10,7 @@ import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 import { Logs } from "../components/Logs";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router";
 import { formatDuration, sizeDisplayName } from "../utils/formatutils";
 import { redirect } from "../utils/uiutil";
 import { GoBackButton } from "../components/GoBackButton";

@@ -2,7 +2,7 @@ import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { Policies, PoliciesInternal } from "../../src/pages/Policies";
 import { AppContext } from "../../src/contexts/AppContext";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
@@ -12,8 +12,8 @@ import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.j
 
 let axiosMock;
 
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });

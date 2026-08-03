@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { handleChange } from "../forms";
 import { OptionalDirectory } from "../forms/OptionalDirectory";
 import KopiaTable from "../components/KopiaTable";

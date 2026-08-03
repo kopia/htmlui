@@ -10,7 +10,7 @@ import { sizeDisplayName } from "../utils/formatutils";
 import { redirect } from "../utils/uiutil";
 import { cancelTask } from "../utils/taskutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router";
 
 export class SnapshotEstimationInternal extends Component {
   constructor() {
