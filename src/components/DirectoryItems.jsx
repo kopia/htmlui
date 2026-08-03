@@ -39,7 +39,7 @@ function directoryLinkOrDownload(x, state) {
 }
 
 export function DirectoryItems({ historyState, items }) {
-  const context = React.useContext(UIPreferencesContext);
+  const context = React.use(UIPreferencesContext);
 
   const { bytesStringBase2 } = context;
   const columns = [

@@ -255,7 +255,7 @@ export class SetupRepository extends Component {
   }
 
   toggleAdvanced() {
-    this.setState({ showAdvanced: !this.state.showAdvanced });
+    this.setState((state) => ({ showAdvanced: !state.showAdvanced }));
   }
 
   cancelCreate() {

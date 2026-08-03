@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types, react/display-name */
 import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor, act } from "@testing-library/react";

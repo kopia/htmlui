@@ -15,7 +15,7 @@ export function EffectiveValue(component, policyField) {
           value={getDeepStateProperty(component, "resolved.effective." + policyField, undefined)}
           readOnly={true}
         />
-        <Form.Text data-testid={"definition-" + policyField}>{component.PolicyDefinitionPoint(dsp)}</Form.Text>
+        <Form.Text data-testid={"definition-" + policyField}>{component.policyDefinitionPoint(dsp)}</Form.Text>
       </Form.Group>
     </EffectiveValueColumn>
   );

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { render, waitFor, act } from "@testing-library/react";
 import React, { useContext } from "react";
 import axios from "axios";

@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "@eslint-react/eslint-plugin": "^5.18.1",
     "@eslint/js": "^10.0.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -52,8 +53,6 @@
     "axios": "^1.18.1",
     "axios-mock-adapter": "^2.1.0",
     "eslint": "^10.8.0",
-    "eslint-config-react": "^1.1.7",
-    "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "jsdom": "^27.0.1",
     "prettier": "^3.8.3",

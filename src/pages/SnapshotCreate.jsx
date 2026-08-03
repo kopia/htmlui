@@ -110,13 +110,13 @@ class SnapshotCreateInternal extends Component {
       axios
         .post("/api/v1/estimate", req)
         .then((result) => {
-          this.setState({
-            lastEstimatedPath: this.state.resolvedSource.path,
+          this.setState((state) => ({
+            lastEstimatedPath: state.resolvedSource.path,
             estimateTaskID: result.data.id,
             estimatingPath: result.data.description,
             estimateTaskVisible: true,
             didEstimate: false,
-          });
+          }));
         })
         .catch((error) => {
           errorAlert(error);
