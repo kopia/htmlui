@@ -1,4 +1,4 @@
-import { useContext, React } from "react";
+import { use } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -13,7 +13,7 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
  */
 export function Preferences() {
   const { theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize } =
-    useContext(UIPreferencesContext);
+    use(UIPreferencesContext);
 
   return (
     <Tabs defaultActiveKey="appearance" id="preferences" className="mb-3">

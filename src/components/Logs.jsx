@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import { handleChange } from "../forms";
 import { redirect } from "../utils/uiutil";
 import PropTypes from "prop-types";
 
@@ -10,11 +9,10 @@ export class Logs extends Component {
     super();
     this.state = {
       items: [],
-      isLoading: false,
+      isLoading: true,
       error: null,
     };
 
-    this.handleChange = handleChange.bind(this);
     this.fetchLog = this.fetchLog.bind(this);
     this.interval = window.setInterval(this.fetchLog, 3000);
     this.messagesEndRef = React.createRef();
@@ -22,10 +20,6 @@ export class Logs extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    });
-
     this.fetchLog();
     this.scrollToBottom();
   }
@@ -119,8 +113,8 @@ export class Logs extends Component {
         <div className="logs-table">
           <Table size="sm" bordered hover>
             <tbody>
-              {logs.map((v, ndx) => (
-                <tr key={ndx + "-" + v.ts} className={"loglevel-" + v.level}>
+              {logs.map((v) => (
+                <tr key={v.ts + "-" + v.msg} className={"loglevel-" + v.level}>
                   <td className="elide" title={this.fullLogTime(v.ts)}>
                     {this.formatLogTime(v.ts)} {v.msg} {this.formatLogParams(v)}
                   </td>

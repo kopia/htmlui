@@ -30,7 +30,7 @@ export class PoliciesInternal extends Component {
     super();
     this.state = {
       policies: [],
-      isLoading: false,
+      isLoading: true,
       error: null,
       editorTarget: null,
       selectedOwner: applicablePolicies,
@@ -45,10 +45,6 @@ export class PoliciesInternal extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    });
-
     this.fetchPolicies();
     this.fetchSourcesWithoutSpinner();
   }

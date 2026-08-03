@@ -15,7 +15,6 @@ vi.mock("../../src/components/SetupRepository", () => ({
 }));
 
 vi.mock("../../src/components/Logs", () => ({
-  // eslint-disable-next-line react/prop-types
   Logs: ({ taskID }) => <div>Logs for task {taskID}</div>,
 }));
 

@@ -166,5 +166,5 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     setFontSize,
   } as UIPreferences;
 
-  return <UIPreferencesContext.Provider value={providedValue}>{props.children}</UIPreferencesContext.Provider>;
+  return <UIPreferencesContext value={providedValue}>{props.children}</UIPreferencesContext>;
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { use, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
 import Table from "react-bootstrap/Table";
@@ -56,7 +56,7 @@ function paginationItems(count, active, gotoPage) {
 }
 
 export default function KopiaTable({ columns, data }) {
-  const { pageSize, setPageSize } = useContext(UIPreferencesContext);
+  const { pageSize, setPageSize } = use(UIPreferencesContext);
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0, //default page index

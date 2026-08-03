@@ -1,7 +1,7 @@
 import { faCopy, faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -20,7 +20,7 @@ export function CLIEquivalent(props) {
       .catch((_error) => {});
   }
 
-  const ref = React.createRef();
+  const ref = useRef(null);
 
   function copyToClibopard() {
     const el = ref.current;
