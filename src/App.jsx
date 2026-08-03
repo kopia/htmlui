@@ -4,7 +4,7 @@ import "./css/App.css";
 import axios from "axios";
 import { React, Component } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Navigate, Route, Routes } from "react-router";
 import { Policy } from "./pages/Policy";
 import { Preferences } from "./pages/Preferences";
 import { Policies } from "./pages/Policies";

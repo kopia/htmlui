@@ -1,7 +1,7 @@
 import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import { PolicyEditor } from "../../src/components/policy-editor/PolicyEditor";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { setupAPIMock } from "../testutils/api-mocks";
 import moment from "moment";
 import { fireEvent } from "@testing-library/react";

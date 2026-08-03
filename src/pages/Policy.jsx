@@ -1,7 +1,7 @@
 import React, { createRef } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { parseQuery } from "../utils/formatutils";
