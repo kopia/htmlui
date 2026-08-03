@@ -199,7 +199,7 @@ export class SetupRepository extends Component {
       return;
     }
 
-    let request = null;
+    let request;
     switch (this.state.provider) {
       case "_token":
         request = {
