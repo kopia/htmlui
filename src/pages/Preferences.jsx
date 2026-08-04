@@ -12,8 +12,7 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
  * Class that exports preferences
  */
 export function Preferences() {
-  const { theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize } =
-    use(UIPreferencesContext);
+  const { theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize } = use(UIPreferencesContext);
 
   return (
     <Tabs defaultActiveKey="appearance" id="preferences" className="mb-3">

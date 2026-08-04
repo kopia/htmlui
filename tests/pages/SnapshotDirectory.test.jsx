@@ -24,7 +24,6 @@ vi.mock("react-router", async () => {
 vi.mock("../../src/components/DirectoryItems", () => ({
   DirectoryItems: ({ items, historyState }) => (
     <div data-testid="directory-items">
-
       <div data-testid="items-count">{items.length}</div>
       <div data-testid="history-state">{JSON.stringify(historyState)}</div>
     </div>
