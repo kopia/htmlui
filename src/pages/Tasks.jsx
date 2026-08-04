@@ -19,7 +19,7 @@ export class Tasks extends Component {
     super();
     this.state = {
       items: [],
-      isLoading: false,
+      isLoading: true,
       error: null,
       showKind: "All",
       showStatus: "All",
@@ -33,10 +33,6 @@ export class Tasks extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    });
-
     this.fetchTasks();
   }
 

@@ -34,10 +34,8 @@ export function checkPolicyPath(path) {
   const p1 = path.indexOf("@");
   const p2 = path.indexOf(":");
 
-  // user@host:path
-  if (p1 > 0 && p2 > 0 && p1 < p2 && p2 < path.length) {
-    path = path.substring(p2 + 1);
-  } else if (p1 >= 0 && p2 < 0) {
+  // user@host without path (no colon)
+  if (p1 >= 0 && p2 < 0) {
     if (p1 + 1 < path.length) {
       // @host and user@host without path
       return null;

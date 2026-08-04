@@ -1,7 +1,7 @@
 import { faChevronCircleDown, faChevronCircleUp, faStopCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { Component, useContext } from "react";
+import React, { Component, use } from "react";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/esm/Spinner";
 import Form from "react-bootstrap/Form";
@@ -29,10 +29,6 @@ export class SnapshotEstimationInternal extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    });
-
     this.fetchTask(this.props);
   }
 
@@ -148,7 +144,7 @@ export function SnapshotEstimation(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  useContext(UIPreferencesContext);
+  use(UIPreferencesContext);
 
   return <SnapshotEstimationInternal navigate={navigate} location={location} params={params} {...props} />;
 }

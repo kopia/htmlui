@@ -100,10 +100,6 @@ export class Repository extends Component {
       );
   }
 
-  selectProvider(provider) {
-    this.setState({ provider });
-  }
-
   updateDescription() {
     this.setState({
       isLoading: true,

@@ -112,7 +112,7 @@ export default class App extends Component {
 
     return (
       <Router>
-        <AppContext.Provider value={this}>
+        <AppContext value={this}>
           <UIPreferenceProvider initalValue={uiPrefs}>
             <Navbar expand="sm" variant="light">
               <Navbar.Brand href="/">
@@ -191,7 +191,7 @@ export default class App extends Component {
               </Routes>
             </Container>
           </UIPreferenceProvider>
-        </AppContext.Provider>
+        </AppContext>
       </Router>
     );
   }

@@ -54,7 +54,6 @@ const DEFAULT_STATE = {
 };
 
 // Centralized mock components
-// eslint-disable-next-line react/prop-types
 const MockLink = ({ children, to, className, ...props }) => (
   <a href={to || "#"} className={className} data-testid="link" {...props}>
     {children}
@@ -62,7 +61,6 @@ const MockLink = ({ children, to, className, ...props }) => (
 );
 MockLink.displayName = "MockLink";
 
-// eslint-disable-next-line react/prop-types
 const MockNavLink = ({ children, to, className, ...props }) => (
   <a href={to || "#"} className={className} data-testid="nav-link" {...props}>
     {children}
@@ -132,12 +130,14 @@ function createComponentOnlyMock({ mockLink, mockNavLink }) {
 // Simple mock (no actual implementation)
 function createSimpleMock({ navigate, mockLink, mockNavLink }) {
   return () => {
+    /* eslint-disable @eslint-react/no-unnecessary-use-prefix -- names must match react-router hooks */
     const mocks = {
       useNavigate: () => navigate,
       useLocation: () => mockUseLocation(),
       useParams: () => mockUseParams(),
       useSearchParams: () => mockUseSearchParams(),
     };
+    /* eslint-enable @eslint-react/no-unnecessary-use-prefix */
 
     if (mockLink) mocks.Link = MockLink;
     if (mockNavLink) mocks.NavLink = MockNavLink;
@@ -150,6 +150,7 @@ function createSimpleMock({ navigate, mockLink, mockNavLink }) {
 function createFullMock({ navigate, mockLink, mockNavLink }) {
   return async () => {
     const actual = await vi.importActual("react-router");
+    /* eslint-disable @eslint-react/no-unnecessary-use-prefix -- names must match react-router hooks */
     const mocks = {
       ...actual,
       useNavigate: () => navigate,
@@ -157,6 +158,7 @@ function createFullMock({ navigate, mockLink, mockNavLink }) {
       useParams: () => mockUseParams(),
       useSearchParams: () => mockUseSearchParams(),
     };
+    /* eslint-enable @eslint-react/no-unnecessary-use-prefix */
 
     if (mockLink) mocks.Link = MockLink;
     if (mockNavLink) mocks.NavLink = MockNavLink;
