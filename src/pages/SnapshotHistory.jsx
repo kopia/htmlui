@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component, useContext } from "react";
+import React, { Component, use } from "react";
 import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -224,12 +224,6 @@ class SnapshotHistoryInternal extends Component {
           isRefreshing: false,
         }),
       );
-  }
-
-  selectSnapshot(x) {
-    this.setState({
-      selectedSnapshot: x,
-    });
   }
 
   toggleShowHidden(x) {
@@ -564,9 +558,9 @@ class SnapshotHistoryInternal extends Component {
                       className="required"
                       checked={this.state.alsoDeleteSource}
                       onChange={() =>
-                        this.setState({
-                          alsoDeleteSource: !this.state.alsoDeleteSource,
-                        })
+                        this.setState((state) => ({
+                          alsoDeleteSource: !state.alsoDeleteSource,
+                        }))
                       }
                       type="checkbox"
                     />
@@ -676,7 +670,7 @@ SnapshotHistoryInternal.propTypes = {
 export function SnapshotHistory(props) {
   const navigate = useNavigate();
   const location = useLocation();
-  useContext(UIPreferencesContext);
+  use(UIPreferencesContext);
 
   return <SnapshotHistoryInternal navigate={navigate} location={location} {...props} />;
 }

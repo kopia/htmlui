@@ -22,10 +22,8 @@ vi.mock("react-router", async () => {
 
 // Mock the child components to focus on SnapshotDirectory logic
 vi.mock("../../src/components/DirectoryItems", () => ({
-  // eslint-disable-next-line react/prop-types
   DirectoryItems: ({ items, historyState }) => (
     <div data-testid="directory-items">
-      {/* eslint-disable-next-line react/prop-types */}
       <div data-testid="items-count">{items.length}</div>
       <div data-testid="history-state">{JSON.stringify(historyState)}</div>
     </div>

@@ -14,7 +14,6 @@ vi.mock("react-router", async () => {
   // Override the Link component to include state data for testing
   return {
     ...routerMock,
-    // eslint-disable-next-line react/prop-types
     Link: ({ children, to, state }) => (
       <a href={to} data-testid="mock-link" data-link-state={JSON.stringify(state)}>
         {children}

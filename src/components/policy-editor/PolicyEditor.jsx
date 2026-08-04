@@ -60,7 +60,7 @@ export class PolicyEditor extends Component {
     this.deletePolicy = this.deletePolicy.bind(this);
     this.policyURL = this.policyURL.bind(this);
     this.resolvePolicy = this.resolvePolicy.bind(this);
-    this.PolicyDefinitionPoint = this.PolicyDefinitionPoint.bind(this);
+    this.policyDefinitionPoint = this.policyDefinitionPoint.bind(this);
     this.getAndValidatePolicy = this.getAndValidatePolicy.bind(this);
   }
 
@@ -131,7 +131,7 @@ export class PolicyEditor extends Component {
     }
   }
 
-  PolicyDefinitionPoint(p) {
+  policyDefinitionPoint(p) {
     if (!p) {
       return "";
     }

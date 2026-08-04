@@ -21,7 +21,6 @@ vi.mock("react-router", async () => {
 
 // Mock the Logs component to avoid its complex implementation
 vi.mock("../../src/components/Logs", () => ({
-  // eslint-disable-next-line react/prop-types
   Logs: ({ taskID }) => <div data-testid="logs-component">Logs for task {taskID}</div>,
 }));
 
