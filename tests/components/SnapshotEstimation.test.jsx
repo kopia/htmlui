@@ -2,7 +2,7 @@ import React from "react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { SnapshotEstimation } from "../../src/components/SnapshotEstimation";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 import { setupAPIMock } from "../testutils/api-mocks";
@@ -21,8 +21,8 @@ vi.mock("../../src/components/Logs", () => ({
   },
 }));
 
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     location: { pathname: "/test" },

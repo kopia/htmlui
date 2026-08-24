@@ -9,8 +9,8 @@ import "@testing-library/jest-dom";
 
 let axiosMock;
 
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     simple: true,
@@ -22,10 +22,8 @@ vi.mock("react-router-dom", async () => {
 
 // Mock the child components to focus on SnapshotDirectory logic
 vi.mock("../../src/components/DirectoryItems", () => ({
-  // eslint-disable-next-line react/prop-types
   DirectoryItems: ({ items, historyState }) => (
     <div data-testid="directory-items">
-      {/* eslint-disable-next-line react/prop-types */}
       <div data-testid="items-count">{items.length}</div>
       <div data-testid="history-state">{JSON.stringify(historyState)}</div>
     </div>

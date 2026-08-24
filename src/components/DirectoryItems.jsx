@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import KopiaTable from "./KopiaTable";
 import { objectLink, rfc3339TimestampForDisplay } from "../utils/formatutils";
 import { sizeWithFailures } from "../utils/uiutil";
@@ -39,7 +39,7 @@ function directoryLinkOrDownload(x, state) {
 }
 
 export function DirectoryItems({ historyState, items }) {
-  const context = React.useContext(UIPreferencesContext);
+  const context = React.use(UIPreferencesContext);
 
   const { bytesStringBase2 } = context;
   const columns = [

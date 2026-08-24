@@ -199,7 +199,7 @@ export class SetupRepository extends Component {
       return;
     }
 
-    let request = null;
+    let request;
     switch (this.state.provider) {
       case "_token":
         request = {
@@ -255,7 +255,7 @@ export class SetupRepository extends Component {
   }
 
   toggleAdvanced() {
-    this.setState({ showAdvanced: !this.state.showAdvanced });
+    this.setState((state) => ({ showAdvanced: !state.showAdvanced }));
   }
 
   cancelCreate() {

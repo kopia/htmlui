@@ -1,7 +1,7 @@
 import { faStopCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { Component, useContext } from "react";
+import React, { Component, use } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -10,7 +10,7 @@ import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import Spinner from "react-bootstrap/Spinner";
 import { Logs } from "../components/Logs";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router";
 import { formatDuration, sizeDisplayName } from "../utils/formatutils";
 import { redirect } from "../utils/uiutil";
 import { GoBackButton } from "../components/GoBackButton";
@@ -36,10 +36,6 @@ class TaskInternal extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    });
-
     this.fetchTask();
   }
 
@@ -270,7 +266,7 @@ export function Task(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  useContext(UIPreferencesContext);
+  use(UIPreferencesContext);
 
   return <TaskInternal navigate={navigate} location={location} params={params} {...props} />;
 }

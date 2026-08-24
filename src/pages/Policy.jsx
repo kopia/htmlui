@@ -1,7 +1,7 @@
-import React, { createRef } from "react";
+import React from "react";
 import Col from "react-bootstrap/esm/Col";
 import Row from "react-bootstrap/esm/Row";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { parseQuery } from "../utils/formatutils";
@@ -11,7 +11,6 @@ import { GoBackButton } from "../components/GoBackButton";
 export function Policy() {
   const navigate = useNavigate();
   const location = useLocation();
-  const editorRef = createRef();
 
   const source = parseQuery(location.search);
   const { userName, host, path } = source;
@@ -22,7 +21,7 @@ export function Policy() {
         <GoBackButton />
         &nbsp;&nbsp;{PolicyTypeName(source)}
       </h4>
-      <PolicyEditor ref={editorRef} userName={userName} host={host} path={path} close={() => navigate(-1)} />
+      <PolicyEditor userName={userName} host={host} path={path} close={() => navigate(-1)} />
       <Row>
         <Col>&nbsp;</Col>
       </Row>

@@ -9,8 +9,8 @@ import "@testing-library/jest-dom";
 
 let axiosMock;
 
-// Mock react-router-dom Link component using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router Link component using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });

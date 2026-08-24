@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { handleChange } from "../forms";
 import { PolicyEditor } from "../components/policy-editor/PolicyEditor";
 import { SnapshotEstimation } from "../components/SnapshotEstimation";
@@ -110,13 +110,13 @@ class SnapshotCreateInternal extends Component {
       axios
         .post("/api/v1/estimate", req)
         .then((result) => {
-          this.setState({
-            lastEstimatedPath: this.state.resolvedSource.path,
+          this.setState((state) => ({
+            lastEstimatedPath: state.resolvedSource.path,
             estimateTaskID: result.data.id,
             estimatingPath: result.data.description,
             estimateTaskVisible: true,
             didEstimate: false,
-          });
+          }));
         })
         .catch((error) => {
           errorAlert(error);

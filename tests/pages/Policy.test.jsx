@@ -1,16 +1,15 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import "@testing-library/jest-dom";
 import { Policy } from "../../src/pages/Policy";
 import { setupAPIMock } from "../testutils/api-mocks";
 import { mockNavigate, resetRouterMocks, updateRouterMocks } from "../testutils/react-router-mock.jsx";
 
 // Mock React Router hooks using unified helper
-vi.mock("react-router-dom", async () => {
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });

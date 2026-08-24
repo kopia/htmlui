@@ -2,19 +2,18 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import "@testing-library/jest-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { DirectoryItems } from "../../src/components/DirectoryItems";
 import { UIPreferencesContext } from "../../src/contexts/UIPreferencesContext";
 
-// Mock react-router-dom Link component using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router Link component using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   const routerMock = await createRouterMock()();
 
   // Override the Link component to include state data for testing
   return {
     ...routerMock,
-    // eslint-disable-next-line react/prop-types
     Link: ({ children, to, state }) => (
       <a href={to} data-testid="mock-link" data-link-state={JSON.stringify(state)}>
         {children}

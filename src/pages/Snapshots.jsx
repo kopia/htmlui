@@ -9,8 +9,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
-import { Link } from "react-router-dom";
-import { handleChange } from "../forms";
+import { Link } from "react-router";
 import KopiaTable from "../components/KopiaTable";
 import { compare, formatOwnerName, sizeDisplayName } from "../utils/formatutils";
 import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
@@ -26,7 +25,7 @@ export class Snapshots extends Component {
     super();
     this.state = {
       sources: [],
-      isLoading: false,
+      isLoading: true,
       isFetching: false,
       isRefreshing: false,
       error: null,
@@ -39,7 +38,6 @@ export class Snapshots extends Component {
 
     this.sync = this.sync.bind(this);
     this.fetchSourcesWithoutSpinner = this.fetchSourcesWithoutSpinner.bind(this);
-    this.handleChange = handleChange.bind(this);
 
     this.cancelSnapshot = this.cancelSnapshot.bind(this);
     this.startSnapshot = this.startSnapshot.bind(this);
@@ -47,8 +45,9 @@ export class Snapshots extends Component {
 
   componentDidMount() {
     const { defaultSnapshotViewAll } = this.context;
+    // Context is not available early enough in the constructor for preference-driven defaults.
+    // eslint-disable-next-line @eslint-react/no-set-state-in-component-did-mount -- needs this.context
     this.setState({
-      isLoading: true,
       selectedOwner: defaultSnapshotViewAll ? allSnapshots : localSnapshots,
     });
     this.fetchSourcesWithoutSpinner();

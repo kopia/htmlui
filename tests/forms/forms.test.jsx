@@ -30,7 +30,7 @@ class MockComponent extends React.Component {
   setState(newState) {
     const mergedState = { ...this.state, ...newState };
     // For testing purposes, directly assign to state to avoid unmounted component warnings
-    // eslint-disable-next-line react/no-direct-mutation-state
+    // eslint-disable-next-line @eslint-react/no-direct-mutation-state -- test harness mock
     this.state = mergedState;
     // Only call super.setState if this is not a test component
     if (!this._isTestComponent) {
@@ -40,7 +40,7 @@ class MockComponent extends React.Component {
 
   // Helper method for tests to set state without warnings
   setTestState(newState) {
-    // eslint-disable-next-line react/no-direct-mutation-state
+    // eslint-disable-next-line @eslint-react/no-direct-mutation-state -- test harness mock
     this.state = { ...this.state, ...newState };
   }
 }

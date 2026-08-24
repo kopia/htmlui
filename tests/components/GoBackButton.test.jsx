@@ -1,13 +1,13 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { vi } from "vitest";
 import "@testing-library/jest-dom";
 import { GoBackButton } from "../../src/components/GoBackButton";
 import { mockNavigate, resetRouterMocks } from "../testutils/react-router-mock.jsx";
 
-// Mock react-router-dom using the unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router using the unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock()();
 });

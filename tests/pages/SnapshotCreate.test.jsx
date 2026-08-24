@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types, react/display-name */
 import React from "react";
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor, act } from "@testing-library/react";
@@ -9,8 +8,8 @@ import "@testing-library/jest-dom";
 
 let axiosMock;
 
-// Mock react-router-dom using unified helper
-vi.mock("react-router-dom", async () => {
+// Mock react-router using unified helper
+vi.mock("react-router", async () => {
   const { createRouterMock } = await import("../testutils/react-router-mock.jsx");
   return createRouterMock({
     simple: true,
