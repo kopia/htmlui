@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 
 import { sizeWithFailures } from "../../src/utils/uiutil";
-import { taskStatusSymbol } from "../../src/utils/taskutil";
+import { taskProgressPercent, taskStatusSymbol } from "../../src/utils/taskutil";
 
 describe("sizeWithFailures", () => {
   it("returns empty string for undefined size", () => {
@@ -84,6 +84,28 @@ describe("taskStatusSymbol", () => {
     // Look for text content that includes "Running for"
     const hasRunningText = children.some((child) => typeof child === "string" && child.includes("Running for"));
     expect(hasRunningText).toBe(true);
+  });
+
+  it("shows restore percentage for a running task", () => {
+    const task = {
+      ...baseTask,
+      status: "RUNNING",
+      endTime: null,
+      progressInfo: "Processed 0 of 1 items (250 MB of 1 GB) (25.0%), 12 MB/s, remaining 1m",
+    };
+    const result = taskStatusSymbol(task);
+
+    const progress = result.props.children.find(
+      (child) => child && typeof child === "object" && child.props?.children?.[2]?.props?.children === "25.0%",
+    );
+    expect(progress).toBeDefined();
+  });
+
+  it("extracts percentages without depending on restore wording", () => {
+    expect(taskProgressPercent({ progressInfo: "50% complete" })).toBe("50%");
+    expect(taskProgressPercent({ progressInfo: "Processed data (99.9%)" })).toBe("99.9%");
+    expect(taskProgressPercent({ progressInfo: "Scanning files" })).toBe("");
+    expect(taskProgressPercent({})).toBe("");
   });
 
   it("shows success status with check icon", () => {

@@ -12,15 +12,27 @@ export function cancelTask(tid) {
     .catch((_error) => {});
 }
 
+export function taskProgressPercent(task) {
+  const match = task.progressInfo?.match(/(?:^|\s|\()([0-9]+(?:\.[0-9]+)?)%/);
+  return match ? match[1] + "%" : "";
+}
+
 export function taskStatusSymbol(task) {
   const st = task.status;
   const dur = formatDuration(task.startTime, task.endTime, true);
+  const progressPercent = taskProgressPercent(task);
 
   switch (st) {
     case "RUNNING":
       return (
         <>
           <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}
+          {progressPercent && (
+            <>
+              {" "}
+              · <strong>{progressPercent}</strong>
+            </>
+          )}
           <button className="btn btn-sm btn-link" type="button" onClick={() => cancelTask(task.id)}>
             <FontAwesomeIcon color="red" size="lg" title="Cancel task" icon={faXmark} />
           </button>
