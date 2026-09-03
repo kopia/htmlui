@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import KopiaTable from "./KopiaTable";
-import { objectLink, rfc3339TimestampForDisplay } from "../utils/formatutils";
+import { compare, objectLink, rfc3339TimestampForDisplay } from "../utils/formatutils";
 import { sizeWithFailures } from "../utils/uiutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
@@ -47,6 +47,24 @@ export function DirectoryItems({ historyState, items }) {
       id: "name",
       header: "Name",
       width: "",
+      accessorFn: (x) => x.name,
+      sortDescFirst: true, // first click sorts descending, like the other columns
+      sortingFn: (rowA, rowB, columnId) => {
+        const aIsDir = rowA.original.type === "d";
+        const bIsDir = rowB.original.type === "d";
+        if (aIsDir !== bIsDir) {
+          return aIsDir ? -1 : 1; // directories always first, in both directions
+        }
+
+        const aName = rowA.getValue(columnId);
+        const bName = rowB.getValue(columnId);
+        const v = compare(aName.toLowerCase(), bName.toLowerCase());
+        if (v !== 0) {
+          return v;
+        }
+
+        return compare(aName, bName); // exact-compare fallback for case-insensitive ties
+      },
       cell: (x) => directoryLinkOrDownload(x.row.original, historyState),
     },
     {
