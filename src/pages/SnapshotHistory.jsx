@@ -528,7 +528,7 @@ class SnapshotHistoryInternal extends Component {
         )}
         <Row>
           <Col xs={12}>
-            <KopiaTable data={snapshots} columns={columns} />
+            <KopiaTable data={snapshots} columns={columns} tableKey="snapshot-history" />
           </Col>
         </Row>
 

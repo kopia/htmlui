@@ -95,7 +95,7 @@ export function DirectoryItems({ historyState, items }) {
     },
   ];
 
-  return <KopiaTable data={items} columns={columns} />;
+  return <KopiaTable data={items} columns={columns} tableKey="directory" />;
 }
 
 DirectoryItems.propTypes = {
