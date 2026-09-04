@@ -352,7 +352,7 @@ export class PoliciesInternal extends Component {
         {policies.length > 0 ? (
           <div>
             <p>Found {policies.length} policies matching criteria.</p>
-            <KopiaTable data={policies} columns={columns} />
+            <KopiaTable data={policies} columns={columns} tableKey="policies" />
           </div>
         ) : this.state.selectedOwner === localPolicies && this.state.policyPath ? (
           <p>
