@@ -378,6 +378,7 @@ class SnapshotHistoryInternal extends Component {
         id: "startTime",
         header: "Start time",
         width: 200,
+        accessorFn: (x) => x.startTime, // RFC3339 strings compare correctly as strings
         cell: (x) => {
           let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
           return (
