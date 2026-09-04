@@ -13,6 +13,8 @@ export function OptionalFieldNoLabel(component, label, name, props = {}, helpTex
         value={stateProperty(component, name)}
         data-testid={"control-" + name}
         onChange={component.handleChange}
+        as="textarea"
+        rows="5"
         {...props}
       />
       {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}

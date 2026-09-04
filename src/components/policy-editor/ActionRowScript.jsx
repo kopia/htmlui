@@ -3,14 +3,14 @@ import Row from "react-bootstrap/Row";
 import { OptionalFieldNoLabel } from "../../forms/OptionalFieldNoLabel";
 import { LabelColumn } from "./LabelColumn";
 import { WideValueColumn } from "./WideValueColumn";
-import { EffectiveValue } from "./EffectiveValue";
+import { EffectiveActionValue } from "./EffectiveActionValue";
 
 export function ActionRowScript(component, action, name, help) {
   return (
     <Row>
       <LabelColumn name={name} help={help} />
       <WideValueColumn>{OptionalFieldNoLabel(component, "", "policy." + action, {})}</WideValueColumn>
-      {EffectiveValue(component, action)}
+      {EffectiveActionValue(component, action)}
     </Row>
   );
 }
