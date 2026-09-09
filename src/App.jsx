@@ -18,6 +18,7 @@ import { SnapshotHistory } from "./pages/SnapshotHistory";
 import { SnapshotRestore } from "./pages/SnapshotRestore";
 import { AppContext } from "./contexts/AppContext";
 import { UIPreferenceProvider } from "./contexts/UIPreferencesContext";
+import { TableSortProvider } from "./contexts/TableSortContext";
 
 export default class App extends Component {
   constructor() {
@@ -175,7 +176,8 @@ export default class App extends Component {
                 <h5 className="mb-4">{this.state.repoDescription}</h5>
               </NavLink>
 
-              <Routes>
+              <TableSortProvider>
+                <Routes>
                 <Route path="snapshots" element={<Snapshots />} />
                 <Route path="snapshots/new" element={<SnapshotCreate />} />
                 <Route path="snapshots/single-source/" element={<SnapshotHistory />} />
@@ -188,7 +190,8 @@ export default class App extends Component {
                 <Route path="repo" element={<Repository />} />
                 <Route path="preferences" element={<Preferences />} />
                 <Route path="/" element={<Navigate to="/snapshots" />} />
-              </Routes>
+                </Routes>
+              </TableSortProvider>
             </Container>
           </UIPreferenceProvider>
         </AppContext>
