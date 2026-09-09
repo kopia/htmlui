@@ -487,11 +487,17 @@ class SnapshotHistoryInternal extends Component {
           </Col>
           <Col></Col>
           <Col xs="auto">
-            <Button size="sm" variant="primary">
+            <Button
+              size="sm"
+              variant="primary"
+              title="Fetch snapshots"
+              onClick={this.fetchSnapshots}
+              disabled={this.state.isRefreshing}
+            >
               {this.state.isRefreshing ? (
                 <Spinner animation="border" variant="light" size="sm" />
               ) : (
-                <FontAwesomeIcon icon={faSync} title="Fetch snapshots" onClick={this.fetchSnapshots} />
+                <FontAwesomeIcon icon={faSync} />
               )}
             </Button>
           </Col>
