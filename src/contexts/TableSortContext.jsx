@@ -19,11 +19,7 @@ export function TableSortProvider({ children }) {
     });
   }, []);
 
-  return (
-    <TableSortContext value={{ getSort, setSort }}>
-      {children}
-    </TableSortContext>
-  );
+  return <TableSortContext value={{ getSort, setSort }}>{children}</TableSortContext>;
 }
 
 TableSortProvider.propTypes = {
