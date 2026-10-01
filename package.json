@@ -50,7 +50,7 @@
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.11",
-    "axios": "^1.18.1",
+    "axios": "^1.20.0",
     "axios-mock-adapter": "^2.1.0",
     "eslint": "^10.8.0",
     "globals": "^16.5.0",
