@@ -187,7 +187,7 @@ export class Tasks extends Component {
                   snapshots, restore, run maintenance, etc.
                 </Alert>
               ) : (
-                <KopiaTable data={filteredItems} columns={columns} />
+                <KopiaTable data={filteredItems} columns={columns} tableKey="tasks" />
               )}
             </Col>
           </Row>
