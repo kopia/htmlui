@@ -18,8 +18,11 @@ import { SnapshotHistory } from "./pages/SnapshotHistory";
 import { SnapshotRestore } from "./pages/SnapshotRestore";
 import { AppContext } from "./contexts/AppContext";
 import { UIPreferenceProvider } from "./contexts/UIPreferencesContext";
+import { LanguageSelection } from "./components/LanguageSelection";
+import { withTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super();
 
@@ -109,6 +112,7 @@ export default class App extends Component {
 
   render() {
     const { uiPrefs, runningTaskCount, isRepositoryConnected } = this.state;
+    const { t } = this.props;
 
     return (
       <Router>
@@ -121,52 +125,55 @@ export default class App extends Component {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                  <span className="d-inline-block" data-toggle="tooltip" title={t("navigation:repositoryDisconnected")}>
                     <NavLink
                       data-testid="tab-snapshots"
                       title=""
-                      data-title="Snapshots"
+                      data-title={t("navigation:snapshots")}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/snapshots"
                     >
-                      Snapshots
+                      {t("navigation:snapshots")}
                     </NavLink>
                   </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                  <span className="d-inline-block" data-toggle="tooltip" title={t("navigation:repositoryDisconnected")}>
                     <NavLink
                       data-testid="tab-policies"
                       title=""
-                      data-title="Policies"
+                      data-title={t("navigation:policies")}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/policies"
                     >
-                      Policies
+                      {t("navigation:policies")}
                     </NavLink>
                   </span>
-                  <span className="d-inline-block" data-toggle="tooltip" title="Repository is not connected">
+                  <span className="d-inline-block" data-toggle="tooltip" title={t("navigation:repositoryDisconnected")}>
                     <NavLink
                       data-testid="tab-tasks"
                       title=""
-                      data-title="Tasks"
+                      data-title={t("navigation:tasks")}
                       className={isRepositoryConnected ? "nav-link" : "nav-link disabled"}
                       to="/tasks"
                     >
-                      Tasks
+                      {t("navigation:tasks")}
                       <>{runningTaskCount > 0 && <>({runningTaskCount})</>}</>
                     </NavLink>
                   </span>
-                  <NavLink data-testid="tab-repo" data-title="Repository" className="nav-link" to="/repo">
-                    Repository
+                  <NavLink data-testid="tab-repo" data-title={t("navigation:repository")} className="nav-link" to="/repo">
+                    {t("navigation:repository")}
                   </NavLink>
                   <NavLink
                     data-testid="tab-preferences"
-                    data-title="Preferences"
+                    data-title={t("navigation:preferences")}
                     className="nav-link"
                     to="/preferences"
                   >
-                    Preferences
+                    {t("navigation:preferences")}
                   </NavLink>
                 </Nav>
+                <div className="ms-auto" style={{ minWidth: "180px" }}>
+                  <LanguageSelection />
+                </div>
               </Navbar.Collapse>
             </Navbar>
 
@@ -196,3 +203,9 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+export default withTranslation()(App);

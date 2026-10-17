@@ -1,0 +1,15 @@
+{
+  "loading": "Loading ...",
+  "yes": "yes",
+  "no": "no",
+  "validation.required": "Required field",
+  "validation.number": "Must be a valid number or empty",
+  "validation.times": "Invalid Times of Day",
+  "cli.show": "Click to show CLI equivalent",
+  "cli.copy": "Copy to clipboard",
+  "pageSizeLabel": "Page Size: {{size}}",
+  "pageSizeOption": "Page Size {{size}}",
+  "sortAscending": "Sort ascending",
+  "sortDescending": "Sort descending",
+  "clearSort": "Clear sort"
+}

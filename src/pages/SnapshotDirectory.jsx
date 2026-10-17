@@ -11,6 +11,7 @@ import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 class SnapshotDirectoryInternal extends Component {
   constructor() {
@@ -112,7 +113,7 @@ class SnapshotDirectoryInternal extends Component {
 
   browseMounted() {
     if (!window.kopiaUI) {
-      alert("Directory browsing is not supported in a web browser. Use Kopia UI.");
+      alert(i18n.t("snapshots:browserUnsupported"));
       return;
     }
 

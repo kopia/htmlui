@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faChevronCircleDown, faChevronCircleUp, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { Logs } from "../components/Logs";
 import { AppContext } from "../contexts/AppContext";
+import i18n from "../utils/i18n";
 
 export class Repository extends Component {
   constructor() {
@@ -139,18 +140,18 @@ export class Repository extends Component {
         <>
           <h4>
             <Spinner animation="border" variant="primary" size="sm" />
-            &nbsp;Initializing Repository...
+            &nbsp;{i18n.t("repository:initializing")}
           </h4>
           {this.state.showLog ? (
             <>
               <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}>
-                <FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log
+                <FontAwesomeIcon icon={faChevronCircleUp} /> {i18n.t("repository:hideLog")}
               </Button>
               <Logs taskID={this.state.status.initTaskID} />
             </>
           ) : (
             <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}>
-              <FontAwesomeIcon icon={faChevronCircleDown} /> Show Log
+              <FontAwesomeIcon icon={faChevronCircleDown} /> {i18n.t("repository:showLog")}
             </Button>
           )}
           <hr />
@@ -158,10 +159,10 @@ export class Repository extends Component {
             size="sm"
             variant="danger"
             icon={faWindowClose}
-            title="Cancel"
+            title={i18n.t("repository:cancel")}
             onClick={() => cancelTask(this.state.status.initTaskID)}
           >
-            Cancel Connection
+            {i18n.t("repository:cancelConnection")}
           </Button>
         </>
       );
@@ -172,7 +173,7 @@ export class Repository extends Component {
         <>
           <p className="text-success mb-1">
             <FontAwesomeIcon icon={faCheck} style={{ marginRight: 4 }} />
-            <span>Connected To Repository</span>
+            <span>{i18n.t("repository:connected")}</span>
           </p>
           <Form>
             <Row>
@@ -188,16 +189,16 @@ export class Repository extends Component {
                   />
                   &nbsp;
                   <Button data-testid="update-description" size="sm" onClick={this.updateDescription} type="button">
-                    Update Description
+                    {i18n.t("repository:updateDescription")}
                   </Button>
                 </InputGroup>
-                <Form.Control.Feedback type="invalid">Description Is Required</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{i18n.t("repository:descriptionRequired")}</Form.Control.Feedback>
               </Form.Group>
             </Row>
             {this.state.status.readonly && (
               <Row>
                 <Badge pill variant="warning">
-                  Repository is read-only
+                  {i18n.t("repository:readOnly")}
                 </Badge>
               </Row>
             )}
@@ -208,7 +209,7 @@ export class Repository extends Component {
               <>
                 <Row>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Server URL</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:serverUrl")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.apiServerURL} />
                   </Form.Group>
                 </Row>
@@ -217,58 +218,65 @@ export class Repository extends Component {
               <>
                 <Row>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Config File</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:configFile")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.configFile} />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Provider</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:provider")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.storage} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Encryption Algorithm</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:encryptionAlgorithm")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.encryption} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Hash Algorithm</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:hashAlgorithm")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.hash} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Splitter Algorithm</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:splitterAlgorithm")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.splitter} />
                   </Form.Group>
                 </Row>
                 <Row>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Repository Format</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:format")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.formatVersion} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Error Correction Overhead</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:eccOverhead")}</Form.Label>
                     <Form.Control
                       readOnly
                       defaultValue={
                         this.state.status.eccOverheadPercent > 0
                           ? this.state.status.eccOverheadPercent + "%"
-                          : "Disabled"
+                          : i18n.t("repository:disabled")
                       }
                     />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Error Correction Algorithm</Form.Label>
+                    <Form.Label className="required">{i18n.t("repository:eccAlgorithm")}</Form.Label>
                     <Form.Control readOnly defaultValue={this.state.status.ecc || "-"} />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label className="required">Internal Compression</Form.Label>
-                    <Form.Control readOnly defaultValue={this.state.status.supportsContentCompression ? "yes" : "no"} />
+                    <Form.Label className="required">{i18n.t("repository:internalCompression")}</Form.Label>
+                    <Form.Control
+                      readOnly
+                      defaultValue={
+                        this.state.status.supportsContentCompression
+                          ? i18n.t("common:yes")
+                          : i18n.t("common:no")
+                      }
+                    />
                   </Form.Group>
                 </Row>
               </>
             )}
             <Row>
               <Form.Group as={Col}>
-                <Form.Label className="required">Connected as:</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:connectedAs")}</Form.Label>
                 <Form.Control readOnly defaultValue={this.state.status.username + "@" + this.state.status.hostname} />
               </Form.Group>
             </Row>
@@ -278,7 +286,7 @@ export class Repository extends Component {
             <Row>
               <Col>
                 <Button data-testid="disconnect" size="sm" variant="danger" onClick={this.disconnect}>
-                  Disconnect
+                  {i18n.t("repository:disconnect")}
                 </Button>
               </Col>
             </Row>
