@@ -43,6 +43,7 @@ import { ActionRowScript } from "./ActionRowScript";
 import { ActionRowTimeout } from "./ActionRowTimeout";
 import { ActionRowMode } from "./ActionRowMode";
 import PropTypes from "prop-types";
+import i18n from "../../utils/i18n";
 
 export class PolicyEditor extends Component {
   constructor() {
@@ -240,7 +241,7 @@ export class PolicyEditor extends Component {
         })
         .catch((error) => {
           this.setState({ saving: false });
-          errorAlert(error, "Error saving policy");
+          errorAlert(error, i18n.t("policies:errorSaving"));
         });
     } catch (e) {
       errorAlert(e);
@@ -249,7 +250,7 @@ export class PolicyEditor extends Component {
   }
 
   deletePolicy() {
-    if (window.confirm("Are you sure you want to delete this policy?")) {
+    if (window.confirm(i18n.t("policies:confirmDelete"))) {
       this.setState({ saving: true });
 
       axios
@@ -259,7 +260,7 @@ export class PolicyEditor extends Component {
         })
         .catch((error) => {
           this.setState({ saving: false });
-          errorAlert(error, "Error deleting policy");
+          errorAlert(error, i18n.t("policies:errorDeleting"));
         });
     }
   }
@@ -279,7 +280,7 @@ export class PolicyEditor extends Component {
     }
 
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return <p>{i18n.t("policies:loading")}</p>;
     }
 
     return (
@@ -289,7 +290,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="retention">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faCalendarTimes} />
-                &nbsp;Snapshot Retention
+                &nbsp;{i18n.t("policies:sectionRetention")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -380,7 +381,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="files">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faFolderOpen} />
-                &nbsp;Files
+                &nbsp;{i18n.t("policies:sectionFiles")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -466,7 +467,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="errors">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faExclamationTriangle} />
-                &nbsp;Error Handling
+                &nbsp;{i18n.t("policies:sectionErrors")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -499,7 +500,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="compression">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faFileArchive} />
-                &nbsp;Compression
+                &nbsp;{i18n.t("policies:sectionCompression")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -516,7 +517,7 @@ export class PolicyEditor extends Component {
                       onChange={this.handleChange}
                       value={stateProperty(this, "policy.compression.compressorName")}
                     >
-                      <option value="">(none)</option>
+                      <option value="">{i18n.t("policies:noneOption")}</option>
                       {this.state.algorithms && this.state.algorithms.compression.map((x) => toAlgorithmOption(x, ""))}
                     </Form.Control>
                   </WideValueColumn>
@@ -575,7 +576,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="scheduling">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faClock} />
-                &nbsp;Scheduling
+                &nbsp;{i18n.t("policies:sectionScheduling")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -592,15 +593,15 @@ export class PolicyEditor extends Component {
                       onChange={(e) => this.handleChange(e, valueToNumber)}
                       value={stateProperty(this, "policy.scheduling.intervalSeconds")}
                     >
-                      <option value="">(none)</option>
-                      <option value="600">every 10 minutes</option>
-                      <option value="900">every 15 minutes</option>
-                      <option value="1200">every 20 minutes</option>
-                      <option value="1800">every 30 minutes</option>
-                      <option value="3600">every hour</option>
-                      <option value="10800">every 3 hours</option>
-                      <option value="21600">every 6 hours</option>
-                      <option value="43200">every 12 hours</option>
+                      <option value="">{i18n.t("policies:noneOption")}</option>
+                      <option value="600">{i18n.t("policies:everyMinutes", { count: 10 })}</option>
+                      <option value="900">{i18n.t("policies:everyMinutes", { count: 15 })}</option>
+                      <option value="1200">{i18n.t("policies:everyMinutes", { count: 20 })}</option>
+                      <option value="1800">{i18n.t("policies:everyMinutes", { count: 30 })}</option>
+                      <option value="3600">{i18n.t("policies:everyHour")}</option>
+                      <option value="10800">{i18n.t("policies:everyHours", { count: 3 })}</option>
+                      <option value="21600">{i18n.t("policies:everyHours", { count: 6 })}</option>
+                      <option value="43200">{i18n.t("policies:everyHours", { count: 12 })}</option>
                     </Form.Control>
                   </WideValueColumn>
                   {EffectiveValue(this, "scheduling.intervalSeconds")}
@@ -671,7 +672,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="upload">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faUpload} />
-                &nbsp;Upload
+                &nbsp;{i18n.t("policies:sectionUpload")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -707,7 +708,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="snapshot-actions">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faCogs} />
-                &nbsp;Snapshot Actions
+                &nbsp;{i18n.t("policies:sectionSnapshotActions")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -733,7 +734,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="folder-actions">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faCog} />
-                &nbsp;Folder Actions
+                &nbsp;{i18n.t("policies:sectionFolderActions")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -749,7 +750,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="logging">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faFileAlt} />
-                &nbsp;Logging
+                &nbsp;{i18n.t("policies:sectionLogging")}
               </Accordion.Header>
               <Accordion.Body>
                 <SectionHeaderRow />
@@ -797,7 +798,7 @@ export class PolicyEditor extends Component {
             <Accordion.Item eventKey="other">
               <Accordion.Header>
                 <FontAwesomeIcon icon={faMagic} />
-                &nbsp;Other
+                &nbsp;{i18n.t("policies:sectionOther")}
               </Accordion.Header>
               <Accordion.Body>
                 <Row>
@@ -825,7 +826,7 @@ export class PolicyEditor extends Component {
               data-testid="button-save"
               disabled={this.state.saving}
             >
-              Save Policy
+              {i18n.t("policies:save")}
             </Button>
           )}
           {!this.state.isNew && !this.props.embedded && (
@@ -837,7 +838,7 @@ export class PolicyEditor extends Component {
                 disabled={this.isGlobal() || this.state.saving}
                 onClick={this.deletePolicy}
               >
-                Delete Policy
+                {i18n.t("policies:delete")}
               </Button>
             </>
           )}

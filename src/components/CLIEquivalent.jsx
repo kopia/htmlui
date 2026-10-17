@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 export function CLIEquivalent(props) {
   let [visible, setVisible] = useState(false);
@@ -40,14 +41,14 @@ export function CLIEquivalent(props) {
         <Button
           data-testid="show-cli-button"
           size="sm"
-          title="Click to show CLI equivalent"
+          title={i18n.t("common:cli.show")}
           variant="submit"
           onClick={() => setVisible(!visible)}
         >
           <FontAwesomeIcon size="sm" icon={faTerminal} />
         </Button>
         {visible && (
-          <Button size="sm" variant="success" title="Copy to clipboard" onClick={copyToClibopard}>
+          <Button size="sm" variant="success" title={i18n.t("common:cli.copy")} onClick={copyToClibopard}>
             <FontAwesomeIcon size="sm" icon={faCopy} />
           </Button>
         )}

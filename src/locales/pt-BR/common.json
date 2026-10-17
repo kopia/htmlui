@@ -1,0 +1,15 @@
+{
+  "loading": "Carregando ...",
+  "yes": "Sim",
+  "no": "Não",
+  "validation.required": "Campo obrigatório",
+  "validation.number": "Informe um número válido ou deixe o campo vazio",
+  "validation.times": "Horários inválidos",
+  "cli.show": "Clique para mostrar o comando equivalente",
+  "cli.copy": "Copiar para a área de transferência",
+  "pageSizeLabel": "Itens por página: {{size}}",
+  "pageSizeOption": "{{size}} itens por página",
+  "sortAscending": "Ordenar em ordem crescente",
+  "sortDescending": "Ordenar em ordem decrescente",
+  "clearSort": "Limpar ordenação"
+}

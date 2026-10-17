@@ -17,6 +17,7 @@ import { GoBackButton } from "../components/GoBackButton";
 import { cancelTask } from "../utils/taskutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 class TaskInternal extends Component {
   constructor() {
@@ -92,12 +93,12 @@ class TaskInternal extends Component {
       case "FAILED":
         return (
           <Alert variant="danger">
-            <b>Error:</b> {task.errorMessage}.
+            <b>{i18n.t("tasks:error")}</b> {task.errorMessage}.
           </Alert>
         );
 
       case "CANCELED":
-        return <Alert variant="warning">Task canceled.</Alert>;
+        return <Alert variant="warning">{i18n.t("tasks:canceled")}</Alert>;
 
       case "CANCELING":
         return (
@@ -188,7 +189,7 @@ class TaskInternal extends Component {
     }
 
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return <p>{i18n.t("tasks:loading")}</p>;
     }
 
     return (
@@ -220,8 +221,8 @@ class TaskInternal extends Component {
               <Table bordered hover size="sm">
                 <thead>
                   <tr>
-                    <th>Counter</th>
-                    <th>Value</th>
+                    <th>{i18n.t("tasks:counter")}</th>
+                    <th>{i18n.t("tasks:value")}</th>
                   </tr>
                 </thead>
                 <tbody>{this.sortedBadges(task.counters, bytesStringBase2)}</tbody>
@@ -232,20 +233,20 @@ class TaskInternal extends Component {
         <Row>
           <Col xs={6}>
             <Form.Group>
-              <Form.Label>Started</Form.Label>
+              <Form.Label>{i18n.t("tasks:started")}</Form.Label>
               <Form.Control type="text" readOnly={true} value={new Date(task.startTime).toLocaleString()} />
             </Form.Group>
           </Col>
           <Col xs={6}>
             <Form.Group>
-              <Form.Label>Finished</Form.Label>
+              <Form.Label>{i18n.t("tasks:finished")}</Form.Label>
               <Form.Control type="text" readOnly={true} value={new Date(task.endTime).toLocaleString()} />
             </Form.Group>
           </Col>
         </Row>
         <Row>
           <Form.Group>
-            <Form.Label>Logs</Form.Label>
+            <Form.Label>{i18n.t("tasks:logs")}</Form.Label>
             <Logs taskID={this.taskID(this.props)} />
           </Form.Group>
         </Row>

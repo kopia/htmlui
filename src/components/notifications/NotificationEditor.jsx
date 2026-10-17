@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { EmailNotificationMethod } from "./EmailNotificationMethod";
 import { PushoverNotificationMethod } from "./PushoverNotificationMethod";
 import { WebHookNotificationMethod } from "./WebHookNotificationMethod";
+import i18n from "../../utils/i18n";
 
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
@@ -15,22 +16,22 @@ import { handleChange, stateProperty, valueToNumber } from "../../forms";
 import { RequiredField } from "../../forms/RequiredField";
 
 const notificationMethods = {
-  email: { displayName: "E-mail", editor: EmailNotificationMethod },
-  pushover: { displayName: "Pushover", editor: PushoverNotificationMethod },
-  webhook: { displayName: "Webhook", editor: WebHookNotificationMethod },
+  email: { displayName: "notifications:method.email", editor: EmailNotificationMethod },
+  pushover: { displayName: "notifications:method.pushover", editor: PushoverNotificationMethod },
+  webhook: { displayName: "notifications:method.webhook", editor: WebHookNotificationMethod },
 };
 
 const severityOptions = [
-  { value: -100, label: "Verbose" },
-  { value: -10, label: "Success" },
-  { value: 0, label: "Report" },
-  { value: 10, label: "Warning" },
-  { value: 20, label: "Error" },
+  { value: -100, label: "notifications:severity.verbose" },
+  { value: -10, label: "notifications:severity.success" },
+  { value: 0, label: "notifications:severity.report" },
+  { value: 10, label: "notifications:severity.warning" },
+  { value: 20, label: "notifications:severity.error" },
 ];
 
 function severityName(severity) {
   let opt = severityOptions.find((o) => o.value === severity);
-  return opt ? opt.label : "Unknown";
+  return opt ? i18n.t(opt.label) : i18n.t("notifications:severity.unknown");
 }
 
 export class NotificationEditor extends Component {
@@ -68,7 +69,7 @@ export class NotificationEditor extends Component {
     }
 
     if (!ed.validate()) {
-      alert("Invalid configuration, please correct the form fields");
+      alert(i18n.t("notifications:invalid"));
       return null;
     }
 
@@ -92,7 +93,7 @@ export class NotificationEditor extends Component {
         })
         .catch((error) => {
           if (error.response.data.error) {
-            alert("Error adding notification profile: " + error.response.data.error);
+            alert(i18n.t("notifications:addError", { error: error.response.data.error }));
           }
         });
     }
@@ -112,7 +113,7 @@ export class NotificationEditor extends Component {
       })
       .catch((error) => {
         if (error.response.data.error) {
-          alert("Error adding notification profile: " + error.response.data.error);
+          alert(i18n.t("notifications:addError", { error: error.response.data.error }));
         }
       });
   }
@@ -128,17 +129,17 @@ export class NotificationEditor extends Component {
     axios
       .post("/api/v1/testNotificationProfile", cfg)
       .then((_result) => {
-        alert("Notification sent, please make sure you have received it.");
+        alert(i18n.t("notifications:sent"));
       })
       .catch((error) => {
         if (error.response.data.error) {
-          alert("Error sending notification: " + error.response.data.error);
+          alert(i18n.t("notifications:sendError", { error: error.response.data.error }));
         }
       });
   }
 
   deleteProfile(profileName) {
-    if (!window.confirm("Are you sure you want to delete the profile: " + profileName + "?")) {
+    if (!window.confirm(i18n.t("notifications:confirmDelete", { profile: profileName }))) {
       return;
     }
 
@@ -149,7 +150,7 @@ export class NotificationEditor extends Component {
       })
       .catch((error) => {
         if (error.response.data.error) {
-          alert("Error deleting: " + error.response.data.error);
+          alert(i18n.t("notifications:deleteError", { error: error.response.data.error }));
         }
       });
   }
@@ -191,7 +192,9 @@ export class NotificationEditor extends Component {
     return (
       <>
         <Row>
-          <h4>{this.state.isNewProfile ? "New Notification Profile" : "Edit Notification Profile"}</h4>
+          <h4>
+            {this.state.isNewProfile ? i18n.t("notifications:newTitle") : i18n.t("notifications:editTitle")}
+          </h4>
         </Row>
         <Row>
           {RequiredField(
@@ -205,7 +208,7 @@ export class NotificationEditor extends Component {
             "Unique name for this notification profile",
           )}
           <Form.Group as={Col}>
-            <Form.Label className="required">Minimum Severity</Form.Label>
+            <Form.Label className="required">{i18n.t("notifications:minimumSeverity")}</Form.Label>
             <Form.Control
               as="select"
               size="sm"
@@ -215,11 +218,11 @@ export class NotificationEditor extends Component {
             >
               {severityOptions.map((o) => (
                 <option key={o.value} value={o.value}>
-                  {o.label}
+                  {i18n.t(o.label)}
                 </option>
               ))}
             </Form.Control>
-            <Form.Text className="text-muted">Minimum severity required to use this notification profile</Form.Text>
+            <Form.Text className="text-muted">{i18n.t("notifications:minimumSeverityHelp")}</Form.Text>
           </Form.Group>
         </Row>
         <Row>
@@ -230,18 +233,18 @@ export class NotificationEditor extends Component {
             <hr />
             {this.state.isNewProfile ? (
               <Button size="sm" onClick={() => this.saveNewProfile()}>
-                Create Profile
+                {i18n.t("notifications:create")}
               </Button>
             ) : (
               <Button size="sm" onClick={() => this.updateProfile()}>
-                Update Profile
+                {i18n.t("notifications:update")}
               </Button>
             )}
             <Button size="sm" variant="secondary" onClick={() => this.sendTestNotification(null)}>
-              Send Test Notification
+              {i18n.t("notifications:sendTest")}
             </Button>
             <Button size="sm" variant="danger" onClick={() => this.setEditedProfile(null, false)}>
-              Cancel
+              {i18n.t("notifications:cancel")}
             </Button>
           </Col>
         </Row>
@@ -257,30 +260,30 @@ export class NotificationEditor extends Component {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Profile</th>
-                  <th>Method</th>
-                  <th>Minimum Severity</th>
-                  <th>Actions</th>
+                  <th>{i18n.t("notifications:profile")}</th>
+                  <th>{i18n.t("notifications:method")}</th>
+                  <th>{i18n.t("notifications:minimumSeverity")}</th>
+                  <th>{i18n.t("notifications:actions")}</th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.notificationProfiles.map((p) => (
                   <tr key={p.profile}>
                     <td>{p.profile}</td>
-                    <td>{notificationMethods[p.method.type].displayName}</td>
+                    <td>{i18n.t(notificationMethods[p.method.type].displayName)}</td>
                     <td>{severityName(p.minSeverity)}</td>
                     <td>
                       <Button size="sm" variant="success" onClick={() => this.setEditedProfile(p, false)}>
-                        Edit
+                        {i18n.t("notifications:edit")}
                       </Button>
                       <Button size="sm" onClick={() => this.duplicateProfile(p)}>
-                        Duplicate
+                        {i18n.t("notifications:duplicate")}
                       </Button>
                       <Button size="sm" variant="secondary" onClick={() => this.sendTestNotification(p)}>
-                        Send Test Notification
+                        {i18n.t("notifications:sendTest")}
                       </Button>
                       <Button size="sm" onClick={() => this.deleteProfile(p.profile)} variant="danger">
-                        Delete
+                        {i18n.t("notifications:delete")}
                       </Button>
                     </td>
                   </tr>
@@ -292,19 +295,19 @@ export class NotificationEditor extends Component {
           <Row>
             <p>
               <Badge bg="warning" text="dark">
-                Important
+                {i18n.t("notifications:important")}
               </Badge>
-              &nbsp;You don&apos;t have any notification profiles defined.
+              &nbsp;{i18n.t("notifications:none")}
               <br />
               <br />
-              Click the button below to add a new profile to receive notifications from Kopia.
+              {i18n.t("notifications:noneHelp")}
             </p>
           </Row>
         )}
         <Row>
           <Dropdown>
             <Dropdown.Toggle size="sm" variant="primary" id="newProfileButton">
-              Create New Profile
+              {i18n.t("notifications:createNew")}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {Object.keys(notificationMethods).map((k) => (
@@ -322,7 +325,7 @@ export class NotificationEditor extends Component {
                     )
                   }
                 >
-                  {notificationMethods[k].displayName}
+                  {i18n.t(notificationMethods[k].displayName)}
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>

@@ -2,6 +2,8 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import { stateProperty } from ".";
+import i18n from "../utils/i18n";
+import { localizedProps } from "../utils/localization";
 
 export function TimesOfDayList(component, name, props = {}) {
   function parseTimeOfDay(v) {
@@ -67,9 +69,9 @@ export function TimesOfDayList(component, name, props = {}) {
         onChange={(e) => component.handleChange(e, fromMultilineString)}
         as="textarea"
         rows="5"
-        {...props}
+        {...localizedProps(props)}
       ></Form.Control>
-      <Form.Control.Feedback type="invalid">Invalid Times of Day</Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid">{i18n.t("common:validation.times")}</Form.Control.Feedback>
     </FormGroup>
   );
 }
