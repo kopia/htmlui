@@ -10,6 +10,7 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { PAGE_SIZES, UIPreferencesContext } from "../contexts/UIPreferencesContext";
+import { useTableSort } from "../contexts/TableSortContext";
 import PropTypes from "prop-types";
 
 function paginationItems(count, active, gotoPage) {
@@ -55,9 +56,9 @@ function paginationItems(count, active, gotoPage) {
   return items;
 }
 
-export default function KopiaTable({ columns, data }) {
+export default function KopiaTable({ columns, data, tableKey }) {
   const { pageSize, setPageSize } = use(UIPreferencesContext);
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useTableSort(tableKey);
   const [pagination, setPagination] = useState({
     pageIndex: 0, //default page index
     pageSize: pageSize, //default page size
@@ -173,4 +174,5 @@ export default function KopiaTable({ columns, data }) {
 KopiaTable.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  tableKey: PropTypes.string,
 };
