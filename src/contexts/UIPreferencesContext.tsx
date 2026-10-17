@@ -2,6 +2,12 @@ import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import i18n from "../utils/i18n";
 
+type NativeKopiaUIWindow = Window & {
+  kopiaUI?: {
+    setLanguage?: (language: string) => void;
+  };
+};
+
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
 
@@ -15,6 +21,10 @@ const DEFAULT_PREFERENCES = {
   language: "",
 } as SerializedUIPreferences;
 const PREFERENCES_URL = "/api/v1/ui-preferences";
+
+function syncNativeLanguage(language: string) {
+  (window as NativeKopiaUIWindow).kopiaUI?.setLanguage?.(language);
+}
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
@@ -116,6 +126,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
   const setLanguage = useCallback((language: string) => {
     const normalizedLanguage = language === "pt" ? "pt-BR" : language;
     void i18n.changeLanguage(normalizedLanguage);
+    syncNativeLanguage(normalizedLanguage);
     setPreferences((oldPreferences) => ({ ...oldPreferences, language: normalizedLanguage }));
   }, []);
 
@@ -139,6 +150,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
           storedPreferences.language = i18n.resolvedLanguage === "pt" ? "pt-BR" : i18n.resolvedLanguage || "en";
         }
         void i18n.changeLanguage(storedPreferences.language);
+        syncNativeLanguage(storedPreferences.language);
         setTheme(storedPreferences.theme);
         setFontSize(storedPreferences.fontSize);
         setPreferences(storedPreferences);
