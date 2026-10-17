@@ -44,6 +44,7 @@ import { ActionRowTimeout } from "./ActionRowTimeout";
 import { ActionRowMode } from "./ActionRowMode";
 import PropTypes from "prop-types";
 import i18n from "../../utils/i18n";
+import { Trans } from "react-i18next";
 
 export class PolicyEditor extends Component {
   constructor() {
@@ -66,6 +67,9 @@ export class PolicyEditor extends Component {
   }
 
   componentDidMount() {
+    this.handleLanguageChanged = () => this.forceUpdate();
+    i18n.on("languageChanged", this.handleLanguageChanged);
+
     axios.get("/api/v1/repo/algorithms").then((result) => {
       this.setState({
         algorithms: result.data,
@@ -73,6 +77,10 @@ export class PolicyEditor extends Component {
 
       this.fetchPolicy(this.props);
     });
+  }
+
+  componentWillUnmount() {
+    i18n.off("languageChanged", this.handleLanguageChanged);
   }
 
   componentDidUpdate(prevProps) {
@@ -389,14 +397,20 @@ export class PolicyEditor extends Component {
                   <LabelColumn
                     name="Ignore Files"
                     help={
-                      <>
-                        {" "}
-                        List of file and directory names to ignore. <br /> (See{" "}
-                        <a target="_blank" rel="noreferrer" href="https://kopia.io/docs/advanced/kopiaignore/">
-                          documentation on ignoring files
-                        </a>
-                        ).
-                      </>
+                      <Trans
+                        ns="labels"
+                        i18nKey="ignoreFilesHelp"
+                        components={{
+                          lineBreak: <br />,
+                          documentationLink: (
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href="https://kopia.io/docs/advanced/kopiaignore/"
+                            />
+                          ),
+                        }}
+                      />
                     }
                   />
                   <WideValueColumn>
