@@ -51,6 +51,7 @@ export class PolicyEditor extends Component {
       items: [],
       isLoading: false,
       error: null,
+      policy: {},
     };
 
     this.fetchPolicy = this.fetchPolicy.bind(this);
@@ -174,7 +175,7 @@ export class PolicyEditor extends Component {
     }
 
     // clone and clean up policy before saving
-    let policy = JSON.parse(JSON.stringify(this.state.policy));
+    let policy = JSON.parse(JSON.stringify(this.state.policy || {}));
     if (policy.files) {
       if (policy.files.ignore) {
         policy.files.ignore = removeEmpty(policy.files.ignore);
