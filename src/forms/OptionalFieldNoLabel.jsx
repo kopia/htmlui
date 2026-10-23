@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 import { stateProperty } from ".";
+import { localizedLabel, localizedProps } from "../utils/localization";
 
 export function OptionalFieldNoLabel(component, label, name, props = {}, helpText = null, invalidFeedback = null) {
   return (
@@ -13,10 +14,10 @@ export function OptionalFieldNoLabel(component, label, name, props = {}, helpTex
         value={stateProperty(component, name)}
         data-testid={"control-" + name}
         onChange={component.handleChange}
-        {...props}
+        {...localizedProps(props)}
       />
-      {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
-      {invalidFeedback && <Form.Control.Feedback type="invalid">{invalidFeedback}</Form.Control.Feedback>}
+      {helpText && <Form.Text className="text-muted">{localizedLabel(helpText)}</Form.Text>}
+      {invalidFeedback && <Form.Control.Feedback type="invalid">{localizedLabel(invalidFeedback)}</Form.Control.Feedback>}
     </Form.Group>
   );
 }

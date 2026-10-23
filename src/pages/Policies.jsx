@@ -17,6 +17,7 @@ import { compare, formatOwnerName } from "../utils/formatutils";
 import { redirect } from "../utils/uiutil";
 import { checkPolicyPath, policyEditorURL } from "../utils/policyutil";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 const applicablePolicies = "Applicable Policies";
 const localPolicies = "Local Path Policies";
@@ -187,13 +188,25 @@ export class PoliciesInternal extends Component {
     return formatOwnerName(x.target) === this.state.localSourceName;
   }
 
+  policyGroupLabel(value) {
+    const keys = {
+      [applicablePolicies]: "applicable",
+      [localPolicies]: "local",
+      [allPolicies]: "all",
+      [globalPolicy]: "global",
+      [perUserPolicies]: "perUser",
+      [perHostPolicies]: "perHost",
+    };
+    return keys[value] ? i18n.t(`policies:${keys[value]}`) : value;
+  }
+
   render() {
     let { policies, sources, isLoading, error } = this.state;
     if (error) {
       return <p>{error.message}</p>;
     }
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return <p>{i18n.t("policies:loading")}</p>;
     }
 
     let uniqueOwners = sources.reduce((a, d) => {
@@ -253,26 +266,26 @@ export class PoliciesInternal extends Component {
 
     const columns = [
       {
-        header: "Username",
+        header: i18n.t("policies:username"),
         width: 100,
         accessorFn: (x) => x.target.userName || "*",
       },
       {
-        header: "Host",
+        header: i18n.t("policies:host"),
         width: 100,
         accessorFn: (x) => x.target.host || "*",
       },
       {
-        header: "Path",
+        header: i18n.t("policies:path"),
         accessorFn: (x) => x.target.path || "*",
       },
       {
-        header: "Defined",
+        header: i18n.t("policies:defined"),
         cell: (x) => this.policySummary(x.row.original),
       },
       {
         id: "edit",
-        header: "Actions",
+        header: i18n.t("policies:actions"),
         width: 50,
         cell: (x) => (
           <Button
@@ -282,7 +295,7 @@ export class PoliciesInternal extends Component {
             variant="primary"
             size="sm"
           >
-            Edit
+            {i18n.t("policies:edit")}
           </Button>
         ),
       },
@@ -298,19 +311,19 @@ export class PoliciesInternal extends Component {
                   <Dropdown>
                     <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
                       <FontAwesomeIcon icon={faUserFriends} />
-                      &nbsp;{this.state.selectedOwner}
+                      &nbsp;{this.policyGroupLabel(this.state.selectedOwner)}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => this.selectOwner(applicablePolicies)}>
-                        {applicablePolicies}
+                        {i18n.t("policies:applicable")}
                       </Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{localPolicies}</Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{allPolicies}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(localPolicies)}>{i18n.t("policies:local")}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(allPolicies)}>{i18n.t("policies:all")}</Dropdown.Item>
                       <Dropdown.Divider />
-                      <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{globalPolicy}</Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{perUserPolicies}</Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{perHostPolicies}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(globalPolicy)}>{i18n.t("policies:global")}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(perUserPolicies)}>{i18n.t("policies:perUser")}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(perHostPolicies)}>{i18n.t("policies:perHost")}</Dropdown.Item>
                       <Dropdown.Divider />
                       {uniqueOwners.map((v) => (
                         <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>
@@ -327,7 +340,7 @@ export class PoliciesInternal extends Component {
                     <Col>
                       {OptionalDirectory(this, null, "policyPath", {
                         autoFocus: true,
-                        placeholder: "enter directory to find or set policy",
+                        placeholder: i18n.t("policies:searchPlaceholder"),
                       })}
                     </Col>
                     <Col xs="auto">
@@ -337,7 +350,7 @@ export class PoliciesInternal extends Component {
                         type="submit"
                         onClick={this.editPolicyForPath}
                       >
-                        Set Policy
+                        {i18n.t("policies:setPolicy")}
                       </Button>
                     </Col>
                   </>
@@ -351,15 +364,13 @@ export class PoliciesInternal extends Component {
 
         {policies.length > 0 ? (
           <div>
-            <p>Found {policies.length} policies matching criteria.</p>
+            <p>{i18n.t("policies:found", { count: policies.length })}</p>
             <KopiaTable data={policies} columns={columns} />
           </div>
         ) : this.state.selectedOwner === localPolicies && this.state.policyPath ? (
-          <p>
-            No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
-          </p>
+          <p>{i18n.t("policies:notFoundForDirectory", { path: this.state.policyPath })}</p>
         ) : (
-          <p>No policies found.</p>
+          <p>{i18n.t("policies:none")}</p>
         )}
         <CLIEquivalent command="policy list" />
       </>
