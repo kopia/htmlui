@@ -10,6 +10,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
+import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
 
 class SnapshotDirectoryInternal extends Component {
@@ -142,7 +143,10 @@ class SnapshotDirectoryInternal extends Component {
 
     return (
       <>
-        <DirectoryBreadcrumbs />
+        <div className="d-flex align-items-center gap-2 mb-3">
+          <GoBackButton />
+          <DirectoryBreadcrumbs />
+        </div>
         <Row>
           <Col xs="auto">
             {this.state.mountInfo.path ? (

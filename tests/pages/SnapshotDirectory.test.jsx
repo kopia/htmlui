@@ -158,6 +158,7 @@ describe("SnapshotDirectory component", () => {
       expect(screen.getByTestId("directory-items")).toBeInTheDocument();
       expect(screen.getByTestId("items-count")).toHaveTextContent("2");
       expect(screen.getByTestId("show-cli-button")).toBeInTheDocument();
+      expect(screen.getByText("Return")).toBeInTheDocument();
     });
 
     // Should show mount button when not mounted
