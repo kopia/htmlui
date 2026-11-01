@@ -1,0 +1,23 @@
+{
+  "loading": "Loading ...",
+  "startTime": "Start Time",
+  "status": "Status",
+  "kind": "Kind",
+  "description": "Description",
+  "all": "All",
+  "running": "Running",
+  "failed": "Failed",
+  "error": "Error:",
+  "canceled": "Task canceled.",
+  "counter": "Counter",
+  "value": "Value",
+  "started": "Started",
+  "finished": "Finished",
+  "logs": "Logs",
+  "search": "case-sensitive search description",
+  "runningFor": "Running for {{duration}}",
+  "cancelTask": "Cancel task",
+  "finishedIn": "Finished in {{duration}}",
+  "failedAfter": "Failed after {{duration}}",
+  "canceledAfter": "Canceled after {{duration}}"
+}

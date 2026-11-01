@@ -11,6 +11,7 @@ import { redirect } from "../utils/uiutil";
 import { cancelTask } from "../utils/taskutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import { useNavigate, useLocation, useParams } from "react-router";
+import i18n from "../utils/i18n";
 
 export class SnapshotEstimationInternal extends Component {
   constructor() {
@@ -81,11 +82,11 @@ export class SnapshotEstimationInternal extends Component {
     }
 
     if (task.status === "SUCCESS") {
-      return "Total";
+      return i18n.t("snapshots:total");
     }
 
     if (task.status === "CANCELED") {
-      return "(Canceled)";
+      return i18n.t("snapshots:canceled");
     }
 
     return task.status;
@@ -99,40 +100,40 @@ export class SnapshotEstimationInternal extends Component {
     }
 
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return <p>{i18n.t("common:loading")}</p>;
     }
 
     return (
       <>
         {task.counters && (
           <Form.Text className="estimateResults">
-            {this.taskStatusDescription(task)} Bytes:{" "}
+            {this.taskStatusDescription(task)} {i18n.t("snapshots:bytes")}: {" "}
             <b>{sizeDisplayName(task.counters["Bytes"]?.value, bytesStringBase2)}</b> (
-            <b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value, bytesStringBase2)}</b> excluded) Files:{" "}
-            <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> excluded)
-            Directories: <b>{task.counters["Directories"]?.value}</b> (
-            <b>{task.counters["Excluded Directories"]?.value}</b> excluded) Errors:{" "}
-            <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> ignored)
+            <b>{sizeDisplayName(task.counters["Excluded Bytes"]?.value, bytesStringBase2)}</b> {i18n.t("snapshots:excluded")}) {i18n.t("snapshots:files")}: {" "}
+            <b>{task.counters["Files"]?.value}</b> (<b>{task.counters["Excluded Files"]?.value}</b> {i18n.t("snapshots:excluded")}) {" "}
+            {i18n.t("snapshots:directories")}: <b>{task.counters["Directories"]?.value}</b> (
+            <b>{task.counters["Excluded Directories"]?.value}</b> {i18n.t("snapshots:excluded")}) {i18n.t("snapshots:errors")}: {" "}
+            <b>{task.counters["Errors"]?.value}</b> (<b>{task.counters["Ignored Errors"]?.value}</b> {i18n.t("snapshots:ignored")})
           </Form.Text>
         )}
         {task.status === "RUNNING" && (
           <>
             &nbsp;
             <Button size="sm" variant="light" onClick={() => cancelTask(task.id)}>
-              <FontAwesomeIcon icon={faStopCircle} color="red" /> Cancel{" "}
+              <FontAwesomeIcon icon={faStopCircle} color="red" /> {i18n.t("snapshots:cancel")}{" "}
             </Button>
           </>
         )}
         {this.state.showLog ? (
           <>
             <Button size="sm" variant="light" onClick={() => this.setState({ showLog: false })}>
-              <FontAwesomeIcon icon={faChevronCircleUp} /> Hide Log
+              <FontAwesomeIcon icon={faChevronCircleUp} /> {i18n.t("snapshots:hideLog")}
             </Button>
             <Logs taskID={this.taskID(this.props)} />
           </>
         ) : (
           <Button size="sm" variant="light" onClick={() => this.setState({ showLog: true })}>
-            <FontAwesomeIcon icon={faChevronCircleDown} /> Show Log
+            <FontAwesomeIcon icon={faChevronCircleDown} /> {i18n.t("snapshots:showLog")}
           </Button>
         )}
       </>

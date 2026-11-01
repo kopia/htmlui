@@ -13,6 +13,7 @@ import { RequiredNumberField } from "../forms/RequiredNumberField";
 import { errorAlert } from "../utils/uiutil";
 import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 export class SnapshotRestoreInternal extends Component {
   constructor() {
@@ -108,7 +109,7 @@ export class SnapshotRestoreInternal extends Component {
     return (
       <div className="padded-top">
         <GoBackButton />
-        &nbsp;<span className="page-title">Restore</span>
+        &nbsp;<span className="page-title">{i18n.t("snapshots:restore")}</span>
         <hr />
         <Form onSubmit={this.start}>
           <Row>

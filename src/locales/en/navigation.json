@@ -1,0 +1,10 @@
+{
+  "language": "Language",
+  "selectLanguage": "Select language",
+  "repositoryDisconnected": "Repository is not connected",
+  "snapshots": "Snapshots",
+  "policies": "Policies",
+  "tasks": "Tasks",
+  "repository": "Repository",
+  "preferences": "Preferences"
+}

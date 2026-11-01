@@ -23,52 +23,53 @@ import { SetupRepositorySFTP } from "./SetupRepositorySFTP";
 import { SetupRepositoryToken } from "./SetupRepositoryToken";
 import { SetupRepositoryWebDAV } from "./SetupRepositoryWebDAV";
 import { toAlgorithmOption } from "../utils/uiutil";
+import i18n from "../utils/i18n";
 
 const supportedProviders = [
   {
     provider: "filesystem",
-    description: "Local Directory or NAS",
+    description: "repository:provider.filesystem",
     component: SetupRepositoryFilesystem,
   },
   {
     provider: "gcs",
-    description: "Google Cloud Storage",
+    description: "repository:provider.gcs",
     component: SetupRepositoryGCS,
   },
   {
     provider: "s3",
-    description: "Amazon S3 or Compatible Storage",
+    description: "repository:provider.s3",
     component: SetupRepositoryS3,
   },
-  { provider: "b2", description: "Backblaze B2", component: SetupRepositoryB2 },
+  { provider: "b2", description: "repository:provider.b2", component: SetupRepositoryB2 },
   {
     provider: "azureBlob",
-    description: "Azure Blob Storage",
+    description: "repository:provider.azure",
     component: SetupRepositoryAzure,
   },
   {
     provider: "sftp",
-    description: "SFTP Server",
+    description: "repository:provider.sftp",
     component: SetupRepositorySFTP,
   },
   {
     provider: "rclone",
-    description: "Rclone Remote",
+    description: "repository:provider.rclone",
     component: SetupRepositoryRclone,
   },
   {
     provider: "webdav",
-    description: "WebDAV Server",
+    description: "repository:provider.webdav",
     component: SetupRepositoryWebDAV,
   },
   {
     provider: "_server",
-    description: "Kopia Repository Server",
+    description: "repository:provider.server",
     component: SetupRepositoryServer,
   },
   {
     provider: "_token",
-    description: "Use Repository Token",
+    description: "repository:provider.token",
     component: SetupRepositoryToken,
   },
 ];
@@ -265,8 +266,8 @@ export class SetupRepository extends Component {
   renderProviderSelection() {
     return (
       <>
-        <h3>Select Storage Type</h3>
-        <p>To connect to a repository or create one, select the preferred storage type:</p>
+        <h3>{i18n.t("repository:selectStorage")}</h3>
+        <p>{i18n.t("repository:selectStorageHelp")}</p>
         <Row>
           {supportedProviders.map((x) => (
             <Button
@@ -276,7 +277,7 @@ export class SetupRepository extends Component {
               variant={x.provider.startsWith("_") ? "secondary" : "primary"}
               className="providerIcon"
             >
-              {x.description}
+              {i18n.t(x.description)}
             </Button>
           ))}
         </Row>
@@ -356,9 +357,9 @@ export class SetupRepository extends Component {
 
     return (
       <Form onSubmit={this.verifyStorage}>
-        {!this.state.provider.startsWith("_") && <h3>Storage Configuration</h3>}
-        {this.state.provider === "_token" && <h3>Enter Repository Token</h3>}
-        {this.state.provider === "_server" && <h3>Kopia Server Parameters</h3>}
+        {!this.state.provider.startsWith("_") && <h3>{i18n.t("repository:storageConfiguration")}</h3>}
+        {this.state.provider === "_token" && <h3>{i18n.t("repository:enterToken")}</h3>}
+        {this.state.provider === "_server" && <h3>{i18n.t("repository:serverParameters")}</h3>}
         <SelectedProvider ref={this.optionsEditor} initial={this.state.providerSettings} />
         {this.connectionErrorInfo()}
         <hr />
@@ -373,11 +374,11 @@ export class SetupRepository extends Component {
             })
           }
         >
-          Back
+          {i18n.t("repository:back")}
         </Button>
         &nbsp;
         <Button variant="primary" type="submit" data-testid="submit-button">
-          Next
+          {i18n.t("repository:next")}
         </Button>
         {this.loadingSpinner()}
       </Form>
@@ -387,7 +388,9 @@ export class SetupRepository extends Component {
   toggleAdvancedButton() {
     // Determine button icon and text based upon component state.
     const icon = this.state.showAdvanced ? faAngleDoubleUp : faAngleDoubleDown;
-    const text = this.state.showAdvanced ? "Hide Advanced Options" : "Show Advanced Options";
+    const text = this.state.showAdvanced
+      ? i18n.t("repository:hideAdvanced")
+      : i18n.t("repository:showAdvanced");
 
     return (
       <Button
@@ -407,8 +410,8 @@ export class SetupRepository extends Component {
   renderConfirmCreate() {
     return (
       <Form onSubmit={this.createRepository}>
-        <h3>Create New Repository</h3>
-        <p>Enter a strong password to create Kopia repository in the provided storage.</p>
+        <h3>{i18n.t("repository:createTitle")}</h3>
+        <p>{i18n.t("repository:createHelp")}</p>
         <Row>
           {RequiredField(
             this,
@@ -431,7 +434,7 @@ export class SetupRepository extends Component {
           <div id="advanced-options-div" style={{ marginTop: "1rem" }}>
             <Row>
               <Form.Group as={Col}>
-                <Form.Label className="required">Encryption</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:encryption")}</Form.Label>
                 <Form.Control
                   as="select"
                   name="encryption"
@@ -443,7 +446,7 @@ export class SetupRepository extends Component {
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label className="required">Hash Algorithm</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:hash")}</Form.Label>
                 <Form.Control
                   as="select"
                   name="hash"
@@ -455,7 +458,7 @@ export class SetupRepository extends Component {
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label className="required">Splitter</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:splitter")}</Form.Label>
                 <Form.Control
                   as="select"
                   name="splitter"
@@ -469,7 +472,7 @@ export class SetupRepository extends Component {
             </Row>
             <Row>
               <Form.Group as={Col}>
-                <Form.Label className="required">Repository Format</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:format")}</Form.Label>
                 <Form.Control
                   as="select"
                   name="formatVersion"
@@ -477,12 +480,12 @@ export class SetupRepository extends Component {
                   data-testid="control-formatVersion"
                   value={this.state.formatVersion}
                 >
-                  <option value="2">Latest format</option>
-                  <option value="1">Legacy format compatible with v0.8</option>
+                  <option value="2">{i18n.t("repository:formatLatest")}</option>
+                  <option value="1">{i18n.t("repository:formatLegacy")}</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col}>
-                <Form.Label className="required">Error Correction Overhead</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:eccOverhead")}</Form.Label>
                 <Form.Control
                   as="select"
                   name="eccOverheadPercent"
@@ -490,7 +493,7 @@ export class SetupRepository extends Component {
                   data-testid="control-eccOverheadPercent"
                   value={this.state.eccOverheadPercent}
                 >
-                  <option value="0">Disabled</option>
+                  <option value="0">{i18n.t("repository:disabled")}</option>
                   <option value="1">1%</option>
                   <option value="2">2%</option>
                   <option value="5">5%</option>
@@ -498,7 +501,7 @@ export class SetupRepository extends Component {
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col} controlId="errorCorrectionAlgorithm">
-                <Form.Label className="required">Error Correction Algorithm</Form.Label>
+                <Form.Label className="required">{i18n.t("repository:eccAlgorithm")}</Form.Label>
                 <Form.Control
                   as="select"
                   name="ecc"
@@ -520,17 +523,16 @@ export class SetupRepository extends Component {
             <Row>
               <Col></Col>
               <Col sm={8} className="text-muted">
-                [EXPERIMENTAL] Error correction can help protect from certain kinds of data corruption due to
-                spontaneous bit flips in the storage media.{" "}
+                {i18n.t("repository:eccExperimental")} {" "}
                 <a href="https://kopia.io/docs/advanced/ecc/" target="_blank" rel="noreferrer">
-                  Click here to learn more.
+                  {i18n.t("repository:learnMore")}
                 </a>
               </Col>
             </Row>
             {this.overrideUsernameHostnameRow()}
             <Row style={{ marginTop: "1rem" }}>
               <Form.Group as={Col}>
-                <Form.Text>Additional parameters can be set when creating repository using command line.</Form.Text>
+                <Form.Text>{i18n.t("repository:additionalParameters")}</Form.Text>
               </Form.Group>
             </Row>
           </div>
@@ -542,11 +544,11 @@ export class SetupRepository extends Component {
           variant="warning"
           onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}
         >
-          Back
+          {i18n.t("repository:back")}
         </Button>
         &nbsp;
         <Button variant="primary" type="submit" data-testid="submit-button">
-          Create Repository
+          {i18n.t("repository:create")}
         </Button>
         {this.loadingSpinner()}
       </Form>
@@ -579,7 +581,7 @@ export class SetupRepository extends Component {
       this.state.connectError && (
         <Row>
           <Form.Group as={Col}>
-            <Form.Text className="error">Connect Error: {this.state.connectError}</Form.Text>
+            <Form.Text className="error">{i18n.t("repository:connectError")} {this.state.connectError}</Form.Text>
           </Form.Group>
         </Row>
       )
@@ -589,12 +591,12 @@ export class SetupRepository extends Component {
   renderConfirmConnect() {
     return (
       <Form onSubmit={this.connectToRepository}>
-        <h3>Connect To Repository</h3>
+        <h3>{i18n.t("repository:connectTitle")}</h3>
         <Row>
           <Form.Group as={Col}>
-            <Form.Label className="required">Connect As</Form.Label>
+            <Form.Label className="required">{i18n.t("repository:connectAs")}</Form.Label>
             <Form.Control value={this.state.username + "@" + this.state.hostname} readOnly={true} size="sm" />
-            <Form.Text className="text-muted">To override, click &apos;Show Advanced Options&apos;</Form.Text>
+            <Form.Text className="text-muted">{i18n.t("repository:advancedHint")}</Form.Text>
           </Form.Group>
         </Row>
         <Row>
@@ -651,11 +653,11 @@ export class SetupRepository extends Component {
           variant="warning"
           onClick={() => this.setState({ providerSettings: {}, storageVerified: false })}
         >
-          Back
+          {i18n.t("repository:back")}
         </Button>
         &nbsp;
         <Button variant="primary" type="submit" data-testid="submit-button">
-          Connect To Repository
+          {i18n.t("repository:connect")}
         </Button>
         {this.loadingSpinner()}
       </Form>
