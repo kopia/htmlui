@@ -11,9 +11,14 @@ export function setDeepStateProperty(component, name, value) {
   let st = newState;
 
   const parts = name.split(/\./);
+  const unsafeKeys = new Set(["__proto__", "constructor", "prototype"]);
 
   for (let i = 0; i < parts.length - 1; i++) {
     const part = parts[i];
+
+    if (unsafeKeys.has(part)) {
+      return;
+    }
 
     if (st[part] === undefined) {
       st[part] = {};
@@ -25,6 +30,9 @@ export function setDeepStateProperty(component, name, value) {
   }
 
   const part = parts[parts.length - 1];
+  if (unsafeKeys.has(part)) {
+    return;
+  }
   st[part] = value;
 
   component.setState(newState);
