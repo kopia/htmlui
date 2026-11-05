@@ -74,6 +74,10 @@ body {
   --bs-breadcrumb-divider-color: var(--color-link);
 }
 
+#kopia .breadcrumb {
+  margin-bottom: 0;
+}
+
 #kopia a:hover,
 #kopia a:active {
   color: var(--color-link);
