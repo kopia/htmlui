@@ -55,9 +55,9 @@ function paginationItems(count, active, gotoPage) {
   return items;
 }
 
-export default function KopiaTable({ columns, data }) {
+export default function KopiaTable({ columns, data, defaultSorting = [] }) {
   const { pageSize, setPageSize } = use(UIPreferencesContext);
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useState(defaultSorting);
   const [pagination, setPagination] = useState({
     pageIndex: 0, //default page index
     pageSize: pageSize, //default page size
@@ -173,4 +173,5 @@ export default function KopiaTable({ columns, data }) {
 KopiaTable.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  defaultSorting: PropTypes.array,
 };

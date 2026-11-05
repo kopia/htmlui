@@ -378,6 +378,7 @@ class SnapshotHistoryInternal extends Component {
         id: "startTime",
         header: "Start time",
         width: 200,
+        accessorFn: (x) => x.startTime,
         cell: (x) => {
           let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
           return (
@@ -534,7 +535,7 @@ class SnapshotHistoryInternal extends Component {
         )}
         <Row>
           <Col xs={12}>
-            <KopiaTable data={snapshots} columns={columns} />
+            <KopiaTable data={snapshots} columns={columns} defaultSorting={[{ id: "startTime", desc: true }]} />
           </Col>
         </Row>
 

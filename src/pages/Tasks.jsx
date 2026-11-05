@@ -107,6 +107,7 @@ export class Tasks extends Component {
       {
         header: "Start Time",
         width: 160,
+        accessorFn: (x) => x.startTime,
         cell: (x) => (
           <Link to={"/tasks/" + x.row.original.id} title={moment(x.row.original.startTime).toLocaleString()}>
             {moment(x.row.original.startTime).fromNow()}
@@ -116,16 +117,19 @@ export class Tasks extends Component {
       {
         header: "Status",
         width: 240,
+        accessorFn: (x) => x.status,
         cell: (x) => taskStatusSymbol(x.row.original),
       },
       {
         header: "Kind",
         width: "",
+        accessorFn: (x) => x.kind,
         cell: (x) => <p className="mb-0">{x.row.original.kind}</p>,
       },
       {
         header: "Description",
         width: "",
+        accessorFn: (x) => x.description,
         cell: (x) => <p className="mb-0">{x.row.original.description}</p>,
       },
     ];
@@ -187,7 +191,11 @@ export class Tasks extends Component {
                   snapshots, restore, run maintenance, etc.
                 </Alert>
               ) : (
-                <KopiaTable data={filteredItems} columns={columns} />
+                <KopiaTable
+                  data={filteredItems}
+                  columns={columns}
+                  defaultSorting={[{ id: "Start Time", desc: true }]}
+                />
               )}
             </Col>
           </Row>
