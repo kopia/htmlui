@@ -171,8 +171,8 @@ export default class App extends Component {
             </Navbar>
 
             <Container fluid>
-              <NavLink to="/repo" style={{ color: "inherit", textDecoration: "inherit" }}>
-                <h5 className="mb-4">{this.state.repoDescription}</h5>
+              <NavLink to="/repo" className="btn repo-description text-white mb-3">
+                {this.state.repoDescription}
               </NavLink>
 
               <Routes>
