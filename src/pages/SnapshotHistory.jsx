@@ -364,7 +364,7 @@ class SnapshotHistoryInternal extends Component {
         width: 20,
         align: "center",
         cell: (x) => (
-          <div className="form-check multiselect">
+          <div className="form-check">
             <input
               type="checkbox"
               className="form-check-input"
@@ -378,6 +378,7 @@ class SnapshotHistoryInternal extends Component {
         id: "startTime",
         header: "Start time",
         width: 200,
+        accessorFn: (x) => x.startTime,
         cell: (x) => {
           let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
           return (
@@ -456,14 +457,13 @@ class SnapshotHistoryInternal extends Component {
         <Row>
           <Col>
             <GoBackButton />
-            &nbsp;
             {snapshots.length > 0 &&
               (selectedElements.length < snapshots.length ? (
-                <Button size="sm" variant="primary" onClick={this.selectAll}>
+                <Button size="sm" variant="primary" className="ms-4" onClick={this.selectAll}>
                   Select All
                 </Button>
               ) : (
-                <Button size="sm" variant="primary" onClick={this.deselectAll}>
+                <Button size="sm" variant="primary" className="ms-4" onClick={this.deselectAll}>
                   Deselect All
                 </Button>
               ))}
@@ -502,7 +502,7 @@ class SnapshotHistoryInternal extends Component {
             </Button>
           </Col>
         </Row>
-        <Row>
+        <Row className="mt-2">
           <Col>
             <div className="vpadded">
               Displaying{" "}
@@ -534,7 +534,7 @@ class SnapshotHistoryInternal extends Component {
         )}
         <Row>
           <Col xs={12}>
-            <KopiaTable data={snapshots} columns={columns} />
+            <KopiaTable data={snapshots} columns={columns} defaultSorting={[{ id: "startTime", desc: true }]} />
           </Col>
         </Row>
 

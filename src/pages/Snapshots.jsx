@@ -262,7 +262,7 @@ export class Snapshots extends Component {
     }
 
     return (
-      <p title={moment(x.cell.getValue()).toLocaleString()}>
+      <p title={moment(x.cell.getValue()).toLocaleString()} className="mb-0">
         {moment(x.cell.getValue()).fromNow()}
         {moment(x.cell.getValue()).isBefore(moment()) && (
           <>
@@ -313,7 +313,7 @@ export class Snapshots extends Component {
         id: "path",
         header: "Path",
         accessorFn: (x) => x.source,
-        sortType: (a, b) => {
+        sortingFn: (a, b) => {
           const v = compare(a.original.source.path, b.original.source.path);
           if (v !== 0) {
             return v;
@@ -349,7 +349,9 @@ export class Snapshots extends Component {
         accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.startTime : null),
         cell: (x) =>
           x.cell.getValue() ? (
-            <p title={moment(x.cell.getValue()).toLocaleString()}>{moment(x.cell.getValue()).fromNow()}</p>
+            <p title={moment(x.cell.getValue()).toLocaleString()} className="mb-0">
+              {moment(x.cell.getValue()).fromNow()}
+            </p>
           ) : (
             ""
           ),
@@ -415,7 +417,7 @@ export class Snapshots extends Component {
           </Row>
         </div>
 
-        <KopiaTable data={sources} columns={columns} />
+        <KopiaTable data={sources} columns={columns} defaultSorting={[{ id: "path", desc: false }]} />
         <CLIEquivalent command={`snapshot list`} />
       </>
     );
