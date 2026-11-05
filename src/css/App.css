@@ -111,6 +111,8 @@ body {
 #kopia .navbar-light .navbar-nav .nav-link.active,
 #kopia .navbar-light .navbar-nav .show > .nav-link {
   color: var(--color-text-nav);
+  font-size: 110%;
+  padding-bottom: 0;
   text-align: center;
 }
 
@@ -121,6 +123,11 @@ body {
   height: 0px;
   overflow: hidden;
   visibility: hidden;
+}
+
+#kopia .navbar-light .navbar-nav .nav-link.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 #kopia .navbar-light .navbar-nav .nav-link:hover {
