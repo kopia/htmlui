@@ -262,7 +262,7 @@ export class Snapshots extends Component {
     }
 
     return (
-      <p title={moment(x.cell.getValue()).toLocaleString()}>
+      <p title={moment(x.cell.getValue()).toLocaleString()} className="mb-0">
         {moment(x.cell.getValue()).fromNow()}
         {moment(x.cell.getValue()).isBefore(moment()) && (
           <>
@@ -349,7 +349,7 @@ export class Snapshots extends Component {
         accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.startTime : null),
         cell: (x) =>
           x.cell.getValue() ? (
-            <p title={moment(x.cell.getValue()).toLocaleString()}>{moment(x.cell.getValue()).fromNow()}</p>
+            <p title={moment(x.cell.getValue()).toLocaleString()} className="mb-0">{moment(x.cell.getValue()).fromNow()}</p>
           ) : (
             ""
           ),

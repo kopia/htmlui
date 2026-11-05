@@ -217,11 +217,11 @@ class TaskInternal extends Component {
         {task.counters && (
           <Row>
             <Col>
-              <Table bordered hover size="sm">
+              <Table bordered hover size="sm" className="align-middle">
                 <thead>
                   <tr>
-                    <th>Counter</th>
-                    <th>Value</th>
+                    <th className="py-2">Counter</th>
+                    <th className="py-2">Value</th>
                   </tr>
                 </thead>
                 <tbody>{this.sortedBadges(task.counters, bytesStringBase2)}</tbody>

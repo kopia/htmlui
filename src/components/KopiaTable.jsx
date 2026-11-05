@@ -123,13 +123,13 @@ export default function KopiaTable({ columns, data }) {
 
   return (
     <>
-      <div className="p-2">
-        <Table size="sm" striped bordered hover>
+      <div className="py-2">
+        <Table size="sm" striped bordered hover className="align-middle kopia-table">
           <thead className="table-dark">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
+                  <th key={header.id} className="py-2 align-middle">
                     <div
                       className={header.column.getCanSort() ? "cursor-pointer select-none" : ""}
                       onClick={header.column.getToggleSortingHandler()}

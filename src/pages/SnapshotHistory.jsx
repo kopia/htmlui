@@ -364,7 +364,7 @@ class SnapshotHistoryInternal extends Component {
         width: 20,
         align: "center",
         cell: (x) => (
-          <div className="form-check multiselect">
+          <div className="form-check">
             <input
               type="checkbox"
               className="form-check-input"

@@ -254,13 +254,13 @@ export class NotificationEditor extends Component {
       <>
         {this.state.notificationProfiles && this.state.notificationProfiles.length > 0 ? (
           <Row>
-            <Table striped bordered hover>
+            <Table striped bordered hover size="sm" className="align-middle">
               <thead>
                 <tr>
-                  <th>Profile</th>
-                  <th>Method</th>
-                  <th>Minimum Severity</th>
-                  <th>Actions</th>
+                  <th className="py-2">Profile</th>
+                  <th className="py-2">Method</th>
+                  <th className="py-2">Minimum Severity</th>
+                  <th className="py-2">Actions</th>
                 </tr>
               </thead>
               <tbody>

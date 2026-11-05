@@ -121,12 +121,12 @@ export class Tasks extends Component {
       {
         header: "Kind",
         width: "",
-        cell: (x) => <p>{x.row.original.kind}</p>,
+        cell: (x) => <p className="mb-0">{x.row.original.kind}</p>,
       },
       {
         header: "Description",
         width: "",
-        cell: (x) => <p>{x.row.original.description}</p>,
+        cell: (x) => <p className="mb-0">{x.row.original.description}</p>,
       },
     ];
 

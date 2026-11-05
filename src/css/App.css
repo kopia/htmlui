@@ -89,6 +89,16 @@ body {
   color: var(--color-text-body);
   --bs-table-bg: var(--background-color);
   --bs-table-color: var(--color-text-body);
+  --bs-table-border-color: var(--color-light);
+}
+
+#kopia .table-dark {
+  --bs-table-border-color: var(--color-light);
+}
+
+#kopia .kopia-table > thead > tr > th,
+#kopia .kopia-table > tbody > tr > td {
+  height: 2.5rem;
 }
 
 #kopia .table-striped > tbody > tr:nth-of-type(odd) > * {
@@ -376,10 +386,6 @@ div.tab-body {
   color: var(--color-text);
 }
 
-#kopia .badge {
-  margin-block-start: 5px;
-}
-
 #kopia .badge.bg-retention-badge-warning {
   background-color: var(--color-badge-warning);
 }
@@ -437,15 +443,6 @@ div.tab-body {
 .vpadded {
   padding-top: 6px;
   padding-bottom: 6px;
-}
-
-#kopia .multiselect {
-  width: 20px;
-  padding-left: 35px;
-  padding-top: 0x;
-  margin-top: -5px;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
 }
 
 #kopia .select-theme {
