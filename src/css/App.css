@@ -57,6 +57,39 @@ body {
   border-color: var(--bs-gray-700);
 }
 
+#kopia .alert-success,
+#kopia .alert-danger,
+#kopia .alert-warning,
+#kopia .alert-primary,
+#kopia .alert-info {
+  color: var(--color-text-body);
+}
+
+#kopia .alert-success {
+  background-color: color-mix(in srgb, var(--bs-success) 20%, var(--background-color));
+  border-color: color-mix(in srgb, var(--bs-success) 35%, var(--background-color));
+}
+
+#kopia .alert-danger {
+  background-color: color-mix(in srgb, var(--bs-danger) 20%, var(--background-color));
+  border-color: color-mix(in srgb, var(--bs-danger) 35%, var(--background-color));
+}
+
+#kopia .alert-warning {
+  background-color: color-mix(in srgb, var(--bs-warning) 20%, var(--background-color));
+  border-color: color-mix(in srgb, var(--bs-warning) 35%, var(--background-color));
+}
+
+#kopia .alert-primary {
+  background-color: color-mix(in srgb, var(--bs-primary) 20%, var(--background-color));
+  border-color: color-mix(in srgb, var(--bs-primary) 35%, var(--background-color));
+}
+
+#kopia .alert-info {
+  background-color: color-mix(in srgb, var(--bs-info) 20%, var(--background-color));
+  border-color: color-mix(in srgb, var(--bs-info) 35%, var(--background-color));
+}
+
 #kopia .btn-success {
   background-color: var(--color-success);
   border-color: var(--color-success);
