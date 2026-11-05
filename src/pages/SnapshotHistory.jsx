@@ -457,14 +457,13 @@ class SnapshotHistoryInternal extends Component {
         <Row>
           <Col>
             <GoBackButton />
-            &nbsp;
             {snapshots.length > 0 &&
               (selectedElements.length < snapshots.length ? (
-                <Button size="sm" variant="primary" onClick={this.selectAll}>
+                <Button size="sm" variant="primary" className="ms-4" onClick={this.selectAll}>
                   Select All
                 </Button>
               ) : (
-                <Button size="sm" variant="primary" onClick={this.deselectAll}>
+                <Button size="sm" variant="primary" className="ms-4" onClick={this.deselectAll}>
                   Deselect All
                 </Button>
               ))}
@@ -503,7 +502,7 @@ class SnapshotHistoryInternal extends Component {
             </Button>
           </Col>
         </Row>
-        <Row>
+        <Row className="mt-2">
           <Col>
             <div className="vpadded">
               Displaying{" "}

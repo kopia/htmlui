@@ -147,7 +147,7 @@ class SnapshotDirectoryInternal extends Component {
           <GoBackButton />
           <DirectoryBreadcrumbs />
         </div>
-        <Row>
+        <Row className="align-items-center">
           <Col xs="auto">
             {this.state.mountInfo.path ? (
               <>
@@ -183,7 +183,7 @@ class SnapshotDirectoryInternal extends Component {
             </Button>
             &nbsp;
           </Col>
-          <Col xs={12} md={6}>
+          <Col>
             You can mount/restore all the files & directories that you see below or restore files individually.
           </Col>
         </Row>
