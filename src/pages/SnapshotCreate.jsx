@@ -13,6 +13,7 @@ import { CLIEquivalent } from "../components/CLIEquivalent";
 import { errorAlert, redirect } from "../utils/uiutil";
 import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 class SnapshotCreateInternal extends Component {
   constructor() {
@@ -130,7 +131,7 @@ class SnapshotCreateInternal extends Component {
     e.preventDefault();
 
     if (!this.state.resolvedSource.path) {
-      alert("Must specify directory to snapshot.");
+      alert(i18n.t("snapshots:directoryRequired"));
       return;
     }
 
@@ -169,7 +170,7 @@ class SnapshotCreateInternal extends Component {
           <GoBackButton />
         </Form.Group>
         <br />
-        <h4>New Snapshot</h4>
+        <h4>{i18n.t("snapshots:new")}</h4>
         <br />
         <Row>
           <Col>
@@ -183,7 +184,7 @@ class SnapshotCreateInternal extends Component {
               data-testid="estimate-now"
               size="sm"
               disabled={!this.state.resolvedSource?.path}
-              title="Estimate"
+              title={i18n.t("snapshots:estimate")}
               variant="secondary"
               onClick={this.estimate}
             >
@@ -193,7 +194,7 @@ class SnapshotCreateInternal extends Component {
               data-testid="snapshot-now"
               size="sm"
               disabled={!this.state.resolvedSource?.path}
-              title="Snapshot Now"
+              title={i18n.t("snapshots:now")}
               variant="primary"
               onClick={this.snapshotNow}
             >

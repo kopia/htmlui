@@ -18,6 +18,7 @@ beforeEach(() => {
 
 afterEach(() => {
   axiosMock.restore();
+  delete window.kopiaUI;
 });
 
 // Helper component to access context values
@@ -235,6 +236,30 @@ describe("UIPreferencesContext", () => {
         expect(capturedPreferences.fontSize).toBe("fs-4");
         expect(document.documentElement.classList.contains("fs-4")).toBe(true);
         expect(document.documentElement.classList.contains("fs-6")).toBe(false);
+      });
+    });
+
+    it("should send language changes to the native KopiaUI shell", async () => {
+      window.kopiaUI = { setLanguage: vi.fn() };
+
+      let capturedPreferences;
+      render(
+        <UIPreferenceProvider>
+          <TestComponent onMount={(prefs) => (capturedPreferences = prefs)} />
+        </UIPreferenceProvider>,
+      );
+
+      await waitFor(() => {
+        expect(capturedPreferences.language).toBeDefined();
+      });
+
+      act(() => {
+        capturedPreferences.setLanguage("pt-BR");
+      });
+
+      await waitFor(() => {
+        expect(window.kopiaUI.setLanguage).toHaveBeenLastCalledWith("pt-BR");
+        expect(capturedPreferences.language).toBe("pt-BR");
       });
     });
 

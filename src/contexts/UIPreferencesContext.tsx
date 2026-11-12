@@ -1,5 +1,12 @@
 import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import i18n from "../utils/i18n";
+
+type NativeKopiaUIWindow = Window & {
+  kopiaUI?: {
+    setLanguage?: (language: string) => void;
+  };
+};
 
 export const PAGE_SIZES = [10, 20, 30, 40, 50, 100];
 export const UIPreferencesContext = React.createContext<UIPreferences>({} as UIPreferences);
@@ -11,8 +18,13 @@ const DEFAULT_PREFERENCES = {
   theme: getDefaultTheme(),
   preferWebDav: false,
   fontSize: "fs-6",
+  language: "",
 } as SerializedUIPreferences;
 const PREFERENCES_URL = "/api/v1/ui-preferences";
+
+function syncNativeLanguage(language: string) {
+  (window as NativeKopiaUIWindow).kopiaUI?.setLanguage?.(language);
+}
 
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
@@ -24,11 +36,13 @@ export interface UIPreferences {
   get bytesStringBase2(): boolean;
   get defaultSnapshotViewAll(): boolean;
   get fontSize(): FontSize;
+  get language(): string;
   setTheme: (theme: Theme) => void;
   setPageSize: (pageSize: number) => void;
   setByteStringBase: (bytesStringBase2: string) => void;
   setDefaultSnapshotViewAll: (defaultSnapshotViewAll: boolean) => void;
   setFontSize: (size: string) => void;
+  setLanguage: (language: string) => void;
 }
 
 interface SerializedUIPreferences {
@@ -37,6 +51,7 @@ interface SerializedUIPreferences {
   defaultSnapshotViewAll?: boolean;
   theme: Theme;
   fontSize: FontSize;
+  language?: string;
 }
 
 export interface UIPreferenceProviderProps {
@@ -108,6 +123,13 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     [],
   );
 
+  const setLanguage = useCallback((language: string) => {
+    const normalizedLanguage = language === "pt" ? "pt-BR" : language;
+    void i18n.changeLanguage(normalizedLanguage);
+    syncNativeLanguage(normalizedLanguage);
+    setPreferences((oldPreferences) => ({ ...oldPreferences, language: normalizedLanguage }));
+  }, []);
+
   useEffect(() => {
     axios
       .get(PREFERENCES_URL)
@@ -124,6 +146,11 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
         } else {
           storedPreferences.pageSize = normalizePageSize(storedPreferences.pageSize);
         }
+        if (!storedPreferences.language) {
+          storedPreferences.language = i18n.resolvedLanguage === "pt" ? "pt-BR" : i18n.resolvedLanguage || "en";
+        }
+        void i18n.changeLanguage(storedPreferences.language);
+        syncNativeLanguage(storedPreferences.language);
         setTheme(storedPreferences.theme);
         setFontSize(storedPreferences.fontSize);
         setPreferences(storedPreferences);
@@ -164,6 +191,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     setByteStringBase,
     setDefaultSnapshotViewAll,
     setFontSize,
+    setLanguage,
   } as UIPreferences;
 
   return <UIPreferencesContext value={providedValue}>{props.children}</UIPreferencesContext>;

@@ -1,0 +1,17 @@
+{
+  "appearance": "Appearance",
+  "notifications": "Notifications",
+  "theme": "Theme",
+  "theme.select": "Select theme",
+  "theme.light": "light",
+  "theme.dark": "dark",
+  "theme.pastel": "pastel",
+  "theme.ocean": "ocean",
+  "fontSize": "Font size",
+  "fontSize.select": "Select font size",
+  "fontSize.small": "small",
+  "fontSize.medium": "medium",
+  "fontSize.large": "large",
+  "bytes": "Byte representation",
+  "bytes.select": "Select byte representation"
+}
