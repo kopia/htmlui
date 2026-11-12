@@ -1,4 +1,5 @@
 import React from "react";
+import i18n from "../../utils/i18n";
 import Row from "react-bootstrap/Row";
 import { LabelColumn } from "./LabelColumn";
 import { ValueColumn } from "./ValueColumn";
@@ -9,10 +10,10 @@ export function SectionHeaderRow() {
     <Row>
       <LabelColumn />
       <ValueColumn>
-        <div className="policyEditorHeader">Defined</div>
+        <div className="policyEditorHeader">{i18n.t("policies:defined")}</div>
       </ValueColumn>
       <EffectiveValueColumn>
-        <div className="policyEditorHeader">Effective</div>
+        <div className="policyEditorHeader">{i18n.t("policies:effective")}</div>
       </EffectiveValueColumn>
     </Row>
   );

@@ -1,0 +1,23 @@
+{
+  "loading": "Carregando ...",
+  "startTime": "Horário de início",
+  "status": "Status",
+  "kind": "Tipo",
+  "description": "Descrição",
+  "all": "Todos",
+  "running": "Em execução",
+  "failed": "Falhou",
+  "error": "Erro:",
+  "canceled": "Tarefa cancelada.",
+  "counter": "Contador",
+  "value": "Valor",
+  "started": "Iniciada",
+  "finished": "Concluída",
+  "logs": "Logs",
+  "search": "buscar na descrição (diferencia maiúsculas e minúsculas)",
+  "runningFor": "Em execução há {{duration}}",
+  "cancelTask": "Cancelar tarefa",
+  "finishedIn": "Concluída em {{duration}}",
+  "failedAfter": "Falhou após {{duration}}",
+  "canceledAfter": "Cancelada após {{duration}}"
+}

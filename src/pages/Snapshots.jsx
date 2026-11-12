@@ -16,6 +16,7 @@ import { errorAlert, redirect, sizeWithFailures } from "../utils/uiutil";
 import { policyEditorURL, sourceQueryStringParams } from "../utils/policyutil";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
+import i18n from "../utils/i18n";
 
 const localSnapshots = "Local Snapshots";
 const allSnapshots = "All Snapshots";
@@ -122,10 +123,10 @@ export class Snapshots extends Component {
     switch (x.cell.getValue()) {
       case "IDLE":
       case "PAUSED":
-        return (x.cell.column.Header = "Actions");
+        return (x.cell.column.Header = i18n.t("snapshots:actions"));
       case "PENDING":
       case "UPLOADING":
-        return (x.cell.column.Header = "Status");
+        return (x.cell.column.Header = i18n.t("snapshots:status"));
       default:
         return (x.cell.column.Header = "");
     }
@@ -173,7 +174,7 @@ export class Snapshots extends Component {
               animation="border"
               variant="secondary"
               size="sm"
-              title="Snapshot will start after the previous snapshot completes"
+              title={i18n.t("snapshots:queuedHint")}
             />
             &nbsp;Pending
           </>
@@ -216,7 +217,9 @@ export class Snapshots extends Component {
             <Spinner data-testid="snapshot-uploading" animation="border" variant="primary" size="sm" title={title} />
             &nbsp;{totals}
             &nbsp;
-            {x.row.original.currentTask && <Link to={"/tasks/" + x.row.original.currentTask}>Details</Link>}
+            {x.row.original.currentTask && (
+              <Link to={"/tasks/" + x.row.original.currentTask}>{i18n.t("snapshots:details")}</Link>
+            )}
           </>
         );
       }
@@ -267,7 +270,7 @@ export class Snapshots extends Component {
         {moment(x.cell.getValue()).isBefore(moment()) && (
           <>
             &nbsp;
-            <Badge bg="secondary">overdue</Badge>
+            <Badge bg="secondary">{i18n.t("snapshots:overdue")}</Badge>
           </>
         )}
       </p>
@@ -311,7 +314,7 @@ export class Snapshots extends Component {
     const columns = [
       {
         id: "path",
-        header: "Path",
+        header: i18n.t("snapshots:path"),
         accessorFn: (x) => x.source,
         sortType: (a, b) => {
           const v = compare(a.original.source.path, b.original.source.path);
@@ -330,13 +333,13 @@ export class Snapshots extends Component {
       },
       {
         id: "owner",
-        header: "Owner",
+        header: i18n.t("snapshots:owner"),
         accessorFn: (x) => x.source.userName + "@" + x.source.host,
         width: 250,
       },
       {
         id: "lastSnapshotSize",
-        header: "Size",
+        header: i18n.t("snapshots:size"),
         width: 120,
         accessorFn: (x) => x.lastSnapshot?.stats?.totalSize ?? 0,
         cell: (x) =>
@@ -344,7 +347,7 @@ export class Snapshots extends Component {
       },
       {
         id: "lastSnapshotTime",
-        header: "Last Snapshot",
+        header: i18n.t("snapshots:last"),
         width: 160,
         accessorFn: (x) => (x.lastSnapshot ? x.lastSnapshot.startTime : null),
         cell: (x) =>
@@ -356,7 +359,7 @@ export class Snapshots extends Component {
       },
       {
         id: "nextSnapshotTime",
-        header: "Next Snapshot",
+        header: i18n.t("snapshots:next"),
         width: 160,
         accessorFn: (x) => x.nextSnapshotTime,
         cell: (x) => this.nextSnapshotTimeCell(x),
@@ -380,12 +383,21 @@ export class Snapshots extends Component {
                   <Dropdown>
                     <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
                       <FontAwesomeIcon icon={faUserFriends} />
-                      &nbsp;{this.state.selectedOwner}
+                      &nbsp;
+                      {this.state.selectedOwner === localSnapshots
+                        ? i18n.t("snapshots:local")
+                        : this.state.selectedOwner === allSnapshots
+                          ? i18n.t("snapshots:all")
+                          : this.state.selectedOwner}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => this.selectOwner(localSnapshots)}>{localSnapshots}</Dropdown.Item>
-                      <Dropdown.Item onClick={() => this.selectOwner(allSnapshots)}>{allSnapshots}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(localSnapshots)}>
+                        {i18n.t("snapshots:local")}
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => this.selectOwner(allSnapshots)}>
+                        {i18n.t("snapshots:all")}
+                      </Dropdown.Item>
                       <Dropdown.Divider />
                       {uniqueOwners.map((v) => (
                         <Dropdown.Item key={v} onClick={() => this.selectOwner(v)}>
@@ -404,7 +416,7 @@ export class Snapshots extends Component {
             </Col>
             <Col></Col>
             <Col xs="auto">
-              <Button size="sm" title="Synchronize" variant="primary">
+              <Button size="sm" title={i18n.t("snapshots:synchronize")} variant="primary">
                 {this.state.isRefreshing ? (
                   <Spinner animation="border" variant="light" size="sm" />
                 ) : (

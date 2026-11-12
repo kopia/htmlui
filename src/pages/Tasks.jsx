@@ -13,6 +13,7 @@ import { handleChange } from "../forms";
 import KopiaTable from "../components/KopiaTable";
 import { redirect } from "../utils/uiutil";
 import { taskStatusSymbol } from "../utils/taskutil";
+import i18n from "../utils/i18n";
 
 export class Tasks extends Component {
   constructor() {
@@ -100,12 +101,12 @@ export class Tasks extends Component {
       return <p>{error.message}</p>;
     }
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return <p>{i18n.t("tasks:loading")}</p>;
     }
 
     const columns = [
       {
-        header: "Start Time",
+        header: i18n.t("tasks:startTime"),
         width: 160,
         cell: (x) => (
           <Link to={"/tasks/" + x.row.original.id} title={moment(x.row.original.startTime).toLocaleString()}>
@@ -114,17 +115,17 @@ export class Tasks extends Component {
         ),
       },
       {
-        header: "Status",
+        header: i18n.t("tasks:status"),
         width: 240,
         cell: (x) => taskStatusSymbol(x.row.original),
       },
       {
-        header: "Kind",
+        header: i18n.t("tasks:kind"),
         width: "",
         cell: (x) => <p>{x.row.original.kind}</p>,
       },
       {
-        header: "Description",
+        header: i18n.t("tasks:description"),
         width: "",
         cell: (x) => <p>{x.row.original.description}</p>,
       },
@@ -140,23 +141,31 @@ export class Tasks extends Component {
               <Col xs="auto">
                 <Dropdown>
                   <Dropdown.Toggle size="sm" variant="primary">
-                    Status: {this.state.showStatus}
+                    {i18n.t("tasks:status")}: {i18n.t(`tasks:${this.state.showStatus.toLowerCase()}`)}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => this.setState({ showStatus: "All" })}>All</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showStatus: "All" })}>
+                      {i18n.t("tasks:all")}
+                    </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Running" })}>Running</Dropdown.Item>
-                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Failed" })}>Failed</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Running" })}>
+                      {i18n.t("tasks:running")}
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showStatus: "Failed" })}>
+                      {i18n.t("tasks:failed")}
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
               <Col xs="auto">
                 <Dropdown>
                   <Dropdown.Toggle size="sm" variant="primary">
-                    Kind: {this.state.showKind}
+                    {i18n.t("tasks:kind")}: {this.state.showKind === "All" ? i18n.t("tasks:all") : this.state.showKind}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>All</Dropdown.Item>
+                    <Dropdown.Item onClick={() => this.setState({ showKind: "All" })}>
+                      {i18n.t("tasks:all")}
+                    </Dropdown.Item>
                     <Dropdown.Divider />
                     {this.state.uniqueKinds.map((k) => (
                       <Dropdown.Item key={k} onClick={() => this.setState({ showKind: k })}>
@@ -171,7 +180,7 @@ export class Tasks extends Component {
                   size="sm"
                   type="text"
                   name="searchDescription"
-                  placeholder="case-sensitive search description"
+                  placeholder={i18n.t("tasks:search")}
                   value={this.state.searchDescription}
                   onChange={this.handleChange}
                   autoFocus={true}

@@ -5,6 +5,7 @@ import { objectLink, rfc3339TimestampForDisplay } from "../utils/formatutils";
 import { sizeWithFailures } from "../utils/uiutil";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 function objectName(name, typeID) {
   if (typeID === "d") {
@@ -45,34 +46,34 @@ export function DirectoryItems({ historyState, items }) {
   const columns = [
     {
       id: "name",
-      header: "Name",
+      header: i18n.t("snapshots:name"),
       width: "",
       cell: (x) => directoryLinkOrDownload(x.row.original, historyState),
     },
     {
       id: "mtime",
       accessorFn: (x) => x.mtime,
-      header: "Last Modification",
+      header: i18n.t("snapshots:lastModification"),
       width: 200,
       cell: (x) => rfc3339TimestampForDisplay(x.cell.getValue()),
     },
     {
       id: "size",
       accessorFn: (x) => sizeInfo(x),
-      header: "Size",
+      header: i18n.t("snapshots:size"),
       width: 100,
       cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summ, bytesStringBase2),
     },
     {
       id: "files",
       accessorFn: (x) => (x.summ ? x.summ.files : undefined),
-      header: "Files",
+      header: i18n.t("snapshots:files"),
       width: 100,
     },
     {
       id: "dirs",
       accessorFn: (x) => (x.summ ? x.summ.dirs : undefined),
-      header: "Directories",
+      header: i18n.t("snapshots:directoryCountLabel"),
       width: 100,
     },
   ];

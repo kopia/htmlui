@@ -1,4 +1,5 @@
 import moment from "moment";
+import i18n from "../../utils/i18n";
 import React from "react";
 import { LabelColumn } from "./LabelColumn";
 
@@ -14,7 +15,7 @@ export function UpcomingSnapshotTimes(resolved) {
   const times = resolved.upcomingSnapshotTimes;
 
   if (!times) {
-    return <LabelColumn name="No upcoming snapshots" />;
+    return <LabelColumn name={i18n.t("policies:noUpcoming")} />;
   }
 
   return (

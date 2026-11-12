@@ -7,6 +7,7 @@ import { RequiredField } from "../../forms/RequiredField";
 import { OptionalField } from "../../forms/OptionalField";
 import { NotificationFormatSelector } from "./NotificationFormatSelector";
 import PropTypes from "prop-types";
+import i18n from "../../utils/i18n";
 export class WebHookNotificationMethod extends Component {
   constructor(props) {
     super();
@@ -33,7 +34,7 @@ export class WebHookNotificationMethod extends Component {
         <Row>
           {RequiredField(this, "URL Endpoint", "endpoint", { autoFocus: true })}
           <Form.Group as={Col}>
-            <Form.Label className="required">HTTP Method</Form.Label>
+            <Form.Label className="required">{i18n.t("notifications:httpMethod")}</Form.Label>
             <Form.Control
               as="select"
               size="sm"
