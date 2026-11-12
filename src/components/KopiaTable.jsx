@@ -55,6 +55,19 @@ function paginationItems(count, active, gotoPage) {
   return items;
 }
 
+// Column cell renderers are plain functions that callers recreate on every render.
+// flexRender() would mount each one as a component, and since the function identity
+// changes on every render React remounts the whole cell, which recreates its DOM nodes
+// (e.g. dismissing native tooltips on pages that auto-refresh). Call them directly instead.
+function renderCell(cell) {
+  const renderer = cell.column.columnDef.cell;
+  if (typeof renderer === "function") {
+    return renderer(cell.getContext());
+  }
+
+  return flexRender(renderer, cell.getContext());
+}
+
 export default function KopiaTable({ columns, data }) {
   const { pageSize, setPageSize } = use(UIPreferencesContext);
   const [sorting, setSorting] = useState([]);
@@ -158,7 +171,7 @@ export default function KopiaTable({ columns, data }) {
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                  <td key={cell.id}>{renderCell(cell)}</td>
                 ))}
               </tr>
             ))}
