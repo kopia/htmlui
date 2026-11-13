@@ -20,34 +20,48 @@ export function isAbsolutePath(p) {
 }
 
 // Refer to kopia/snapshot/source.go:ParseSourceInfo
-export function checkPolicyPath(path) {
-  if (path === "(global)") {
-    return "Cannot create the global policy, it already exists.";
+// Returns { source } with userName, host and path, or { error }.
+export function parsePolicyTarget(target, localUserName, localHost) {
+  if (target === "(global)") {
+    return { error: "Cannot create the global policy, it already exists." };
   }
 
   // Check for a path before anything else and short-circuit
   // On Windows this avoids issues with the colon in C:/path
-  if (isAbsolutePath(path)) {
-    return null;
+  if (isAbsolutePath(target)) {
+    return { source: { userName: localUserName, host: localHost, path: target } };
   }
 
-  const p1 = path.indexOf("@");
-  const p2 = path.indexOf(":");
+  const p1 = target.indexOf("@");
+  const p2 = target.indexOf(":");
 
-  // user@host without path (no colon)
-  if (p1 >= 0 && p2 < 0) {
-    if (p1 + 1 < path.length) {
-      // @host and user@host without path
-      return null;
+  // user@host:path
+  if (p1 > 0 && p2 > p1 + 1 && p2 + 1 < target.length) {
+    const path = target.substring(p2 + 1);
+    if (!isAbsolutePath(path)) {
+      return { error: "Policies can not be defined for relative paths." };
     }
 
-    return "Policies must have a hostname.";
+    return { source: { userName: target.substring(0, p1), host: target.substring(p1 + 1, p2), path } };
+  }
+
+  // @host and user@host without path
+  if (p1 >= 0 && p2 < 0) {
+    if (p1 + 1 < target.length) {
+      return { source: { userName: target.substring(0, p1), host: target.substring(p1 + 1), path: "" } };
+    }
+
+    return { error: "Policies must have a hostname." };
   }
 
   // We already know it isn't an absolute path,
   // nor is it a fully specified policy target,
   // so it's either completely invalid, or a relative path
-  return "Policies can not be defined for relative paths.";
+  return { error: "Policies can not be defined for relative paths." };
+}
+
+export function checkPolicyPath(path) {
+  return parsePolicyTarget(path, "", "").error || null;
 }
 
 export function PolicyTypeName(s) {
