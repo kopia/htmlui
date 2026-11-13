@@ -1,6 +1,7 @@
 import {
   isAbsolutePath,
   checkPolicyPath,
+  parsePolicyTarget,
   sourceQueryStringParams,
   PolicyTypeName,
   policyEditorURL,
@@ -37,6 +38,37 @@ describe("isAbsolutePath", () => {
   });
 });
 
+describe("parsePolicyTarget", () => {
+  it("keeps the local user and host for an absolute path", () => {
+    expect(parsePolicyTarget("/home/user", "me", "laptop")).toEqual({
+      source: { userName: "me", host: "laptop", path: "/home/user" },
+    });
+  });
+
+  it("splits user@host:path", () => {
+    expect(parsePolicyTarget("alice@pc:/home/alice/Documents", "me", "laptop")).toEqual({
+      source: { userName: "alice", host: "pc", path: "/home/alice/Documents" },
+    });
+    expect(parsePolicyTarget("alice@pc:C:\\Users\\alice", "me", "laptop")).toEqual({
+      source: { userName: "alice", host: "pc", path: "C:\\Users\\alice" },
+    });
+  });
+
+  it("splits user@host and @host", () => {
+    expect(parsePolicyTarget("alice@pc", "me", "laptop")).toEqual({
+      source: { userName: "alice", host: "pc", path: "" },
+    });
+    expect(parsePolicyTarget("@pc", "me", "laptop")).toEqual({
+      source: { userName: "", host: "pc", path: "" },
+    });
+  });
+
+  it("rejects user@host with an empty host or path", () => {
+    expect(parsePolicyTarget("alice@:/home", "me", "laptop").error).toBeTruthy();
+    expect(parsePolicyTarget("alice@pc:", "me", "laptop").error).toBeTruthy();
+  });
+});
+
 describe("checkPolicyPath", () => {
   it("rejects global policy creation", () => {
     expect(checkPolicyPath("(global)")).toBe("Cannot create the global policy, it already exists.");
@@ -57,9 +89,8 @@ describe("checkPolicyPath", () => {
   });
 
   it("accepts user@host:path format", () => {
-    // Note: This test reveals a potential bug in checkPolicyPath
-    // The function should accept user@host:/absolute/path but currently doesn't
-    expect(checkPolicyPath("user@host:/path/to/dir")).toBe("Policies can not be defined for relative paths.");
+    expect(checkPolicyPath("user@host:/path/to/dir")).toBe(null);
+    expect(checkPolicyPath("user@host:C:\\Users\\test")).toBe(null);
   });
 
   it("rejects user@host format with relative path", () => {
