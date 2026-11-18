@@ -11,6 +11,7 @@ import {
 } from "@tanstack/react-table";
 import { PAGE_SIZES, UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 function paginationItems(count, active, gotoPage) {
   let items = [];
@@ -56,6 +57,7 @@ function paginationItems(count, active, gotoPage) {
 }
 
 export default function KopiaTable({ columns, data }) {
+  const { t } = useTranslation("common");
   const { pageSize, setPageSize } = use(UIPreferencesContext);
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({
@@ -101,7 +103,7 @@ export default function KopiaTable({ columns, data }) {
       </>
       <>
         <Dropdown style={{ marginBottom: "1em" }}>
-          <Dropdown.Toggle size="sm">Page Size: {pageSize}</Dropdown.Toggle>
+          <Dropdown.Toggle size="sm">{t("pageSizeLabel", { size: pageSize })}</Dropdown.Toggle>
           <Dropdown.Menu>
             {PAGE_SIZES.map((pageSize) => (
               <Dropdown.Item
@@ -112,7 +114,7 @@ export default function KopiaTable({ columns, data }) {
                   setPageSize(pageSize);
                 }}
               >
-                Page Size {pageSize}
+                {t("pageSizeOption", { size: pageSize })}
               </Dropdown.Item>
             ))}
           </Dropdown.Menu>
@@ -136,10 +138,10 @@ export default function KopiaTable({ columns, data }) {
                       title={
                         header.column.getCanSort()
                           ? header.column.getNextSortingOrder() === "asc"
-                            ? "Sort ascending"
+                            ? t("sortAscending")
                             : header.column.getNextSortingOrder() === "desc"
-                              ? "Sort descending"
-                              : "Clear sort"
+                              ? t("sortDescending")
+                              : t("clearSort")
                           : undefined
                       }
                     >

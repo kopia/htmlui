@@ -6,6 +6,7 @@ import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { stateProperty } from ".";
 import { setDeepStateProperty } from "../utils/deepstate";
+import { localizedLabel, localizedProps } from "../utils/localization";
 
 /**
  * This functions returns a directory selector that allows the user to select a directory.
@@ -35,7 +36,7 @@ export function OptionalDirectory(component, label, name, props = {}) {
     <FormGroup>
       {label && (
         <Form.Label htmlFor="directoryInput" className="required">
-          {label}
+          {localizedLabel(label)}
         </Form.Label>
       )}
       <InputGroup as={Col}>
@@ -46,7 +47,7 @@ export function OptionalDirectory(component, label, name, props = {}) {
           value={stateProperty(component, name)}
           data-testid={"control-" + name}
           onChange={component.handleChange}
-          {...props}
+          {...localizedProps(props)}
         ></FormControl>
         {window.kopiaUI && (
           <Button size="sm" onClick={() => window.kopiaUI.selectDirectory(onDirectorySelected)}>

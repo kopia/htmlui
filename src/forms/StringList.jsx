@@ -2,6 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { stateProperty } from ".";
+import { localizedProps } from "../utils/localization";
 
 export function listToMultilineString(v) {
   if (v) {
@@ -30,7 +31,7 @@ export function StringList(component, name, props = {}) {
         onChange={(e) => component.handleChange(e, multilineStringToList)}
         as="textarea"
         rows="5"
-        {...props}
+        {...localizedProps(props)}
       ></Form.Control>
     </Form.Group>
   );

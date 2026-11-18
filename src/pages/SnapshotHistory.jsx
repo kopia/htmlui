@@ -19,6 +19,7 @@ import Modal from "react-bootstrap/Modal";
 import { faFileAlt } from "@fortawesome/free-regular-svg-icons";
 import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
 import PropTypes from "prop-types";
+import i18n from "../utils/i18n";
 
 function pillVariant(tag) {
   if (tag.startsWith("latest-")) {
@@ -285,7 +286,7 @@ class SnapshotHistoryInternal extends Component {
             newPinName: "do-not-delete",
           });
         }}
-        title="Add a pin to protect snapshot from deletion"
+        title={i18n.t("snapshots:protectHint")}
       >
         <FontAwesomeIcon icon={faThumbtack} color="#ccc" />
       </a>
@@ -360,7 +361,7 @@ class SnapshotHistoryInternal extends Component {
     const columns = [
       {
         id: "selected",
-        header: "Selected",
+        header: i18n.t("snapshots:selected"),
         width: 20,
         align: "center",
         cell: (x) => (
@@ -376,7 +377,7 @@ class SnapshotHistoryInternal extends Component {
       },
       {
         id: "startTime",
-        header: "Start time",
+        header: i18n.t("snapshots:startTime"),
         width: 200,
         cell: (x) => {
           let timestamp = rfc3339TimestampForDisplay(x.row.original.startTime);
@@ -395,7 +396,7 @@ class SnapshotHistoryInternal extends Component {
       },
       {
         id: "rootID",
-        header: "Root",
+        header: i18n.t("snapshots:root"),
         width: "",
         accessorFn: (x) => x.rootID,
         cell: (x) => (
@@ -410,7 +411,7 @@ class SnapshotHistoryInternal extends Component {
         ),
       },
       {
-        header: "Retention",
+        header: i18n.t("snapshots:retention"),
         accessorFn: (x) => x.retention,
         width: "",
         cell: (x) => (
@@ -432,18 +433,18 @@ class SnapshotHistoryInternal extends Component {
         ),
       },
       {
-        header: "Size",
+        header: i18n.t("snapshots:size"),
         accessorFn: (x) => x.summary?.size ?? 0,
         width: 100,
         cell: (x) => sizeWithFailures(x.cell.getValue(), x.row.original.summary, bytesStringBase2),
       },
       {
-        header: "Files",
+        header: i18n.t("snapshots:files"),
         accessorFn: (x) => x.summary?.files ?? 0,
         width: 100,
       },
       {
-        header: "Dirs",
+        header: i18n.t("snapshots:directories"),
         accessorFn: (x) => x.summary?.dirs ?? 0,
         width: 100,
       },
@@ -490,7 +491,7 @@ class SnapshotHistoryInternal extends Component {
             <Button
               size="sm"
               variant="primary"
-              title="Fetch snapshots"
+              title={i18n.t("snapshots:fetch")}
               onClick={this.fetchSnapshots}
               disabled={this.state.isRefreshing}
             >
@@ -524,7 +525,7 @@ class SnapshotHistoryInternal extends Component {
                   <Form.Check
                     type="checkbox"
                     checked={this.state.showHidden}
-                    label={"Show " + unfilteredCount + " individual snapshots"}
+                    label={i18n.t("snapshots:showIndividual", { count: unfilteredCount })}
                     onChange={this.toggleShowHidden}
                   />
                 </Form.Group>
@@ -544,7 +545,7 @@ class SnapshotHistoryInternal extends Component {
 
         <Modal show={this.state.showDeleteConfirmationDialog} onHide={this.cancelDelete}>
           <Modal.Header closeButton>
-            <Modal.Title>Confirm Delete</Modal.Title>
+            <Modal.Title>{i18n.t("snapshots:confirmDelete")}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -554,13 +555,13 @@ class SnapshotHistoryInternal extends Component {
                   Do you want to delete the selected <b>{selectedElements.length} snapshots</b>?
                 </p>
               ) : (
-                <p>Do you want to delete the selected snapshot?</p>
+                <p>{i18n.t("snapshots:deleteOne")}</p>
               )}
               {selectedElements.length === snapshots.length && (
                 <Row>
                   <Form.Group>
                     <Form.Check
-                      label="Wipe all snapshots and the policy for this source."
+                      label={i18n.t("snapshots:wipeSource")}
                       className="required"
                       checked={this.state.alsoDeleteSource}
                       onChange={() =>
@@ -588,12 +589,12 @@ class SnapshotHistoryInternal extends Component {
 
         <Modal show={!!this.state.editingDescriptionFor} onHide={this.cancelSnapshotDescription}>
           <Modal.Header closeButton>
-            <Modal.Title>Snapshot Description</Modal.Title>
+            <Modal.Title>{i18n.t("snapshots:description")}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
             <Form.Group>
-              <Form.Label>Enter new description</Form.Label>
+              <Form.Label>{i18n.t("snapshots:newDescription")}</Form.Label>
               <Form.Control
                 as="textarea"
                 size="sm"
@@ -626,12 +627,12 @@ class SnapshotHistoryInternal extends Component {
 
         <Modal show={!!this.state.editPinFor} onHide={this.cancelPin}>
           <Modal.Header closeButton>
-            <Modal.Title>Pin Snapshot</Modal.Title>
+            <Modal.Title>{i18n.t("snapshots:pin")}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
             <Form.Group>
-              <Form.Label>Name of the pin</Form.Label>
+              <Form.Label>{i18n.t("snapshots:pinName")}</Form.Label>
               <Form.Control
                 size="sm"
                 value={this.state.newPinName}
@@ -648,7 +649,7 @@ class SnapshotHistoryInternal extends Component {
               onClick={this.savePin}
               disabled={this.state.newPinName === this.state.originalPinName || !this.state.newPinName}
             >
-              {this.state.originalPinName ? "Update Pin" : "Add Pin"}
+              {this.state.originalPinName ? i18n.t("snapshots:updatePin") : i18n.t("snapshots:addPin")}
             </Button>
             {this.state.originalPinName && (
               <Button size="sm" variant="secondary" onClick={() => this.removePin(this.state.originalPinName)}>
