@@ -348,6 +348,28 @@ describe("Policies component - policy path input", () => {
     });
   });
 
+  test.each([
+    ["alice@pc:/home/alice/Documents", "/policies/edit?userName=alice&host=pc&path=%2Fhome%2Falice%2FDocuments"],
+    ["alice@pc", "/policies/edit?userName=alice&host=pc&path="],
+    ["@pc", "/policies/edit?userName=&host=pc&path="],
+  ])("navigates to policy editor for remote target %s", async (target, expectedURL) => {
+    renderWithProviders(<Policies />);
+
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText("enter directory to find or set policy")).toBeInTheDocument();
+    });
+
+    const pathInput = screen.getByPlaceholderText("enter directory to find or set policy");
+    const setPolicyButton = screen.getByRole("button", { name: "Set Policy" });
+
+    await userEvent.type(pathInput, target);
+    await userEvent.click(setPolicyButton);
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith(expectedURL);
+    });
+  });
+
   test("shows alert for invalid policy path", async () => {
     // Mock alert
     const alertMock = vi.fn();

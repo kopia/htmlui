@@ -15,7 +15,7 @@ import KopiaTable from "../components/KopiaTable";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { compare, formatOwnerName } from "../utils/formatutils";
 import { redirect } from "../utils/uiutil";
-import { checkPolicyPath, policyEditorURL } from "../utils/policyutil";
+import { parsePolicyTarget, policyEditorURL } from "../utils/policyutil";
 import PropTypes from "prop-types";
 
 const applicablePolicies = "Applicable Policies";
@@ -112,7 +112,7 @@ export class PoliciesInternal extends Component {
       return;
     }
 
-    const error = checkPolicyPath(this.state.policyPath, this.state.localHost, this.state.localUsername);
+    const { source, error } = parsePolicyTarget(this.state.policyPath, this.state.localUsername, this.state.localHost);
 
     if (error) {
       alert(
@@ -122,13 +122,7 @@ export class PoliciesInternal extends Component {
       return;
     }
 
-    this.props.navigate(
-      policyEditorURL({
-        userName: this.state.localUsername,
-        host: this.state.localHost,
-        path: this.state.policyPath,
-      }),
-    );
+    this.props.navigate(policyEditorURL(source));
   }
 
   selectOwner(h) {
