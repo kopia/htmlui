@@ -28,21 +28,21 @@ export function taskStatusSymbol(task) {
       );
     case "SUCCESS":
       return (
-        <p title={dur}>
+        <p title={dur} className="mb-0">
           <FontAwesomeIcon icon={faCheck} color="green" /> Finished in {dur}
         </p>
       );
 
     case "FAILED":
       return (
-        <p title={dur}>
+        <p title={dur} className="mb-0">
           <FontAwesomeIcon icon={faExclamationCircle} color="red" /> Failed after {dur}
         </p>
       );
 
     case "CANCELED":
       return (
-        <p title={dur}>
+        <p title={dur} className="mb-0">
           <FontAwesomeIcon icon={faBan} /> Canceled after {dur}
         </p>
       );

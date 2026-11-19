@@ -10,6 +10,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { DirectoryItems } from "../components/DirectoryItems";
 import { CLIEquivalent } from "../components/CLIEquivalent";
 import { DirectoryBreadcrumbs } from "../components/DirectoryBreadcrumbs";
+import { GoBackButton } from "../components/GoBackButton";
 import PropTypes from "prop-types";
 
 class SnapshotDirectoryInternal extends Component {
@@ -142,8 +143,11 @@ class SnapshotDirectoryInternal extends Component {
 
     return (
       <>
-        <DirectoryBreadcrumbs />
-        <Row>
+        <div className="d-flex align-items-center gap-2 mb-3">
+          <GoBackButton />
+          <DirectoryBreadcrumbs />
+        </div>
+        <Row className="align-items-center">
           <Col xs="auto">
             {this.state.mountInfo.path ? (
               <>
@@ -179,7 +183,7 @@ class SnapshotDirectoryInternal extends Component {
             </Button>
             &nbsp;
           </Col>
-          <Col xs={12} md={6}>
+          <Col>
             You can mount/restore all the files & directories that you see below or restore files individually.
           </Col>
         </Row>

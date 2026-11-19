@@ -177,17 +177,23 @@ export class Repository extends Component {
           <Form>
             <Row>
               <Form.Group as={Col}>
-                <InputGroup>
+                <InputGroup className="gap-2">
                   <Form.Control
                     autoFocus={true}
+                    className="rounded"
                     isInvalid={!this.state.status.description}
                     name="status.description"
                     value={this.state.status.description}
                     onChange={this.handleChange}
                     size="sm"
                   />
-                  &nbsp;
-                  <Button data-testid="update-description" size="sm" onClick={this.updateDescription} type="button">
+                  <Button
+                    className="rounded"
+                    data-testid="update-description"
+                    size="sm"
+                    onClick={this.updateDescription}
+                    type="button"
+                  >
                     Update Description
                   </Button>
                 </InputGroup>
@@ -202,7 +208,6 @@ export class Repository extends Component {
               </Row>
             )}
           </Form>
-          <hr />
           <Form>
             {this.state.status.apiServerURL ? (
               <>

@@ -111,7 +111,7 @@ export class Logs extends Component {
     if (logs) {
       return (
         <div className="logs-table">
-          <Table size="sm" bordered hover>
+          <Table size="sm" bordered hover className="align-middle">
             <tbody>
               {logs.map((v) => (
                 <tr key={v.ts + "-" + v.msg} className={"loglevel-" + v.level}>

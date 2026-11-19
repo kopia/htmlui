@@ -84,31 +84,35 @@ class TaskInternal extends Component {
     switch (task.status) {
       case "SUCCESS":
         return (
-          <Alert size="sm" variant="success">
+          <Alert size="sm" variant="success" className="mt-2 mb-0">
             Task succeeded after {dur}.
           </Alert>
         );
 
       case "FAILED":
         return (
-          <Alert variant="danger">
+          <Alert variant="danger" className="mt-2 mb-0">
             <b>Error:</b> {task.errorMessage}.
           </Alert>
         );
 
       case "CANCELED":
-        return <Alert variant="warning">Task canceled.</Alert>;
+        return (
+          <Alert variant="warning" className="mt-2 mb-0">
+            Task canceled.
+          </Alert>
+        );
 
       case "CANCELING":
         return (
-          <Alert variant="primary">
+          <Alert variant="primary" className="mt-2 mb-0">
             <Spinner animation="border" variant="warning" size="sm" /> Canceling {dur}: {task.progressInfo}.
           </Alert>
         );
 
       default:
         return (
-          <Alert variant="primary">
+          <Alert variant="primary" className="mt-2 mb-0">
             <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}: {task.progressInfo}.
           </Alert>
         );
@@ -215,13 +219,13 @@ class TaskInternal extends Component {
           <Col xs={12}>{this.summaryControl(task)}</Col>
         </Row>
         {task.counters && (
-          <Row>
+          <Row className="mt-3">
             <Col>
-              <Table bordered hover size="sm">
-                <thead>
+              <Table bordered hover size="sm" className="align-middle mb-0">
+                <thead className="table-dark">
                   <tr>
-                    <th>Counter</th>
-                    <th>Value</th>
+                    <th className="py-2">Counter</th>
+                    <th className="py-2">Value</th>
                   </tr>
                 </thead>
                 <tbody>{this.sortedBadges(task.counters, bytesStringBase2)}</tbody>

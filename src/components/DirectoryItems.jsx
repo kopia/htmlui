@@ -47,6 +47,7 @@ export function DirectoryItems({ historyState, items }) {
       id: "name",
       header: "Name",
       width: "",
+      accessorFn: (x) => x.name,
       cell: (x) => directoryLinkOrDownload(x.row.original, historyState),
     },
     {
@@ -77,7 +78,7 @@ export function DirectoryItems({ historyState, items }) {
     },
   ];
 
-  return <KopiaTable data={items} columns={columns} />;
+  return <KopiaTable data={items} columns={columns} defaultSorting={[{ id: "name", desc: false }]} />;
 }
 
 DirectoryItems.propTypes = {

@@ -291,9 +291,9 @@ export class PoliciesInternal extends Component {
     return (
       <>
         {!this.state.editorTarget && (
-          <div className="list-actions">
+          <div>
             <Form onSubmit={this.editPolicyForPath}>
-              <Row>
+              <Row className="gx-2">
                 <Col xs="auto">
                   <Dropdown>
                     <Dropdown.Toggle size="sm" variant="primary" id="dropdown-basic">
@@ -349,11 +349,16 @@ export class PoliciesInternal extends Component {
           </div>
         )}
 
+        {policies.length > 0 && (
+          <Row className="mt-2">
+            <Col>
+              <div className="vpadded">Found {policies.length} policies matching criteria.</div>
+            </Col>
+          </Row>
+        )}
+
         {policies.length > 0 ? (
-          <div>
-            <p>Found {policies.length} policies matching criteria.</p>
-            <KopiaTable data={policies} columns={columns} />
-          </div>
+          <KopiaTable data={policies} columns={columns} defaultSorting={[{ id: "Username", desc: false }]} />
         ) : this.state.selectedOwner === localPolicies && this.state.policyPath ? (
           <p>
             No policy found for directory <code>{this.state.policyPath}</code>. Click <b>Set Policy</b> to define it.
