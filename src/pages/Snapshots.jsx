@@ -415,7 +415,7 @@ export class Snapshots extends Component {
           </Row>
         </div>
 
-        <KopiaTable data={sources} columns={columns} />
+        <KopiaTable data={sources} columns={columns} tableKey="snapshots" />
         <CLIEquivalent command={`snapshot list`} />
       </>
     );
