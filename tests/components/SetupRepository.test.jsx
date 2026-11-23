@@ -73,6 +73,35 @@ it("can connect to existing repository when already initialized", async () => {
   await waitFor(() => serverMock.history.post.length == 1);
 });
 
+it("can verify Cloudflare R2 storage", async () => {
+  serverMock
+    .onPost("/api/v1/repo/exists", {
+      storage: {
+        type: "r2",
+        config: {
+          accountID: "some-account-id",
+          bucket: "some-bucket",
+          jurisdiction: "default",
+          doNotUseTLS: false,
+          doNotVerifyTLS: false,
+          accessKeyID: "some-access-key-id",
+          secretAccessKey: "some-secret-access-key",
+        },
+      },
+    })
+    .reply(200, {});
+
+  const { getByTestId, container } = await act(() => render(<SetupRepository />));
+  fireEvent.click(getByTestId("provider-r2"));
+  fireEvent.change(await findByTestId(container, "control-accountID"), { target: { value: "some-account-id" } });
+  fireEvent.change(getByTestId("control-bucket"), { target: { value: "some-bucket" } });
+  fireEvent.change(getByTestId("control-accessKeyID"), { target: { value: "some-access-key-id" } });
+  fireEvent.change(getByTestId("control-secretAccessKey"), { target: { value: "some-secret-access-key" } });
+
+  await act(() => fireEvent.click(getByTestId("submit-button")));
+  await waitFor(() => serverMock.history.post.length == 1);
+});
+
 it("can connect to existing repository using token", async () => {
   serverMock
     .onPost("/api/v1/repo/connect", {

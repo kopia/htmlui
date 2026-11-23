@@ -18,6 +18,7 @@ import { SetupRepositoryFilesystem } from "./SetupRepositoryFilesystem";
 import { SetupRepositoryGCS } from "./SetupRepositoryGCS";
 import { SetupRepositoryServer } from "./SetupRepositoryServer";
 import { SetupRepositoryRclone } from "./SetupRepositoryRclone";
+import { SetupRepositoryR2 } from "./SetupRepositoryR2";
 import { SetupRepositoryS3 } from "./SetupRepositoryS3";
 import { SetupRepositorySFTP } from "./SetupRepositorySFTP";
 import { SetupRepositoryToken } from "./SetupRepositoryToken";
@@ -39,6 +40,11 @@ const supportedProviders = [
     provider: "s3",
     description: "Amazon S3 or Compatible Storage",
     component: SetupRepositoryS3,
+  },
+  {
+    provider: "r2",
+    description: "Cloudflare R2",
+    component: SetupRepositoryR2,
   },
   { provider: "b2", description: "Backblaze B2", component: SetupRepositoryB2 },
   {
