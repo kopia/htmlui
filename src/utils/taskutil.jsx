@@ -21,8 +21,14 @@ export function taskStatusSymbol(task) {
       return (
         <>
           <Spinner animation="border" variant="primary" size="sm" /> Running for {dur}
-          <button className="btn btn-sm btn-link" type="button" onClick={() => cancelTask(task.id)}>
-            <FontAwesomeIcon color="red" size="lg" title="Cancel task" icon={faXmark} />
+          <button
+            className="btn btn-sm btn-link"
+            type="button"
+            title="Cancel task"
+            aria-label="Cancel task"
+            onClick={() => cancelTask(task.id)}
+          >
+            <FontAwesomeIcon color="red" size="lg" icon={faXmark} />
           </button>
         </>
       );
