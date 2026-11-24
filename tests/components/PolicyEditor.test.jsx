@@ -148,3 +148,95 @@ it("e2e", async () => {
   await waitFor(() => expect(serverMock.history.put.length).toEqual(1));
   await waitFor(() => expect(closeCalled).toEqual(1));
 });
+
+it("edits follow symbolic links", async () => {
+  const query = "?userName=some-user&host=some-host&path=some-path";
+  const definedHere = { host: "some-host", userName: "some-user", path: "some-path" };
+
+  const resolved = (followSymlinks) => ({
+    effective: { files: { followSymlinks } },
+    definition: { files: { followSymlinks: definedHere } },
+    upcomingSnapshotTimes: [],
+  });
+
+  serverMock.onGet("/api/v1/policy" + query).reply(200, { files: { followSymlinks: true } });
+
+  for (const followSymlinks of [true, false]) {
+    serverMock
+      .onPost("/api/v1/policy/resolve" + query, {
+        updates: { files: { followSymlinks } },
+        numUpcomingSnapshotTimes: 5,
+      })
+      .reply(200, resolved(followSymlinks));
+  }
+
+  serverMock.onPut("/api/v1/policy" + query, { files: { followSymlinks: false } }).reply(200, resolved(false));
+
+  let closeCalled = 0;
+
+  const { container, getByTestId } = render(
+    <MemoryRouter>
+      <PolicyEditor
+        ref={ref}
+        host="some-host"
+        userName="some-user"
+        path="some-path"
+        close={() => {
+          closeCalled++;
+        }}
+      />
+    </MemoryRouter>,
+  );
+
+  const select = () => container.querySelector('select[name="policy.files.followSymlinks"]');
+
+  await waitFor(() => expect(select().value).toBe("true"));
+  await waitFor(() => expect(getByTestId("effective-files.followSymlinks").checked).toBe(true));
+
+  fireEvent.change(select(), { target: { value: "false" } });
+
+  await waitFor(() => expect(getByTestId("effective-files.followSymlinks").checked).toBe(false));
+
+  fireEvent.click(getByTestId("button-save"));
+  await waitFor(() => expect(serverMock.history.put.length).toEqual(1));
+  await waitFor(() => expect(closeCalled).toEqual(1));
+});
+
+it("clears follow symbolic links when set back to inherit", async () => {
+  const query = "?userName=some-user&host=some-host&path=some-path";
+
+  serverMock.onGet("/api/v1/policy" + query).reply(200, { files: { followSymlinks: true } });
+
+  serverMock
+    .onPost("/api/v1/policy/resolve" + query, {
+      updates: { files: { followSymlinks: true } },
+      numUpcomingSnapshotTimes: 5,
+    })
+    .reply(200, { effective: { files: { followSymlinks: true } }, definition: {}, upcomingSnapshotTimes: [] });
+
+  serverMock
+    .onPost("/api/v1/policy/resolve" + query, { updates: { files: {} }, numUpcomingSnapshotTimes: 5 })
+    .reply(200, { effective: { files: { followSymlinks: false } }, definition: {}, upcomingSnapshotTimes: [] });
+
+  serverMock
+    .onPut("/api/v1/policy" + query, { files: {} })
+    .reply(200, { effective: {}, definition: {}, upcomingSnapshotTimes: [] });
+
+  const { container, getByTestId } = render(
+    <MemoryRouter>
+      <PolicyEditor ref={ref} host="some-host" userName="some-user" path="some-path" close={() => {}} />
+    </MemoryRouter>,
+  );
+
+  const select = () => container.querySelector('select[name="policy.files.followSymlinks"]');
+
+  await waitFor(() => expect(select().value).toBe("true"));
+
+  fireEvent.change(select(), { target: { value: "" } });
+
+  await waitFor(() => expect(getByTestId("effective-files.followSymlinks").checked).toBe(false));
+  expect(select().value).toBe("");
+
+  fireEvent.click(getByTestId("button-save"));
+  await waitFor(() => expect(serverMock.history.put.length).toEqual(1));
+});
