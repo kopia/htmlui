@@ -461,6 +461,16 @@ export class PolicyEditor extends Component {
                   </ValueColumn>
                   {EffectiveBooleanValue(this, "files.oneFileSystem")}
                 </Row>
+                <Row>
+                  <LabelColumn
+                    name="Follow Symbolic Links"
+                    help="Back up the files and directories that symbolic links point to instead of the links themselves. Targets outside the source directory are included, so enable with care."
+                  />
+                  <ValueColumn>
+                    {OptionalBoolean(this, null, "policy.files.followSymlinks", "inherit from parent")}
+                  </ValueColumn>
+                  {EffectiveBooleanValue(this, "files.followSymlinks")}
+                </Row>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="errors">
