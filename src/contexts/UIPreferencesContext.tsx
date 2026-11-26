@@ -17,6 +17,8 @@ const PREFERENCES_URL = "/api/v1/ui-preferences";
 export type Theme = "light" | "dark" | "pastel" | "ocean";
 export type PageSize = 10 | 20 | 30 | 40 | 50 | 100;
 export type FontSize = "fs-6" | "fs-5" | "fs-4";
+// Backend used by "Mount as Local Filesystem" on macOS. Unset means "fuse".
+export type MountBackend = "fuse" | "webdav";
 
 export interface UIPreferences {
   get pageSize(): PageSize;
@@ -24,11 +26,13 @@ export interface UIPreferences {
   get bytesStringBase2(): boolean;
   get defaultSnapshotViewAll(): boolean;
   get fontSize(): FontSize;
+  get mountBackend(): MountBackend | undefined;
   setTheme: (theme: Theme) => void;
   setPageSize: (pageSize: number) => void;
   setByteStringBase: (bytesStringBase2: string) => void;
   setDefaultSnapshotViewAll: (defaultSnapshotViewAll: boolean) => void;
   setFontSize: (size: string) => void;
+  setMountBackend: (mountBackend: MountBackend) => void;
 }
 
 interface SerializedUIPreferences {
@@ -37,6 +41,7 @@ interface SerializedUIPreferences {
   defaultSnapshotViewAll?: boolean;
   theme: Theme;
   fontSize: FontSize;
+  mountBackend?: MountBackend;
 }
 
 export interface UIPreferenceProviderProps {
@@ -97,6 +102,11 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
   const setDefaultSnapshotViewAll = (input: boolean) =>
     setPreferences((oldPreferences) => {
       return { ...oldPreferences, defaultSnapshotViewAll: input };
+    });
+
+  const setMountBackend = (mountBackend: MountBackend) =>
+    setPreferences((oldPreferences) => {
+      return { ...oldPreferences, mountBackend };
     });
 
   const setFontSize = useCallback(
@@ -164,6 +174,7 @@ export function UIPreferenceProvider(props: UIPreferenceProviderProps) {
     setByteStringBase,
     setDefaultSnapshotViewAll,
     setFontSize,
+    setMountBackend,
   } as UIPreferences;
 
   return <UIPreferencesContext value={providedValue}>{props.children}</UIPreferencesContext>;

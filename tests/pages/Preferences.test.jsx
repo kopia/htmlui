@@ -59,3 +59,26 @@ describe("Test byte representation", () => {
     expect(theme).toHaveLength(2);
   });
 });
+
+/**
+ * The mount backend selector is only shown when the server runs on macOS.
+ */
+describe("Mount backend", () => {
+  test("Should be hidden when the server is not macOS", async () => {
+    // default mock for /api/v1/cli has no "os"
+    await new Promise((r) => setTimeout(r, 0));
+    expect(screen.queryByRole("tab", { name: "Mounting" })).toBeNull();
+  });
+
+  test("Should offer fuse and webdav on macOS", async () => {
+    axiosMock.onGet("/api/v1/cli").reply(200, { executable: "kopia", os: "darwin" });
+    render(<Preferences />);
+
+    const tab = await screen.findByRole("tab", { name: "Mounting" });
+    await userEvent.click(tab);
+
+    const select = screen.getByRole("combobox", { name: "Select mount backend" });
+    expect(select).toHaveLength(2);
+    expect(select.value).toBe("fuse");
+  });
+});
