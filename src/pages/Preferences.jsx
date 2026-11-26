@@ -1,4 +1,5 @@
-import { use } from "react";
+import axios from "axios";
+import { use, useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -12,7 +13,18 @@ import { UIPreferencesContext } from "../contexts/UIPreferencesContext";
  * Class that exports preferences
  */
 export function Preferences() {
-  const { theme, bytesStringBase2, fontSize, setByteStringBase, setTheme, setFontSize } = use(UIPreferencesContext);
+  const { theme, bytesStringBase2, fontSize, mountBackend, setByteStringBase, setTheme, setFontSize, setMountBackend } =
+    use(UIPreferencesContext);
+
+  // The mount backend choice only applies when the server runs on macOS.
+  const [serverOS, setServerOS] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("/api/v1/cli")
+      .then((result) => setServerOS(result.data.os || ""))
+      .catch((_error) => {});
+  }, []);
 
   return (
     <Tabs defaultActiveKey="appearance" id="preferences" className="mb-3">
@@ -64,6 +76,27 @@ export function Preferences() {
           </Row>
         </Container>
       </Tab>
+      {serverOS === "darwin" && (
+        <Tab eventKey="mounting" title="Mounting" id="tab-mounting">
+          <Container fluid>
+            <Row>
+              <Form.Group as={Col} controlId="mountBackend">
+                <Form.Label className="required">Mount backend</Form.Label>
+                <select
+                  className="form-select form-select-sm"
+                  title="Select mount backend"
+                  id="mountBackendInput"
+                  value={mountBackend || "fuse"}
+                  onChange={(e) => setMountBackend(e.target.value)}
+                >
+                  <option value="fuse">macFUSE (requires macFUSE)</option>
+                  <option value="webdav">WebDAV (built into Finder)</option>
+                </select>
+              </Form.Group>
+            </Row>
+          </Container>
+        </Tab>
+      )}
       <Tab eventKey="notifications" title="Notifications" id="tab-notifications">
         <div className="tab-content-fix">
           <Container fluid>
